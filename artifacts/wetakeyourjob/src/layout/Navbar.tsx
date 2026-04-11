@@ -1,77 +1,80 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { navLinks } from '../data/siteContent';
-import Button from '../components/Button';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
-
-  const closeMenu = () => setOpen(false);
+  const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/5 bg-night/80 backdrop-blur-xl">
-      <div className="container-shell flex h-20 items-center justify-between gap-6">
-        <NavLink to="/" className="text-lg font-semibold tracking-tight text-white" onClick={closeMenu}>
+    <header data-testid="navbar" className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-100">
+      <div className="wrap flex h-16 items-center justify-between">
+        <NavLink to="/" className="text-base font-semibold text-slate-900 tracking-tight" onClick={close} data-testid="link-home-logo">
           We Take Your Job
         </NavLink>
 
-        <nav className="hidden items-center gap-2 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <NavLink
               key={link.href}
               to={link.href}
+              data-testid={`link-nav-${link.label.toLowerCase()}`}
               className={({ isActive }) =>
-                `rounded-full px-4 py-2 text-sm font-medium ${
-                  isActive ? 'bg-white/[0.07] text-white' : 'text-slate-300 hover:text-white'
-                }`
+                `text-sm font-medium ${isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'}`
               }
             >
               {link.label}
             </NavLink>
           ))}
+          <NavLink
+            to="/contact"
+            data-testid="button-nav-cta"
+            className="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
+          >
+            Get started
+          </NavLink>
         </nav>
-
-        <div className="hidden md:block">
-          <Button to="/contact">Book a strategy call</Button>
-        </div>
 
         <button
           type="button"
-          className="inline-flex rounded-full border border-white/10 bg-white/[0.04] p-3 text-white md:hidden"
-          onClick={() => setOpen((value) => !value)}
+          className="rounded-lg p-2 text-slate-600 md:hidden"
+          onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
+          data-testid="button-mobile-menu"
         >
-          {open ? <X size={18} /> : <Menu size={18} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {open ? (
-        <div className="border-t border-white/5 bg-night/95 md:hidden">
-          <div className="container-shell flex flex-col gap-2 py-4">
-            {navLinks.map((link) => {
-              const active = location.pathname === link.href;
-              return (
-                <NavLink
-                  key={link.href}
-                  to={link.href}
-                  onClick={closeMenu}
-                  className={`rounded-2xl px-4 py-3 text-sm font-medium ${
-                    active ? 'bg-white/[0.07] text-white' : 'text-slate-300'
-                  }`}
-                >
-                  {link.label}
-                </NavLink>
-              );
-            })}
-            <Button to="/contact" className="mt-2 w-full" onClick={closeMenu}>
-              Book a strategy call
-            </Button>
+      {open && (
+        <div className="border-t border-slate-100 bg-white md:hidden">
+          <div className="wrap flex flex-col gap-1 py-4">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.href}
+                to={link.href}
+                onClick={close}
+                data-testid={`link-mobile-${link.label.toLowerCase()}`}
+                className={({ isActive }) =>
+                  `rounded-lg px-3 py-2.5 text-sm font-medium ${isActive ? 'bg-slate-50 text-slate-900' : 'text-slate-600'}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+            <NavLink
+              to="/contact"
+              onClick={close}
+              data-testid="button-mobile-cta"
+              className="mt-2 rounded-full bg-slate-900 px-4 py-2.5 text-center text-sm font-medium text-white"
+            >
+              Get started
+            </NavLink>
           </div>
         </div>
-      ) : null}
+      )}
     </header>
   );
 }

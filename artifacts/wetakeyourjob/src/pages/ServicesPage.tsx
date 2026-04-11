@@ -1,107 +1,83 @@
-import {
-  Activity,
-  ArrowRight,
-  Blend,
-  LayoutDashboard,
-  MessageCircleMore,
-  ShieldCheck,
-} from 'lucide-react';
+import { Activity, BriefcaseBusiness, ChartNoAxesCombined, Inbox, ShieldCheck } from 'lucide-react';
 import Button from '../components/Button';
 import CTASection from '../components/CTASection';
-import InfoCard from '../components/InfoCard';
 import PageHeader from '../components/PageHeader';
 import Section from '../components/Section';
 import Seo from '../components/Seo';
-import { serviceHighlights, services } from '../data/siteContent';
+import { services } from '../data/siteContent';
 
-const icons = [MessageCircleMore, Blend, LayoutDashboard, Activity];
+const serviceIcons = [BriefcaseBusiness, Inbox, ChartNoAxesCombined, Activity];
+
+const outcomes = [
+  'Less repetitive reply work',
+  'Faster response coverage across channels',
+  'More consistency without losing oversight',
+];
+
+const controls = [
+  'Review queues for sensitive conversations',
+  'Escalation rules when a person is needed',
+  'Full visibility into message volume and follow-up',
+];
 
 export default function ServicesPage() {
   return (
     <>
-      <Seo
-        title="Services"
-        description="Explore AI communication systems, unified inbox workflows, dashboard control, workflow analysis, and human-in-the-loop operations."
-      />
+      <Seo title="Services" description="AI communication systems, unified inboxes, and control dashboards for small business teams." />
 
       <PageHeader
-        badge="Services"
-        title="Communication systems built around your workflow, not dropped on top of it."
-        description="We focus on repetitive communication work, operational friction, response speed, and manager visibility so your team can move faster without losing control."
-        actions={
-          <>
-            <Button to="/contact">Book a strategy call</Button>
-            <Button to="/" variant="secondary">
-              Back to homepage
-            </Button>
-          </>
-        }
+        eyebrow="Services"
+        title="Communication systems built around your workflow."
+        subtitle="We focus on what slows your team down: repetitive replies, scattered channels, and lack of visibility."
+        actions={<Button to="/contact">Get started</Button>}
       />
 
-      <Section title="What we build" description="Each engagement is designed to reduce repetitive communication work while keeping humans firmly in control.">
-        <div className="grid gap-6 md:grid-cols-2">
-          {services.map((service, index) => {
-            const Icon = icons[index];
-            return <InfoCard key={service.title} {...service} icon={<Icon size={20} />} />;
+      <Section id="services" title="What we build">
+        <div className="grid gap-5 sm:grid-cols-2">
+          {services.map((s, i) => {
+            const Icon = serviceIcons[i];
+            return (
+              <div key={s.title} className="rounded-2xl border border-slate-100 bg-white p-6" data-testid={`service-detail-${i}`}>
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-slate-600">
+                  <Icon size={18} />
+                </div>
+                <h3 className="text-base font-semibold text-slate-900">{s.title}</h3>
+                <p className="mt-2 text-sm text-slate-500 leading-relaxed">{s.brief}</p>
+              </div>
+            );
           })}
         </div>
       </Section>
 
-      <Section
-        title="Human-in-the-loop operations by design"
-        description="This is not a blind automation setup. The system is designed so staff and managers can review, intervene, and control the flow whenever context or judgment matters."
-      >
-        <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-          <div className="panel p-8">
-            <div className="grid gap-4">
-              {[
-                'Review queues for sensitive or high-value conversations',
-                'Escalation rules for cases that need a person immediately',
-                'Visibility into message volume, status, and follow-up',
-                'Consistent communication rules across channels',
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 px-4 py-4">
-                  <ShieldCheck className="mt-1 text-glow shrink-0" size={18} />
-                  <p className="text-sm leading-7 text-slate-200">{item}</p>
+      <section className="border-y border-slate-100 py-20 sm:py-28 bg-slate-50/50" data-testid="section-control">
+        <div className="wrap grid gap-12 lg:grid-cols-2">
+          <div>
+            <p className="mb-3 text-xs font-medium uppercase tracking-widest text-slate-400">Human in the loop</p>
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl mb-8">Your team stays in control.</h2>
+            <div className="space-y-4">
+              {controls.map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <ShieldCheck size={16} className="mt-0.5 text-slate-400 shrink-0" />
+                  <p className="text-sm text-slate-600">{item}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="panel p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-glow">Outcomes</p>
-            <div className="mt-5 space-y-5">
-              {serviceHighlights.map((item) => (
-                <div key={item.title}>
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-7">{item.body}</p>
+          <div>
+            <p className="mb-3 text-xs font-medium uppercase tracking-widest text-slate-400">Outcomes</p>
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl mb-8">What you get.</h2>
+            <div className="space-y-4">
+              {outcomes.map((item) => (
+                <div key={item} className="rounded-xl border border-slate-200 bg-white px-5 py-4" data-testid={`outcome-${item.replace(/\W/g, '')}`}>
+                  <p className="text-sm font-medium text-slate-700">{item}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      <Section title="What clients are really buying" description="A practical operations upgrade, not just software access.">
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            'Less repetitive reply work',
-            'Faster response coverage across channels',
-            'More consistency without losing oversight',
-          ].map((item) => (
-            <div key={item} className="panel flex items-center gap-3 p-5">
-              <ArrowRight size={18} className="text-glow shrink-0" />
-              <p className="text-sm font-medium text-slate-100">{item}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <CTASection
-        title="If your team is buried in messages, there is a better operating model."
-        description="We'll look at your workflow, identify repetitive communication load, and show you where an AI layer can save time without removing human control."
-        primary={{ label: 'Book a strategy call', to: '/contact' }}
-        secondary={{ label: 'Contact us', to: '/contact' }}
-      />
+      <CTASection title="Let's look at where your team is losing time." />
     </>
   );
 }

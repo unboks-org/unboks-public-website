@@ -1,10 +1,14 @@
-export default function BenefitCard({ title, index }: { title: string; index: number }) {
+interface BenefitCardProps {
+  title: string;
+  brief: string;
+  'data-testid'?: string;
+}
+
+export default function BenefitCard({ title, brief, 'data-testid': testId }: BenefitCardProps) {
   return (
-    <article data-testid={`benefit-card-${index}`} className="surface-card p-6 md:p-8 flex flex-col items-start">
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-border text-sm font-semibold text-accent shadow-sm mb-4">
-        {index}
-      </div>
-      <h3 className="text-lg font-medium text-accent leading-snug">{title}</h3>
+    <article data-testid={testId || 'benefit-card'} className="border-t border-slate-100 pt-6">
+      <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+      <p className="mt-2 text-sm text-slate-500 leading-relaxed">{brief}</p>
     </article>
   );
 }

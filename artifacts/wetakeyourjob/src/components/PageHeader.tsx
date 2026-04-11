@@ -1,24 +1,20 @@
-import React from 'react';
-import Badge from './Badge';
+import { type ReactNode } from 'react';
 
 interface PageHeaderProps {
-  badge?: string;
+  eyebrow?: string;
   title: string;
-  description: string;
-  actions?: React.ReactNode;
+  subtitle?: string;
+  actions?: ReactNode;
 }
 
-export default function PageHeader({ badge, title, description, actions }: PageHeaderProps) {
+export default function PageHeader({ eyebrow, title, subtitle, actions }: PageHeaderProps) {
   return (
-    <section className="container-shell pt-28 pb-16 sm:pt-32">
-      <div className="panel relative overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-glow/60 to-transparent" />
-        {badge ? <Badge className="mb-6">{badge}</Badge> : null}
-        <div className="max-w-3xl">
-          <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">{title}</h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">{description}</p>
-        </div>
-        {actions ? <div className="mt-8 flex flex-wrap gap-4">{actions}</div> : null}
+    <section className="pt-16 pb-16 sm:pt-24 sm:pb-20" data-testid="page-header">
+      <div className="wrap max-w-3xl">
+        {eyebrow && <p className="mb-3 text-xs font-medium uppercase tracking-widest text-slate-400">{eyebrow}</p>}
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl leading-[1.1]">{title}</h1>
+        {subtitle && <p className="mt-5 text-lg text-slate-500 leading-relaxed">{subtitle}</p>}
+        {actions && <div className="mt-8 flex flex-wrap gap-3">{actions}</div>}
       </div>
     </section>
   );

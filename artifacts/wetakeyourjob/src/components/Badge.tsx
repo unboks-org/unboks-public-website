@@ -1,10 +1,13 @@
-import React from 'react';
+interface BadgeProps {
+  children: string;
+  'data-testid'?: string;
+}
 
-export default function Badge({ children, className = '', 'data-testid': testId }: { children: React.ReactNode; className?: string; 'data-testid'?: string }) {
+export default function Badge({ children, 'data-testid': testId }: BadgeProps) {
   return (
     <span
       data-testid={testId || 'badge'}
-      className={`inline-flex items-center rounded-full bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent border border-border ${className}`}
+      className="inline-block rounded-full bg-slate-100 px-3.5 py-1 text-xs font-medium uppercase tracking-wider text-slate-500"
     >
       {children}
     </span>

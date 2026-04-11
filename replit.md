@@ -14,16 +14,16 @@ pnpm workspace monorepo with a marketing website for wetakeyourjob.com. Frontend
 - **Routing**: react-router-dom v6
 - **SEO**: react-helmet-async
 - **Icons**: lucide-react
-- **Font**: Sora (Google Fonts)
+- **Font**: Inter (Google Fonts)
 - **API framework**: Express 5 (shared backend, not used by wetakeyourjob)
 
 ## wetakeyourjob.com
 
-Frontend-only marketing website at root path `/`. Premium dark SaaS visual style with cyan/teal glow accents.
+Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light design with minimal text.
 
 ### Routes
-- `/` — Homepage with hero, problem section, services, how it works, audience, benefits, differentiator, CTA
-- `/services` — Services page with detailed service cards, human-in-the-loop operations, outcomes
+- `/` — Homepage with hero, services overview, how it works, benefits, audience, CTA
+- `/services` — Services page with service cards, human-in-the-loop controls, outcomes
 - `/about` — About page with philosophy cards and practice description
 - `/contact` — Contact form with strategy call info and direct contact details
 
@@ -35,17 +35,20 @@ Frontend-only marketing website at root path `/`. Premium dark SaaS visual style
 - NOT "AI replaces the whole team"
 
 ### Design System
-- Dark background: `#050b14` (night), `#0b1422` (ink), `#111d30` (panel)
-- Accent: `#36d1ff` (glow/cyan), `#2dd4bf` (teal)
-- Glass-morphism panels with backdrop blur
-- Rounded corners (1.5rem on panels)
-- Gradient backgrounds with radial glow effects
+- Background: white (#ffffff)
+- Surface: slate-50 (#f8fafc)
+- Accent: slate-900 (#0f172a)
+- Border: slate-200 (#e2e8f0)
+- Clean, light, minimal — Apple/AWS aesthetic
+- Inter font, rounded-2xl cards, subtle borders
+- Tailwind v4 CSS-first config via `@theme inline` in index.css
+- Layout container: `.wrap` class (max-w-72rem, auto margins)
 
 ### Key Files
 - `artifacts/wetakeyourjob/src/` — all source code
 - `artifacts/wetakeyourjob/src/data/siteContent.ts` — centralized content data
-- `artifacts/wetakeyourjob/src/components/` — reusable UI components
-- `artifacts/wetakeyourjob/src/pages/` — page components
+- `artifacts/wetakeyourjob/src/components/` — reusable UI components (Badge, Button, Section, CTASection, HeroPanel, InfoCard, ServiceCard, StepCard, BenefitCard, PageHeader, Seo)
+- `artifacts/wetakeyourjob/src/pages/` — page components (HomePage, ServicesPage, AboutPage, ContactPage)
 - `artifacts/wetakeyourjob/src/layout/` — Navbar, Footer, SiteLayout
 
 ## Key Commands

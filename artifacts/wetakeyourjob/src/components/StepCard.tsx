@@ -1,13 +1,15 @@
-export default function StepCard({ title, description, step }: { title: string; description: string; step: number }) {
+interface StepCardProps {
+  num: string;
+  title: string;
+  brief: string;
+}
+
+export default function StepCard({ num, title, brief }: StepCardProps) {
   return (
-    <article className="panel p-6">
-      <div className="flex items-center gap-4">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-glow/20 bg-glow/10 text-sm font-semibold text-glow">
-          {step}
-        </div>
-        <h3 className="text-xl font-semibold">{title}</h3>
-      </div>
-      <p className="mt-4 text-sm leading-7">{description}</p>
+    <article data-testid={`step-${num}`} className="flex flex-col">
+      <span className="text-xs font-medium text-slate-300 mb-3">{num}</span>
+      <h3 className="text-base font-semibold text-slate-900">{title}</h3>
+      <p className="mt-2 text-sm text-slate-500 leading-relaxed">{brief}</p>
     </article>
   );
 }

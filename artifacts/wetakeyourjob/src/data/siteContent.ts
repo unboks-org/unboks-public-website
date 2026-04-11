@@ -1,5 +1,4 @@
 export const navLinks = [
-  { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
@@ -7,90 +6,40 @@ export const navLinks = [
 
 export const channels = ['WhatsApp', 'Instagram', 'Facebook', 'Email', 'Telegram', 'X'];
 
-export const problemPoints = [
-  'Your team spends too much time answering the same questions.',
-  'Messages are missed, delayed, or answered inconsistently.',
-  'Leads slip away because nobody has time to keep up.',
-  'Managers have no clear oversight of conversations and follow-up.',
-];
-
 export const services = [
   {
-    title: 'AI Communication Systems',
-    description:
-      'We build AI-powered communication tools for small and mid-sized businesses that deal with emails, DMs, WhatsApp messages, and customer follow-up all day long.',
+    title: 'AI Communication Layer',
+    brief: 'Handles emails, DMs, and WhatsApp messages so your team doesn\'t have to.',
   },
   {
-    title: 'Unified Inbox Workflows',
-    description:
-      'We connect your communication channels into one smarter flow so your team can manage conversations faster and more consistently.',
+    title: 'Unified Inbox',
+    brief: 'All channels in one flow. Faster replies, fewer things lost.',
   },
   {
     title: 'Control Dashboard',
-    description:
-      'We add a dashboard on top for visibility, oversight, intervention, and control. Your team stays in charge at all times.',
+    brief: 'Full visibility for managers. Review, approve, intervene anytime.',
   },
   {
-    title: 'Custom Workflow Analysis',
-    description:
-      'We analyze how your company handles communication today, identify repetitive manual work, and build a custom solution around your real workflow.',
+    title: 'Workflow Analysis',
+    brief: 'We study your actual process and build around it. No generic templates.',
   },
 ];
 
 export const steps = [
-  {
-    title: 'We study your workflow',
-    description:
-      'We map how messages move through your team, where time is lost, and where follow-up breaks down.',
-  },
-  {
-    title: 'We design the right AI layer',
-    description:
-      'We define where AI should assist, where people should step in, and how managers keep visibility.',
-  },
-  {
-    title: 'We build and deploy',
-    description:
-      'We implement the system around your channels, operations, and communication standards.',
-  },
-  {
-    title: 'Your team works faster',
-    description:
-      'Your staff spends less time on repetitive replies and more time on the work that moves the business.',
-  },
-];
-
-export const audiences = [
-  'Restaurants',
-  'Tour companies',
-  'Salons',
-  'Real estate teams',
-  'Clinics',
-  'Rental businesses',
-  'Service businesses',
-  'Local SMBs with high message volume',
+  { num: '01', title: 'We study your workflow', brief: 'Map where time is lost and follow-up breaks down.' },
+  { num: '02', title: 'Design the AI layer', brief: 'Define where AI helps and where people step in.' },
+  { num: '03', title: 'Build and deploy', brief: 'Implement around your channels and standards.' },
+  { num: '04', title: 'Your team gets faster', brief: 'Less repetitive work. More time for real work.' },
 ];
 
 export const benefits = [
-  'Save time on repetitive communication',
-  'Reply faster without adding headcount',
-  'Keep all conversations in one system',
-  'Improve follow-up and reduce missed leads',
-  'Give managers visibility and control',
-  'Let staff focus on higher-value work',
+  { title: '70-80% less repetitive work', brief: 'AI handles the repeating patterns. Your team handles the rest.' },
+  { title: 'Faster response times', brief: 'Replies go out in minutes, not hours. No extra headcount.' },
+  { title: 'Nothing gets missed', brief: 'Every message tracked, every lead followed up.' },
+  { title: 'Humans stay in control', brief: 'Review queues, escalation rules, full manager oversight.' },
 ];
 
-export const serviceHighlights = [
-  {
-    title: 'Human-in-the-loop operations',
-    body: 'AI handles the repetitive first layer while your team reviews, approves, or steps in whenever needed.',
-  },
-  {
-    title: 'One operational view',
-    body: 'Messages across WhatsApp, Instagram, Facebook, email, Telegram, and X can feed into one controlled workflow.',
-  },
-  {
-    title: 'Fewer missed leads',
-    body: 'Faster, more consistent communication reduces delays and improves the odds that every opportunity gets attention.',
-  },
+export const audiences = [
+  'Restaurants', 'Tour companies', 'Salons', 'Real estate teams',
+  'Clinics', 'Rental businesses', 'Service businesses',
 ];
