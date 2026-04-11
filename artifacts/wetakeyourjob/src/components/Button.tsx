@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 const variants: Record<string, string> = {
   primary:
-    'bg-gradient-to-r from-glow to-cyan-400 text-slate-950 shadow-[0_12px_30px_rgba(54,209,255,0.25)] hover:translate-y-[-1px] hover:shadow-[0_16px_36px_rgba(54,209,255,0.35)]',
+    'bg-accent text-white hover:bg-accent-hover shadow-sm',
   secondary:
-    'border border-white/10 bg-white/[0.04] text-white hover:border-glow/40 hover:bg-white/[0.08]',
-  ghost: 'text-slate-200 hover:text-white',
+    'bg-surface text-accent hover:bg-border/50 border border-border',
+  ghost: 'text-slate-600 hover:text-accent hover:bg-surface',
 };
 
 interface ButtonProps {
@@ -17,6 +17,7 @@ interface ButtonProps {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
+  'data-testid'?: string;
 }
 
 export default function Button({
@@ -25,14 +26,15 @@ export default function Button({
   href,
   variant = 'primary',
   className = '',
+  'data-testid': testId,
   ...props
 }: ButtonProps) {
   const shared =
-    'inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold outline-none ring-offset-2 ring-offset-night focus-visible:ring-2 focus-visible:ring-glow';
+    'inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium outline-none ring-offset-2 ring-offset-white focus-visible:ring-2 focus-visible:ring-accent';
 
   if (to) {
     return (
-      <Link to={to} className={`${shared} ${variants[variant]} ${className}`}>
+      <Link data-testid={testId || `button-link-${to.replace(/[^a-zA-Z0-9]/g, '')}`} to={to} className={`${shared} ${variants[variant]} ${className}`}>
         {children}
       </Link>
     );
@@ -40,14 +42,14 @@ export default function Button({
 
   if (href) {
     return (
-      <a href={href} className={`${shared} ${variants[variant]} ${className}`} {...props}>
+      <a data-testid={testId || 'button-href'} href={href} className={`${shared} ${variants[variant]} ${className}`} {...props}>
         {children}
       </a>
     );
   }
 
   return (
-    <button className={`${shared} ${variants[variant]} ${className}`} {...props}>
+    <button data-testid={testId || 'button'} className={`${shared} ${variants[variant]} ${className}`} {...props}>
       {children}
     </button>
   );
