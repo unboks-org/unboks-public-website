@@ -1,0 +1,350 @@
+PROJECT: wetakeyourjob.com
+TARGET: OPERATOR DASHBOARD ONLY
+SCOPE: FRONTEND REFACTOR + ROUTING/UI REORGANIZATION
+PRIORITY: ZERO DRIFT. ZERO HALLUCINATION. DO NOT TOUCH MARKETING SITE. DO NOT TOUCH DEMO. DO NOT BREAK EXISTING API CONTRACTS. REUSE EXISTING DASHBOARD LOGIC WHEREVER POSSIBLE.
+
+PRIMARY OBJECTIVE
+Rebuild the Operator Dashboard inbox experience into a WTYJ OMNI INBOX based on Google Inbox/Gmail mailbox behavior and layout logic.
+
+IMPORTANT DESIGN DIRECTIVE
+The visual/layout target is GOOGLE INBOX / GMAIL WEB APP.
+Implement a very close structural clone for the inbox experience:
+- left sidebar
+- top search/header zone if already available or can be reused
+- horizontal platform filter cards/buttons across the top of the message pane
+- central conversation list pane
+- detail view behavior consistent with current WTYJ capabilities
+This is a product-internal dashboard. Accuracy matters more than originality here.
+
+NON-NEGOTIABLE RULES
+1. DO NOT modify public marketing pages.
+2. DO NOT modify demo booking site.
+3. DO NOT change API endpoints unless strictly required by missing frontend plumbing.
+4. DO NOT invent backend responses. Use current hooks and current data shape.
+5. IF backend support is missing for a UI action, create safe frontend placeholders/TODO comments only.
+6. DO NOT remove existing working logic for:
+   - escalations
+   - message view/reply behavior
+   - current settings features
+   - current feature toggles
+   - current auth
+7. REUSE current dashboard pages/components/hooks/lib wherever possible.
+8. Preserve multi-client behavior.
+9. Preserve light/dark mode support unless impossible. Default should still feel like current dashboard theme layer, but inbox structure must follow Gmail-style UX.
+10. TypeScript must remain strict and build must pass.
+
+REFERENCE PROJECT STRUCTURE
+Use existing dashboard architecture under:
+- src/dashboard/components
+- src/dashboard/hooks
+- src/dashboard/lib
+- src/dashboard/pages
+
+MAIN PRODUCT CHANGE
+Replace current “Messages” area UX with a simplified OMNI INBOX.
+
+OMNI INBOX FUNCTIONAL MODEL
+The inbox aggregates messages from:
+- WhatsApp Business
+- X
+- Instagram
+- TikTok
+- Facebook
+
+Default state:
+- show ALL messages from ALL platforms together
+
+Top platform filter row:
+- show 5 platform cards/buttons:
+  1. WhatsApp Business
+  2. X
+  3. Instagram
+  4. TikTok
+  5. Facebook
+- these act as filters
+- default selection = ALL platforms
+- user can click one platform to isolate only that platform
+- user can select multiple platforms simultaneously
+- include clear visual active/inactive states
+- switching filters must update the visible list immediately
+- filter state should also affect Escalations view
+- implement this as dashboard-local state and/or URL params if clean
+
+SIDEBAR SPEC
+Replace/simplify dashboard sidebar so it becomes extremely minimal.
+
+Sidebar items in this order:
+1. LOGO at top
+   - logo acts as HOME button
+   - clicking it returns user to OMNI INBOX default view
+2. Escalation
+3. Bookings / Orders
+4. Settings
+
+BOOKINGS / ORDERS LABEL RULE
+- text must be configurable from Settings
+- allow business-specific label:
+  - “Bookings”
+  - “Orders”
+- use existing settings infrastructure if present
+- if backend persistence for this label does not yet exist, implement safe local placeholder config with clear TODO
+
+SETTINGS
+Keep existing settings capabilities.
+Add a full ANALYTICS section/page inside Settings.
+
+SETTINGS REQUIREMENTS
+- preserve all current settings functionality
+- reorganize cleanly if needed
+- add analytics page/section under settings
+- analytics can initially use existing available data only
+- if some analytics data is unavailable, create polished placeholder cards/charts with empty states and TODO hooks, but DO NOT fabricate fake business data as if it were real
+
+ANALYTICS PAGE REQUIREMENTS
+Create a polished analytics dashboard within Settings with sections such as:
+- inbox volume
+- per-platform message counts
+- escalation count
+- response status breakdown
+- archived vs active items
+- bookings/orders summary placeholder if no data available
+- time-based trend widgets if current data supports it
+Use existing chart stack already in project:
+- recharts
+Use current dashboard design system:
+- shadcn/ui
+- existing cards
+- existing theme tokens
+
+ESCALATIONS BEHAVIOR
+Escalations must work as a filtered subset of the OMNI INBOX.
+
+Rules:
+- if user clicks “Escalation” in sidebar, show escalated messages only
+- escalations must respect selected platform filters from the top filter row
+- examples:
+  - TikTok selected + Escalation => only escalated TikTok items
+  - WhatsApp + Instagram selected + Escalation => escalated messages from both
+  - no platform filter / ALL selected + Escalation => all escalated messages across all platforms
+
+ESCALATION DETAIL VIEW
+When user opens an escalated item from the main pane:
+- preserve current escalation functionality already in app
+- user must still be able to:
+  - reply
+  - archive
+  - use current escalation tools/features
+- add DELETE as a placeholder action if backend support is not ready
+- if delete is not implemented server-side, wire a disabled button or safe non-destructive placeholder with TODO note, but include it in the UI now
+
+MESSAGE DETAIL / ITEM ACTIONS
+For inbox items and escalation items, preserve as much current capability as possible.
+Use current read/unread, archive, reply, and other message actions already existing in code.
+Do not regress functionality.
+
+INBOX LAYOUT REQUIREMENTS
+Build the OMNI INBOX page using this layout model:
+
+A. LEFT SIDEBAR
+- narrow vertical sidebar
+- logo/home at top
+- action buttons underneath:
+  - Escalation
+  - Bookings/Orders
+  - Settings
+
+B. MAIN CONTENT AREA
+Top row:
+- platform filter cards/buttons horizontally aligned
+
+Main list:
+- Gmail-style message list table/rows
+- clean row density
+- strong scanability
+- rows should support:
+  - selection checkbox placeholder if clean
+  - sender/customer name
+  - snippet/preview
+  - platform badge/icon
+  - date/time
+  - unread state
+  - escalated state
+  - archived state where relevant
+- preserve or adapt current list item data from existing Messages page
+
+C. DETAIL/WORK AREA
+When an item opens, use current message/escalation logic patterns.
+Can be:
+- panel view
+- split pane
+- routed detail
+Choose the cleanest option with minimum regression.
+Priority is stable behavior, not novelty.
+
+BOOKINGS / ORDERS PAGE
+Use existing capacity/bookings/order-related functionality as much as possible.
+This button should route to a page built from what already exists in the current dashboard.
+Do not overbuild.
+If exact business behavior differs by client, keep it generic and configurable.
+
+ROUTING REQUIREMENTS
+Refactor dashboard routing to align with new simplified nav.
+Preferred routes:
+- /dashboard                       => omni inbox default
+- /dashboard/escalations           => escalations filtered view
+- /dashboard/bookings              => bookings/orders page
+- /dashboard/settings              => settings main
+Optionally:
+- /dashboard/settings/analytics    => analytics subsection
+Preserve legacy redirects where necessary so old routes do not break immediately.
+
+MAPPING OF OLD TO NEW
+- current Messages page becomes the new OMNI INBOX foundation
+- current Escalations page remains logic source for escalation behaviors
+- current Settings page remains logic source for settings
+- current CapacityChecker or other booking-related page can feed Bookings/Orders
+- current Create / Social / Training / Learnings / Assets / Published should not be deleted blindly
+  Instead:
+  - keep code intact
+  - hide from primary nav unless still needed
+  - keep route access only if safe
+  - do not break imports or dependencies
+
+DATA / STATE RULES
+Platform filter state should be reusable across:
+- inbox
+- escalations
+
+Prefer one of these:
+1. URL query param state, or
+2. shared page state via hook/context
+
+Recommended filter model:
+- all
+- whatsapp
+- x
+- instagram
+- tiktok
+- facebook
+Support multi-select:
+- query param example: ?platform=whatsapp,instagram
+or equivalent internal state model.
+
+IMPLEMENTATION PLAN
+Execute in this order:
+
+STEP 1 — ANALYZE CURRENT DASHBOARD
+- inspect existing dashboard routes
+- inspect Messages.tsx
+- inspect Escalations.tsx
+- inspect Settings.tsx
+- inspect CapacityChecker.tsx
+- inspect AppLayout.tsx
+- inspect use-bluemarlin.ts and related hooks
+- map reusable pieces vs UI-only changes
+
+STEP 2 — BUILD NEW NAV STRUCTURE
+- simplify sidebar
+- logo as home button
+- add routes and nav items:
+  - Escalation
+  - Bookings/Orders
+  - Settings
+
+STEP 3 — BUILD OMNI INBOX PAGE
+- use Messages page as foundation
+- create top platform filter cards
+- default ALL
+- support single and multi-select
+- update list rendering accordingly
+
+STEP 4 — CONNECT ESCALATIONS TO SAME FILTER MODEL
+- ensure escalations page respects platform filter selection
+- preserve existing escalation actions
+- add Delete placeholder action
+
+STEP 5 — BOOKINGS / ORDERS PAGE
+- wire existing booking/order/capacity logic into one clean page
+- label configurable from settings
+
+STEP 6 — SETTINGS + ANALYTICS
+- preserve existing settings features
+- add analytics page/section
+- create strong polished UI with real data when available and clean placeholders when not
+
+STEP 7 — LEGACY SAFETY
+- add redirects from deprecated routes if necessary
+- do not leave broken menu links
+- do not remove existing modules unless proven unused
+
+UI QUALITY BAR
+- premium
+- simple
+- minimal
+- Gmail-like scanability
+- no clutter
+- no unnecessary gradients
+- no oversized cards
+- message list should feel operational and fast
+- spacing should be tight but readable
+- platform filters should be obvious and tactile
+- sidebar should feel extremely simple
+
+TECHNICAL REQUIREMENTS
+- React 18
+- TypeScript strict
+- use existing shadcn/ui components where possible
+- use existing dashboard utility functions
+- preserve auth protections
+- preserve feature toggles if they exist
+- do not duplicate data fetching unnecessarily
+- avoid introducing dead code
+- keep components modular
+
+DELIVERABLE FORMAT
+Return work in these sections:
+
+1. CHANGE PLAN
+- exact files to modify
+- exact files to create
+- exact files to leave untouched
+
+2. IMPLEMENTATION
+- apply code changes
+
+3. NOTES
+- any placeholders added
+- any backend limitations discovered
+- any safe redirects added
+
+4. VALIDATION
+- confirm:
+  - typecheck passes
+  - build passes
+  - no marketing/demo regressions
+  - dashboard routes work
+  - multi-select platform filter works
+  - escalation filter works
+  - settings analytics page exists
+
+ABSOLUTE DO-NOTs
+- do not redesign the public site
+- do not alter the BlueMarlin demo theme
+- do not invent backend endpoints
+- do not remove existing escalation behavior
+- do not create a generic CRM
+- do not drift away from the inbox-first concept
+- do not overcomplicate
+
+FINAL PRODUCT SUMMARY
+Build a WTYJ OMNI INBOX inside the existing dashboard:
+- structurally modeled on Gmail/Google Inbox
+- all channels merged into one inbox
+- top platform filter cards for WhatsApp/X/IG/TikTok/Facebook
+- sidebar only: logo/home, escalation, bookings/orders, settings
+- escalations inherit the same platform filters
+- bookings/orders label configurable
+- settings includes analytics
+- keep all current backend-connected logic intact
+- add delete as placeholder in escalation detail
+- maintain strict implementation discipline
