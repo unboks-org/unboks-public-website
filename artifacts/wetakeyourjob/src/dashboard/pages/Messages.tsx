@@ -15,7 +15,7 @@ import {
   CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2, Check, X, Wand2, Send, Shield,
 } from "lucide-react";
 import { cn } from "@dashboard/lib/utils";
-import { isToday, isThisYear, format } from "date-fns";
+import { isToday, isThisYear, format, formatDistanceToNow } from "date-fns";
 
 const HIDDEN_KEY = "bluemarlin_hidden_conversations";
 
@@ -564,15 +564,6 @@ export default function Messages() {
                 {detail.booking_state?.fields?.customer_name as string || selectedPhone}
               </h2>
               <p className="text-xs text-muted-foreground font-mono">{selectedPhone}</p>
-              {matchedEsc && (
-                <span className={cn(
-                  "inline-flex items-center gap-1.5 mt-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded",
-                  isSemi(matchedEsc.notification_type) ? "bg-blue-500/15 text-blue-400" : "bg-rose-500/15 text-rose-400"
-                )}>
-                  <AlertTriangle className="w-2.5 h-2.5" />
-                  {isSemi(matchedEsc.notification_type) ? "Semi" : "Full"} Escalation
-                </span>
-              )}
             </div>
             <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
               {readSet.has(selectedPhone) && (
@@ -612,6 +603,76 @@ export default function Messages() {
               )}
             </div>
           </div>
+
+          {matchedEsc && (() => {
+            const parsed = parseEscalationBody(matchedEsc.body);
+            return (
+              <div className="rounded-xl border border-border bg-card/60 p-4 space-y-4">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className={cn(
+                    "text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded",
+                    isSemi(matchedEsc.notification_type) ? "bg-blue-500/15 text-blue-400" : "bg-rose-500/15 text-rose-400"
+                  )}>
+                    {isSemi(matchedEsc.notification_type) ? "Semi" : "Full"} Escalation
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                    {matchedEsc.channel === "email" ? <Mail className="w-3 h-3" /> : <Phone className="w-3 h-3" />}
+                    {matchedEsc.channel}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                    <Clock className="w-3 h-3" />
+                    {(() => { try { return formatDistanceToNow(new Date(matchedEsc.created_at), { addSuffix: true }); } catch { return matchedEsc.created_at; } })()}
+                  </span>
+                  <span className={cn(
+                    "text-xs font-bold uppercase px-2 py-0.5 rounded",
+                    matchedEsc.status === "resolved" ? "bg-emerald-500/15 text-emerald-400" : "bg-amber-500/15 text-amber-400"
+                  )}>
+                    {matchedEsc.status}
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Customer</p>
+                    <p className="text-sm font-medium text-foreground">{matchedEsc.customer_name}</p>
+                  </div>
+                  {parsed.email && (
+                    <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
+                      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Email</p>
+                      <p className="text-sm text-foreground">{parsed.email}</p>
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Contact</p>
+                    <p className="text-sm text-foreground">
+                      {matchedEsc.customer_contact || matchedEsc.customer_id}
+                    </p>
+                    {matchedEsc.customer_phone && matchedEsc.customer_phone !== matchedEsc.customer_contact && (
+                      <p className="text-xs text-muted-foreground mt-1 font-mono">{matchedEsc.customer_phone}</p>
+                    )}
+                    {matchedEsc.customer_email && matchedEsc.customer_email !== matchedEsc.customer_contact && (
+                      <p className="text-xs text-muted-foreground mt-0.5">{matchedEsc.customer_email}</p>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Reason</p>
+                    <p className="text-sm font-medium text-foreground">{parsed.question || cleanSubject(matchedEsc.subject)}</p>
+                  </div>
+                </div>
+
+                {(parsed.chatLog || isSemi(matchedEsc.notification_type)) && (
+                  <div>
+                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                      {isSemi(matchedEsc.notification_type) ? "Relay Details" : "Conversation"}
+                    </h3>
+                    <pre className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed bg-muted/30 border border-border rounded-xl p-4 max-h-48 overflow-y-auto font-sans">
+                      {isSemi(matchedEsc.notification_type) ? matchedEsc.body : parsed.chatLog}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           <div className="flex-1 space-y-3 pb-4">
             {[...detail.messages].reverse().map((msg, idx) =>

@@ -1,0 +1,93 @@
+Use this prompt in Replit:
+
+ESCALATION SUMMARY REGRESSION FIX — RESTORE THE OLD 1-VIEW ESCALATION SUMMARY PANEL
+
+PROBLEM
+In the old version, when I opened an escalation, I could immediately see a clear summary of the escalation situation.
+Now that summary is gone.
+That is a regression.
+
+Right now, when I click an escalation, I should NOT have to guess what the issue is.
+I need the escalation summary back so I can understand the situation in one view immediately.
+
+IMPORTANT
+This is NOT a new feature request.
+This feature already existed in the old version.
+Do NOT invent a new workflow.
+Do NOT build a different interpretation.
+Find the previous escalation summary implementation and restore it into the current inbox/escalation detail view.
+
+WHAT MUST BE RESTORED
+When I click an escalated conversation, I need a clear summary block/panel visible immediately that tells me, in one view:
+- what the issue is
+- why it was escalated
+- what kind of escalation it is
+- the relevant context / summary text
+- any existing escalation metadata that was shown before
+
+PRIMARY UX REQUIREMENT
+I want to understand the escalation in ONE GLANCE.
+No guessing.
+No hunting through the thread.
+No needing to infer the problem from previous messages.
+
+EXPECTED BEHAVIOR
+When an escalated conversation is opened:
+1. show the escalation summary area near the top of the detail view
+2. keep it clearly visible and readable
+3. make it obvious whether it is semi or full escalation
+4. show the actual situation/context summary that existed before
+5. preserve the rest of the current detail view below it
+
+IMPLEMENTATION RULE
+Do NOT create a fake placeholder summary if the old implementation already has real data and real rendering logic.
+Inspect the previous escalation detail implementation and restore the existing summary block/component/data mapping.
+
+LIKELY ROOT CAUSE
+During the Gmail-style inbox refactor, the escalation detail shell remained, but the old escalation summary panel/component was dropped or no longer rendered.
+That is what needs to be fixed.
+
+WHAT TO DO
+1. inspect the old escalation detail UI/components
+2. locate the previous summary panel / summary rendering
+3. locate the data source used for that summary
+4. restore that exact summary into the current escalation detail screen
+5. place it high enough in the layout that it is visible immediately on open
+6. keep the new inbox shell, but reattach the missing summary
+
+DO NOT
+- do not redesign the entire detail page
+- do not replace the old summary with a generic badge only
+- do not make me click another tab or accordion just to see the issue
+- do not hide the summary below the fold
+- do not invent new backend endpoints
+- do not create a watered-down replacement if the original exists already
+
+PLACEMENT REQUIREMENT
+The summary should appear in the upper part of the escalation detail view, before or above the message thread area if that is how the old version worked, or in the closest equivalent visible position.
+The goal is immediate context.
+
+CONTENT REQUIREMENT
+Restore whatever real escalation summary content the old version already exposed, such as:
+- escalation reason
+- summary/explanation text
+- semi/full escalation status
+- operator/client handling context
+- any AI-generated or system-generated summary already available
+
+SUCCESS CRITERIA
+When I click an escalation:
+- I immediately see the escalation summary
+- I immediately understand the situation
+- I do not need to guess why it is escalated
+- the summary appears in one view near the top
+- this uses the old built functionality, not a fake replacement
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. where the old escalation summary logic/component was found
+3. how it was restored into the current detail view
+4. confirmation that the summary is visible immediately on open
+5. confirmation that semi/full escalation context is visible again
+6. note any genuine missing backend data only if it truly no longer exists
