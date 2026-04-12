@@ -11,30 +11,26 @@ const ICONS: Record<PlatformKey, React.ElementType> = {
   facebook: Facebook,
 };
 
-const ACTIVE_STYLES: Record<PlatformKey, string> = {
-  whatsapp: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-  x: "bg-foreground/10 text-foreground border-foreground/20",
-  instagram: "bg-pink-500/15 text-pink-400 border-pink-500/30",
-  tiktok: "bg-cyan-500/15 text-cyan-400 border-cyan-500/30",
-  facebook: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-};
-
 export function PlatformFilterBar({ className }: { className?: string }) {
   const { selected, toggle, clear, isAll } = usePlatformFilter();
 
   return (
-    <div className={cn("flex items-center gap-1.5 flex-wrap", className)}>
+    <div className={cn("flex items-center", className)}>
       <button
         onClick={clear}
         className={cn(
-          "px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all",
+          "relative flex items-center h-full px-3 text-sm transition-colors duration-100 shrink-0",
           isAll
-            ? "bg-primary/15 text-primary border-primary/30"
-            : "bg-transparent text-muted-foreground border-transparent hover:text-foreground hover:border-border"
+            ? "text-foreground font-medium"
+            : "text-muted-foreground/60 hover:text-foreground/80"
         )}
       >
         All
+        {isAll && (
+          <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/70 rounded-t-full" />
+        )}
       </button>
+
       {PLATFORMS.map((p) => {
         const Icon = ICONS[p.key];
         const active = selected.has(p.key);
@@ -43,14 +39,17 @@ export function PlatformFilterBar({ className }: { className?: string }) {
             key={p.key}
             onClick={() => toggle(p.key)}
             className={cn(
-              "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all",
+              "relative flex items-center gap-1.5 h-full px-3 text-sm transition-colors duration-100 shrink-0",
               active
-                ? ACTIVE_STYLES[p.key]
-                : "bg-transparent text-muted-foreground border-transparent hover:text-foreground hover:border-border"
+                ? "text-foreground font-medium"
+                : "text-muted-foreground/60 hover:text-foreground/80"
             )}
           >
-            <Icon className="w-3 h-3" />
-            {p.label}
+            <Icon className="w-3 h-3 shrink-0" />
+            <span>{p.label}</span>
+            {active && (
+              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/70 rounded-t-full" />
+            )}
           </button>
         );
       })}

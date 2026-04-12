@@ -396,11 +396,18 @@ export function AppLayout() {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-5 md:p-8">
-          <div className="max-w-6xl mx-auto">
+        {/* inbox is full-bleed and handles its own scroll; other pages get padded wrapper */}
+        {(location.pathname === "/dashboard" || location.pathname === "/dashboard/") ? (
+          <div className="flex-1 overflow-hidden flex flex-col min-h-0">
             <Outlet />
           </div>
-        </main>
+        ) : (
+          <main className="flex-1 overflow-y-auto p-5 md:p-8">
+            <div className="max-w-6xl mx-auto">
+              <Outlet />
+            </div>
+          </main>
+        )}
       </div>
     </div>
   );

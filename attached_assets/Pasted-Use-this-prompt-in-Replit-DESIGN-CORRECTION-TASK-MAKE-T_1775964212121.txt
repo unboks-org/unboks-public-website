@@ -1,0 +1,213 @@
+Use this prompt in Replit:
+
+DESIGN CORRECTION TASK — MAKE THE OMNI INBOX A TRUE GMAIL-WEB CLONE STRUCTURALLY AND VISUALLY
+
+CURRENT PROBLEM
+The current inbox implementation is not close enough to Gmail.
+It feels “inspired by Gmail” instead of being a clone.
+This is not acceptable.
+
+WHAT IS WRONG RIGHT NOW
+- row separators / lines are too thick
+- checkbox selection is missing or not Gmail-like
+- spacing is off
+- density is off
+- overall visual rhythm is off
+- the inbox does not have the real Gmail web feel
+- buttons / filters / list proportions do not match Gmail enough
+- it looks like a custom dashboard, not a Gmail clone adapted for WTYJ
+
+PRIMARY INSTRUCTION
+STOP DESIGNING.
+START CLONING.
+
+I want the inbox experience to be a CLOSE GMAIL WEB CLONE in structure, spacing, density, alignment, and interaction feel.
+Do NOT make it “prettier”.
+Do NOT make it “more modern”.
+Do NOT reinterpret.
+Do NOT create a design language.
+Clone Gmail web layout and then adapt only the parts needed for WTYJ.
+
+SCOPE
+DASHBOARD INBOX / ESCALATIONS VIEW ONLY.
+Do not touch marketing site.
+Do not touch demo site.
+Do not rewrite backend logic.
+Do not change current data model unless absolutely required for rendering.
+
+TARGET REFERENCE
+Use Gmail web as the visual reference for:
+- left sidebar proportions
+- top search bar proportions
+- toolbar spacing
+- top filter row alignment
+- message row density
+- checkbox placement
+- icon spacing
+- sender/subject/snippet/date layout
+- row hover behavior
+- subtle borders
+- line thickness
+- muted colors
+- typography rhythm
+- selected row behavior
+- overall operational scanability
+
+WTYJ ADAPTATION RULE
+Clone Gmail structure first.
+Then replace Gmail-specific categories with WTYJ platform filters and sidebar items.
+Meaning:
+- keep Gmail-like shell and list behavior
+- adapt content labels only where necessary
+
+MANDATORY VISUAL REQUIREMENTS
+
+1. MESSAGE LIST MUST LOOK LIKE GMAIL
+Each row should visually follow Gmail table row behavior:
+- left selection checkbox
+- optional star / icon slot area
+- sender/customer name column
+- subject + snippet line
+- right-side date/time
+- single horizontal row rhythm
+- thin separators or subtle row division, not thick lines
+- hover state very close to Gmail
+- unread rows visually distinct but not heavy-handed
+- no bulky card appearance
+- rows must feel flat and operational, not boxed cards
+
+2. CHECKBOXES ARE REQUIRED
+Add Gmail-style selection checkboxes at the far left of each row.
+Requirements:
+- checkbox visible on every row
+- positioned like Gmail
+- select behavior can be local UI state if bulk actions are not yet complete
+- top toolbar should also support a master checkbox placeholder if clean
+- must visually resemble Gmail checkbox placement and size
+- do not use oversized custom checkbox styling
+
+3. ROW LINES / DIVIDERS MUST BE SUBTLE
+Current separators are too thick.
+Fix:
+- use very thin dividers or Gmail-like row boundary treatment
+- avoid strong borders
+- avoid obvious heavy table lines
+- keep contrast subtle
+- list should read like Gmail inbox, not like a kanban/table hybrid
+
+4. DENSITY MUST MATCH GMAIL BETTER
+Current layout is too loose / too custom.
+Fix:
+- tighten row height
+- tighten padding
+- tighten subject/snippet spacing
+- keep high scanability
+- sender, snippet, tags, and date should align like an email client
+- do not turn rows into tall cards
+
+5. PLATFORM FILTER ROW MUST FEEL LIKE IT BELONGS IN GMAIL
+The top platform filters should integrate into the Gmail-like shell.
+Requirements:
+- keep them clean and restrained
+- avoid oversized pills or flashy dashboard styling
+- reduce “app button” feel
+- make them feel like native controls living inside a Gmail-like toolbar zone
+- “All” must be present and obvious
+- multi-select stays supported
+- visual weight must not overpower the inbox list
+
+6. SIDEBAR MUST FEEL MUCH CLOSER TO GMAIL
+Use Gmail sidebar as the structural model:
+- narrow left rail
+- logo/home at top
+- simple vertical navigation
+- restrained icon/text spacing
+- not oversized
+- not heavy dashboard blocks
+- minimal and operational
+WTYJ-specific nav remains:
+- Logo / Home
+- Escalations
+- Bookings or Orders
+- Settings
+
+7. TOP AREA MUST FEEL GMAIL-LIKE
+Search bar / toolbar / top spacing should feel close to Gmail web:
+- wide rounded search field
+- correct spacing around icons
+- restrained toolbar density
+- no random dashboard panel feel
+- keep layout flat and controlled
+
+8. ESCALATIONS VIEW MUST USE THE EXACT SAME SHELL
+Escalations should not look like a different page.
+Same inbox shell.
+Same row design.
+Same checkbox positions.
+Same toolbar.
+Same spacing.
+Only dataset changes.
+
+IMPLEMENTATION RULES
+- reuse existing logic
+- do not rewrite backend calls unless required
+- do not invent endpoints
+- do not overuse shadcn card styling
+- avoid gradients, glow, glass, or premium-dashboard aesthetics here
+- Gmail is flat, calm, dense, efficient — match that
+- do not add decorative visual noise
+- prioritize accurate clone behavior over creativity
+
+SPECIFIC UI DETAILS TO CORRECT
+- add left checkbox column
+- make rows slimmer
+- reduce border thickness
+- reduce panel/card feeling
+- align sender / preview / date more like Gmail
+- reduce exaggerated padding
+- make selected / hovered states subtle and Gmail-like
+- make unread state closer to Gmail
+- make row icons more restrained
+- keep platform chips cleaner and less dominant
+- make table/list width usage closer to Gmail proportions
+
+IF NEEDED, RESTRUCTURE THE LIST INTO A GMAIL-LIKE TABLE
+If the current row component structure is blocking accurate cloning, refactor the list markup into a more Gmail-like table/list row structure.
+This is allowed.
+But preserve existing message actions and current behavior.
+
+DO NOT
+- do not “improve” Gmail
+- do not make it futuristic
+- do not make it prettier
+- do not make it more luxurious
+- do not make it more brand-heavy
+- do not use chunky cards
+- do not keep thick separators
+- do not skip the checkboxes
+- do not keep a custom-dashboard aesthetic
+
+SUCCESS CRITERIA
+The result should make me think:
+“this is basically Gmail, but adapted for WTYJ omni inbox”
+
+When I look at it, I should immediately recognize:
+- Gmail row density
+- Gmail checkbox behavior
+- Gmail alignment
+- Gmail subtle borders
+- Gmail shell structure
+- Gmail operational feel
+
+DELIVERABLE FORMAT
+Return:
+1. which files you changed
+2. what Gmail-specific visual corrections you made
+3. confirmation that checkboxes were added
+4. confirmation that row density and divider thickness were corrected
+5. confirmation that escalations still use the same shell
+6. screenshot-ready summary of final result
+
+FINAL INSTRUCTION
+Do not stop at “closer”.
+Make it a real clone-level implementation.
