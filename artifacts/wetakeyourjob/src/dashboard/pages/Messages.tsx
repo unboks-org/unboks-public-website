@@ -11,7 +11,7 @@ import { Skeleton } from "@dashboard/components/ui/skeleton";
 import {
   MessageCircle, Phone, Search, ArrowLeft, ChevronRight, ChevronDown,
   AlertTriangle, User, Archive, ArchiveRestore, Circle, CheckCircle,
-  CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2, Check,
+  CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2, Check, X,
 } from "lucide-react";
 import { cn } from "@dashboard/lib/utils";
 import { isToday, isThisYear, format } from "date-fns";
@@ -348,6 +348,34 @@ export default function Messages() {
     }
   };
 
+  /* ── Bulk actions (applied to selectedSet) ── */
+  const bulkArchive = () => {
+    selectedSet.forEach((phone) => hide(phone));
+    setSelectedSet(new Set());
+  };
+
+  const bulkMarkRead = () => {
+    selectedSet.forEach((phone) => markRead(phone));
+    setSelectedSet(new Set());
+  };
+
+  const bulkMarkUnread = () => {
+    selectedSet.forEach((phone) => markUnread(phone));
+    setSelectedSet(new Set());
+  };
+
+  const bulkDelete = () => {
+    const count = selectedSet.size;
+    if (window.confirm(`Permanently delete ${count} conversation${count !== 1 ? "s" : ""}? This cannot be undone.`)) {
+      selectedSet.forEach((phone) => deleteConv.mutate(phone));
+      setSelectedSet(new Set());
+    }
+  };
+
+  const clearSelection = () => setSelectedSet(new Set());
+
+  const selectionToolbarBtn = "p-1.5 rounded text-foreground/45 hover:text-foreground hover:bg-white/[0.07] transition-colors";
+
   /* ─── DETAIL VIEW ──────────────────────────────────────────────────────── */
   if (view === "detail" && detail) {
     return (
@@ -492,12 +520,12 @@ export default function Messages() {
   return (
     <div className="flex flex-col h-full">
 
-      {/* ── Toolbar ── */}
+      {/* ── Toolbar — swaps between normal and selection mode, same height/position ── */}
       <div
         className="flex items-center shrink-0 h-[50px] border-b px-2 gap-1"
         style={{ borderColor: "rgba(255,255,255,0.08)" }}
       >
-        {/* master checkbox + dropdown — Gmail-style, aligned with row checkbox column */}
+        {/* master checkbox — always present in both modes */}
         <div className="flex items-center shrink-0">
           <div className="flex items-center justify-center w-10">
             <GmailCheckbox
@@ -509,21 +537,63 @@ export default function Messages() {
           <ChevronDown className="w-[10px] h-[10px] text-foreground/25 -ml-1.5 mr-1 shrink-0" />
         </div>
 
-        {/* platform filter tabs */}
-        <div className="flex-1 h-full overflow-x-auto scrollbar-none">
-          <PlatformFilterBar className="h-full" />
-        </div>
+        {someSelected ? (
+          /* ── SELECTION MODE ── */
+          <>
+            <span className="text-[13px] text-foreground/65 mr-1 shrink-0 tabular-nums">
+              {selectedSet.size} selected
+            </span>
 
-        {/* search */}
-        <div className="relative shrink-0 ml-1">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-foreground/30 pointer-events-none" />
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search…"
-            className="w-48 pl-8 pr-3 py-1.5 rounded-md border border-border/40 bg-white/[0.04] text-[13px] text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-white/[0.06] transition-all"
-          />
-        </div>
+            <div className="h-4 w-px bg-border/30 mx-2 shrink-0" />
+
+            <button onClick={bulkArchive} title="Archive" className={selectionToolbarBtn}>
+              <Archive className="w-[17px] h-[17px]" />
+            </button>
+            <button onClick={bulkMarkRead} title="Mark as read" className={selectionToolbarBtn}>
+              <CheckCircle className="w-[17px] h-[17px]" />
+            </button>
+            <button onClick={bulkMarkUnread} title="Mark as unread" className={selectionToolbarBtn}>
+              <Circle className="w-[17px] h-[17px]" />
+            </button>
+
+            <div className="h-4 w-px bg-border/30 mx-2 shrink-0" />
+
+            <button
+              onClick={bulkDelete}
+              title="Delete"
+              className="p-1.5 rounded text-rose-400/40 hover:text-rose-400 hover:bg-rose-400/[0.07] transition-colors"
+            >
+              <Trash2 className="w-[17px] h-[17px]" />
+            </button>
+
+            <div className="flex-1" />
+
+            <button
+              onClick={clearSelection}
+              title="Clear selection"
+              className={selectionToolbarBtn}
+            >
+              <X className="w-[17px] h-[17px]" />
+            </button>
+          </>
+        ) : (
+          /* ── NORMAL MODE ── */
+          <>
+            <div className="flex-1 h-full overflow-x-auto scrollbar-none">
+              <PlatformFilterBar className="h-full" />
+            </div>
+
+            <div className="relative shrink-0 ml-1">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-foreground/30 pointer-events-none" />
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search…"
+                className="w-48 pl-8 pr-3 py-1.5 rounded-md border border-border/40 bg-white/[0.04] text-[13px] text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-white/[0.06] transition-all"
+              />
+            </div>
+          </>
+        )}
       </div>
 
       {/* ── Unread count ── */}

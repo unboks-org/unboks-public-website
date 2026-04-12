@@ -1,0 +1,144 @@
+SELECTION ACTION BAR — CLONE GMAIL BEHAVIOR WHEN A MESSAGE IS SELECTED
+
+GOAL
+When the user selects one or more messages with the inbox checkboxes, the top toolbar must switch into a Gmail-like "selection mode" action bar.
+
+I want the SAME UX PATTERN as Gmail:
+- no page change
+- no layout jump
+- no violent movement
+- same inbox shell stays in place
+- only the top action bar changes state when a message is selected
+
+IMPORTANT
+Clone the Gmail selection-toolbar behavior pattern.
+But use OUR WTYJ message actions, not Gmail’s exact actions.
+
+SCOPE
+Inbox / omni inbox only.
+Do not redesign unrelated parts.
+Do not touch marketing site.
+Do not touch demo site.
+Do not invent backend endpoints.
+
+REQUIRED BEHAVIOR
+
+1. TRIGGER
+- When user selects 1 or more messages via row checkboxes:
+  - the top toolbar switches into SELECTION MODE
+- When user deselects all messages:
+  - the toolbar returns to normal mode
+
+2. SAME SHELL MUST STAY
+- same inbox pane
+- same row list
+- same sidebar
+- same filter row
+- same search position if currently present
+- no page remount
+- no layout shift
+- no container resize
+- no route change feeling
+
+3. GMAIL-LIKE SELECTION TOOLBAR PATTERN
+When in selection mode:
+- show selected count clearly on the left, Gmail-style
+- show action icons/buttons across the top bar area
+- toolbar should feel operational and compact like Gmail
+- keep visual rhythm close to Gmail web
+- do not make it look like a custom admin bulk bar
+- it should feel like a natural state change of the same toolbar
+
+4. USE OUR NORMAL MESSAGE ACTIONS
+Do NOT copy Gmail’s exact action set blindly.
+Instead, surface the WTYJ actions that already make sense for selected messages.
+
+Use existing message actions where supported, such as:
+- archive
+- mark read / unread
+- escalation toggle or escalate
+- delete if supported
+- any current message-safe action already in the app
+
+If some actions are not currently bulk-capable:
+- show only the actions that are truly supported, OR
+- show disabled placeholders with TODO comments only if needed
+- do not fake functionality
+
+5. BULK ACTIONS MUST BE SAFE
+- no invented backend logic
+- no destructive action without confirmation where appropriate
+- if delete is not supported in bulk, do not pretend it is
+- prefer existing hooks/mutations
+- if only single-item actions exist today, wire selection mode UI first and only enable bulk actions that are already safe to support
+
+6. CHECKBOX + TOOLBAR INTERACTION
+- master checkbox in top toolbar must work with row checkboxes
+- selecting master checkbox selects visible rows in current filtered list
+- deselecting clears visible selections
+- selection state must respect current filters/platform view
+- if user filters the list, selection should stay sane and predictable
+
+7. FILTER COMPATIBILITY
+Selection mode must work while platform filters are active.
+Examples:
+- user selects WhatsApp filter, checks 3 rows -> selection toolbar appears
+- user selects Escalations view, checks 2 escalated rows -> same selection toolbar appears
+- same shell, same toolbar pattern, only selection state changes
+
+8. VISUAL REQUIREMENTS
+Clone Gmail’s behavior pattern, including:
+- toolbar state swap
+- compact top action area
+- left selected-count feel
+- action placement and spacing
+- calm, flat operational style
+- no chunky dashboard buttons
+- no oversized cards
+- no flashy transitions
+
+9. DO NOT
+- do not create a new page
+- do not open a modal just because something is selected
+- do not push the inbox down
+- do not change the list layout
+- do not redesign the full app
+- do not overanimate
+- do not add random actions that do not already belong to our message workflow
+
+PREFERRED IMPLEMENTATION
+- keep one inbox shell
+- maintain local/shared selected message state
+- conditionally render normal toolbar vs selection toolbar
+- reuse existing row checkboxes
+- reuse existing safe actions/hooks where possible
+
+SELECTION MODE CONTENT
+At minimum, selection mode should show:
+- selected count
+- archive action if available
+- read/unread action if available
+- escalate action if available
+- delete action only if safe/supported
+- clear selection behavior
+
+If any action is not currently supported in bulk:
+- disable it or omit it
+- do not fabricate backend support
+
+SUCCESS CRITERIA
+When I select one or more messages:
+- the top area changes like Gmail selection mode
+- the rest of the inbox stays static
+- selected count is visible
+- our message actions appear in the toolbar
+- it feels like Gmail behavior adapted to WTYJ
+- when I deselect all, normal toolbar returns
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. what selection-mode behavior was added
+3. which bulk actions are fully functional
+4. which actions are placeholder/disabled due to backend limitations
+5. confirmation that no layout jump was introduced
