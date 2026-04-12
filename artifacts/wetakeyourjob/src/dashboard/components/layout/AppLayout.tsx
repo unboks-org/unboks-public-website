@@ -1,10 +1,7 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { useAuthContext } from "@dashboard/components/auth/useAuthContext";
 import { useTheme } from "@dashboard/lib/theme";
 import {
-  LayoutDashboard,
-  MessageCircle,
-  Share2,
   AlertTriangle,
   Settings,
   LogOut,
@@ -12,6 +9,8 @@ import {
   Bell,
   Sun,
   Moon,
+  CalendarDays,
+  Inbox,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@dashboard/components/ui/button";
@@ -20,8 +19,7 @@ import { cn } from "@dashboard/lib/utils";
 import { motion } from "framer-motion";
 import { useConversations, useDryRun } from "@dashboard/hooks/use-bluemarlin";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
-import { useFeatureToggles } from "@dashboard/lib/feature-toggles";
-import { PenSquare } from "lucide-react";
+import { useBookingsLabel } from "@dashboard/hooks/use-bookings-label";
 
 const HIDDEN_KEY = "bluemarlin_hidden_conversations";
 function getHiddenSet(): Set<string> {
@@ -31,14 +29,21 @@ function getHiddenSet(): Set<string> {
   } catch { return new Set(); }
 }
 
-const BASE_NAV = [
-  { path: "/dashboard", label: "Home", icon: LayoutDashboard, featureKey: null },
-  { path: "/dashboard/messages", label: "Messages", icon: MessageCircle, featureKey: null },
-  { path: "/dashboard/escalations", label: "Escalations", icon: AlertTriangle, featureKey: null },
-  { path: "/dashboard/social", label: "Social Media", icon: Share2, featureKey: "showSocial" as const },
-  { path: "/dashboard/create", label: "Create", icon: PenSquare, featureKey: "showCreate" as const },
-  { path: "/dashboard/settings", label: "Settings", icon: Settings, featureKey: null },
-];
+const PAGE_LABELS: Record<string, { label: string; icon: React.ElementType }> = {
+  "/dashboard": { label: "Inbox", icon: Inbox },
+  "/dashboard/escalations": { label: "Escalations", icon: AlertTriangle },
+  "/dashboard/bookings": { label: "Bookings", icon: CalendarDays },
+  "/dashboard/settings": { label: "Settings", icon: Settings },
+  "/dashboard/settings/analytics": { label: "Analytics", icon: Settings },
+  "/dashboard/overview": { label: "Overview", icon: Inbox },
+  "/dashboard/social": { label: "Social Media", icon: Inbox },
+  "/dashboard/create": { label: "Create", icon: Inbox },
+  "/dashboard/training": { label: "Brand Training", icon: Settings },
+  "/dashboard/published": { label: "Published", icon: Inbox },
+  "/dashboard/learnings": { label: "Learnings", icon: Settings },
+  "/dashboard/assets": { label: "Assets", icon: Settings },
+  "/dashboard/capacity": { label: "Capacity", icon: CalendarDays },
+};
 
 function NotificationBell() {
   const [open, setOpen] = useState(false);
@@ -90,13 +95,8 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
   const location = useLocation();
   const { theme, toggle } = useTheme();
 
-  const current =
-    BASE_NAV.find(
-      (item) =>
-        location.pathname === item.path ||
-        (item.path !== "/dashboard" && location.pathname.startsWith(item.path))
-    ) || BASE_NAV[0];
-  const Icon = current.icon;
+  const match = PAGE_LABELS[location.pathname] ?? PAGE_LABELS["/dashboard"];
+  const Icon = match.icon;
 
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-US", {
@@ -115,7 +115,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
     >
       <div className="flex items-center gap-2">
         <Icon className="w-3.5 h-3.5 text-muted-foreground/40" />
-        <span className="text-sm font-medium text-foreground/60 tracking-tight">{current.label}</span>
+        <span className="text-sm font-medium text-foreground/60 tracking-tight">{match.label}</span>
       </div>
 
       <div className="flex items-center gap-1">
@@ -170,13 +170,13 @@ export function AppLayout() {
   const { theme, toggle } = useTheme();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { features } = useFeatureToggles();
+  const { label: bookingsLabel } = useBookingsLabel();
 
-  const navItems = BASE_NAV.filter((item) => {
-    if (item.featureKey === "showSocial") return features.showSocial;
-    if (item.featureKey === "showCreate") return features.showCreate;
-    return true;
-  });
+  const NAV_ITEMS = [
+    { path: "/dashboard/escalations", label: "Escalations", icon: AlertTriangle },
+    { path: "/dashboard/bookings", label: bookingsLabel, icon: CalendarDays },
+    { path: "/dashboard/settings", label: "Settings", icon: Settings },
+  ];
 
   const { data: conversations } = useConversations();
   const { readSet } = useReadStatus();
@@ -184,35 +184,55 @@ export function AppLayout() {
     (c) => !readSet.has(c.phone) && !getHiddenSet().has(c.phone)
   ).length;
 
+  const isHome = location.pathname === "/dashboard" || location.pathname === "/dashboard/";
+
   const SidebarContent = ({ hideActions = false }: { hideActions?: boolean }) => (
     <div className="flex flex-col h-full">
-      {/* Brand */}
-      <div className="px-5 pt-7 pb-5 border-b border-white/[0.08]">
-        <div className="select-none">
-          <p className="text-[15px] font-bold tracking-tight leading-none text-gradient-ocean">
-            Blue Marlin Tours
-          </p>
-          <p className="text-[10px] font-bold tracking-[0.24em] text-primary/45 uppercase mt-2">
-            Dashboard
-          </p>
+      <Link
+        to="/dashboard"
+        onClick={() => {
+          setMobileOpen(false);
+          window.dispatchEvent(new Event("bluemarlin:nav:messages"));
+        }}
+        className={cn(
+          "block px-5 pt-7 pb-5 border-b border-white/[0.08] group transition-colors",
+          isHome ? "bg-primary/[0.06]" : "hover:bg-white/[0.03]"
+        )}
+      >
+        <div className="select-none flex items-center justify-between">
+          <div>
+            <p className="text-[15px] font-bold tracking-tight leading-none text-gradient-ocean">
+              Blue Marlin Tours
+            </p>
+            <p className="text-[10px] font-bold tracking-[0.24em] text-primary/45 uppercase mt-2">
+              Dashboard
+            </p>
+          </div>
+          {unreadCount > 0 && (
+            <span
+              className="text-[11px] font-bold text-primary px-2 py-0.5 rounded-full tabular-nums"
+              style={{
+                background: "rgba(225,206,157,0.12)",
+                boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.25)",
+              }}
+            >
+              {unreadCount}
+            </span>
+          )}
         </div>
-      </div>
+      </Link>
 
-      {/* Nav */}
       <nav className="flex-1 px-3 pt-3 space-y-0.5 overflow-y-auto scrollbar-none">
-        {navItems.map((item) => {
+        {NAV_ITEMS.map((item) => {
           const active =
             location.pathname === item.path ||
-            (item.path !== "/dashboard" && location.pathname.startsWith(item.path));
+            location.pathname.startsWith(item.path + "/");
           return (
             <Link
               key={item.path}
               to={item.path}
               onClick={() => {
                 setMobileOpen(false);
-                if (item.path === "/dashboard/messages") {
-                  window.dispatchEvent(new Event("bluemarlin:nav:messages"));
-                }
                 if (item.path === "/dashboard/escalations") {
                   window.dispatchEvent(new Event("bluemarlin:nav:escalations"));
                 }
@@ -246,9 +266,6 @@ export function AppLayout() {
                     )}
                     style={active ? { filter: "drop-shadow(0 0 6px rgba(225,206,157,0.70))" } : undefined}
                   />
-                  {item.path === "/dashboard/messages" && unreadCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 w-[7px] h-[7px] rounded-full bg-primary shadow-[0_0_6px_rgba(225,206,157,0.9)]" />
-                  )}
                 </div>
                 <span className={cn(
                   "text-[15px] flex-1 tracking-tight",
@@ -256,24 +273,12 @@ export function AppLayout() {
                 )}>
                   {item.label}
                 </span>
-                {item.path === "/dashboard/messages" && unreadCount > 0 && (
-                  <span
-                    className="text-[11px] font-bold text-primary px-2 py-0.5 rounded-full tabular-nums"
-                    style={{
-                      background: "rgba(225,206,157,0.12)",
-                      boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.25)",
-                    }}
-                  >
-                    {unreadCount}
-                  </span>
-                )}
               </div>
             </Link>
           );
         })}
       </nav>
 
-      {/* Bottom actions */}
       {!hideActions && (
         <div className="px-3 pb-3 pt-2 border-t border-white/[0.08] space-y-0.5">
           <button
@@ -297,17 +302,14 @@ export function AppLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Desktop Sidebar */}
       <aside className="hidden md:block w-52 glass-panel shrink-0 z-20">
         <SidebarContent hideActions />
       </aside>
 
-      {/* Main Column */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <DryRunBanner />
         <TopBar onLogout={logout} />
 
-        {/* Mobile Header */}
         <header
           className="md:hidden flex items-center justify-between px-4 py-3 backdrop-blur-2xl"
           style={{
