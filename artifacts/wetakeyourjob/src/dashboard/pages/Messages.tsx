@@ -811,6 +811,29 @@ export default function Messages() {
               <Circle className="w-[17px] h-[17px]" />
             </button>
 
+            {(() => {
+              if (selectedSet.size !== 1) return null;
+              const singlePhone = [...selectedSet][0];
+              const singleConv = (conversations ?? []).find((c) => c.phone === singlePhone);
+              if (!singleConv || singleConv.channel !== "email") return null;
+              return (
+                <>
+                  <div className="h-4 w-px bg-border/50 mx-2 shrink-0" />
+                  <button
+                    onClick={() => {
+                      const to = singlePhone.includes("@") ? singlePhone : "";
+                      openEmailCompose(emailSettings, to, `Re: ${singleConv.customer_name}`, "");
+                    }}
+                    title="Reply to email"
+                    className="flex items-center gap-1.5 px-2 py-1.5 rounded text-foreground/65 hover:text-foreground hover:bg-white/[0.10] transition-colors text-[13px]"
+                  >
+                    <Mail className="w-[17px] h-[17px]" />
+                    <span className="hidden sm:inline">Reply</span>
+                  </button>
+                </>
+              );
+            })()}
+
             <div className="h-4 w-px bg-border/50 mx-2 shrink-0" />
 
             <button

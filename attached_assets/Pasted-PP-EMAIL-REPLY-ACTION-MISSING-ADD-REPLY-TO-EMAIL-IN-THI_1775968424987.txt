@@ -1,0 +1,78 @@
+PP:
+
+EMAIL REPLY ACTION MISSING — ADD REPLY TO EMAIL IN THIS VIEW
+
+PROBLEM
+In this selected-message / email view, I need the ability to REPLY TO EMAIL from here.
+Right now that action is missing or not visible enough.
+
+IMPORTANT
+This is not a redesign task.
+Add the reply-to-email action into the current Gmail-style selection/detail workflow.
+Keep the current shell/layout.
+No layout jump.
+No page swap.
+No unrelated UI changes.
+
+REQUIRED BEHAVIOR
+When the selected conversation/message is an EMAIL conversation:
+- I must see a clear "Reply to email" action in this top action area
+- clicking it must open the existing email reply flow/composer if that already exists in the codebase
+- if the existing implementation uses Gmail compose / mailto / internal reply UI, reuse that exact logic
+- do NOT invent a new backend
+- do NOT create a fake replacement if reply functionality already exists elsewhere in the project
+
+CONTEXT-AWARE RULE
+Only show/enable this action when the selected item is an email-capable conversation.
+Examples:
+- email conversation selected → show Reply to email
+- WhatsApp / Instagram / X / Facebook selected → do not show this email reply action
+
+SELECTION MODE RULE
+If exactly 1 email conversation is selected:
+- show the Reply to email action in the top toolbar
+
+If multiple messages are selected:
+- either hide it, or disable it unless bulk email reply actually exists
+- do NOT fake multi-reply support
+
+DETAIL VIEW RULE
+If there is already a detail view for the selected email thread/conversation:
+- the same reply action should also be accessible there
+- but this task is specifically about making it available from this current selected-message view/tool area
+
+IMPLEMENTATION RULE
+1. inspect existing email compose / reply logic in the codebase
+2. find the current message action used for email reply / compose
+3. reuse and expose that action here
+4. keep styling aligned with the Gmail-like top action bar
+5. do not redesign the rest of the toolbar
+
+UI REQUIREMENTS
+- action must be easy to see
+- action must match current toolbar style
+- no giant custom button unless necessary
+- icon + label is fine if that fits the current toolbar better
+- should feel native to the current inbox shell
+
+DO NOT
+- do not rebuild email sending from scratch
+- do not invent a new endpoint
+- do not break non-email conversations
+- do not show reply-to-email for non-email channels
+- do not change unrelated actions
+
+SUCCESS CRITERIA
+- select 1 email conversation
+- I can clearly see a Reply to email action here
+- clicking it opens the existing reply flow
+- non-email conversations do not wrongly show this action
+- no layout jump or redesign
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. where the existing email reply logic was found
+3. how it was exposed in this selected-message toolbar/view
+4. confirmation that it only appears for email conversations
+5. confirmation that no unrelated UI was changed
