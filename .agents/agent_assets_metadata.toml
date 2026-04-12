@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "5OQhGvKL9v7H-wnxa2q1v"
+uri = "file://wetakeyourjob-full-reference.md"
+type = "text"
+title = "wetakeyourjob.com — Complete Project Reference"
