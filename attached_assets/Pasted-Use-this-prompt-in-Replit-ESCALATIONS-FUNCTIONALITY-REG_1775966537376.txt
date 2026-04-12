@@ -1,0 +1,100 @@
+Use this prompt in Replit:
+
+ESCALATIONS FUNCTIONALITY REGRESSION FIX — RESTORE EXISTING SEMI / FULL ESCALATION FEATURES IN THE NEW INBOX VERSION
+
+PROBLEM
+The new inbox / escalations version is missing escalation functionality that already exists in the project.
+These features are NOT new features to build.
+They are ALREADY BUILT and must be visible and usable again in this version.
+
+IMPORTANT
+DO NOT rebuild these features from scratch.
+DO NOT invent new logic.
+DO NOT create replacement versions.
+FIND THE EXISTING ESCALATION FUNCTIONALITY IN THE CURRENT CODEBASE AND RE-INTEGRATE IT INTO THE NEW OMNI INBOX / ESCALATIONS UI.
+
+EXISTING FUNCTIONALITY THAT MUST BE RESTORED
+
+1. SEMI ESCALATION
+- I must be able to send a message to the internal human operator (example: Marina)
+- Marina then answers the client
+- this workflow already exists
+- restore it exactly from the existing implementation
+
+2. FULL ESCALATION
+- I must be able to send a message directly to the client / customer
+- this workflow already exists
+- restore it exactly from the existing implementation
+
+3. AI REWRITE TOOL IN FULL ESCALATION
+- in full escalation, I already had an AI tool that rewrites my message into the configured brand/tone
+- this is already built
+- restore this exact functionality into the current UI
+- do not create a fake placeholder if the logic already exists
+
+PRIMARY INSTRUCTION
+This is a REGRESSION FIX.
+The functionality existed before and must now be wired back into the current escalations experience.
+
+LIKELY ROOT CAUSE
+During the Gmail-clone / omni inbox refactor, the UI shell changed and the older escalation detail actions/panels were not reconnected or are no longer being rendered.
+That is the bug to fix.
+
+WHAT TO DO
+1. inspect the previous escalation implementation in the existing codebase
+2. find where semi escalation UI/actions are implemented
+3. find where full escalation UI/actions are implemented
+4. find where AI rewrite/tone helper is implemented
+5. reattach those existing controls and flows into the current escalation detail view / message pane
+6. preserve the new inbox shell if possible
+7. restore all escalation capabilities without redesigning them unnecessarily
+
+REQUIRED BEHAVIOR
+When I open an escalated conversation in the current inbox version, I must again have access to:
+- semi escalation workflow
+- full escalation workflow
+- direct-to-client send in full escalation
+- AI rewrite tool for tone/brand adjustment in full escalation
+- any supporting controls that already existed in the old escalation detail UI
+
+DO NOT
+- do not create a simplified replacement
+- do not hide these features behind extra clicks unless they were already there
+- do not invent new backend endpoints
+- do not remove current inbox structure unless absolutely necessary
+- do not rebuild escalation logic from zero
+- do not say “coming soon” for features that already exist in the codebase
+
+IMPLEMENTATION RULE
+Reuse existing hooks, components, mutations, dialogs, composer logic, rewrite tools, and escalation panels from the old implementation.
+If they were disconnected during refactor, reconnect them.
+
+EXPECTED RESULT
+The new omni inbox version should keep the new shell/layout,
+BUT when an escalation is opened, it must expose the same operational power that the previous escalation implementation already had.
+
+CHECK FOR THESE SPECIFIC REGRESSIONS
+- missing semi/full escalation mode controls
+- missing send message options
+- missing direct-to-client action in full escalation
+- missing AI rewrite / tone rewrite action
+- missing escalation detail action panel
+- missing compose area / action buttons that used to exist
+
+SUCCESS CRITERIA
+- semi escalation works again
+- full escalation works again
+- sending to internal operator works again
+- sending directly to customer in full escalation works again
+- AI rewrite/tone tool is visible and usable again in full escalation
+- all of this is restored using existing project logic, not rebuilt from scratch
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. which existing escalation components/features were reconnected
+3. confirmation that semi escalation is restored
+4. confirmation that full escalation is restored
+5. confirmation that direct-to-client sending in full escalation is restored
+6. confirmation that the AI rewrite/tone tool is restored
+7. note any genuine backend issue only if something truly no longer exists in the codebase

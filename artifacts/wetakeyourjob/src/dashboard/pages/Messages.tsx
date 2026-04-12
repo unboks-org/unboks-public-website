@@ -1,7 +1,8 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGoBack } from "@dashboard/hooks/use-go-back";
-import { useConversations, useConversation, useDeleteConversation } from "@dashboard/hooks/use-bluemarlin";
+import { useConversations, useConversation, useDeleteConversation, useEscalations, useSuggestReply, useEscalationReply } from "@dashboard/hooks/use-bluemarlin";
+import { useEmailSettings, openEmailCompose } from "@dashboard/hooks/use-email-settings";
 import { Conversation } from "@dashboard/lib/api";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
 import { usePlatformFilter } from "@dashboard/hooks/use-platform-filter";
@@ -11,7 +12,7 @@ import { Skeleton } from "@dashboard/components/ui/skeleton";
 import {
   MessageCircle, Phone, Search, ArrowLeft, ChevronRight, ChevronDown,
   AlertTriangle, User, Archive, ArchiveRestore, Circle, CheckCircle,
-  CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2, Check, X,
+  CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2, Check, X, Wand2, Send, Shield,
 } from "lucide-react";
 import { cn } from "@dashboard/lib/utils";
 import { isToday, isThisYear, format } from "date-fns";
@@ -95,6 +96,24 @@ function useHiddenConversations() {
 }
 
 type View = "list" | "detail";
+interface ComposeState { to: string; subject: string; body: string; }
+
+const isSemi = (type: string) => type === "relay" || type === "semi_escalation";
+
+const parseEscalationBody = (body: string) => {
+  const emailMatch = body.match(/Email:\s*(\S+@\S+)/i);
+  const phoneMatch = body.match(/WhatsApp:\s*([^\s)]+)/);
+  const questionMatch = body.match(/Their question:\s*(.+?)(?:\n|$)/);
+  const chatLogStart = body.indexOf("=== CHAT LOG ===");
+  const chatLog = chatLogStart >= 0 ? body.slice(chatLogStart + 16).trim() : "";
+  return { email: emailMatch?.[1] || "", phone: phoneMatch?.[1] || "", question: questionMatch?.[1]?.trim() || "", chatLog };
+};
+
+const cleanSubject = (subject: string): string => {
+  const parts = subject.split(" - ");
+  const intent = parts[parts.length - 1]?.trim() || subject;
+  return intent.charAt(0).toUpperCase() + intent.slice(1);
+};
 
 function gmailDate(dateStr: string): string {
   const d = new Date(dateStr);
@@ -279,6 +298,11 @@ export default function Messages() {
   const { readSet, markRead, markUnread } = useReadStatus();
   const { data: detail } = useConversation(selectedPhone);
   const { selected: platformFilter } = usePlatformFilter();
+  const { data: escalations } = useEscalations();
+  const suggestReply = useSuggestReply();
+  const escalationReply = useEscalationReply();
+  const { settings: emailSettings } = useEmailSettings();
+  const [compose, setCompose] = useState<ComposeState | null>(null);
 
   useEffect(() => {
     setView("list");
@@ -333,6 +357,7 @@ export default function Messages() {
   const backToList = () => {
     setView("list");
     setSelectedPhone("");
+    setCompose(null);
   };
 
   useEffect(() => {
@@ -378,8 +403,136 @@ export default function Messages() {
 
   /* ─── DETAIL VIEW ──────────────────────────────────────────────────────── */
   if (view === "detail" && detail) {
+    /* find the matching escalation record for this conversation (if escalated) */
+    const matchedEsc = detail.status === "escalated"
+      ? (escalations ?? []).find(
+          (e) => e.customer_id === detail.phone || e.customer_phone === detail.phone || e.customer_contact === detail.phone
+        ) ?? null
+      : null;
+
+    const sendCompose = () => {
+      if (!compose || !matchedEsc) return;
+      openEmailCompose(emailSettings, compose.to, compose.subject, compose.body);
+      setCompose(null);
+    };
+
     return (
       <div className="flex flex-col h-full overflow-y-auto p-5 md:p-8">
+
+        {/* ── Floating Escalation Compose Modal ── */}
+        {compose && matchedEsc && (
+          <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4">
+            <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setCompose(null)} />
+            <div className="relative w-full max-w-2xl rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+              <div className={cn(
+                "flex items-center justify-between px-5 py-3.5 border-b border-border",
+                isSemi(matchedEsc.notification_type) ? "bg-slate-500/10" : "bg-rose-500/10"
+              )}>
+                <div className="flex items-center gap-2.5">
+                  {isSemi(matchedEsc.notification_type) ? (
+                    <>
+                      <Phone className="w-4 h-4 text-slate-400" />
+                      <span className="text-sm font-semibold text-foreground">Semi Escalation Reply</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Semi</span>
+                      <span className="text-xs text-muted-foreground">— Marina will reformat and send via WhatsApp</span>
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-4 h-4 text-rose-400" />
+                      <span className="text-sm font-semibold text-foreground">Full Escalation Email</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Full</span>
+                      <span className="text-xs text-muted-foreground">— opens in {emailSettings.client === "gmail" ? "Gmail" : "your mail app"}</span>
+                    </>
+                  )}
+                </div>
+                <button onClick={() => setCompose(null)} className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="p-5 space-y-3">
+                {isSemi(matchedEsc.notification_type) ? (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <label className="text-xs font-semibold text-muted-foreground w-14 shrink-0">To</label>
+                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/20 text-sm text-foreground/70">
+                        {matchedEsc.customer_name}{matchedEsc.customer_id ? <span className="text-foreground/40 font-mono ml-2">· {matchedEsc.customer_id}</span> : ""}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <label className="text-xs font-semibold text-muted-foreground w-14 shrink-0">Context</label>
+                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/20 text-sm text-foreground/70">
+                        {cleanSubject(matchedEsc.subject)}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <label className="text-xs font-semibold text-muted-foreground w-14 shrink-0">To</label>
+                      <input value={compose.to} onChange={(e) => setCompose({ ...compose, to: e.target.value })} placeholder="customer@email.com" className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/30 text-sm text-foreground placeholder:text-foreground/35 focus:outline-none focus:border-primary/50 transition-colors" />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <label className="text-xs font-semibold text-muted-foreground w-14 shrink-0">Subject</label>
+                      <input value={compose.subject} onChange={(e) => setCompose({ ...compose, subject: e.target.value })} className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/30 text-sm text-foreground focus:outline-none focus:border-primary/50 transition-colors" />
+                    </div>
+                  </>
+                )}
+                <div className="flex gap-3">
+                  <label className="text-xs font-semibold text-muted-foreground w-14 shrink-0 pt-2">
+                    {isSemi(matchedEsc.notification_type) ? "Reply" : "Body"}
+                  </label>
+                  <textarea
+                    value={compose.body}
+                    onChange={(e) => setCompose({ ...compose, body: e.target.value })}
+                    rows={5}
+                    placeholder={isSemi(matchedEsc.notification_type) ? "Type your answer to Marina here..." : ""}
+                    className="flex-1 w-full px-3 py-2 rounded-lg border border-border bg-muted/30 text-sm text-foreground resize-none focus:outline-none focus:border-primary/50 transition-colors"
+                  />
+                </div>
+                <div className="flex justify-between items-center pt-1 gap-2">
+                  {!isSemi(matchedEsc.notification_type) && (
+                    <button
+                      onClick={async () => {
+                        if (!matchedEsc?.customer_id || !compose?.body.trim()) return;
+                        try {
+                          const result = await suggestReply.mutateAsync({ phone: matchedEsc.customer_id, draft_text: compose.body });
+                          setCompose(prev => prev ? { ...prev, subject: result.subject, body: result.body } : prev);
+                        } catch {}
+                      }}
+                      disabled={suggestReply.isPending || !compose?.body.trim()}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold border border-dashed border-primary/40 text-primary hover:bg-primary/10 hover:border-primary/60 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    >
+                      <Wand2 className="w-3.5 h-3.5" />
+                      {suggestReply.isPending ? "Rewriting…" : "Rewrite"}
+                    </button>
+                  )}
+                  {isSemi(matchedEsc.notification_type) ? (
+                    <button
+                      onClick={async () => {
+                        if (!matchedEsc || !compose?.body.trim()) return;
+                        try {
+                          await escalationReply.mutateAsync({ id: matchedEsc.id, answer: compose.body });
+                          setCompose(null);
+                        } catch {}
+                      }}
+                      disabled={escalationReply.isPending || !compose?.body.trim()}
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors ml-auto"
+                    >
+                      <Send className="w-3.5 h-3.5" />
+                      {escalationReply.isPending ? "Sending…" : "Send Reply via Marina"}
+                    </button>
+                  ) : (
+                    <button onClick={sendCompose} disabled={!compose?.to} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors ml-auto">
+                      <Send className="w-3.5 h-3.5" />
+                      Open in {emailSettings.client === "gmail" ? "Gmail" : "Mail App"}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* breadcrumb */}
         <div className="flex items-center gap-2 text-sm pb-4">
           <button
@@ -406,8 +559,17 @@ export default function Messages() {
                 {detail.booking_state?.fields?.customer_name as string || selectedPhone}
               </h2>
               <p className="text-xs text-muted-foreground font-mono">{selectedPhone}</p>
+              {matchedEsc && (
+                <span className={cn(
+                  "inline-flex items-center gap-1.5 mt-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded",
+                  isSemi(matchedEsc.notification_type) ? "bg-blue-500/15 text-blue-400" : "bg-rose-500/15 text-rose-400"
+                )}>
+                  <AlertTriangle className="w-2.5 h-2.5" />
+                  {isSemi(matchedEsc.notification_type) ? "Semi" : "Full"} Escalation
+                </span>
+              )}
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
               {readSet.has(selectedPhone) && (
                 <button
                   onClick={() => markUnread(selectedPhone)}
@@ -415,6 +577,33 @@ export default function Messages() {
                 >
                   <Circle className="w-3.5 h-3.5" /> Mark unread
                 </button>
+              )}
+              {matchedEsc ? (
+                <button
+                  onClick={() => {
+                    const parsed = parseEscalationBody(matchedEsc.body);
+                    setCompose({
+                      to: isSemi(matchedEsc.notification_type) ? "" : parsed.email,
+                      subject: isSemi(matchedEsc.notification_type) ? "" : `Re: ${cleanSubject(matchedEsc.subject)}`,
+                      body: "",
+                    });
+                  }}
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors",
+                    isSemi(matchedEsc.notification_type)
+                      ? "text-sky-400 border-sky-500/30 bg-sky-500/10 hover:bg-sky-500/20"
+                      : "text-rose-400 border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20"
+                  )}
+                >
+                  {isSemi(matchedEsc.notification_type)
+                    ? <><Phone className="w-3.5 h-3.5" /> Reply via Marina</>
+                    : <><Mail className="w-3.5 h-3.5" /> Compose email</>
+                  }
+                </button>
+              ) : detail.status === "escalated" && (
+                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20">
+                  <Shield className="w-3.5 h-3.5" /> Escalated
+                </span>
               )}
             </div>
           </div>
