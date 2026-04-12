@@ -50,15 +50,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <a
-            href="https://bmdashboard.wetakeyourjob.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="link-nav-login"
-            className="hidden items-center rounded-md border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground md:inline-flex"
-          >
-            Log In
-          </a>
           <Link
             to={`${PREFIX}/book`}
             data-testid="link-nav-book-now"
@@ -96,15 +87,6 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="https://bmdashboard.wetakeyourjob.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="link-mobile-login"
-              className="rounded-md px-4 py-2.5 text-sm font-medium text-muted-foreground transition"
-            >
-              Log In
-            </a>
           </div>
         </div>
       )}
