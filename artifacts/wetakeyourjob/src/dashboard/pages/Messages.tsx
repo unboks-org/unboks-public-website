@@ -4,6 +4,9 @@ import { useGoBack } from "@dashboard/hooks/use-go-back";
 import { useConversations, useConversation, useDeleteConversation } from "@dashboard/hooks/use-bluemarlin";
 import { Conversation } from "@dashboard/lib/api";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
+import { usePlatformFilter } from "@dashboard/hooks/use-platform-filter";
+import { matchesPlatformFilter } from "@dashboard/lib/channel-map";
+import { PlatformFilterBar } from "@dashboard/components/PlatformFilterBar";
 import { Skeleton } from "@dashboard/components/ui/skeleton";
 import {
   MessageCircle, Phone, Search, ArrowLeft, ChevronRight, ChevronDown, ChevronUp,
@@ -13,7 +16,6 @@ import {
 import { cn } from "@dashboard/lib/utils";
 import { formatDistanceToNow, format } from "date-fns";
 
-const FILTERS = ["All", "Active"];
 const HIDDEN_KEY = "bluemarlin_hidden_conversations";
 
 function useHiddenConversations() {
@@ -77,31 +79,32 @@ function ConversationRow({
   return (
     <div
       className={cn(
-        "flex items-start gap-4 px-4 py-4 rounded-xl border border-border/60 bg-card cursor-pointer select-none group",
+        "flex items-start gap-4 px-4 py-3.5 border-b border-border/40 cursor-pointer select-none group",
         "transition-all duration-150",
-        "hover:border-border hover:shadow-lg hover:shadow-black/20 hover:-translate-y-px",
-        isHidden && "opacity-50"
+        "hover:bg-muted/30",
+        isHidden && "opacity-50",
+        !isRead && !isHidden && "bg-primary/[0.03]"
       )}
       onClick={() => onOpen(conv.phone)}
     >
-      <div className="relative w-9 h-9 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 mt-0.5">
-        <User className="w-4 h-4 text-foreground/40" />
+      <div className="relative w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 mt-0.5">
+        <User className="w-3.5 h-3.5 text-foreground/40" />
         {!isRead && !isHidden && (
           <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-primary border-2 border-card" />
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <div className="flex items-center justify-between gap-2 mb-1">
+        <div className="flex items-center justify-between gap-2 mb-0.5">
           <span className={cn("text-sm text-foreground", isRead ? "font-medium" : "font-semibold")}>{conv.customer_name}</span>
           <span className="text-xs text-muted-foreground/50 tabular-nums shrink-0">
             {formatDistanceToNow(new Date(conv.last_message_at), { addSuffix: true })}
           </span>
         </div>
-        <p className={cn("text-xs line-clamp-2 leading-relaxed", isRead ? "text-muted-foreground/55" : "text-foreground/75")}>
+        <p className={cn("text-xs line-clamp-1 leading-relaxed", isRead ? "text-muted-foreground/55" : "text-foreground/75")}>
           {conv.last_message_role === "assistant" && <span className="text-primary/60 font-medium">AI · </span>}
           {conv.last_message}
         </p>
-        <div className="flex items-center gap-1.5 mt-2.5">
+        <div className="flex items-center gap-1.5 mt-1.5">
           <span className="inline-flex items-center gap-1 text-[10px] font-medium tracking-wide px-2 py-0.5 rounded-md bg-foreground/[0.05] text-muted-foreground/70 border border-border/40">
             {conv.channel === "instagram_dm" ? <Instagram className="w-2.5 h-2.5" />
             : conv.channel === "facebook_dm" ? <Facebook className="w-2.5 h-2.5" />
@@ -123,7 +126,7 @@ function ConversationRow({
           <span className="text-[10px] text-muted-foreground/35 ml-auto tabular-nums">{conv.message_count} msg</span>
         </div>
       </div>
-      <div className="shrink-0 self-center flex items-center gap-0.5">
+      <div className="shrink-0 self-center flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
         <button
           onClick={(e) => { e.stopPropagation(); isRead ? onMarkUnread(conv.phone) : onMarkRead(conv.phone); }}
           title={isRead ? "Mark as unread" : "Mark as read"}
@@ -167,25 +170,17 @@ export default function Messages() {
   const goBack = useGoBack();
   const bookingInfoRef = useRef<HTMLDivElement>(null);
   const { data: conversations, isLoading } = useConversations();
-  const [activeFilter, setActiveFilter] = useState("All");
   const [search, setSearch] = useState("");
   const [view, setView] = useState<View>("list");
   const [selectedPhone, setSelectedPhone] = useState("");
   const [showHidden, setShowHidden] = useState(false);
-  const [listExpanded, setListExpanded] = useState(false);
   const { hidden, hide, unhide, unhideAll } = useHiddenConversations();
   const { readSet, markRead, markUnread } = useReadStatus();
   const { data: detail } = useConversation(selectedPhone);
-
-  const allConvs = (conversations ?? []).filter((c) => !hidden.has(c.phone));
-  const tabCount = (f: string) => {
-    if (f === "All") return allConvs.length;
-    if (f === "Active") return allConvs.filter(c => c.status === "active").length;
-    return 0;
-  };
+  const { selected: platformFilter } = usePlatformFilter();
 
   const allFiltered = (conversations ?? []).filter((c) => {
-    if (activeFilter === "Active" && c.status !== "active") return false;
+    if (!matchesPlatformFilter(c.channel, platformFilter)) return false;
     if (search) {
       const q = search.toLowerCase();
       return c.customer_name.toLowerCase().includes(q) || c.phone.includes(q) || c.last_message.toLowerCase().includes(q);
@@ -223,68 +218,31 @@ export default function Messages() {
   };
 
   return (
-    <div className="space-y-4 h-full flex flex-col">
+    <div className="space-y-0 h-full flex flex-col">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm">
-        <button onClick={view === "detail" ? backToList : goBack} className="flex items-center gap-1 text-foreground/40 hover:text-foreground transition-colors pr-2 border-r border-border mr-1">
-          <ArrowLeft className="w-3.5 h-3.5" />
-        </button>
-        <button onClick={backToList} className={cn("font-medium transition-colors", view === "list" ? "text-foreground" : "text-muted-foreground hover:text-foreground")}>
-          Messages
-        </button>
-        {view === "detail" && detail && (
-          <>
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
-            <span className="text-foreground font-medium">{detail.booking_state?.fields?.customer_name as string || selectedPhone}</span>
-          </>
-        )}
-      </div>
+      {view === "detail" && (
+        <div className="flex items-center gap-2 text-sm pb-3">
+          <button onClick={backToList} className="flex items-center gap-1 text-foreground/40 hover:text-foreground transition-colors pr-2 border-r border-border mr-1">
+            <ArrowLeft className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={backToList} className="font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Inbox
+          </button>
+          {detail && (
+            <>
+              <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
+              <span className="text-foreground font-medium">{detail.booking_state?.fields?.customer_name as string || selectedPhone}</span>
+            </>
+          )}
+        </div>
+      )}
 
       {/* LIST VIEW */}
       {view === "list" && (
         <>
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-display font-bold text-foreground mb-1">Messages</h1>
-              <p className="text-muted-foreground text-sm">All conversations managed on your behalf — live and in full.</p>
-            </div>
-            {unreadCount > 0 && (
-              <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/15 text-sky-400 text-xs font-bold border border-sky-500/25">
-                <Circle className="w-2 h-2 fill-sky-400" />
-                {unreadCount} unread
-              </span>
-            )}
-          </div>
-
-          {/* Filters + Search */}
-          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <div className="flex items-center gap-1 bg-card border border-border rounded-xl p-1 shrink-0 w-fit">
-              {FILTERS.map((f) => {
-                const count = tabCount(f);
-                const active = activeFilter === f;
-                return (
-                  <button
-                    key={f}
-                    onClick={() => setActiveFilter(f)}
-                    className={cn(
-                      "flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
-                      active ? "bg-primary/15 text-primary" : "text-foreground/60 hover:text-foreground hover:bg-muted"
-                    )}
-                  >
-                    {f}
-                    {count > 0 && (
-                      <span className={cn(
-                        "text-[11px] font-bold tabular-nums min-w-[18px] h-[18px] flex items-center justify-center rounded-full px-1.5 ring-1",
-                        active ? "bg-primary text-white ring-primary/40" : "bg-foreground/15 text-foreground ring-foreground/20"
-                      )}>
-                        {count}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="relative flex-1 max-w-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 pb-3">
+            <PlatformFilterBar className="flex-1" />
+            <div className="relative w-full sm:w-64 shrink-0">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
               <input
                 value={search}
@@ -295,13 +253,23 @@ export default function Messages() {
             </div>
           </div>
 
-          {/* Conversation List */}
-          <div className="space-y-3 flex-1 overflow-auto">
+          {unreadCount > 0 && (
+            <div className="flex items-center gap-2 px-1 pb-2">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary/80">
+                <Circle className="w-2 h-2 fill-primary" />
+                {unreadCount} unread
+              </span>
+            </div>
+          )}
+
+          <div className="flex-1 overflow-auto rounded-xl border border-border bg-card">
             {isLoading ? (
-              <div className="space-y-3">{[1, 2, 3].map((i) => <Skeleton key={i} className="h-24 rounded-2xl" />)}</div>
+              <div className="space-y-0 divide-y divide-border/40 p-4">
+                {[1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="h-16 rounded-lg" />)}
+              </div>
             ) : filtered.length > 0 ? (
-              <>
-                {(listExpanded ? filtered : filtered.slice(0, 3)).map((conv) => (
+              <div className="divide-y divide-border/0">
+                {filtered.map((conv) => (
                   <ConversationRow
                     key={conv.phone}
                     conv={conv}
@@ -314,61 +282,54 @@ export default function Messages() {
                     onDelete={handleDelete}
                   />
                 ))}
-                {filtered.length > 3 && (
-                  <button
-                    onClick={() => setListExpanded(prev => !prev)}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-border text-sm text-muted-foreground hover:text-foreground hover:border-border/80 hover:bg-muted/30 transition-all"
-                  >
-                    {listExpanded
-                      ? <><ChevronUp className="w-4 h-4" /> Show less</>
-                      : <><ChevronDown className="w-4 h-4" /> Show {filtered.length - 3} more</>}
-                  </button>
-                )}
-              </>
+              </div>
             ) : (
-              <div className="rounded-2xl border border-border bg-card px-5 py-10 text-center">
+              <div className="px-5 py-10 text-center">
                 <MessageCircle className="w-8 h-8 text-foreground/20 mx-auto mb-3" />
                 <p className="text-sm font-medium text-foreground/50">
                   {(conversations?.length ?? 0) === 0 ? "No conversations yet" : "No conversations match this filter"}
                 </p>
               </div>
             )}
-
-            {/* Archived conversations section */}
-            {hiddenCount > 0 && (
-              <div className="pt-2 border-t border-border/40 mt-2">
-                <button
-                  onClick={() => setShowHidden((s) => !s)}
-                  className="flex items-center gap-2 text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors mb-3 pt-2"
-                >
-                  <Archive className="w-3.5 h-3.5" />
-                  {showHidden ? "Hide" : "Show"} {hiddenCount} archived conversation{hiddenCount !== 1 ? "s" : ""}
-                  {showHidden && (
-                    <button
-                      onClick={(e) => { e.stopPropagation(); unhideAll(); setShowHidden(false); }}
-                      className="ml-2 text-primary hover:underline"
-                    >
-                      Restore all
-                    </button>
-                  )}
-                </button>
-                {showHidden && hiddenFiltered.map((conv) => (
-                  <ConversationRow
-                    key={conv.phone}
-                    conv={conv}
-                    isHidden
-                    readSet={readSet}
-                    onOpen={openConversation}
-                    onHide={hide}
-                    onUnhide={unhide}
-                    onMarkRead={markRead}
-                    onMarkUnread={markUnread}
-                    onDelete={handleDelete}
-                  />
-                ))}
-              </div>
-            )}
           </div>
+
+          {hiddenCount > 0 && (
+            <div className="pt-2 border-t border-border/40 mt-2">
+              <button
+                onClick={() => setShowHidden((s) => !s)}
+                className="flex items-center gap-2 text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors mb-3 pt-2"
+              >
+                <Archive className="w-3.5 h-3.5" />
+                {showHidden ? "Hide" : "Show"} {hiddenCount} archived conversation{hiddenCount !== 1 ? "s" : ""}
+                {showHidden && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); unhideAll(); setShowHidden(false); }}
+                    className="ml-2 text-primary hover:underline"
+                  >
+                    Restore all
+                  </button>
+                )}
+              </button>
+              {showHidden && (
+                <div className="rounded-xl border border-border bg-card overflow-hidden">
+                  {hiddenFiltered.map((conv) => (
+                    <ConversationRow
+                      key={conv.phone}
+                      conv={conv}
+                      isHidden
+                      readSet={readSet}
+                      onOpen={openConversation}
+                      onHide={hide}
+                      onUnhide={unhide}
+                      onMarkRead={markRead}
+                      onMarkUnread={markUnread}
+                      onDelete={handleDelete}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </>
       )}
 
@@ -392,7 +353,6 @@ export default function Messages() {
             </div>
           </div>
 
-          {/* Chat thread — newest first */}
           <div className="flex-1 overflow-y-auto space-y-3 pb-4">
             {[...detail.messages].reverse().map((msg, idx) =>
               msg.role === "system" ? (() => {
@@ -408,7 +368,6 @@ export default function Messages() {
                   colors = "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400";
                 } else if (isHoldPlaced) {
                   Icon = Clock;
-                  // amber (default) for pending-payment state — Brief 163
                 }
                 return (
                   <div key={idx} className="flex justify-center">
@@ -450,7 +409,6 @@ export default function Messages() {
             )}
           </div>
 
-          {/* Booking info panel */}
           <div ref={bookingInfoRef} className="shrink-0 mt-2 pt-3 border-t border-border space-y-3">
             {(detail.booking_state?.completed_bookings ?? []).length > 0 && (
               <div>

@@ -16,6 +16,7 @@ import { FeatureTogglesProvider } from '@dashboard/lib/feature-toggles';
 import { AuthProvider } from '@dashboard/components/auth/AuthProvider';
 import { ProtectedRoute } from '@dashboard/components/auth/ProtectedRoute';
 import { AppLayout } from '@dashboard/components/layout/AppLayout';
+import { PlatformFilterProvider } from '@dashboard/hooks/use-platform-filter';
 
 import Login from '@dashboard/pages/Login';
 import Overview from '@dashboard/pages/Overview';
@@ -29,6 +30,8 @@ import PublishedPosts from '@dashboard/pages/PublishedPosts';
 import BrandLearnings from '@dashboard/pages/BrandLearnings';
 import AssetLibrary from '@dashboard/pages/AssetLibrary';
 import CapacityChecker from '@dashboard/pages/CapacityChecker';
+import BookingsPage from '@dashboard/pages/BookingsPage';
+import Analytics from '@dashboard/pages/Analytics';
 import DashboardNotFound from '@dashboard/pages/not-found';
 
 import DemoApp from './demo/bluemarlin/DemoApp';
@@ -77,29 +80,34 @@ function DashboardShell() {
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <AuthProvider>
-              <Routes>
-                <Route path="login" element={<Login />} />
+              <PlatformFilterProvider>
+                <Routes>
+                  <Route path="login" element={<Login />} />
 
-                <Route element={<ProtectedRoute />}>
-                  <Route element={<AppLayout />}>
-                    <Route index element={<Overview />} />
-                    <Route path="messages" element={<Messages />} />
-                    <Route path="escalations" element={<Escalations />} />
-                    <Route path="social" element={<ContentPipeline />} />
-                    <Route path="create" element={<Create />} />
-                    <Route path="training" element={<BrandTraining />} />
-                    <Route path="settings" element={<Settings />} />
+                  <Route element={<ProtectedRoute />}>
+                    <Route element={<AppLayout />}>
+                      <Route index element={<Messages />} />
+                      <Route path="escalations" element={<Escalations />} />
+                      <Route path="bookings" element={<BookingsPage />} />
+                      <Route path="settings" element={<Settings />} />
+                      <Route path="settings/analytics" element={<Analytics />} />
 
-                    <Route path="content" element={<Navigate to="/dashboard/social" replace />} />
-                    <Route path="published" element={<PublishedPosts />} />
-                    <Route path="learnings" element={<BrandLearnings />} />
-                    <Route path="assets" element={<AssetLibrary />} />
-                    <Route path="capacity" element={<CapacityChecker />} />
+                      <Route path="overview" element={<Overview />} />
+                      <Route path="messages" element={<Navigate to="/dashboard" replace />} />
+                      <Route path="social" element={<ContentPipeline />} />
+                      <Route path="create" element={<Create />} />
+                      <Route path="training" element={<BrandTraining />} />
+                      <Route path="published" element={<PublishedPosts />} />
+                      <Route path="learnings" element={<BrandLearnings />} />
+                      <Route path="assets" element={<AssetLibrary />} />
+                      <Route path="capacity" element={<Navigate to="/dashboard/bookings" replace />} />
+                      <Route path="content" element={<Navigate to="/dashboard/social" replace />} />
+                    </Route>
                   </Route>
-                </Route>
 
-                <Route path="*" element={<DashboardNotFound />} />
-              </Routes>
+                  <Route path="*" element={<DashboardNotFound />} />
+                </Routes>
+              </PlatformFilterProvider>
               <ThemedToaster />
             </AuthProvider>
           </TooltipProvider>

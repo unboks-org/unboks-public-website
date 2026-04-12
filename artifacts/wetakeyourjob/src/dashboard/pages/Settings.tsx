@@ -12,11 +12,12 @@ import {
   HardDrive, CheckCircle2, XCircle, ChevronDown, ChevronUp,
   Info, Code, Map, Ship, Sun, Palette, ArrowRight, ArrowLeft, FolderOpen,
   Settings as SettingsIcon, CalendarDays, Plus, Clock, X, Mail, BrainCircuit, RefreshCw, Zap, Wrench,
-  LayoutDashboard, Share2, PenSquare,
+  LayoutDashboard, Share2, PenSquare, BarChart3,
 } from "lucide-react";
 import { useState } from "react";
 import { useEmailSettings } from "@dashboard/hooks/use-email-settings";
 import { useFeatureToggles } from "@dashboard/lib/feature-toggles";
+import { useBookingsLabel } from "@dashboard/hooks/use-bookings-label";
 import { cn } from "@dashboard/lib/utils";
 import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
@@ -150,6 +151,7 @@ export default function Settings() {
 
   const { settings: emailSettings, save: saveEmailSettings } = useEmailSettings();
   const { features, toggle: toggleFeature } = useFeatureToggles();
+  const { label: bookingsLabel, save: saveBookingsLabel } = useBookingsLabel();
 
   return (
     <div className="space-y-4 max-w-3xl">
@@ -202,7 +204,7 @@ export default function Settings() {
         </div>
 
         {/* Create toggle */}
-        <div className="flex items-center justify-between px-5 py-4">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
           <div className="flex items-center gap-3">
             <PenSquare className="w-4 h-4 text-muted-foreground shrink-0" />
             <div>
@@ -225,7 +227,55 @@ export default function Settings() {
             />
           </button>
         </div>
+
+        {/* Bookings / Orders label */}
+        <div className="flex items-center justify-between px-5 py-4">
+          <div className="flex items-center gap-3">
+            <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-foreground">Bookings / Orders Label</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Customize the sidebar navigation label</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-0.5 shrink-0">
+            <button
+              onClick={() => saveBookingsLabel("Bookings")}
+              className={cn(
+                "px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                bookingsLabel === "Bookings" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Bookings
+            </button>
+            <button
+              onClick={() => saveBookingsLabel("Orders")}
+              className={cn(
+                "px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                bookingsLabel === "Orders" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Orders
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* ── Analytics shortcut ───────────────────────────────────────────── */}
+      <button
+        onClick={() => navigate("/dashboard/settings/analytics")}
+        className="w-full flex items-center justify-between p-4 rounded-2xl border-l-4 border-l-violet-500 border-t border-r border-b border-border/70 bg-violet-50/60 dark:bg-violet-950/20 hover:bg-violet-50 dark:hover:bg-violet-950/30 shadow-sm transition-all"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-500/20 flex items-center justify-center shrink-0">
+            <BarChart3 className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+          </div>
+          <div className="text-left">
+            <p className="text-sm font-semibold text-foreground">Analytics</p>
+            <p className="text-xs text-muted-foreground">Inbox volume, platform stats, and activity trends</p>
+          </div>
+        </div>
+        <ArrowRight className="w-4 h-4 text-muted-foreground" />
+      </button>
 
       {/* ── Brand Training shortcut ──────────────────────────────────────── */}
       <button
@@ -459,7 +509,7 @@ export default function Settings() {
             View real-time availability across all trips. The system uses this data to write urgency-calibrated social posts.
           </p>
           <button
-            onClick={() => navigate("/dashboard/capacity")}
+            onClick={() => navigate("/dashboard/bookings")}
             className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border hover:bg-muted/60 transition-colors"
           >
             <p className="text-sm font-semibold text-foreground">Open Capacity Checker</p>

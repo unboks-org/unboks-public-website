@@ -3,6 +3,9 @@ import { useGoBack } from "@dashboard/hooks/use-go-back";
 import { useEscalations, useEscalationMutations, useSuggestReply, useEscalationReply, useCustomerByIdentifier, useDeleteEscalation } from "@dashboard/hooks/use-bluemarlin";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
 import { useEmailSettings, openEmailCompose } from "@dashboard/hooks/use-email-settings";
+import { usePlatformFilter } from "@dashboard/hooks/use-platform-filter";
+import { matchesPlatformFilter } from "@dashboard/lib/channel-map";
+import { PlatformFilterBar } from "@dashboard/components/PlatformFilterBar";
 import { Button } from "@dashboard/components/ui/button";
 import { Skeleton } from "@dashboard/components/ui/skeleton";
 import {
@@ -75,10 +78,12 @@ export default function Escalations() {
   const { settings: emailSettings } = useEmailSettings();
   const suggestReply = useSuggestReply();
   const escalationReply = useEscalationReply();
+  const { selected: platformFilter } = usePlatformFilter();
 
   const allEscalations = escalations ?? [];
-  const visibleAll = allEscalations.filter((e) => !hidden.has(String(e.id)));
-  const hiddenEscalations = allEscalations.filter((e) => hidden.has(String(e.id)));
+  const platformFiltered = allEscalations.filter((e) => matchesPlatformFilter(e.channel, platformFilter));
+  const visibleAll = platformFiltered.filter((e) => !hidden.has(String(e.id)));
+  const hiddenEscalations = platformFiltered.filter((e) => hidden.has(String(e.id)));
   const hiddenCount = hiddenEscalations.length;
 
   const pendingCount = visibleAll.filter((e) => e.status !== "resolved").length;
@@ -432,6 +437,8 @@ export default function Escalations() {
             )}
           </div>
 
+          <PlatformFilterBar className="mb-1" />
+
           <div className="flex items-center gap-1 bg-card border border-border rounded-xl p-1 shrink-0 w-fit">
             {FILTERS.map((f) => {
               const count = tabCount(f);
@@ -620,7 +627,7 @@ export default function Escalations() {
             })()}
           </div>
 
-          <div className="shrink-0 mt-4 pt-4 border-t border-border space-y-3">
+          <div className="shrink-0 mt-4 pt-4 border-t border-border flex items-center gap-3">
             {selected.status !== "resolved" && (
               <Button
                 onClick={() => { resolve.mutate(selected.id); backToList(); }}
@@ -631,7 +638,20 @@ export default function Escalations() {
                 {resolve.isPending ? "Resolving..." : "Mark Resolved"}
               </Button>
             )}
-
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (window.confirm("Permanently delete this escalation? This cannot be undone.")) {
+                  deleteEsc.mutate(selected.id);
+                  backToList();
+                }
+              }}
+              disabled={deleteEsc.isPending}
+              className="text-rose-400 border-rose-500/30 hover:bg-rose-500/10"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              {deleteEsc.isPending ? "Deleting..." : "Delete"}
+            </Button>
           </div>
         </div>
       )}

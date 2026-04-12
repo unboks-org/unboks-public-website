@@ -32,17 +32,19 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 
 **Dashboard (real BlueMarlin operator dashboard)**
 - `/dashboard/login` — Login page (client selector + access key, dark theme)
-- `/dashboard` — Overview (summary cards, urgent bar, recent activity)
-- `/dashboard/messages` — WhatsApp/SMS conversation viewer
-- `/dashboard/escalations` — Customer escalation queue
-- `/dashboard/social` — Social media content pipeline (drafts, approval, publishing)
-- `/dashboard/create` — Manual post creation
-- `/dashboard/training` — Brand training examples and voice rules
-- `/dashboard/settings` — Settings (feature toggles, Google Drive, schedule, email)
-- `/dashboard/published` — Published posts archive
-- `/dashboard/learnings` — Brand learnings manager
-- `/dashboard/assets` — Photo/video asset library
-- `/dashboard/capacity` — Trip capacity checker
+- `/dashboard` — OmniInbox (primary view, dense Gmail-style conversation list with PlatformFilterBar)
+- `/dashboard/escalations` — Escalation queue with PlatformFilterBar + delete in detail view
+- `/dashboard/bookings` — Bookings/Orders page (wraps CapacityChecker)
+- `/dashboard/analytics` — Analytics charts (platform counts, escalation status, 14-day trend via recharts)
+- `/dashboard/settings` — Settings (feature toggles, analytics shortcut, bookings/orders label toggle, email, etc.)
+- `/dashboard/overview` — Legacy overview (hidden from nav, accessible by direct URL)
+- `/dashboard/social` — Social media content pipeline (hidden from nav)
+- `/dashboard/create` — Manual post creation (hidden from nav)
+- `/dashboard/training` — Brand training examples (hidden from nav)
+- `/dashboard/published` — Published posts archive (hidden from nav)
+- `/dashboard/learnings` — Brand learnings manager (hidden from nav)
+- `/dashboard/assets` — Photo/video asset library (hidden from nav)
+- Legacy redirects: `/dashboard/messages` → `/dashboard`, `/dashboard/capacity` → `/dashboard/bookings`
 
 **Demo — BlueMarlin Tours Curaçao (booking site)**
 - `/demo/bluemarlin/` — Homepage (hero, packages, stats, FAQ, CTA)
@@ -105,9 +107,10 @@ API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
 - `artifacts/wetakeyourjob/src/layout/` — Navbar, Footer, SiteLayout
 - `artifacts/wetakeyourjob/src/dashboard/` — full BlueMarlin operator dashboard
 - `artifacts/wetakeyourjob/src/dashboard/components/` — auth, layout, ui (58+ shadcn components)
-- `artifacts/wetakeyourjob/src/dashboard/hooks/` — use-bluemarlin, use-read-status, use-email-settings, use-go-back, use-mobile
-- `artifacts/wetakeyourjob/src/dashboard/lib/` — api, theme, feature-toggles, utils, error
-- `artifacts/wetakeyourjob/src/dashboard/pages/` — Login, Overview, Messages, Escalations, ContentPipeline, Create, BrandTraining, Settings, + legacy pages
+- `artifacts/wetakeyourjob/src/dashboard/hooks/` — use-bluemarlin, use-read-status, use-email-settings, use-go-back, use-mobile, use-platform-filter, use-bookings-label
+- `artifacts/wetakeyourjob/src/dashboard/lib/` — api, theme, feature-toggles, channel-map, utils, error
+- `artifacts/wetakeyourjob/src/dashboard/pages/` — Login, Overview, Messages (OmniInbox), Escalations, BookingsPage, Analytics, ContentPipeline, Create, BrandTraining, Settings, + legacy pages
+- `artifacts/wetakeyourjob/src/dashboard/components/PlatformFilterBar.tsx` — shared platform channel filter
 - `artifacts/wetakeyourjob/src/demo/bluemarlin/` — BlueMarlin Tours booking demo
 - `artifacts/wetakeyourjob/src/demo/bluemarlin/DemoApp.tsx` — Demo shell (Navbar + Footer + Routes)
 - `artifacts/wetakeyourjob/src/demo/bluemarlin/pages/` — home, trips, booking, book, about, not-found
