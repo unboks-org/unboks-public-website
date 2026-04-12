@@ -30,7 +30,7 @@ function GmailCheckbox({
   onClick?: (e: React.MouseEvent) => void;
 }) {
   return (
-    <div
+    <label
       onClick={(e) => { e.stopPropagation(); onClick?.(e); }}
       className="relative flex items-center justify-center cursor-pointer"
     >
@@ -54,7 +54,7 @@ function GmailCheckbox({
           <span className="w-[8px] h-[1.5px] bg-background rounded-full block" />
         )}
       </div>
-    </div>
+    </label>
   );
 }
 
