@@ -294,7 +294,7 @@ export function AppLayout() {
                   "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
                   active
                     ? "text-foreground"
-                    : "text-foreground/70 hover:text-foreground hover:bg-white/[0.07]"
+                    : "text-foreground/70 hover:text-foreground hover:bg-black/[0.05] dark:hover:bg-white/[0.07]"
                 )}
               >
                 <div className="relative flex-shrink-0">
@@ -340,7 +340,7 @@ export function AppLayout() {
               "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
               isSettingsActive
                 ? "text-foreground"
-                : "text-foreground/70 hover:text-foreground hover:bg-white/[0.07]"
+                : "text-foreground/70 hover:text-foreground hover:bg-black/[0.05] dark:hover:bg-white/[0.07]"
             )}
           >
             <Settings

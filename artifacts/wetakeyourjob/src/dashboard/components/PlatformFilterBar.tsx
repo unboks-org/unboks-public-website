@@ -22,7 +22,7 @@ export function PlatformFilterBar({ className }: { className?: string }) {
           "relative flex items-center h-full px-3 text-sm transition-colors duration-100 shrink-0",
           isAll
             ? "text-foreground font-medium"
-            : "text-foreground/55 hover:text-foreground/85"
+            : "text-foreground/70 dark:text-foreground/55 hover:text-foreground/90 dark:hover:text-foreground/85"
         )}
       >
         All
@@ -42,7 +42,7 @@ export function PlatformFilterBar({ className }: { className?: string }) {
               "relative flex items-center gap-1.5 h-full px-3 text-sm transition-colors duration-100 shrink-0",
               active
                 ? "text-foreground font-medium"
-                : "text-foreground/55 hover:text-foreground/85"
+                : "text-foreground/70 dark:text-foreground/55 hover:text-foreground/90 dark:hover:text-foreground/85"
             )}
           >
             <Icon className="w-3 h-3 shrink-0" />

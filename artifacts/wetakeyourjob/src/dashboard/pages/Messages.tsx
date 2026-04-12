@@ -163,12 +163,12 @@ function ConversationRow({
     <div
       className={cn(
         "group relative flex items-center h-[52px] border-b cursor-pointer select-none transition-colors duration-75",
-        "border-border/[0.22]",
+        "border-border/60 dark:border-border/[0.22]",
         isSelected
           ? "bg-primary/[0.09]"
           : isRead
-          ? "hover:bg-white/[0.05]"
-          : "bg-primary/[0.04] hover:bg-primary/[0.06]",
+          ? "hover:bg-muted/50 dark:hover:bg-white/[0.05]"
+          : "bg-primary/[0.04] hover:bg-primary/[0.07]",
         isHidden && "opacity-50"
       )}
       onClick={() => onOpen(conv.phone)}
@@ -192,7 +192,7 @@ function ConversationRow({
       <span
         className={cn(
           "w-[170px] shrink-0 text-[13px] truncate pr-3",
-          isRead ? "font-normal text-foreground/78" : "font-semibold text-foreground"
+          isRead ? "font-normal text-foreground/90 dark:text-foreground/78" : "font-semibold text-foreground"
         )}
       >
         {conv.customer_name}
@@ -200,11 +200,11 @@ function ConversationRow({
 
       {/* subject · snippet */}
       <span className="flex-1 min-w-0 text-[13px] truncate">
-        <span className={cn(isRead ? "text-foreground/65" : "text-foreground/88 font-medium")}>
+        <span className={cn(isRead ? "text-foreground/80 dark:text-foreground/65" : "text-foreground/90 dark:text-foreground/88 font-medium")}>
           {channelLabel(conv.channel)}
         </span>
-        <span className="text-foreground/35 mx-2">—</span>
-        <span className={cn("font-normal", isRead ? "text-foreground/52" : "text-foreground/65")}>
+        <span className="text-foreground/50 dark:text-foreground/35 mx-2">—</span>
+        <span className={cn("font-normal", isRead ? "text-foreground/65 dark:text-foreground/52" : "text-foreground/75 dark:text-foreground/65")}>
           {conv.last_message_role === "assistant" && (
             <span className="text-primary/65 mr-1">AI ·</span>
           )}
@@ -220,10 +220,10 @@ function ConversationRow({
             Escalated
           </span>
         )}
-        <span className="text-muted-foreground/55">
+        <span className="text-muted-foreground/70 dark:text-muted-foreground/55">
           <ChannelIcon channel={conv.channel} />
         </span>
-        <span className="text-[10px] text-muted-foreground/50 tabular-nums">{conv.message_count}</span>
+        <span className="text-[10px] text-muted-foreground/65 dark:text-muted-foreground/50 tabular-nums">{conv.message_count}</span>
       </div>
 
       {/* date + hover actions (overlap) */}
@@ -232,7 +232,7 @@ function ConversationRow({
         <span
           className={cn(
             "absolute right-4 text-[12px] tabular-nums transition-opacity duration-75 group-hover:opacity-0",
-            isRead ? "text-muted-foreground/65" : "font-medium text-foreground/80"
+            isRead ? "text-muted-foreground/80 dark:text-muted-foreground/65" : "font-medium text-foreground/90 dark:text-foreground/80"
           )}
         >
           {gmailDate(conv.last_message_at)}
@@ -777,8 +777,7 @@ export default function Messages() {
 
       {/* ── Toolbar — swaps between normal and selection mode, same height/position ── */}
       <div
-        className="flex items-center shrink-0 h-[50px] border-b px-2 gap-1"
-        style={{ borderColor: "rgba(255,255,255,0.13)" }}
+        className="flex items-center shrink-0 h-[50px] border-b border-border px-2 gap-1"
       >
         {/* master checkbox — always present in both modes */}
         <div className="flex items-center shrink-0">
@@ -877,8 +876,7 @@ export default function Messages() {
       {/* ── Unread count ── */}
       {unreadCount > 0 && (
         <div
-          className="flex items-center gap-1.5 px-[52px] py-1.5 text-[11px] text-muted-foreground/45 border-b"
-          style={{ borderColor: "rgba(255,255,255,0.05)" }}
+          className="flex items-center gap-1.5 px-[52px] py-1.5 text-[11px] text-muted-foreground/70 dark:text-muted-foreground/45 border-b border-border/40 dark:border-border/20"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-primary/50 shrink-0" />
           {unreadCount} unread
@@ -931,10 +929,10 @@ export default function Messages() {
 
         {/* ── Archived section ── */}
         {hiddenCount > 0 && (
-          <div className="border-t border-border/[0.08]">
+          <div className="border-t border-border/40 dark:border-border/[0.08]">
             <button
               onClick={() => setShowHidden((s) => !s)}
-              className="flex items-center gap-2 px-[52px] py-2.5 text-[12px] text-muted-foreground/45 hover:text-muted-foreground/70 transition-colors w-full"
+              className="flex items-center gap-2 px-[52px] py-2.5 text-[12px] text-muted-foreground/70 dark:text-muted-foreground/45 hover:text-muted-foreground transition-colors w-full"
             >
               <Archive className="w-3.5 h-3.5" />
               {showHidden ? "Hide" : "Show"} {hiddenCount} archived
@@ -943,8 +941,7 @@ export default function Messages() {
             {showHidden && (
               <>
                 <div
-                  className="flex items-center justify-end px-4 py-1.5 border-b"
-                  style={{ borderColor: "rgba(255,255,255,0.05)" }}
+                  className="flex items-center justify-end px-4 py-1.5 border-b border-border/30 dark:border-border/20"
                 >
                   <button
                     onClick={() => { unhideAll(); setShowHidden(false); }}
