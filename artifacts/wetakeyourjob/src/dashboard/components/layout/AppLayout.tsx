@@ -22,6 +22,7 @@ import { motion } from "framer-motion";
 import { useConversations, useDryRun } from "@dashboard/hooks/use-bluemarlin";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
 import { useBookingsLabel } from "@dashboard/hooks/use-bookings-label";
+import { useFeatureToggles } from "@dashboard/lib/feature-toggles";
 
 const HIDDEN_KEY = "bluemarlin_hidden_conversations";
 function getHiddenSet(): Set<string> {
@@ -179,6 +180,7 @@ export function AppLayout() {
   const [searchParams] = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { label: bookingsLabel } = useBookingsLabel();
+  const { features } = useFeatureToggles();
 
   const isEscalationsView = location.pathname === "/dashboard" && searchParams.get("view") === "escalations";
 
@@ -197,6 +199,20 @@ export function AppLayout() {
       icon: CalendarDays,
       isActive: location.pathname === "/dashboard/bookings" || location.pathname.startsWith("/dashboard/bookings/"),
     },
+    ...(features.showSocial ? [{
+      path: "/dashboard/social",
+      search: "",
+      label: "Social Media",
+      icon: Share2,
+      isActive: location.pathname === "/dashboard/social" || location.pathname.startsWith("/dashboard/social/"),
+    }] : []),
+    ...(features.showCreate ? [{
+      path: "/dashboard/create",
+      search: "",
+      label: "Create",
+      icon: PenSquare,
+      isActive: location.pathname === "/dashboard/create" || location.pathname.startsWith("/dashboard/create/"),
+    }] : []),
   ];
 
   const isSettingsActive = location.pathname === "/dashboard/settings" || location.pathname.startsWith("/dashboard/settings/");
