@@ -87,7 +87,7 @@ function DashboardShell() {
                   <Route element={<ProtectedRoute />}>
                     <Route element={<AppLayout />}>
                       <Route index element={<Messages />} />
-                      <Route path="escalations" element={<Escalations />} />
+                      <Route path="escalations" element={<Navigate to="/dashboard?view=escalations" replace />} />
                       <Route path="bookings" element={<BookingsPage />} />
                       <Route path="settings" element={<Settings />} />
                       <Route path="settings/analytics" element={<Analytics />} />

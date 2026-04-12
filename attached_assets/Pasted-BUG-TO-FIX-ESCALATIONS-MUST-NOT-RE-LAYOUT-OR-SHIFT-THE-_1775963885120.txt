@@ -1,0 +1,82 @@
+BUG TO FIX — ESCALATIONS MUST NOT RE-LAYOUT OR SHIFT THE MAIN PANE
+
+PROBLEM
+Right now, when the user clicks "Escalations" in the left sidebar, the whole main pane visibly moves/shifts/re-renders in a violent way.
+This is wrong.
+
+REQUIRED BEHAVIOR
+The main content pane must stay visually static.
+No layout jump.
+No pane resize.
+No content area shift.
+No route-level page swap feeling.
+No structural movement of header/list/container.
+
+INTENDED UX
+The top platform filter bar stays exactly where it is.
+The list pane stays exactly where it is.
+The search bar stays exactly where it is.
+The sidebar stays exactly where it is.
+
+ONLY the LIST CONTENT below the platform filter bar should change.
+
+RULES
+1. If platform filters are selected in the top bar, keep them selected.
+2. When the user clicks "Escalations", do NOT rebuild the page layout.
+3. Do NOT swap to a visually different page shell.
+4. Do NOT remount a different outer container if avoidable.
+5. Do NOT change spacing, widths, padding, top bar position, or pane structure.
+6. Keep the same inbox pane and same list container.
+7. Only filter the existing visible message dataset so that only escalated messages remain.
+8. When Escalations is toggled off / user goes back Home, show the same pane again with all messages matching the current platform filters.
+9. The transition should feel like a DATA FILTER, not a PAGE CHANGE.
+
+IMPLEMENTATION INTENT
+Treat "Escalations" as a view/filter state on the SAME inbox pane, not as a separate page experience.
+
+TARGET BEHAVIOR MODEL
+- Current selected platforms remain active
+- Inbox main pane remains mounted
+- Message rows are filtered by:
+  - selected platforms
+  - escalated = true (only when Escalations is active)
+
+FILTER LOGIC
+VISIBLE_ROWS =
+all conversations
+→ filtered by selected platform(s)
+→ if Escalations active, additionally filter to only escalated items
+→ render in the exact same list container
+
+PREFERRED TECHNICAL APPROACH
+- Reuse the same main Inbox component/layout shell
+- Reuse the same top filter bar
+- Reuse the same search area
+- Reuse the same message list wrapper
+- Only swap the dataset feeding the rows
+- If routing currently forces a full page remount, refactor so the route shares the same outer pane/layout and only changes inner filtered content
+- Avoid animation that causes movement
+- Avoid conditional wrappers with different margins/padding/heights
+
+DO NOT
+- do not create a different escalations page layout
+- do not change pane width
+- do not push content left/right/up/down
+- do not collapse/re-expand containers
+- do not visually “reload” the screen
+- do not introduce fancy transitions
+
+SUCCESS CRITERIA
+When I click "Escalations":
+- the pane looks frozen/static
+- only the message list content updates
+- only escalated messages remain
+- selected platform filters stay active
+- nothing else visibly moves
+
+When I click back to Home/Inbox:
+- same pane still stays static
+- full filtered inbox list returns
+- still no layout movement
+
+Please fix this behavior with minimum code change and zero design drift.

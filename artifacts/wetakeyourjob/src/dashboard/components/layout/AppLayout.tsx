@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "@dashboard/components/auth/useAuthContext";
 import { useTheme } from "@dashboard/lib/theme";
 import {
@@ -93,9 +93,14 @@ function NotificationBell() {
 
 function TopBar({ onLogout }: { onLogout: () => void }) {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { theme, toggle } = useTheme();
 
-  const match = PAGE_LABELS[location.pathname] ?? PAGE_LABELS["/dashboard"];
+  const isEscalationsView = location.pathname === "/dashboard" && searchParams.get("view") === "escalations";
+  const baseMatch = PAGE_LABELS[location.pathname] ?? PAGE_LABELS["/dashboard"];
+  const match = isEscalationsView
+    ? { label: "Escalations", icon: AlertTriangle }
+    : baseMatch;
   const Icon = match.icon;
 
   const now = new Date();
@@ -169,13 +174,34 @@ export function AppLayout() {
   const { logout } = useAuthContext();
   const { theme, toggle } = useTheme();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { label: bookingsLabel } = useBookingsLabel();
 
+  const isEscalationsView = location.pathname === "/dashboard" && searchParams.get("view") === "escalations";
+
   const NAV_ITEMS = [
-    { path: "/dashboard/escalations", label: "Escalations", icon: AlertTriangle },
-    { path: "/dashboard/bookings", label: bookingsLabel, icon: CalendarDays },
-    { path: "/dashboard/settings", label: "Settings", icon: Settings },
+    {
+      path: "/dashboard",
+      search: "?view=escalations",
+      label: "Escalations",
+      icon: AlertTriangle,
+      isActive: isEscalationsView,
+    },
+    {
+      path: "/dashboard/bookings",
+      search: "",
+      label: bookingsLabel,
+      icon: CalendarDays,
+      isActive: location.pathname === "/dashboard/bookings" || location.pathname.startsWith("/dashboard/bookings/"),
+    },
+    {
+      path: "/dashboard/settings",
+      search: "",
+      label: "Settings",
+      icon: Settings,
+      isActive: location.pathname === "/dashboard/settings" || location.pathname.startsWith("/dashboard/settings/"),
+    },
   ];
 
   const { data: conversations } = useConversations();
@@ -184,7 +210,7 @@ export function AppLayout() {
     (c) => !readSet.has(c.phone) && !getHiddenSet().has(c.phone)
   ).length;
 
-  const isHome = location.pathname === "/dashboard" || location.pathname === "/dashboard/";
+  const isHome = (location.pathname === "/dashboard" || location.pathname === "/dashboard/") && !isEscalationsView;
 
   const SidebarContent = ({ hideActions = false }: { hideActions?: boolean }) => (
     <div className="flex flex-col h-full">
@@ -224,19 +250,12 @@ export function AppLayout() {
 
       <nav className="flex-1 px-3 pt-3 space-y-0.5 overflow-y-auto scrollbar-none">
         {NAV_ITEMS.map((item) => {
-          const active =
-            location.pathname === item.path ||
-            location.pathname.startsWith(item.path + "/");
+          const active = item.isActive;
           return (
             <Link
-              key={item.path}
-              to={item.path}
-              onClick={() => {
-                setMobileOpen(false);
-                if (item.path === "/dashboard/escalations") {
-                  window.dispatchEvent(new Event("bluemarlin:nav:escalations"));
-                }
-              }}
+              key={item.label}
+              to={item.path + item.search}
+              onClick={() => setMobileOpen(false)}
               className="relative block"
             >
               {active && (

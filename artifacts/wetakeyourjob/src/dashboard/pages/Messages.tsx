@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGoBack } from "@dashboard/hooks/use-go-back";
 import { useConversations, useConversation, useDeleteConversation } from "@dashboard/hooks/use-bluemarlin";
 import { Conversation } from "@dashboard/lib/api";
@@ -168,6 +168,8 @@ function ConversationRow({
 export default function Messages() {
   const navigate = useNavigate();
   const goBack = useGoBack();
+  const [searchParams] = useSearchParams();
+  const escalationsMode = searchParams.get("view") === "escalations";
   const bookingInfoRef = useRef<HTMLDivElement>(null);
   const { data: conversations, isLoading } = useConversations();
   const [search, setSearch] = useState("");
@@ -179,8 +181,14 @@ export default function Messages() {
   const { data: detail } = useConversation(selectedPhone);
   const { selected: platformFilter } = usePlatformFilter();
 
+  useEffect(() => {
+    setView("list");
+    setSelectedPhone("");
+  }, [escalationsMode]);
+
   const allFiltered = (conversations ?? []).filter((c) => {
     if (!matchesPlatformFilter(c.channel, platformFilter)) return false;
+    if (escalationsMode && c.status !== "escalated") return false;
     if (search) {
       const q = search.toLowerCase();
       return c.customer_name.toLowerCase().includes(q) || c.phone.includes(q) || c.last_message.toLowerCase().includes(q);
@@ -226,7 +234,7 @@ export default function Messages() {
             <ArrowLeft className="w-3.5 h-3.5" />
           </button>
           <button onClick={backToList} className="font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Inbox
+            {escalationsMode ? "Escalations" : "Inbox"}
           </button>
           {detail && (
             <>
@@ -373,7 +381,7 @@ export default function Messages() {
                   <div key={idx} className="flex justify-center">
                     <button
                       onClick={clickable ? () => {
-                        if (isEscalation) navigate("/dashboard/escalations");
+                        if (isEscalation) navigate("/dashboard?view=escalations");
                         else if (isBookingEvent) bookingInfoRef.current?.scrollIntoView({ behavior: "smooth" });
                       } : undefined}
                       className={cn(
