@@ -403,10 +403,15 @@ export default function Messages() {
 
   /* ─── DETAIL VIEW ──────────────────────────────────────────────────────── */
   if (view === "detail" && detail) {
-    /* find the matching escalation record for this conversation (if escalated) */
-    const matchedEsc = detail.status === "escalated"
+    const selectedConv = (conversations ?? []).find((c) => c.phone === selectedPhone);
+    const isEscalated = selectedConv?.status === "escalated";
+    const matchedEsc = isEscalated
       ? (escalations ?? []).find(
-          (e) => e.customer_id === detail.phone || e.customer_phone === detail.phone || e.customer_contact === detail.phone
+          (e) =>
+            e.customer_id === selectedPhone ||
+            e.customer_phone === selectedPhone ||
+            e.customer_contact === selectedPhone ||
+            (selectedConv && selectedConv.customer_name && e.customer_name === selectedConv.customer_name)
         ) ?? null
       : null;
 
@@ -600,7 +605,7 @@ export default function Messages() {
                     : <><Mail className="w-3.5 h-3.5" /> Compose email</>
                   }
                 </button>
-              ) : detail.status === "escalated" && (
+              ) : isEscalated && (
                 <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20">
                   <Shield className="w-3.5 h-3.5" /> Escalated
                 </span>
