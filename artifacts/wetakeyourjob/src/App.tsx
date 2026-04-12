@@ -31,7 +31,7 @@ import AssetLibrary from '@dashboard/pages/AssetLibrary';
 import CapacityChecker from '@dashboard/pages/CapacityChecker';
 import DashboardNotFound from '@dashboard/pages/not-found';
 
-import BlueMarlinDemoPlaceholder from './pages/demo/BlueMarlinDemoPlaceholder';
+import DemoApp from './demo/bluemarlin/DemoApp';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -123,7 +123,7 @@ export default function App() {
 
         <Route path="/dashboard/*" element={<DashboardShell />} />
 
-        <Route path="/demo/bluemarlin" element={<BlueMarlinDemoPlaceholder />} />
+        <Route path="/demo/bluemarlin/*" element={<DemoApp />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -44,8 +44,12 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 - `/dashboard/assets` — Photo/video asset library
 - `/dashboard/capacity` — Trip capacity checker
 
-**Demo (hidden, no nav/footer link)**
-- `/demo/bluemarlin` — BlueMarlin demo (placeholder, noindex)
+**Demo — BlueMarlin Tours Curaçao (booking site)**
+- `/demo/bluemarlin/` — Homepage (hero, packages, stats, FAQ, CTA)
+- `/demo/bluemarlin/trips` — All trip packages with images and details
+- `/demo/bluemarlin/booking` — Operator booking desk (check availability, reserve hold via API proxy)
+- `/demo/bluemarlin/book` — Customer-facing booking form (multi-step: trip, date, guests, contact)
+- `/demo/bluemarlin/about` — About BlueMarlin Tours
 
 ### Architecture
 
@@ -65,12 +69,16 @@ API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
 ### CSS Theme System
 - Marketing: direct colors on body (`background: #fff`, `color: #475569`), `.wrap` container
 - Dashboard: HSL CSS custom properties on `:root` (light) and `.dark` (dark mode), scoped via `#dashboard-root`
+- Demo: teal-themed HSL variables scoped via `#demo-root`, Manrope + Playfair Display fonts
 - `@custom-variant dark (&:is(.dark *))` for Tailwind dark variant
 - Shared utilities: `.glass-card`, `.glass-panel`, `.text-gradient-ocean`, `.scrollbar-none`
+- Demo utilities: `.demo-section-shell`, `.demo-input`, `#demo-root .font-serif`
 
 ### Path Aliases
 - `@/` → `src/` (marketing + shared)
 - `@dashboard/` → `src/dashboard/` (dashboard-only imports)
+- `@demo/` → `src/demo/bluemarlin/` (demo-only imports)
+- `@assets/` → `../../attached_assets/` (shared images)
 
 ### Positioning
 - AI tools that save time on repetitive communication
@@ -100,6 +108,12 @@ API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
 - `artifacts/wetakeyourjob/src/dashboard/hooks/` — use-bluemarlin, use-read-status, use-email-settings, use-go-back, use-mobile
 - `artifacts/wetakeyourjob/src/dashboard/lib/` — api, theme, feature-toggles, utils, error
 - `artifacts/wetakeyourjob/src/dashboard/pages/` — Login, Overview, Messages, Escalations, ContentPipeline, Create, BrandTraining, Settings, + legacy pages
+- `artifacts/wetakeyourjob/src/demo/bluemarlin/` — BlueMarlin Tours booking demo
+- `artifacts/wetakeyourjob/src/demo/bluemarlin/DemoApp.tsx` — Demo shell (Navbar + Footer + Routes)
+- `artifacts/wetakeyourjob/src/demo/bluemarlin/pages/` — home, trips, booking, book, about, not-found
+- `artifacts/wetakeyourjob/src/demo/bluemarlin/components/` — Navbar, Footer, Logo
+- `artifacts/wetakeyourjob/src/demo/bluemarlin/config/resources.ts` — trip packages and boat data
+- `attached_assets/stock_images/` — trip photos (catamaran, snorkeling, beach, sunset, jetski)
 
 ## Key Commands
 

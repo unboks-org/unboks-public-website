@@ -12,7 +12,8 @@
     "types": ["node", "vite/client"],
     "paths": {
       "@/*": ["./src/*"],
-      "@dashboard/*": ["./src/dashboard/*"]
+      "@dashboard/*": ["./src/dashboard/*"],
+      "@demo/*": ["./src/demo/bluemarlin/*"]
     }
   },
   "references": [
