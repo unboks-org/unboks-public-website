@@ -1,15 +1,123 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=DM+Mono:wght@400;500&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-accent: #0f172a;
-  --color-accent-light: #1e293b;
-  --color-surface: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-muted: #94a3b8;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-display: 'Inter', sans-serif;
+
+  --color-surface: #f8fafc;
+  --color-accent-light: #1e293b;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 210 30% 96%;
+  --foreground: 222 47% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 10%;
+  --card-border: 220 18% 90%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 10%;
+  --popover-border: 220 18% 88%;
+
+  --primary: 217 89% 58%;
+  --primary-foreground: 220 50% 8%;
+
+  --secondary: 220 20% 94%;
+  --secondary-foreground: 222 40% 25%;
+
+  --muted: 220 18% 95%;
+  --muted-foreground: 220 15% 44%;
+
+  --accent: 217 89% 58%;
+  --accent-foreground: 220 50% 8%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 18% 86%;
+  --input: 0 0% 100%;
+  --ring: 217 89% 58%;
+  --radius: 0.75rem;
+
+  --surface-overlay: rgba(246, 249, 252, 0.90);
+  --surface-panel: #FFFFFF;
+}
+
+.dark {
+  --background: 228 37% 7%;
+  --foreground: 0 0% 98%;
+
+  --card: 222 39% 13%;
+  --card-foreground: 0 0% 98%;
+  --card-border: 224 15% 20%;
+
+  --popover: 222 39% 12%;
+  --popover-foreground: 210 40% 97%;
+  --popover-border: 224 15% 18%;
+
+  --primary: 41 57% 75%;
+  --primary-foreground: 40 36% 24%;
+
+  --secondary: 222 39% 16%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 222 35% 14%;
+  --muted-foreground: 224 18% 69%;
+
+  --accent: 41 57% 75%;
+  --accent-foreground: 40 36% 24%;
+
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 224 15% 16%;
+  --input: 224 42% 10%;
+  --ring: 41 57% 75%;
+
+  --surface-overlay: rgba(11, 14, 24, 0.85);
+  --surface-panel: rgba(20, 28, 46, 0.97);
 }
 
 html {
@@ -57,5 +165,101 @@ a, button, input, textarea {
   .wrap {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+
+@layer base {
+  #dashboard-root * {
+    @apply border-border;
+  }
+
+  #dashboard-root {
+    @apply font-sans antialiased text-foreground min-h-screen;
+    @apply selection:bg-primary/15 selection:text-primary;
+    background-color: hsl(var(--background));
+    letter-spacing: -0.01em;
+  }
+
+  #dashboard-root h1,
+  #dashboard-root h2,
+  #dashboard-root h3,
+  #dashboard-root h4,
+  #dashboard-root h5,
+  #dashboard-root h6 {
+    font-family: var(--font-display);
+    @apply font-semibold tracking-tight;
+    letter-spacing: -0.02em;
+    color: inherit;
+  }
+
+  .dark #dashboard-root {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -5%, rgba(225,206,157,0.06) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at -8% 55%, rgba(20,28,46,0.80) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 35% at 108% 75%, rgba(20,28,46,0.60) 0%, transparent 50%);
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 1px 3px rgba(0, 0, 0, 0.06),
+      0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.25),
+      0 8px 32px rgba(0, 0, 0, 0.45),
+      0 24px 64px rgba(0, 0, 0, 0.30);
+  }
+
+  .dark .glass-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.11);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.25),
+      0 12px 48px rgba(0, 0, 0, 0.55),
+      0 32px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-panel {
+    background: #FFFFFF;
+    border-right: 1px solid hsl(220 18% 90%);
+  }
+
+  .dark .glass-panel {
+    background: rgba(11, 14, 24, 0.98);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .text-gradient-ocean {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(135deg, #F0E4C0 0%, #E1CE9D 55%, #C8A96E 100%);
   }
 }

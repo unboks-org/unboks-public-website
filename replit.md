@@ -2,7 +2,7 @@
 
 ## Overview
 
-pnpm workspace monorepo with a marketing website for wetakeyourjob.com. Frontend-only React + Vite + Tailwind CSS site.
+pnpm workspace monorepo with a marketing website and operator dashboard for wetakeyourjob.com. Frontend-only React + Vite + Tailwind CSS site with embedded BlueMarlin dashboard.
 
 ## Stack
 
@@ -16,6 +16,7 @@ pnpm workspace monorepo with a marketing website for wetakeyourjob.com. Frontend
 - **Icons**: lucide-react
 - **Font**: Inter (Google Fonts)
 - **API framework**: Express 5 (shared backend, not used by wetakeyourjob)
+- **Dashboard deps**: @tanstack/react-query, sonner, framer-motion, shadcn/radix UI, recharts, date-fns, cmdk
 
 ## wetakeyourjob.com
 
@@ -23,31 +24,53 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 
 ### Routes
 
-**Marketing (public, MarketingLayout)**
+**Marketing (public, SiteLayout)**
 - `/` — Homepage with hero, services overview, how it works, benefits, audience, CTA
 - `/services` — Services page with service cards, human-in-the-loop controls, outcomes
 - `/about` — About page with philosophy cards and practice description
 - `/contact` — Contact form with strategy call info and direct contact details
 
-**Dashboard (DashboardLayout, placeholders for import)**
-- `/dashboard/login` — Standalone login page (no sidebar)
-- `/dashboard` — Overview (placeholder)
-- `/dashboard/messages` — Messages view (placeholder)
-- `/dashboard/escalations` — Escalations view (placeholder)
-- `/dashboard/content` — Content management (placeholder)
-- `/dashboard/settings` — Settings (placeholder)
-- `/dashboard/*` — Catch-all for future routes
+**Dashboard (real BlueMarlin operator dashboard)**
+- `/dashboard/login` — Login page (client selector + access key, dark theme)
+- `/dashboard` — Overview (summary cards, urgent bar, recent activity)
+- `/dashboard/messages` — WhatsApp/SMS conversation viewer
+- `/dashboard/escalations` — Customer escalation queue
+- `/dashboard/social` — Social media content pipeline (drafts, approval, publishing)
+- `/dashboard/create` — Manual post creation
+- `/dashboard/training` — Brand training examples and voice rules
+- `/dashboard/settings` — Settings (feature toggles, Google Drive, schedule, email)
+- `/dashboard/published` — Published posts archive
+- `/dashboard/learnings` — Brand learnings manager
+- `/dashboard/assets` — Photo/video asset library
+- `/dashboard/capacity` — Trip capacity checker
 
 **Demo (hidden, no nav/footer link)**
 - `/demo/bluemarlin` — BlueMarlin demo (placeholder, noindex)
 
-### Merge-Ready Structure
-- `IMPORT_CHECKLIST.md` — Where to paste code, route mapping, post-import verification
-- `src/lib/ProtectedRoute.tsx` — Placeholder auth wrapper, replace with real auth
-- `src/layout/DashboardLayout.tsx` — Dashboard shell with sidebar navigation
-- `src/dashboard/` — Directory for imported dashboard components, routes, lib, hooks, styles
-- `src/demo/` — Directory for imported demo components and lib
-- All placeholder pages have TODO comments marking import targets
+### Architecture
+
+**Marketing site** uses direct Tailwind slate colors (white bg, slate-900 accent) with SiteLayout (Navbar + Footer + Outlet).
+
+**Dashboard** is a self-contained sub-app under `/dashboard/*` with its own:
+- `ThemeProvider` (dark/light, scoped to `#dashboard-root` div)
+- `FeatureTogglesProvider` (showSocial, showCreate flags in localStorage)
+- `AuthProvider` (token-based, localStorage `wtyj_token_{client}`, multi-client: bluemarlin/adamus/roberto)
+- `QueryClientProvider` (@tanstack/react-query for API data)
+- `TooltipProvider` + `ThemedToaster` (sonner)
+- `AppLayout` with sidebar navigation + TopBar
+- `ProtectedRoute` redirects unauthenticated users to `/dashboard/login`
+
+API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
+
+### CSS Theme System
+- Marketing: direct colors on body (`background: #fff`, `color: #475569`), `.wrap` container
+- Dashboard: HSL CSS custom properties on `:root` (light) and `.dark` (dark mode), scoped via `#dashboard-root`
+- `@custom-variant dark (&:is(.dark *))` for Tailwind dark variant
+- Shared utilities: `.glass-card`, `.glass-panel`, `.text-gradient-ocean`, `.scrollbar-none`
+
+### Path Aliases
+- `@/` → `src/` (marketing + shared)
+- `@dashboard/` → `src/dashboard/` (dashboard-only imports)
 
 ### Positioning
 - AI tools that save time on repetitive communication
@@ -56,7 +79,7 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 - Teams become more productive
 - NOT "AI replaces the whole team"
 
-### Design System
+### Design System (Marketing)
 - Background: white (#ffffff)
 - Surface: slate-50 (#f8fafc)
 - Accent: slate-900 (#0f172a)
@@ -68,10 +91,15 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 
 ### Key Files
 - `artifacts/wetakeyourjob/src/` — all source code
-- `artifacts/wetakeyourjob/src/data/siteContent.ts` — centralized content data
-- `artifacts/wetakeyourjob/src/components/` — reusable UI components (Badge, Button, Section, CTASection, HeroPanel, InfoCard, ServiceCard, StepCard, BenefitCard, PageHeader, Seo)
-- `artifacts/wetakeyourjob/src/pages/` — page components (HomePage, ServicesPage, AboutPage, ContactPage)
+- `artifacts/wetakeyourjob/src/data/siteContent.ts` — centralized marketing content data
+- `artifacts/wetakeyourjob/src/components/` — reusable marketing UI components
+- `artifacts/wetakeyourjob/src/pages/` — marketing page components
 - `artifacts/wetakeyourjob/src/layout/` — Navbar, Footer, SiteLayout
+- `artifacts/wetakeyourjob/src/dashboard/` — full BlueMarlin operator dashboard
+- `artifacts/wetakeyourjob/src/dashboard/components/` — auth, layout, ui (58+ shadcn components)
+- `artifacts/wetakeyourjob/src/dashboard/hooks/` — use-bluemarlin, use-read-status, use-email-settings, use-go-back, use-mobile
+- `artifacts/wetakeyourjob/src/dashboard/lib/` — api, theme, feature-toggles, utils, error
+- `artifacts/wetakeyourjob/src/dashboard/pages/` — Login, Overview, Messages, Escalations, ContentPipeline, Create, BrandTraining, Settings, + legacy pages
 
 ## Key Commands
 
