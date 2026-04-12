@@ -17,6 +17,19 @@ const CLIENT_LABELS: Record<Client, string> = {
   roberto: "Roberto",
 };
 
+// Distinguish network failures (CORS, DNS, backend down) from real auth errors.
+// fetch() throws TypeError("Failed to fetch") on network problems; api.login
+// throws Error("Invalid password") on a non-OK HTTP response. Without this
+// distinction a CORS rejection or unreachable backend looks identical to a
+// wrong password — wasted ~30 min debugging on 2026-04-11.
+function getLoginErrorText(error: unknown): string {
+  const msg = error instanceof Error ? error.message : "";
+  if (msg.includes("Failed to fetch") || msg.toLowerCase().includes("network")) {
+    return "Can't reach server — check your connection or contact support";
+  }
+  return "Invalid access key";
+}
+
 export default function Login() {
   const [password, setPassword] = useState("");
   const [selectedClient, setSelectedClient] = useState<Client>(getClient());
@@ -172,7 +185,7 @@ export default function Login() {
                   border: "1px solid rgba(239,68,68,0.14)",
                 }}
               >
-                Invalid access key
+                {getLoginErrorText(login.error)}
               </motion.p>
             )}
           </form>
