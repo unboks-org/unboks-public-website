@@ -195,14 +195,9 @@ export function AppLayout() {
       icon: CalendarDays,
       isActive: location.pathname === "/dashboard/bookings" || location.pathname.startsWith("/dashboard/bookings/"),
     },
-    {
-      path: "/dashboard/settings",
-      search: "",
-      label: "Settings",
-      icon: Settings,
-      isActive: location.pathname === "/dashboard/settings" || location.pathname.startsWith("/dashboard/settings/"),
-    },
   ];
+
+  const isSettingsActive = location.pathname === "/dashboard/settings" || location.pathname.startsWith("/dashboard/settings/");
 
   const { data: conversations } = useConversations();
   const { readSet } = useReadStatus();
@@ -298,8 +293,50 @@ export function AppLayout() {
         })}
       </nav>
 
+      <div className="px-3 pb-1 pt-2 border-t border-white/[0.08]">
+        <Link
+          to="/dashboard/settings"
+          onClick={() => setMobileOpen(false)}
+          className="relative block"
+        >
+          {isSettingsActive && (
+            <motion.div
+              layoutId="sidebar-pill"
+              className="absolute inset-0 rounded-xl"
+              style={{
+                background: "rgba(225,206,157,0.10)",
+                boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.22), inset 0 1px 0 rgba(255,255,255,0.06)",
+              }}
+              transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
+            />
+          )}
+          <div
+            className={cn(
+              "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
+              isSettingsActive
+                ? "text-foreground"
+                : "text-foreground/55 hover:text-foreground/85 hover:bg-white/[0.05]"
+            )}
+          >
+            <Settings
+              className={cn(
+                "w-[18px] h-[18px] transition-all duration-200",
+                isSettingsActive ? "text-primary" : "group-hover:text-foreground/80"
+              )}
+              style={isSettingsActive ? { filter: "drop-shadow(0 0 6px rgba(225,206,157,0.70))" } : undefined}
+            />
+            <span className={cn(
+              "text-[15px] flex-1 tracking-tight",
+              isSettingsActive ? "font-semibold" : "font-medium"
+            )}>
+              Settings
+            </span>
+          </div>
+        </Link>
+      </div>
+
       {!hideActions && (
-        <div className="px-3 pb-3 pt-2 border-t border-white/[0.08] space-y-0.5">
+        <div className="px-3 pb-3 pt-1 border-t border-white/[0.08] space-y-0.5">
           <button
             onClick={toggle}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/45 hover:text-foreground/80 hover:bg-white/[0.05] transition-colors w-full text-[14px] tracking-tight"
