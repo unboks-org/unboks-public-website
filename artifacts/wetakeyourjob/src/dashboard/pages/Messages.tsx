@@ -11,12 +11,52 @@ import { Skeleton } from "@dashboard/components/ui/skeleton";
 import {
   MessageCircle, Phone, Search, ArrowLeft, ChevronRight, ChevronDown,
   AlertTriangle, User, Archive, ArchiveRestore, Circle, CheckCircle,
-  CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2,
+  CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2, Check,
 } from "lucide-react";
 import { cn } from "@dashboard/lib/utils";
 import { isToday, isThisYear, format } from "date-fns";
 
 const HIDDEN_KEY = "bluemarlin_hidden_conversations";
+
+function GmailCheckbox({
+  checked,
+  indeterminate,
+  onChange,
+  onClick,
+}: {
+  checked: boolean;
+  indeterminate?: boolean;
+  onChange: (checked: boolean) => void;
+  onClick?: (e: React.MouseEvent) => void;
+}) {
+  return (
+    <div
+      onClick={(e) => { e.stopPropagation(); onClick?.(e); }}
+      className="relative flex items-center justify-center cursor-pointer"
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        ref={(el) => { if (el) el.indeterminate = !!indeterminate; }}
+        onChange={(e) => onChange(e.target.checked)}
+        className="sr-only"
+      />
+      <div
+        className={cn(
+          "w-[16px] h-[16px] rounded-[2px] border flex items-center justify-center shrink-0 transition-colors",
+          checked || indeterminate
+            ? "bg-primary/70 border-primary/50"
+            : "bg-transparent border-foreground/[0.22] hover:border-foreground/40"
+        )}
+      >
+        {checked && <Check className="w-[10px] h-[10px] text-background" strokeWidth={3} />}
+        {!checked && indeterminate && (
+          <span className="w-[8px] h-[1.5px] bg-background rounded-full block" />
+        )}
+      </div>
+    </div>
+  );
+}
 
 function useHiddenConversations() {
   const load = (): Set<string> => {
@@ -114,19 +154,11 @@ function ConversationRow({
       )}
       onClick={() => onOpen(conv.phone)}
     >
-      {/* checkbox column */}
-      <div
-        className="flex items-center justify-center w-10 h-full shrink-0"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <input
-          type="checkbox"
+      {/* checkbox column — always visible, Gmail-style */}
+      <div className="flex items-center justify-center w-10 h-full shrink-0">
+        <GmailCheckbox
           checked={isSelected}
-          onChange={(e) => onSelect(conv.phone, e.target.checked)}
-          className={cn(
-            "w-[15px] h-[15px] rounded cursor-pointer accent-primary transition-opacity",
-            isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-          )}
+          onChange={(v) => onSelect(conv.phone, v)}
         />
       </div>
 
@@ -465,15 +497,16 @@ export default function Messages() {
         className="flex items-center shrink-0 h-[50px] border-b px-2 gap-1"
         style={{ borderColor: "rgba(255,255,255,0.08)" }}
       >
-        {/* master checkbox */}
-        <div className="flex items-center justify-center w-10 shrink-0">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            ref={(el) => { if (el) el.indeterminate = someSelected && !allSelected; }}
-            onChange={toggleMasterSelect}
-            className="w-[15px] h-[15px] rounded cursor-pointer accent-primary"
-          />
+        {/* master checkbox + dropdown — Gmail-style, aligned with row checkbox column */}
+        <div className="flex items-center shrink-0">
+          <div className="flex items-center justify-center w-10">
+            <GmailCheckbox
+              checked={allSelected}
+              indeterminate={someSelected && !allSelected}
+              onChange={toggleMasterSelect}
+            />
+          </div>
+          <ChevronDown className="w-[10px] h-[10px] text-foreground/25 -ml-1.5 mr-1 shrink-0" />
         </div>
 
         {/* platform filter tabs */}

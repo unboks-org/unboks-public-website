@@ -1,0 +1,85 @@
+Use this prompt in Replit:
+
+CHECKBOX FIX ONLY — CLONE GMAIL CHECKBOXES EXACTLY
+
+PROBLEM
+The inbox checkboxes are wrong / missing / not Gmail-like.
+I do NOT want a redesign.
+I do NOT want other UI changes.
+I want ONLY the checkboxes fixed so they match Gmail web much more closely.
+
+SCOPE
+ONLY fix the inbox/list checkboxes and the top master checkbox area.
+Do not change anything else unless strictly required for the checkbox clone.
+
+WHAT I WANT
+Clone the Gmail web checkbox behavior and visual placement as closely as possible.
+
+REQUIREMENTS
+
+1. ROW CHECKBOXES
+- Every message row must have a visible checkbox at the far left
+- Checkbox placement must match Gmail-like alignment
+- Checkbox size must feel like Gmail, not oversized
+- Checkbox border thickness must feel like Gmail
+- Checkbox shape must be slightly rounded-square like Gmail
+- Checkbox default state must be subtle, light, and clearly visible
+- Checkbox checked state must also feel Gmail-like, not custom-dashboard styled
+- Row hover should make the checkbox feel more like Gmail behavior
+- Do not make them chunky or heavily shadowed
+
+2. TOP MASTER CHECKBOX
+- Add/fix the master checkbox in the toolbar area above the rows
+- It must sit in the correct far-left position like Gmail
+- It must visually relate to the row checkboxes
+- Include the small dropdown arrow beside it if that structure already exists or is easy to add cleanly
+- It should feel like Gmail web, not a generic admin table bulk select
+
+3. ALIGNMENT
+- Checkbox column width must be correct and consistent
+- All row checkboxes must line up perfectly vertically
+- Top checkbox must align with row checkbox column
+- No drifting, no random padding, no custom centering mistakes
+
+4. DO NOT CHANGE OTHER THINGS
+- do not redesign rows
+- do not redesign the sidebar
+- do not redesign the filters
+- do not redesign typography
+- do not redesign spacing except the minimum needed to correctly place the checkboxes
+- do not make unrelated style changes
+
+5. CLONE REFERENCE
+Use Gmail web inbox as the reference specifically for:
+- checkbox visibility
+- checkbox size
+- checkbox border color
+- checkbox border weight
+- checkbox corner radius
+- checkbox column spacing
+- top master checkbox placement
+
+6. FUNCTIONALITY
+- Row checkboxes should be selectable
+- Master checkbox can be full or placeholder bulk-select behavior, but the UI must be correct
+- If full bulk logic already exists, keep it
+- If not, implement only minimal local UI state needed to support checkbox selection without breaking anything
+
+IMPLEMENTATION RULE
+This is a surgical correction.
+Only touch the checkbox-related components/styles/row markup necessary to make the inbox checkbox column look and behave like Gmail.
+
+SUCCESS CRITERIA
+When I look at the inbox:
+- I immediately see the row checkboxes
+- they look like Gmail checkboxes
+- the top master checkbox is in the correct place
+- the column alignment is correct
+- nothing else in the UI changed unnecessarily
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. what checkbox-specific fixes were made
+3. confirmation that only checkbox-related UI was changed
+4. confirmation that top and row checkbox alignment now matches Gmail much more closely
