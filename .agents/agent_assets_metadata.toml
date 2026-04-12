@@ -6,3 +6,9 @@ id = "5OQhGvKL9v7H-wnxa2q1v"
 uri = "file://wetakeyourjob-full-reference.md"
 type = "text"
 title = "wetakeyourjob.com — Complete Project Reference"
+
+[[outputs]]
+id = "A9EbJRUDdYrdEswKBEv_s"
+uri = "file://wetakeyourjob-full-reference.zip"
+type = "unspecified"
+title = "wetakeyourjob.com — Full Reference (ZIP)"
