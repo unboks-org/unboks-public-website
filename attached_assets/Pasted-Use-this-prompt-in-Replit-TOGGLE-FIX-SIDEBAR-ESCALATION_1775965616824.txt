@@ -1,0 +1,93 @@
+Use this prompt in Replit:
+
+TOGGLE FIX — SIDEBAR ESCALATIONS BUTTON MUST TURN ON / OFF WHEN CLICKED
+
+PROBLEM
+The Escalations button in the left sidebar behaves like a one-way navigation state.
+I need it to behave like a toggle.
+
+REQUIRED BEHAVIOR
+When I click "Escalations":
+- if Escalations is currently OFF, turn it ON
+- if Escalations is currently ON, turn it OFF
+
+This must behave like a true toggle state.
+
+EXPECTED UX
+- first click on Escalations = ON
+  - only escalated messages are shown in the main pane
+  - Escalations button shows active styling
+- second click on Escalations = OFF
+  - return to the normal inbox view
+  - keep current platform filters selected
+  - Escalations button loses active styling
+- third click = ON again
+- and so on
+
+IMPORTANT
+This must NOT cause:
+- page jumps
+- violent layout movement
+- remount feeling
+- pane resizing
+- route-change feeling
+
+The SAME main inbox pane must stay in place.
+Only the dataset / view state changes.
+
+STATE MODEL
+Escalations should behave as:
+- a toggle filter layered on top of the current inbox
+- not a separate page experience
+
+LOGIC
+VISIBLE_MESSAGES =
+all messages
+→ filtered by selected platform filters
+→ if Escalations toggle is ON, also filter to only escalated messages
+→ if Escalations toggle is OFF, show normal filtered inbox
+
+ROUTING / UX RULE
+If current implementation uses `/dashboard/escalations`, make it behave like a toggle state, not a hard page swap.
+
+ACCEPTABLE IMPLEMENTATION OPTIONS
+Option A:
+- clicking Escalations toggles a shared `escalationsOnly` state in the inbox shell
+
+Option B:
+- keep the route, but clicking Escalations while already active should return to `/dashboard`
+- preserve platform filter state
+- preserve same pane/layout so it still feels static
+
+Either way, final UX must feel like:
+ON / OFF toggle
+not hard navigation
+
+VISUAL REQUIREMENTS
+- active Escalations button = current highlighted/active style
+- inactive Escalations button = normal style
+- clicking active Escalations button again must visibly deactivate it
+- state must be obvious and reliable
+
+DO NOT
+- do not redesign the sidebar
+- do not change other menu items
+- do not alter message row styling unnecessarily
+- do not introduce animations that move the pane
+- do not make Escalations a one-way action
+
+SUCCESS CRITERIA
+- click Escalations once → ON
+- click Escalations again → OFF
+- click Escalations again → ON
+- current platform filters remain intact
+- same pane stays visually static
+- only message filtering changes
+- active button styling correctly reflects ON/OFF state
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. how the Escalations toggle was implemented
+3. confirmation that second click turns it OFF
+4. confirmation that no layout jump happens

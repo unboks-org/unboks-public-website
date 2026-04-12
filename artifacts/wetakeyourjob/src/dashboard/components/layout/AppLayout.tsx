@@ -249,7 +249,7 @@ export function AppLayout() {
           return (
             <Link
               key={item.label}
-              to={item.path + item.search}
+              to={active && item.search ? item.path : item.path + item.search}
               onClick={() => setMobileOpen(false)}
               className="relative block"
             >
