@@ -22,12 +22,12 @@ export function PlatformFilterBar({ className }: { className?: string }) {
           "relative flex items-center h-full px-3 text-sm transition-colors duration-100 shrink-0",
           isAll
             ? "text-foreground font-medium"
-            : "text-muted-foreground/60 hover:text-foreground/80"
+            : "text-foreground/55 hover:text-foreground/85"
         )}
       >
         All
         {isAll && (
-          <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/70 rounded-t-full" />
+          <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/90 rounded-t-full" />
         )}
       </button>
 
@@ -42,13 +42,13 @@ export function PlatformFilterBar({ className }: { className?: string }) {
               "relative flex items-center gap-1.5 h-full px-3 text-sm transition-colors duration-100 shrink-0",
               active
                 ? "text-foreground font-medium"
-                : "text-muted-foreground/60 hover:text-foreground/80"
+                : "text-foreground/55 hover:text-foreground/85"
             )}
           >
             <Icon className="w-3 h-3 shrink-0" />
             <span>{p.label}</span>
             {active && (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/70 rounded-t-full" />
+              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/90 rounded-t-full" />
             )}
           </button>
         );

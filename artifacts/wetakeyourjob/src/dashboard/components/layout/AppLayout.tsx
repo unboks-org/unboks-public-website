@@ -120,7 +120,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
     >
       <div className="flex items-center gap-2">
         <Icon className="w-3.5 h-3.5 text-muted-foreground/40" />
-        <span className="text-sm font-medium text-foreground/60 tracking-tight">{match.label}</span>
+        <span className="text-sm font-medium text-foreground/80 tracking-tight">{match.label}</span>
       </div>
 
       <div className="flex items-center gap-1">
@@ -269,14 +269,14 @@ export function AppLayout() {
                   "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
                   active
                     ? "text-foreground"
-                    : "text-foreground/55 hover:text-foreground/85 hover:bg-white/[0.05]"
+                    : "text-foreground/70 hover:text-foreground hover:bg-white/[0.07]"
                 )}
               >
                 <div className="relative flex-shrink-0">
                   <item.icon
                     className={cn(
                       "w-[18px] h-[18px] transition-all duration-200",
-                      active ? "text-primary" : "group-hover:text-foreground/80"
+                      active ? "text-primary" : "group-hover:text-foreground"
                     )}
                     style={active ? { filter: "drop-shadow(0 0 6px rgba(225,206,157,0.70))" } : undefined}
                   />
@@ -315,13 +315,13 @@ export function AppLayout() {
               "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
               isSettingsActive
                 ? "text-foreground"
-                : "text-foreground/55 hover:text-foreground/85 hover:bg-white/[0.05]"
+                : "text-foreground/70 hover:text-foreground hover:bg-white/[0.07]"
             )}
           >
             <Settings
               className={cn(
                 "w-[18px] h-[18px] transition-all duration-200",
-                isSettingsActive ? "text-primary" : "group-hover:text-foreground/80"
+                isSettingsActive ? "text-primary" : "group-hover:text-foreground"
               )}
               style={isSettingsActive ? { filter: "drop-shadow(0 0 6px rgba(225,206,157,0.70))" } : undefined}
             />
@@ -339,14 +339,14 @@ export function AppLayout() {
         <div className="px-3 pb-3 pt-1 border-t border-white/[0.08] space-y-0.5">
           <button
             onClick={toggle}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/45 hover:text-foreground/80 hover:bg-white/[0.05] transition-colors w-full text-[14px] tracking-tight"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/65 hover:text-foreground hover:bg-white/[0.07] transition-colors w-full text-[14px] tracking-tight"
           >
             {theme === "dark" ? <Sun className="w-[17px] h-[17px]" /> : <Moon className="w-[17px] h-[17px]" />}
             <span className="font-medium">{theme === "dark" ? "Light mode" : "Dark mode"}</span>
           </button>
           <button
             onClick={() => logout()}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/45 hover:text-rose-400 hover:bg-rose-500/[0.07] transition-colors w-full text-[14px] tracking-tight"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/65 hover:text-rose-400 hover:bg-rose-500/[0.07] transition-colors w-full text-[14px] tracking-tight"
           >
             <LogOut className="w-[17px] h-[17px]" />
             <span className="font-medium">Sign out</span>

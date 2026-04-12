@@ -1,0 +1,142 @@
+VISIBILITY / CONTRAST FIX — DARK MODE IS TOO DARK, IMPROVE READABILITY WITHOUT LOSING PREMIUM AESTHETIC
+
+PROBLEM
+The current dark mode looks too dark and readability is poor.
+Too many elements blend together.
+Text, separators, controls, and row structure do not have enough visual clarity.
+I still want the premium dark aesthetic, but I need MUCH better visibility and scanability.
+
+IMPORTANT
+Do NOT switch to a cheap bright theme.
+Do NOT kill the premium feel.
+Do NOT redesign the whole product.
+This is a contrast / readability / hierarchy correction.
+
+GOAL
+Keep the dark premium look.
+Increase clarity, contrast, legibility, and operational scanability across the inbox UI.
+
+PRIMARY UX REQUIREMENT
+A user must be able to quickly scan:
+- sidebar items
+- top toolbar
+- platform filters
+- message rows
+- sender names
+- preview text
+- timestamps
+- status labels
+- row actions
+without straining their eyes.
+
+WHAT MUST IMPROVE
+
+1. TEXT CONTRAST
+- primary text must become easier to read
+- secondary text must still be visible and distinguishable
+- muted text should be muted, but not nearly invisible
+- timestamps, message counts, platform labels, and metadata need stronger legibility
+- sender names and important fields should stand out more clearly
+
+2. ROW SEPARATION / HIERARCHY
+- rows need better visual distinction from each other
+- separators can remain subtle, but they must help readability
+- hover state and selected state need clearer contrast
+- unread rows should be easier to identify
+- selected rows should be obvious without looking heavy or ugly
+
+3. SIDEBAR CLARITY
+- sidebar text/icons need better contrast
+- active item must stand out more cleanly
+- inactive items should still be easily readable
+- current dark-on-dark feeling must be reduced
+
+4. TOP BAR / FILTER BAR CLARITY
+- search input should be more visible
+- platform filter labels/icons should be easier to read
+- active filters should stand out more decisively
+- toolbar icons should not disappear into the background
+
+5. ACTION ICONS / STATUS BADGES
+- archive/delete/reply/etc. icons need better visibility
+- escalation labels/badges need to be readable at a glance
+- subtle does not mean dim to the point of uselessness
+
+6. BACKGROUND LAYERS
+- preserve dark premium theme
+- but create better layer separation:
+  - app background
+  - sidebar background
+  - toolbar/filter bar background
+  - message list background
+  - selected row background
+- avoid everything collapsing into one near-black mass
+
+DESIGN DIRECTION
+Think:
+- premium dark SaaS
+- luxury but readable
+- calm contrast
+- strong hierarchy
+- operational clarity
+- no cheap neon
+- no loud colors
+- no washed-out gray mush
+
+DO NOT
+- do not abandon dark mode
+- do not flatten everything into a light gray theme
+- do not introduce random bright colors
+- do not over-glow
+- do not make it cyberpunk
+- do not destroy the Gmail-like structure
+- do not reduce density unnecessarily
+- do not redesign layout unless required for readability
+
+ALLOWED METHODS
+You may improve visibility by adjusting:
+- text color hierarchy
+- opacity values
+- border colors
+- divider visibility
+- row background contrast
+- hover states
+- selected states
+- icon color contrast
+- subtle surface elevation
+- input field contrast
+- badge readability
+- sidebar active/inactive states
+
+PREFERRED RESULT
+The interface should still look:
+- dark
+- premium
+- refined
+- expensive
+But now also:
+- readable
+- scannable
+- comfortable
+- clearer
+
+SUCCESS CRITERIA
+When I open the inbox in dark mode:
+- I can immediately read the sender names
+- I can distinguish preview text from metadata
+- I can clearly see row boundaries and selected rows
+- I can easily spot the active sidebar item
+- I can read the platform filters and search bar
+- the whole thing still feels premium, not cheap
+
+IMPLEMENTATION CONSTRAINT
+Prefer token/style adjustments and targeted component styling improvements over broad redesign.
+Fix readability with minimum structural drift.
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. what contrast/readability changes were made
+3. which elements were improved most (rows, sidebar, toolbar, search, badges, icons)
+4. confirmation that premium dark aesthetic was preserved
+5. confirmation that no major layout redesign was introduced

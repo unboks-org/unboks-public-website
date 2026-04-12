@@ -144,12 +144,12 @@ function ConversationRow({
     <div
       className={cn(
         "group relative flex items-center h-[52px] border-b cursor-pointer select-none transition-colors duration-75",
-        "border-border/[0.12]",
+        "border-border/[0.22]",
         isSelected
-          ? "bg-primary/[0.07]"
+          ? "bg-primary/[0.09]"
           : isRead
-          ? "hover:bg-white/[0.035]"
-          : "bg-primary/[0.025] hover:bg-primary/[0.045]",
+          ? "hover:bg-white/[0.05]"
+          : "bg-primary/[0.04] hover:bg-primary/[0.06]",
         isHidden && "opacity-50"
       )}
       onClick={() => onOpen(conv.phone)}
@@ -173,7 +173,7 @@ function ConversationRow({
       <span
         className={cn(
           "w-[170px] shrink-0 text-[13px] truncate pr-3",
-          isRead ? "font-normal text-foreground/65" : "font-semibold text-foreground"
+          isRead ? "font-normal text-foreground/78" : "font-semibold text-foreground"
         )}
       >
         {conv.customer_name}
@@ -181,13 +181,13 @@ function ConversationRow({
 
       {/* subject · snippet */}
       <span className="flex-1 min-w-0 text-[13px] truncate">
-        <span className={cn(isRead ? "text-foreground/55" : "text-foreground/80 font-medium")}>
+        <span className={cn(isRead ? "text-foreground/65" : "text-foreground/88 font-medium")}>
           {channelLabel(conv.channel)}
         </span>
-        <span className="text-foreground/25 mx-2">—</span>
-        <span className={cn("font-normal", isRead ? "text-foreground/38" : "text-foreground/50")}>
+        <span className="text-foreground/35 mx-2">—</span>
+        <span className={cn("font-normal", isRead ? "text-foreground/52" : "text-foreground/65")}>
           {conv.last_message_role === "assistant" && (
-            <span className="text-primary/50 mr-1">AI ·</span>
+            <span className="text-primary/65 mr-1">AI ·</span>
           )}
           {conv.last_message}
         </span>
@@ -196,15 +196,15 @@ function ConversationRow({
       {/* inline badges — always visible */}
       <div className="flex items-center gap-2 ml-2 shrink-0">
         {isEscalated && (
-          <span className="flex items-center gap-1 text-[10px] font-medium text-rose-400/75">
+          <span className="flex items-center gap-1 text-[10px] font-medium text-rose-400/90">
             <AlertTriangle className="w-2.5 h-2.5" />
             Escalated
           </span>
         )}
-        <span className="text-muted-foreground/25">
+        <span className="text-muted-foreground/55">
           <ChannelIcon channel={conv.channel} />
         </span>
-        <span className="text-[10px] text-muted-foreground/25 tabular-nums">{conv.message_count}</span>
+        <span className="text-[10px] text-muted-foreground/50 tabular-nums">{conv.message_count}</span>
       </div>
 
       {/* date + hover actions (overlap) */}
@@ -213,7 +213,7 @@ function ConversationRow({
         <span
           className={cn(
             "absolute right-4 text-[12px] tabular-nums transition-opacity duration-75 group-hover:opacity-0",
-            isRead ? "text-muted-foreground/40" : "font-medium text-foreground/60"
+            isRead ? "text-muted-foreground/65" : "font-medium text-foreground/80"
           )}
         >
           {gmailDate(conv.last_message_at)}
@@ -227,7 +227,7 @@ function ConversationRow({
           <button
             onClick={() => isRead ? onMarkUnread(conv.phone) : onMarkRead(conv.phone)}
             title={isRead ? "Mark as unread" : "Mark as read"}
-            className="p-1.5 rounded text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
+            className="p-1.5 rounded text-muted-foreground/70 hover:text-foreground hover:bg-white/[0.10] transition-colors"
           >
             {isRead ? <Circle className="w-3.5 h-3.5" /> : <CheckCircle className="w-3.5 h-3.5" />}
           </button>
@@ -235,7 +235,7 @@ function ConversationRow({
             <button
               onClick={() => onUnhide(conv.phone)}
               title="Restore"
-              className="p-1.5 rounded text-muted-foreground/50 hover:text-emerald-400 hover:bg-white/[0.08] transition-colors"
+              className="p-1.5 rounded text-muted-foreground/70 hover:text-emerald-400 hover:bg-white/[0.10] transition-colors"
             >
               <ArchiveRestore className="w-3.5 h-3.5" />
             </button>
@@ -243,7 +243,7 @@ function ConversationRow({
             <button
               onClick={() => onHide(conv.phone)}
               title="Archive"
-              className="p-1.5 rounded text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
+              className="p-1.5 rounded text-muted-foreground/70 hover:text-foreground hover:bg-white/[0.10] transition-colors"
             >
               <Archive className="w-3.5 h-3.5" />
             </button>
@@ -252,7 +252,7 @@ function ConversationRow({
             <button
               onClick={() => onDelete(conv.phone)}
               title="Delete"
-              className="p-1.5 rounded text-muted-foreground/50 hover:text-rose-400 hover:bg-white/[0.08] transition-colors"
+              className="p-1.5 rounded text-muted-foreground/70 hover:text-rose-400 hover:bg-white/[0.10] transition-colors"
             >
               <Trash2 className="w-3.5 h-3.5" />
             </button>
@@ -374,7 +374,7 @@ export default function Messages() {
 
   const clearSelection = () => setSelectedSet(new Set());
 
-  const selectionToolbarBtn = "p-1.5 rounded text-foreground/45 hover:text-foreground hover:bg-white/[0.07] transition-colors";
+  const selectionToolbarBtn = "p-1.5 rounded text-foreground/65 hover:text-foreground hover:bg-white/[0.10] transition-colors";
 
   /* ─── DETAIL VIEW ──────────────────────────────────────────────────────── */
   if (view === "detail" && detail) {
@@ -523,7 +523,7 @@ export default function Messages() {
       {/* ── Toolbar — swaps between normal and selection mode, same height/position ── */}
       <div
         className="flex items-center shrink-0 h-[50px] border-b px-2 gap-1"
-        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+        style={{ borderColor: "rgba(255,255,255,0.13)" }}
       >
         {/* master checkbox — always present in both modes */}
         <div className="flex items-center shrink-0">
@@ -534,7 +534,7 @@ export default function Messages() {
               onChange={toggleMasterSelect}
             />
           </div>
-          <ChevronDown className="w-[10px] h-[10px] text-foreground/25 -ml-1.5 mr-1 shrink-0" />
+          <ChevronDown className="w-[10px] h-[10px] text-foreground/45 -ml-1.5 mr-1 shrink-0" />
         </div>
 
         {someSelected ? (
@@ -544,7 +544,7 @@ export default function Messages() {
               {selectedSet.size} selected
             </span>
 
-            <div className="h-4 w-px bg-border/30 mx-2 shrink-0" />
+            <div className="h-4 w-px bg-border/50 mx-2 shrink-0" />
 
             <button onClick={bulkArchive} title="Archive" className={selectionToolbarBtn}>
               <Archive className="w-[17px] h-[17px]" />
@@ -556,7 +556,7 @@ export default function Messages() {
               <Circle className="w-[17px] h-[17px]" />
             </button>
 
-            <div className="h-4 w-px bg-border/30 mx-2 shrink-0" />
+            <div className="h-4 w-px bg-border/50 mx-2 shrink-0" />
 
             <button
               onClick={bulkDelete}
