@@ -1,4 +1,4 @@
-import { Menu, X } from 'lucide-react';
+import { LogIn, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { navLinks } from '../data/siteContent';
@@ -27,6 +27,16 @@ export default function Navbar() {
               {link.label}
             </NavLink>
           ))}
+          <NavLink
+            to="/dashboard/login"
+            data-testid="link-nav-login"
+            className={({ isActive }) =>
+              `flex items-center gap-1.5 text-sm font-medium ${isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'}`
+            }
+          >
+            <LogIn size={14} />
+            Login
+          </NavLink>
           <NavLink
             to="/contact"
             data-testid="button-nav-cta"
@@ -64,6 +74,16 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+            <NavLink
+              to="/dashboard/login"
+              onClick={close}
+              data-testid="link-mobile-login"
+              className={({ isActive }) =>
+                `rounded-lg px-3 py-2.5 text-sm font-medium ${isActive ? 'bg-slate-50 text-slate-900' : 'text-slate-600'}`
+              }
+            >
+              Login
+            </NavLink>
             <NavLink
               to="/contact"
               onClick={close}

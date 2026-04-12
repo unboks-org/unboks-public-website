@@ -1,0 +1,293 @@
+Prepare the existing wetakeyourjob.com Replit project to become the single public-facing frontend container for all client-facing pages and tools.
+
+IMPORTANT
+Do NOT import external codebases yet.
+Do NOT rebuild the operator dashboard from scratch.
+Do NOT rebuild the BlueMarlin demo from scratch.
+Your job is ONLY to prepare the project architecture, route system, layouts, placeholders, and merge-ready structure so that later I can manually import the code from:
+- the current WTYJ Operator Dashboard project
+- the current BlueMarlin Demo Site project
+
+END STATE REQUIRED
+After your work, the wetakeyourjob.com project must already be structurally ready so I only need to paste/import the other codebases into the correct places.
+
+STACK
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- clean reusable architecture
+- responsive
+- production-style structure
+- no backend changes
+
+DOMAIN / URL GOAL
+This project will become the only public-facing frontend on:
+- wetakeyourjob.com
+while the API remains:
+- api.wetakeyourjob.com
+with zero backend/API changes
+
+DO NOT TOUCH
+- api.wetakeyourjob.com behavior
+- backend API request paths
+- Client Overview Dashboard project
+- authentication logic on the backend
+- operator passwords
+- current API contracts
+
+TARGET ROUTES TO PREPARE
+Create and wire these routes now, even if some pages are placeholders for later import:
+
+PUBLIC / MARKETING
+- /
+- /services
+- /about
+- /contact
+
+HIDDEN DEMO
+- /demo/bluemarlin
+
+DASHBOARD
+- /dashboard/login
+- /dashboard
+- /dashboard/messages
+- /dashboard/escalations
+- /dashboard/content
+- /dashboard/settings
+- /dashboard/* future support structure
+
+ROUTING REQUIREMENTS
+- Use React Router
+- Marketing routes must use a MarketingLayout
+- Dashboard routes must use a separate DashboardLayout
+- Demo route must be isolated and not appear in the public nav/footer
+- Support direct URL access for nested routes
+- Ensure the project is structured as an SPA that can handle deep routes like:
+  - /dashboard/messages
+  - /dashboard/escalations
+  - /demo/bluemarlin
+
+MAIN OBJECTIVE
+Create the shell that will receive imported code later.
+
+PREPARE THIS FOLDER STRUCTURE
+Use a clean architecture close to this:
+
+src/
+  app/
+  components/
+    ui/
+    shared/
+  layouts/
+    MarketingLayout.jsx
+    DashboardLayout.jsx
+  pages/
+    marketing/
+      HomePage.jsx
+      ServicesPage.jsx
+      AboutPage.jsx
+      ContactPage.jsx
+    demo/
+      BlueMarlinDemoPlaceholder.jsx
+    dashboard/
+      DashboardLoginPlaceholder.jsx
+      DashboardOverviewPlaceholder.jsx
+      DashboardMessagesPlaceholder.jsx
+      DashboardEscalationsPlaceholder.jsx
+      DashboardContentPlaceholder.jsx
+      DashboardSettingsPlaceholder.jsx
+      DashboardRoutePlaceholder.jsx
+  dashboard/
+    components/
+    routes/
+    lib/
+    hooks/
+    styles/
+  demo/
+    components/
+    lib/
+  site/
+    components/
+    sections/
+    lib/
+  router/
+    AppRouter.jsx
+  lib/
+  data/
+
+If a slightly cleaner version is better, use it, but preserve the clear separation between:
+- marketing site
+- dashboard
+- demo
+
+LAYOUT REQUIREMENTS
+
+1. MarketingLayout
+- used for public marketing pages
+- includes site navbar
+- includes footer
+- includes top-right Login button linking to /dashboard/login
+
+2. DashboardLayout
+- separate from marketing layout
+- no marketing footer
+- no marketing hero/nav styling pollution
+- should have a clean dashboard shell:
+  - top bar or sidebar placeholder
+  - dashboard title area
+  - main content area
+- prepared to receive imported dashboard components later
+
+3. Demo page isolation
+- /demo/bluemarlin must NOT appear in navbar
+- /demo/bluemarlin must NOT appear in footer
+- /demo/bluemarlin must be treated as hidden
+- add page-level noindex metadata if possible in frontend setup
+- add a clear code comment that this route is intentionally hidden and only used via direct URL
+
+PLACEHOLDER PAGE REQUIREMENTS
+Build polished placeholder pages for all future-import routes so the app runs cleanly before code import.
+
+For each dashboard placeholder page, show:
+- page title
+- short “ready for import” message
+- clear note about which old route maps here
+
+Example mapping content:
+- Old route: /login → New route: /dashboard/login
+- Old route: /messages → New route: /dashboard/messages
+etc.
+
+For BlueMarlin demo placeholder page:
+- title: BlueMarlin Demo
+- note that this page is intentionally hidden from site navigation
+- note that content from the old BlueMarlin Demo Site will be imported here later
+
+NAVIGATION REQUIREMENTS
+Main site navbar must include:
+- Home
+- Services
+- About
+- Contact
+- Login
+
+Login button must link to:
+- /dashboard/login
+
+Do NOT include:
+- demo page link
+- dashboard internal links in public marketing nav
+
+DASHBOARD ROUTE PREPARATION
+Prepare route grouping so dashboard code can later be dropped in with minimal friction.
+
+Create dashboard routing structure that clearly supports:
+- /dashboard/login
+- authenticated dashboard pages
+- future protected routes
+
+Add a lightweight placeholder ProtectedRoute wrapper or auth shell component.
+IMPORTANT:
+- Do NOT implement real auth logic
+- Do NOT fake backend auth
+- Do NOT change API calls
+Just prepare the wrapper structure and clearly label it as merge-ready placeholder logic.
+
+MARKETING PAGES
+Keep or create clean marketing pages for:
+- home
+- services
+- about
+- contact
+
+These can stay lightweight and polished.
+Do not over-focus on redesign.
+Primary focus is merge preparation and route architecture.
+
+MERGE PREPARATION COMMENTS
+Add clear code comments in the project showing where imported code should go.
+
+Examples:
+- dashboard login import target
+- dashboard overview import target
+- messages import target
+- escalations import target
+- demo page import target
+
+The goal is that another developer can immediately understand where to paste each imported codebase.
+
+OLD → NEW ROUTE MAP
+Reflect this exact mapping somewhere in code comments and/or a simple merge notes file:
+
+Old dashboard routes:
+- /login -> /dashboard/login
+- / -> /dashboard
+- /messages -> /dashboard/messages
+- /escalations -> /dashboard/escalations
+- /content -> /dashboard/content
+- /settings -> /dashboard/settings
+- every other dashboard page -> /dashboard/...
+
+Old demo:
+- bluemarlin.wetakeyourjob.com -> /demo/bluemarlin
+
+CREATE A MERGE NOTES FILE
+Create a short file in the repo, something like:
+- MERGE_PLAN.md
+or
+- FRONTEND_MERGE_NOTES.md
+
+Include:
+- purpose of the new structure
+- where dashboard code should be imported
+- where demo code should be imported
+- old-to-new route mapping
+- reminder that API paths remain unchanged
+- reminder that Client Overview Dashboard is untouched
+Keep it short and practical.
+
+UI / STYLE REQUIREMENTS
+- modern clean SaaS style
+- dark premium feel is acceptable
+- polished but not overdesigned
+- placeholders should look intentional, not broken
+- responsive
+- clear section spacing
+- no visual clutter
+
+TECHNICAL SAFETY REQUIREMENTS
+- project must run immediately after your changes
+- no broken imports
+- no dead routes
+- no backend assumptions
+- no environment-variable rewrites
+- no dependency bloat unless necessary
+- no complicated state management needed for placeholders
+
+REPLIT / DEPLOY READINESS
+Make sure the project is prepared for:
+- direct route visits
+- future code imports
+- deployment as a single frontend app
+
+SUCCESS CRITERIA
+When finished, I should be able to:
+1. open wetakeyourjob.com and see the marketing pages
+2. click Login and land on /dashboard/login
+3. open /demo/bluemarlin directly and see the hidden demo placeholder
+4. open /dashboard/messages directly and see a polished placeholder page
+5. understand exactly where to import the old dashboard code
+6. understand exactly where to import the old demo code
+
+DO NOT
+- delete existing useful marketing content unless necessary
+- invent backend behavior
+- implement fake login flows
+- connect or modify API logic
+- add the demo page to public navigation
+- mix dashboard layout with marketing layout
+
+DELIVERABLE
+Return the fully prepared merge-ready frontend structure inside the wetakeyourjob.com project.
+The app must be runnable immediately and clearly organized for the later manual code imports.
