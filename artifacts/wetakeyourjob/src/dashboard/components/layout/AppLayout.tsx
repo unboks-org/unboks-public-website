@@ -187,6 +187,13 @@ export function AppLayout() {
   const NAV_ITEMS = [
     {
       path: "/dashboard",
+      search: "",
+      label: "Home",
+      icon: Inbox,
+      isActive: isHome,
+    },
+    {
+      path: "/dashboard",
       search: "?view=escalations",
       label: "Escalations",
       icon: AlertTriangle,
