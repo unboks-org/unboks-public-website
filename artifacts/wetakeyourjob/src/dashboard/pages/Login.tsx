@@ -11,11 +11,7 @@ interface LocationState {
   from?: string;
 }
 
-const CLIENT_LABELS: Record<Client, string> = {
-  bluemarlin: "BlueMarlin Charters",
-  adamus: "Restaurant Adamus",
-  roberto: "Roberto",
-};
+// Brief 190: client labels removed to prevent info leak (workspace code input instead)
 
 // Distinguish network failures (CORS, DNS, backend down) from real auth errors.
 // fetch() throws TypeError("Failed to fetch") on network problems; api.login
@@ -32,7 +28,7 @@ function getLoginErrorText(error: unknown): string {
 
 export default function Login() {
   const [password, setPassword] = useState("");
-  const [selectedClient, setSelectedClient] = useState<Client>(getClient());
+  const [selectedClient, setSelectedClient] = useState<string>(getClient());
   const { login, isAuthenticated } = useAuth();
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -102,33 +98,29 @@ export default function Login() {
                 className="text-[10px] font-bold uppercase tracking-[0.3em] ml-0.5"
                 style={{ color: isDark ? "rgba(255,255,255,0.40)" : "hsl(210 28% 48%)" }}
               >
-                Client
+                Workspace
               </label>
               <div className="relative">
                 <Building2
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
                   style={{ color: isDark ? "rgba(6,178,220,0.45)" : "hsl(196 90% 36% / 0.6)" }}
                 />
-                <select
+                <input
+                  type="text"
                   value={selectedClient}
                   onChange={(e) => {
-                    const next = e.target.value as Client;
-                    setSelectedClient(next);
-                    setClient(next);
+                    const next = e.target.value.toLowerCase().trim();
+                    setSelectedClient(next as Client);
+                    setClient(next as Client);
                   }}
-                  className="w-full pl-10 h-11 rounded-xl text-sm transition-colors border appearance-none cursor-pointer"
+                  placeholder="e.g. bluemarlin"
+                  className="w-full pl-10 h-11 rounded-xl text-sm transition-colors border appearance-none"
                   style={{
                     background: isDark ? "rgba(9,23,38,0.80)" : "#FFFFFF",
                     borderColor: isDark ? "rgba(255,255,255,0.08)" : "hsl(210 28% 82%)",
                     color: isDark ? "#DCF1F9" : "hsl(214 65% 12%)",
                   }}
-                >
-                  {(Object.keys(CLIENT_LABELS) as Client[]).map((c) => (
-                    <option key={c} value={c}>
-                      {CLIENT_LABELS[c]}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
 
