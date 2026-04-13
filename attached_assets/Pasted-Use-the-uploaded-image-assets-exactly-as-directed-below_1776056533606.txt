@@ -1,0 +1,191 @@
+Use the uploaded image assets exactly as directed below.
+
+CRITICAL RULES
+- do not hallucinate
+- do not drift
+- do not reinterpret the design
+- do not invent a new layout style
+- do not replace any uploaded image
+- do not generate alternative graphics
+- do not crop images aggressively
+- do not add extra feature boxes not requested
+- do not darken the site
+- do not turn this into a crypto-looking or generic SaaS site
+- do not over-explain the product
+- do not create a collage if a single image is assigned
+- use the exact filenames below in the exact places below
+
+UPLOADED IMAGE FILES
+1. wtyj_hero_main.png
+2. wtyj_grid_v1.png
+3. wtyj_grid_v2.png
+4. wtyj_grid_v3.png
+
+PRIMARY OBJECTIVE
+Build a homepage for wetakeyourjob.com that feels premium, bright, emotional, modern, and outcome-first.
+
+The site should sell:
+- more time
+- less repetitive work
+- more focus
+- more business
+- more life
+- all messages in one inbox
+
+The site should not feel like:
+- a feature brochure
+- a technical dashboard pitch
+- a crypto site
+- a cluttered SaaS landing page
+
+LAYOUT INSTRUCTIONS
+
+SECTION 1 — HERO
+Use: wtyj_hero_main.png
+
+Placement:
+- full-width hero section at the top of the homepage
+- must appear immediately below the navbar
+- must dominate the page visually
+- use it as the main approved visual
+- do not replace it with CSS art or a different composition
+
+Display behavior:
+- desktop: show almost the full image
+- mobile: preserve the main message and central 1 Inbox composition as much as possible
+- do not crop out the phone
+- do not crop out the laptop
+- do not crop out the “All your messages. 1 Inbox.” message
+- do not crop out the central inbox hub
+
+Hero section rules:
+- the image itself already carries the message
+- do not stack large new text blocks on top of it unless absolutely necessary
+- if text overlay is used, keep it minimal and place only where it does not fight the image
+- best option: use the image as the complete hero visual with minimal additional surrounding text
+
+SECTION 2 — SUPPORTING BRAND STRIP
+Use: no extra uploaded image required unless needed
+This should be a clean text strip below the hero, not a heavy content block.
+
+Copy direction:
+- Less busywork. More business.
+- Faster replies. Happier clients.
+- Smart automation. Human oversight.
+
+Keep it clean and short.
+
+SECTION 3 — SUPPORTING VISUAL SECTION A
+Use: wtyj_grid_v1.png
+
+Placement:
+- lower homepage support section
+- use as a large supporting visual block
+- should not overpower the hero
+- treat this as a secondary image
+
+Behavior:
+- preserve image composition
+- no heavy crop
+- no recolor
+- no filters
+
+SECTION 4 — SUPPORTING VISUAL SECTION B
+Use: wtyj_grid_v2.png
+
+Placement:
+- another lower homepage support block
+- use only if the page structure benefits from it
+- if used, keep it clearly secondary to the hero
+- use it to support the themes:
+  - all channels
+  - one inbox
+  - more time
+  - automation with oversight
+
+SECTION 5 — SUPPORTING VISUAL SECTION C
+Use: wtyj_grid_v3.png
+
+Placement:
+- optional tertiary supporting visual
+- use further down the homepage or on /services if needed
+- do not force all images above the fold
+- maintain visual hierarchy
+
+NAVBAR
+Keep clean and premium.
+Links:
+- Services
+- About
+- Contact
+- Login
+
+CTA:
+- Get started
+
+NAVBAR STYLE
+- white / very light background
+- clean dark text
+- minimal
+- premium
+- not bulky
+
+COPY STYLE
+Very short.
+Very sharp.
+Very controlled.
+
+Use wording like:
+- All your messages. 1 Inbox.
+- More time for what matters.
+- Less busywork. More business.
+- Faster replies. Happier clients.
+- Smart automation. Human oversight.
+
+Do not use:
+- long feature descriptions
+- buzzwords
+- heavy SaaS paragraphs
+- too many bullet lists
+- technical jargon
+
+VISUAL STYLE
+- bright
+- premium
+- calm
+- clean
+- spacious
+- Apple/Nike outcome-first energy
+
+Do not:
+- overload the page with cards
+- add too many grids
+- create a heavy explainer layout
+- bury the visual impact under too much text
+
+IMAGE TECH RULES
+- import the uploaded images directly into the frontend
+- assign them by exact filename
+- use responsive image containers
+- preserve aspect ratio
+- avoid CLS
+- do not blur them
+- do not compress them too hard
+- do not cover important image areas with UI
+
+EXACT IMPLEMENTATION ORDER
+1. Build homepage structure
+2. Place wtyj_hero_main.png in the hero exactly
+3. Add clean supporting text sections
+4. Use wtyj_grid_v1.png as secondary visual
+5. Use wtyj_grid_v2.png and wtyj_grid_v3.png only lower in the page or on supporting pages if needed
+6. Review final result against this rule:
+   - hero must feel emotional and premium
+   - page must not drift back into feature brochure mode
+
+FINAL RULE
+If there is any conflict between “adding more explanatory content” and “preserving the premium emotional visual impact,” preserve the visual impact.
+
+The hero image is the lead.
+The text supports it.
+Not the other way around.
