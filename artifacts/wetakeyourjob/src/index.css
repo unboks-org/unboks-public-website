@@ -227,7 +227,7 @@ a, button, input, textarea {
     font-family: var(--font-display);
     @apply font-semibold tracking-tight;
     letter-spacing: -0.02em;
-    color: inherit;
+    color: hsl(var(--foreground));
   }
 
   .dark #dashboard-root {
@@ -236,6 +236,16 @@ a, button, input, textarea {
       radial-gradient(ellipse 50% 40% at -8% 55%, rgba(20,28,46,0.80) 0%, transparent 55%),
       radial-gradient(ellipse 40% 35% at 108% 75%, rgba(20,28,46,0.60) 0%, transparent 50%);
   }
+}
+
+/* Override the global h1-h4 color for the dashboard — must be outside @layer to win the cascade */
+#dashboard-root h1,
+#dashboard-root h2,
+#dashboard-root h3,
+#dashboard-root h4,
+#dashboard-root h5,
+#dashboard-root h6 {
+  color: hsl(var(--foreground));
 }
 
 @layer utilities {
