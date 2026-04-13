@@ -384,25 +384,6 @@ export default function BookingsPage() {
         {/* ── Trip filter bar ── */}
         {!isLoading && !error && serviceBlocks.length > 0 && (
           <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-border/60 overflow-x-auto scrollbar-none">
-            {/* ALL pill */}
-            <button
-              onClick={() => { clearServiceFilters(); }}
-              className={cn(
-                "shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors border",
-                !hasServiceFilter
-                  ? "bg-foreground/10 border-foreground/20 text-foreground"
-                  : "border-border/50 text-muted-foreground hover:text-foreground hover:border-border"
-              )}
-            >
-              All
-              <span className={cn(
-                "text-[10px] tabular-nums",
-                !hasServiceFilter ? "text-foreground/60" : "text-muted-foreground/60"
-              )}>
-                {allSlots.length}
-              </span>
-            </button>
-
             {/* Trip pills */}
             {serviceBlocks.map((svc) => {
               const on = serviceFilters.has(svc.key);
@@ -427,6 +408,17 @@ export default function BookingsPage() {
                 </button>
               );
             })}
+
+            {/* ALL pill — always last, never highlighted */}
+            <button
+              onClick={() => clearServiceFilters()}
+              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors border border-border/50 text-muted-foreground hover:text-foreground hover:border-border"
+            >
+              All
+              <span className="text-[10px] tabular-nums text-muted-foreground/50">
+                {allSlots.length}
+              </span>
+            </button>
           </div>
         )}
 
