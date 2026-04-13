@@ -12,3 +12,9 @@ id = "A9EbJRUDdYrdEswKBEv_s"
 uri = "file://wetakeyourjob-full-reference.zip"
 type = "unspecified"
 title = "wetakeyourjob.com — Full Project (201 files, 44 MB)"
+
+[[outputs]]
+id = "nCXcFZrzyHWOWT0JqzbMn"
+uri = "file://wetakeyourjob-source.tar.gz"
+type = "unspecified"
+title = "wetakeyourjob-source.tar.gz — Full project source export"
