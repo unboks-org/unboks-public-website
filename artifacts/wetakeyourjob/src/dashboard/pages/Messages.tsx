@@ -138,6 +138,13 @@ function channelLabel(channel?: string): string {
   return "WhatsApp";
 }
 
+function displayName(conv: Conversation): string {
+  const name = conv.customer_name ?? "";
+  // Real names are short or contain a space; long hex-like strings are IDs
+  if (name && (name.includes(" ") || name.length <= 20)) return name;
+  return channelLabel(conv.channel);
+}
+
 interface RowProps {
   conv: Conversation;
   isHidden?: boolean;
@@ -163,7 +170,7 @@ function ConversationRow({
   return (
     <div
       className={cn(
-        "group relative flex items-center h-[56px] border-b cursor-pointer select-none transition-colors duration-75",
+        "relative flex items-center h-[56px] border-b cursor-pointer select-none transition-colors duration-75",
         "border-border/60 dark:border-border/[0.22]",
         isSelected
           ? "bg-primary/[0.09]"
@@ -174,7 +181,7 @@ function ConversationRow({
       )}
       onClick={() => onOpen(conv.phone)}
     >
-      {/* checkbox column — always visible, Gmail-style */}
+      {/* checkbox column */}
       <div className="flex items-center justify-center w-10 h-full shrink-0">
         <GmailCheckbox
           checked={isSelected}
@@ -189,17 +196,17 @@ function ConversationRow({
         )}
       </div>
 
-      {/* sender name */}
+      {/* sender — human-readable name or channel label (IDs suppressed) */}
       <span
         className={cn(
-          "w-[170px] shrink-0 text-sm truncate pr-3",
+          "w-[150px] shrink-0 text-sm truncate pr-3",
           isRead ? "font-normal text-foreground dark:text-foreground/85" : "font-semibold text-foreground"
         )}
       >
-        {conv.customer_name}
+        {displayName(conv)}
       </span>
 
-      {/* subject · snippet */}
+      {/* snippet */}
       <span className="flex-1 min-w-0 text-sm truncate">
         <span className={cn(isRead ? "text-foreground/85 dark:text-foreground/72" : "text-foreground/95 dark:text-foreground/92 font-medium")}>
           {channelLabel(conv.channel)}
@@ -213,7 +220,7 @@ function ConversationRow({
         </span>
       </span>
 
-      {/* inline badges — always visible */}
+      {/* escalation badge + channel icon + count — always visible */}
       <div className="flex items-center gap-2 ml-2 shrink-0">
         {isEscalated && (
           <span className={cn(
@@ -232,57 +239,69 @@ function ConversationRow({
         <span className="text-[11px] text-muted-foreground/80 dark:text-muted-foreground/60 tabular-nums">{conv.message_count}</span>
       </div>
 
-      {/* date + hover actions (overlap) */}
-      <div className="relative w-[90px] shrink-0 flex items-center justify-end pr-4">
-        {/* date — hidden on hover */}
+      {/* right zone — date + permanent actions, always visible, stable layout */}
+      <div
+        className="shrink-0 flex items-center gap-0.5 pl-2 pr-2"
+        onClick={(e) => e.stopPropagation()}
+      >
         <span
           className={cn(
-            "absolute right-4 text-[13px] tabular-nums transition-opacity duration-75 group-hover:opacity-0",
-            isRead ? "text-muted-foreground/90 dark:text-muted-foreground/72" : "font-medium text-foreground/95 dark:text-foreground/88"
+            "text-[11px] tabular-nums mr-1.5 w-[46px] text-right",
+            isRead ? "text-muted-foreground/75 dark:text-muted-foreground/55" : "font-medium text-foreground/90 dark:text-foreground/80"
           )}
         >
           {gmailDate(conv.last_message_at)}
         </span>
 
-        {/* actions — visible on hover */}
-        <div
-          className="absolute right-2 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-75"
-          onClick={(e) => e.stopPropagation()}
+        {/* Reply — opens conversation */}
+        <button
+          onClick={() => onOpen(conv.phone)}
+          title="Reply"
+          className="p-1.5 rounded text-muted-foreground/50 hover:text-primary hover:bg-primary/[0.10] transition-colors"
         >
+          <MessageCircle className="w-3.5 h-3.5" />
+        </button>
+
+        {/* Mark read / unread */}
+        <button
+          onClick={() => isRead ? onMarkUnread(conv.phone) : onMarkRead(conv.phone)}
+          title={isRead ? "Mark as unread" : "Mark as read"}
+          className="p-1.5 rounded text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
+        >
+          {isRead
+            ? <Circle className="w-3.5 h-3.5" />
+            : <CheckCircle className="w-3.5 h-3.5 text-primary/70" />}
+        </button>
+
+        {/* Archive / Restore */}
+        {isHidden ? (
           <button
-            onClick={() => isRead ? onMarkUnread(conv.phone) : onMarkRead(conv.phone)}
-            title={isRead ? "Mark as unread" : "Mark as read"}
-            className="p-1.5 rounded text-muted-foreground/70 hover:text-foreground hover:bg-white/[0.10] transition-colors"
+            onClick={() => onUnhide(conv.phone)}
+            title="Restore from archive"
+            className="p-1.5 rounded text-muted-foreground/50 hover:text-emerald-400 hover:bg-white/[0.08] transition-colors"
           >
-            {isRead ? <Circle className="w-3.5 h-3.5" /> : <CheckCircle className="w-3.5 h-3.5" />}
+            <ArchiveRestore className="w-3.5 h-3.5" />
           </button>
-          {isHidden ? (
-            <button
-              onClick={() => onUnhide(conv.phone)}
-              title="Restore"
-              className="p-1.5 rounded text-muted-foreground/70 hover:text-emerald-400 hover:bg-white/[0.10] transition-colors"
-            >
-              <ArchiveRestore className="w-3.5 h-3.5" />
-            </button>
-          ) : (
-            <button
-              onClick={() => onHide(conv.phone)}
-              title="Archive"
-              className="p-1.5 rounded text-muted-foreground/70 hover:text-foreground hover:bg-white/[0.10] transition-colors"
-            >
-              <Archive className="w-3.5 h-3.5" />
-            </button>
-          )}
-          {isHidden && onDelete && (
-            <button
-              onClick={() => onDelete(conv.phone)}
-              title="Delete"
-              className="p-1.5 rounded text-muted-foreground/70 hover:text-rose-400 hover:bg-white/[0.10] transition-colors"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-            </button>
-          )}
-        </div>
+        ) : (
+          <button
+            onClick={() => onHide(conv.phone)}
+            title="Archive"
+            className="p-1.5 rounded text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
+          >
+            <Archive className="w-3.5 h-3.5" />
+          </button>
+        )}
+
+        {/* Delete — archived rows only */}
+        {isHidden && onDelete && (
+          <button
+            onClick={() => onDelete(conv.phone)}
+            title="Delete permanently"
+            className="p-1.5 rounded text-muted-foreground/50 hover:text-rose-400 hover:bg-white/[0.08] transition-colors"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
     </div>
   );

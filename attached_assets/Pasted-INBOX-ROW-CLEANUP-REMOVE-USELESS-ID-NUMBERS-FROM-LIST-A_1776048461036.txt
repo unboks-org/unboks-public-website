@@ -1,0 +1,141 @@
+INBOX ROW CLEANUP — REMOVE USELESS ID NUMBERS FROM LIST, AND SHOW REPLY / MARK AS READ / ARCHIVE AS PERMANENT ACTIONS
+
+PROBLEM
+The inbox rows are still showing long ID-style numbers in the list.
+These add no value in the list view.
+They create noise and make the UI uglier/harder to scan.
+
+Also:
+- Mark as read should be permanently visible
+- Archive should be permanently visible
+- Reply icon/action should also be permanently visible
+- these should NOT depend on hover
+
+This was already discussed and the current result is still wrong.
+
+GOAL
+Make the inbox list cleaner and more useful:
+1. remove the useless long numeric/string IDs from the row list view
+2. keep useful information only
+3. always show the key row actions:
+   - Reply
+   - Mark as read / unread
+   - Archive
+
+IMPORTANT
+Do NOT redesign the inbox shell.
+Do NOT move to a different layout.
+Do NOT create hover-only actions for these core controls.
+Keep the Gmail-like structure, but adapt it for WTYJ’s actual needs.
+
+REQUIRED CHANGES
+
+1. REMOVE THE USELESS NUMBERS / IDS FROM LIST ROWS
+In the row list, do NOT show those long IDs / hash-like identifiers as the primary visible label anymore.
+
+These IDs should not be displayed in the main row list because they are operational noise.
+
+Instead, the row should prioritize useful human-readable information such as:
+- customer name if available
+- platform/channel
+- message preview / snippet
+- escalation status if relevant
+- date/time
+- other useful metadata only
+
+If that ID is still needed:
+- keep it in the detail view when the row is opened
+- keep it in underlying data/state
+- but remove it from the primary row list display
+
+2. KEEP IMPORTANT ACTIONS PERMANENTLY VISIBLE
+The following row actions must be visible all the time, not only on hover:
+- Reply
+- Mark as read / unread
+- Archive
+
+These actions should appear in a stable action area on the right side of each row.
+
+3. REPLY ACTION
+The reply icon/action is missing or not consistently visible.
+Add it back as a permanently visible row action.
+
+Use the existing reply logic already present in the project.
+Do NOT invent a fake action.
+Do NOT rebuild reply from scratch.
+
+4. MARK AS READ / UNREAD
+This must be permanently visible in the row action area.
+It should clearly indicate the current/read state if that is already supported.
+Use the existing read/unread logic already present in the app.
+
+5. ARCHIVE
+Archive must also be permanently visible.
+No hover requirement.
+No hidden-action behavior.
+Use the existing archive logic already present in the app.
+
+UI / UX RULES
+
+A. ROW LIST SHOULD SHOW ONLY USEFUL INFO
+The row should help the client scan conversations quickly.
+Long IDs do not help.
+They belong in detail view, not list view.
+
+B. PERMANENT ACTION AREA
+Keep a stable right-side action zone on each row with:
+- Reply
+- Mark as read/unread
+- Archive
+
+These should always be visible, not only on hover.
+
+C. KEEP IT CLEAN
+Even with permanent actions, keep it premium and uncluttered.
+The row should not become visually noisy.
+Actions should be:
+- subtle but visible
+- aligned
+- readable in dark mode
+- operational
+- not oversized
+
+D. NO LAYOUT JUMP
+Do not make rows shift when hovered.
+Do not make actions appear/disappear and push content around.
+The row layout should stay stable.
+
+IMPLEMENTATION RULE
+- reuse existing row action logic/hooks
+- reuse existing reply/read/archive actions
+- keep existing backend/API behavior
+- do not invent new endpoints
+- remove only the useless list-view ID rendering
+- preserve the ID in detail view / internal data where needed
+
+DO NOT
+- do not redesign the whole inbox
+- do not hide actions behind hover
+- do not remove useful metadata
+- do not break detail views
+- do not remove IDs from the actual data model, only from the visible list row
+- do not fake reply/archive/read actions
+
+SUCCESS CRITERIA
+When I look at the inbox list:
+- I no longer see those useless long IDs in the row list
+- I see cleaner human-meaningful rows
+- Reply is permanently visible
+- Mark as read/unread is permanently visible
+- Archive is permanently visible
+- row layout stays stable with no hover-jump behavior
+- IDs are still available inside the detailed opened view if needed
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. what row content was removed from list view
+3. where the ID is still available in detail view/internal data
+4. how reply/mark-read/archive were made permanently visible
+5. confirmation that no hover-only dependency remains for these core actions
+6. confirmation that the inbox shell/layout was not unnecessarily redesigned
