@@ -77,8 +77,6 @@ export default function HomePage() {
               height="230"
               loading="lazy"
             />
-          </div>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:max-w-[66.8%] lg:mx-auto">
             <img
               src="/wtyj_panel_24_7.png"
               alt="24/7 coverage. Every hour. Every day."
@@ -93,6 +91,14 @@ export default function HomePage() {
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
               height="250"
+              loading="lazy"
+            />
+            <img
+              src="/wtyj_panel_automation.png"
+              alt="Smart automation. Human oversight."
+              className="w-full h-auto rounded-xl shadow-sm"
+              width="512"
+              height="230"
               loading="lazy"
             />
           </div>
