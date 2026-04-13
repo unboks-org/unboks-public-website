@@ -123,6 +123,7 @@ export default function Settings() {
   const { data: driveFolders } = useGoogleDriveFolders(!!driveStatus?.connected);
   const { data: dryRunData, toggle: toggleDryRun } = useDryRun();
   const [expandedConfigSection, setExpandedConfigSection] = useState<number | null>(null);
+  const [modulesOpen, setModulesOpen] = useState(true);
 
   // Schedule
   const { data: scheduleSlots } = useScheduleSlots();
@@ -168,96 +169,116 @@ export default function Settings() {
 
       {/* ── Sidebar Modules ──────────────────────────────────────────────── */}
       <div className="rounded-2xl border border-border bg-card overflow-hidden">
-        <div className="px-5 py-4 border-b border-border flex items-center gap-3">
+        <button
+          onClick={() => setModulesOpen((o) => !o)}
+          className="w-full px-5 py-4 flex items-center gap-3 text-left hover:bg-muted/20 transition-colors"
+        >
           <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
             <LayoutDashboard className="w-4 h-4 text-primary" />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-foreground">Sidebar Modules</p>
             <p className="text-sm text-muted-foreground mt-0.5">Choose which sections appear in the navigation</p>
           </div>
-        </div>
-
-        {/* Social Media toggle */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
-          <div className="flex items-center gap-3">
-            <Share2 className="w-4 h-4 text-muted-foreground shrink-0" />
-            <div>
-              <p className="text-[15px] font-medium text-foreground">Social Media</p>
-              <p className="text-sm text-muted-foreground mt-0.5">Content pipeline and post management</p>
-            </div>
+          <div className="w-7 h-7 rounded-full flex items-center justify-center bg-primary/10 shrink-0">
+            {modulesOpen
+              ? <ChevronUp className="w-4 h-4 text-primary" />
+              : <ChevronDown className="w-4 h-4 text-primary" />}
           </div>
-          <button
-            onClick={() => toggleFeature("showSocial")}
-            className={cn(
-              "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
-              features.showSocial ? "bg-primary" : "bg-muted-foreground/20"
-            )}
-          >
-            <span
-              className={cn(
-                "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
-                features.showSocial ? "translate-x-5" : "translate-x-0"
-              )}
-            />
-          </button>
-        </div>
+        </button>
 
-        {/* Create toggle */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
-          <div className="flex items-center gap-3">
-            <PenSquare className="w-4 h-4 text-muted-foreground shrink-0" />
-            <div>
-              <p className="text-[15px] font-medium text-foreground">Create</p>
-              <p className="text-sm text-muted-foreground mt-0.5">Manual content creation tools</p>
-            </div>
-          </div>
-          <button
-            onClick={() => toggleFeature("showCreate")}
-            className={cn(
-              "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
-              features.showCreate ? "bg-primary" : "bg-muted-foreground/20"
-            )}
-          >
-            <span
-              className={cn(
-                "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
-                features.showCreate ? "translate-x-5" : "translate-x-0"
-              )}
-            />
-          </button>
-        </div>
-
-        {/* Bookings / Orders label */}
-        <div className="flex items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-3">
-            <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
-            <div>
-              <p className="text-[15px] font-medium text-foreground">Bookings / Orders Label</p>
-              <p className="text-sm text-muted-foreground mt-0.5">Customize the sidebar navigation label</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-0.5 shrink-0">
-            <button
-              onClick={() => saveBookingsLabel("Bookings")}
-              className={cn(
-                "px-3 py-1 rounded-md text-sm font-medium transition-colors",
-                bookingsLabel === "Bookings" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
-              )}
+        <AnimatePresence>
+          {modulesOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="border-t border-border overflow-hidden"
             >
-              Bookings
-            </button>
-            <button
-              onClick={() => saveBookingsLabel("Orders")}
-              className={cn(
-                "px-3 py-1 rounded-md text-sm font-medium transition-colors",
-                bookingsLabel === "Orders" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              Orders
-            </button>
-          </div>
-        </div>
+              {/* Social Media toggle */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
+                <div className="flex items-center gap-3">
+                  <Share2 className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <div>
+                    <p className="text-[15px] font-medium text-foreground">Social Media</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">Content pipeline and post management</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => toggleFeature("showSocial")}
+                  className={cn(
+                    "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
+                    features.showSocial ? "bg-primary" : "bg-muted-foreground/20"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
+                      features.showSocial ? "translate-x-5" : "translate-x-0"
+                    )}
+                  />
+                </button>
+              </div>
+
+              {/* Create toggle */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
+                <div className="flex items-center gap-3">
+                  <PenSquare className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <div>
+                    <p className="text-[15px] font-medium text-foreground">Create</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">Manual content creation tools</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => toggleFeature("showCreate")}
+                  className={cn(
+                    "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
+                    features.showCreate ? "bg-primary" : "bg-muted-foreground/20"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
+                      features.showCreate ? "translate-x-5" : "translate-x-0"
+                    )}
+                  />
+                </button>
+              </div>
+
+              {/* Bookings / Orders label */}
+              <div className="flex items-center justify-between px-5 py-4">
+                <div className="flex items-center gap-3">
+                  <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <div>
+                    <p className="text-[15px] font-medium text-foreground">Bookings / Orders Label</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">Customize the sidebar navigation label</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-0.5 shrink-0">
+                  <button
+                    onClick={() => saveBookingsLabel("Bookings")}
+                    className={cn(
+                      "px-3 py-1 rounded-md text-sm font-medium transition-colors",
+                      bookingsLabel === "Bookings" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    Bookings
+                  </button>
+                  <button
+                    onClick={() => saveBookingsLabel("Orders")}
+                    className={cn(
+                      "px-3 py-1 rounded-md text-sm font-medium transition-colors",
+                      bookingsLabel === "Orders" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    Orders
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* ── Analytics shortcut ───────────────────────────────────────────── */}
