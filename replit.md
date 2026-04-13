@@ -118,6 +118,15 @@ API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
 - `artifacts/wetakeyourjob/src/demo/bluemarlin/config/resources.ts` — trip packages and boat data
 - `attached_assets/stock_images/` — trip photos (catamaran, snorkeling, beach, sunset, jetski)
 
+### Homepage Image Assets (in `artifacts/wetakeyourjob/public/`)
+- `wtyj_panel_hero_main.png` (1536×500) — full-width hero image
+- `wtyj_panel_one_inbox_total_control.png` (512×250) — support card 1
+- `wtyj_panel_less_busywork_more_business.png` (512×230) — support card 2
+- `wtyj_panel_faster_replies.png` (512×230) — support card 3
+- `wtyj_panel_24_7_coverage.png` (512×250) — support card 4
+- `wtyj_panel_all_languages.png` (512×250) — support card 5
+- RULE: hero = one large image; support section = 5 separate individual image cards (never a composite)
+
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages

@@ -14,7 +14,7 @@ export default function HomePage() {
           All your messages. 1 Inbox.
         </h1>
         <img
-          src={`${base}wtyj_hero_main.png`}
+          src={`${base}wtyj_panel_hero_main.png`}
           alt="All your messages. 1 Inbox. More time for what matters."
           className="w-full h-auto"
           width="1536"
@@ -32,7 +32,7 @@ export default function HomePage() {
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <img
-              src={`${base}wtyj_panel_inbox.png`}
+              src={`${base}wtyj_panel_one_inbox_total_control.png`}
               alt="One Inbox. Every Channel. Total Control."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
@@ -40,7 +40,7 @@ export default function HomePage() {
               loading="lazy"
             />
             <img
-              src={`${base}wtyj_panel_busywork.png`}
+              src={`${base}wtyj_panel_less_busywork_more_business.png`}
               alt="Less busywork. More business."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
@@ -48,7 +48,7 @@ export default function HomePage() {
               loading="lazy"
             />
             <img
-              src={`${base}wtyj_panel_replies.png`}
+              src={`${base}wtyj_panel_faster_replies.png`}
               alt="Faster replies. Happier clients. Stronger reputation."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
@@ -58,7 +58,7 @@ export default function HomePage() {
           </div>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:max-w-[66.8%] lg:mx-auto">
             <img
-              src={`${base}wtyj_panel_24_7.png`}
+              src={`${base}wtyj_panel_24_7_coverage.png`}
               alt="24/7 coverage. Every hour. Every day."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
@@ -66,7 +66,7 @@ export default function HomePage() {
               loading="lazy"
             />
             <img
-              src={`${base}wtyj_panel_languages.png`}
+              src={`${base}wtyj_panel_all_languages.png`}
               alt="All languages. One system."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
