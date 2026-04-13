@@ -1,0 +1,141 @@
+INBOX ROW STRUCTURE CLEANUP — HIDE THE 2 NOISY RIGHT-SIDE COLUMNS AND FIX THE FIRST 2 COLUMNS SO THEY SHOW USEFUL HUMAN INFO
+
+PROBLEM
+The current inbox row structure is wrong in 2 ways:
+
+1. The 2 extra right-side columns with the channel icon + number/count are noisy and not useful in list view.
+   Hide/remove those 2 columns from the inbox rows.
+
+2. The first 2 columns are redundant and ugly.
+   Right now I get things like:
+   - WhatsApp | WhatsApp
+   - Email | Email
+This is wrong.
+The row should show useful human-readable information, not repeated channel labels.
+
+GOAL
+Clean up the row structure so it becomes more practical and easier to scan.
+
+REQUIRED CHANGES
+
+PART 1 — HIDE / REMOVE THESE 2 RIGHT-SIDE COLUMNS
+Hide/remove the 2 noisy columns on the right that currently show:
+- channel icon
+- numeric count/value next to it
+
+These do not add enough value in the list view and create clutter.
+
+Remove them from the row list UI.
+Do not remove the underlying data if it is still needed internally.
+Just stop rendering them in the inbox row.
+
+PART 2 — FIX THE FIRST 2 COLUMNS
+Replace the current duplicated channel/channel setup with a cleaner human-readable row structure.
+
+NEW REQUIRED ROW STRUCTURE
+The left/main part of each row should prioritize:
+
+1. Sender / customer identity
+2. Channel badge
+3. Message preview/snippet
+
+That means:
+- Column 1 should show the sender/customer name if available
+- Column 2 should NOT repeat the same channel as plain text again
+- Instead, use a small channel badge/tag next to the sender identity or as part of the identity block
+- Then show the message preview
+
+EXAMPLES OF CORRECT RESULT
+Instead of:
+- WhatsApp | WhatsApp | preview...
+Do:
+- Anne-Sophie Hammar [WhatsApp] — preview...
+or
+- +5999 123 4567 [WhatsApp] — preview...
+
+Instead of:
+- Email | Email | preview...
+Do:
+- ash9772@gmail.com [Email] — preview...
+or
+- Anne-Sophie Hammar [Email] — preview...
+
+Instead of:
+- Facebook | Facebook | preview...
+Do:
+- Calvin Adamus [Facebook] — preview...
+
+SENDER DISPLAY FALLBACK RULE
+Use this fallback order for the sender/customer label:
+
+1. Real sender/customer name
+2. Email address or phone number if no name exists
+3. "Unknown customer" only if nothing better exists
+
+IMPORTANT
+Do NOT show duplicated channel text like:
+- WhatsApp | WhatsApp
+- Email | Email
+- Facebook | Facebook
+
+CHANNEL DISPLAY RULE
+Channel should remain visible, but as a compact badge/tag, not as a duplicated main text column.
+
+Examples of acceptable badge labels:
+- WhatsApp
+- Email
+- Facebook
+- Instagram
+- X
+- TikTok
+
+The badge should be:
+- compact
+- readable
+- dark-mode friendly
+- premium and restrained
+- not oversized
+
+VISUAL / UX RULES
+- keep the current inbox shell
+- do not redesign the page
+- do not add layout jump
+- do not create hover-only content for this
+- keep rows clean and more human-readable
+- preserve Gmail-like scanning behavior where possible
+
+PERMANENT ACTIONS
+Keep the already-discussed permanent row actions intact:
+- Reply
+- Mark as read/unread
+- Archive
+
+Do not let this cleanup remove those.
+
+DO NOT
+- do not redesign the whole inbox
+- do not invent new backend fields
+- do not remove underlying data from the model
+- do not remove IDs from detail view if still needed there
+- do not show duplicated channel text anymore
+- do not create another noisy multi-column structure
+
+SUCCESS CRITERIA
+When I look at the inbox rows:
+- the 2 noisy right-side columns are gone
+- I no longer see repeated things like WhatsApp | WhatsApp
+- I see a useful sender/customer label first
+- I see the channel as a small badge, not duplicated text
+- the preview remains readable
+- the row is cleaner and easier to scan
+- the inbox shell/layout stays stable
+- permanent actions still remain visible
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. which 2 right-side columns were removed from rendering
+3. what logic is now used for sender/customer display
+4. how channel is now shown as a badge instead of duplicated text
+5. confirmation that duplicated channel/channel rows are gone
+6. confirmation that permanent actions remain visible

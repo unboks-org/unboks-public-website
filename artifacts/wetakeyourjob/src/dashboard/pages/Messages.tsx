@@ -138,11 +138,19 @@ function channelLabel(channel?: string): string {
   return "WhatsApp";
 }
 
-function displayName(conv: Conversation): string {
+function senderText(conv: Conversation): string {
   const name = conv.customer_name ?? "";
-  // Real names are short or contain a space; long hex-like strings are IDs
+  // Real names are short or have a space; long hex-like strings are IDs → suppress
   if (name && (name.includes(" ") || name.length <= 20)) return name;
-  return channelLabel(conv.channel);
+  return "";
+}
+
+function channelBadgeLabel(channel?: string): string {
+  if (channel === "instagram_dm") return "Instagram";
+  if (channel === "facebook_dm") return "Facebook";
+  if (channel === "twitter_dm") return "X";
+  if (channel === "email") return "Email";
+  return "WhatsApp";
 }
 
 interface RowProps {
@@ -196,33 +204,36 @@ function ConversationRow({
         )}
       </div>
 
-      {/* sender — human-readable name or channel label (IDs suppressed) */}
-      <span
-        className={cn(
-          "w-[150px] shrink-0 text-sm truncate pr-3",
-          isRead ? "font-normal text-foreground dark:text-foreground/85" : "font-semibold text-foreground"
+      {/* sender block: name (if real) + compact channel badge */}
+      <div className="w-[190px] shrink-0 flex items-center gap-1.5 pr-2 min-w-0">
+        {senderText(conv) && (
+          <span
+            className={cn(
+              "text-sm truncate",
+              isRead ? "font-normal text-foreground dark:text-foreground/85" : "font-semibold text-foreground"
+            )}
+          >
+            {senderText(conv)}
+          </span>
         )}
-      >
-        {displayName(conv)}
-      </span>
-
-      {/* snippet */}
-      <span className="flex-1 min-w-0 text-sm truncate">
-        <span className={cn(isRead ? "text-foreground/85 dark:text-foreground/72" : "text-foreground/95 dark:text-foreground/92 font-medium")}>
-          {channelLabel(conv.channel)}
+        <span className="shrink-0 inline-block text-[9px] font-semibold uppercase tracking-wide leading-tight px-1.5 py-[2px] rounded border border-border/50 bg-muted/50 text-muted-foreground/75">
+          {channelBadgeLabel(conv.channel)}
         </span>
-        <span className="text-foreground/55 dark:text-foreground/42 mx-2">—</span>
-        <span className={cn("font-normal", isRead ? "text-foreground/70 dark:text-foreground/58" : "text-foreground/80 dark:text-foreground/70")}>
+      </div>
+
+      {/* snippet — no channel prefix, just AI indicator + message */}
+      <span className="flex-1 min-w-0 text-sm truncate">
+        <span className={cn("font-normal", isRead ? "text-foreground/70 dark:text-foreground/55" : "text-foreground/85 dark:text-foreground/75")}>
           {conv.last_message_role === "assistant" && (
-            <span className="text-primary/75 mr-1">AI ·</span>
+            <span className="text-primary/70 mr-1">AI ·</span>
           )}
           {conv.last_message}
         </span>
       </span>
 
-      {/* escalation badge + channel icon + count — always visible */}
-      <div className="flex items-center gap-2 ml-2 shrink-0">
-        {isEscalated && (
+      {/* escalation badge only — channel icon + count removed */}
+      {isEscalated && (
+        <div className="ml-2 shrink-0">
           <span className={cn(
             "flex items-center gap-1 text-[11px] font-medium",
             escalationType && isSemi(escalationType) ? "text-blue-400/90" : "text-rose-400/90"
@@ -232,12 +243,8 @@ function ConversationRow({
               ? isSemi(escalationType) ? "Semi Escalation" : "Full Escalation"
               : "Escalated"}
           </span>
-        )}
-        <span className="text-muted-foreground/80 dark:text-muted-foreground/65">
-          <ChannelIcon channel={conv.channel} />
-        </span>
-        <span className="text-[11px] text-muted-foreground/80 dark:text-muted-foreground/60 tabular-nums">{conv.message_count}</span>
-      </div>
+        </div>
+      )}
 
       {/* right zone — date + permanent actions, always visible, stable layout */}
       <div
