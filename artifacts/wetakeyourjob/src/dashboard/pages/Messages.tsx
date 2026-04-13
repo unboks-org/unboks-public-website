@@ -123,11 +123,11 @@ function gmailDate(dateStr: string): string {
 }
 
 function ChannelIcon({ channel }: { channel?: string }) {
-  if (channel === "instagram_dm") return <Instagram className="w-3 h-3" />;
-  if (channel === "facebook_dm") return <Facebook className="w-3 h-3" />;
-  if (channel === "twitter_dm") return <Twitter className="w-3 h-3" />;
-  if (channel === "email") return <Mail className="w-3 h-3" />;
-  return <Phone className="w-3 h-3" />;
+  if (channel === "instagram_dm") return <Instagram className="w-3.5 h-3.5" />;
+  if (channel === "facebook_dm") return <Facebook className="w-3.5 h-3.5" />;
+  if (channel === "twitter_dm") return <Twitter className="w-3.5 h-3.5" />;
+  if (channel === "email") return <Mail className="w-3.5 h-3.5" />;
+  return <Phone className="w-3.5 h-3.5" />;
 }
 
 function channelLabel(channel?: string): string {
@@ -162,7 +162,7 @@ function ConversationRow({
   return (
     <div
       className={cn(
-        "group relative flex items-center h-[52px] border-b cursor-pointer select-none transition-colors duration-75",
+        "group relative flex items-center h-[56px] border-b cursor-pointer select-none transition-colors duration-75",
         "border-border/60 dark:border-border/[0.22]",
         isSelected
           ? "bg-primary/[0.09]"
@@ -191,22 +191,22 @@ function ConversationRow({
       {/* sender name */}
       <span
         className={cn(
-          "w-[170px] shrink-0 text-[13px] truncate pr-3",
-          isRead ? "font-normal text-foreground/90 dark:text-foreground/78" : "font-semibold text-foreground"
+          "w-[170px] shrink-0 text-sm truncate pr-3",
+          isRead ? "font-normal text-foreground dark:text-foreground/85" : "font-semibold text-foreground"
         )}
       >
         {conv.customer_name}
       </span>
 
       {/* subject · snippet */}
-      <span className="flex-1 min-w-0 text-[13px] truncate">
-        <span className={cn(isRead ? "text-foreground/80 dark:text-foreground/65" : "text-foreground/90 dark:text-foreground/88 font-medium")}>
+      <span className="flex-1 min-w-0 text-sm truncate">
+        <span className={cn(isRead ? "text-foreground/85 dark:text-foreground/72" : "text-foreground/95 dark:text-foreground/92 font-medium")}>
           {channelLabel(conv.channel)}
         </span>
-        <span className="text-foreground/50 dark:text-foreground/35 mx-2">—</span>
-        <span className={cn("font-normal", isRead ? "text-foreground/65 dark:text-foreground/52" : "text-foreground/75 dark:text-foreground/65")}>
+        <span className="text-foreground/55 dark:text-foreground/42 mx-2">—</span>
+        <span className={cn("font-normal", isRead ? "text-foreground/70 dark:text-foreground/58" : "text-foreground/80 dark:text-foreground/70")}>
           {conv.last_message_role === "assistant" && (
-            <span className="text-primary/65 mr-1">AI ·</span>
+            <span className="text-primary/75 mr-1">AI ·</span>
           )}
           {conv.last_message}
         </span>
@@ -215,15 +215,15 @@ function ConversationRow({
       {/* inline badges — always visible */}
       <div className="flex items-center gap-2 ml-2 shrink-0">
         {isEscalated && (
-          <span className="flex items-center gap-1 text-[10px] font-medium text-rose-400/90">
-            <AlertTriangle className="w-2.5 h-2.5" />
+          <span className="flex items-center gap-1 text-[11px] font-medium text-rose-400/90">
+            <AlertTriangle className="w-3 h-3" />
             Escalated
           </span>
         )}
-        <span className="text-muted-foreground/70 dark:text-muted-foreground/55">
+        <span className="text-muted-foreground/80 dark:text-muted-foreground/65">
           <ChannelIcon channel={conv.channel} />
         </span>
-        <span className="text-[10px] text-muted-foreground/65 dark:text-muted-foreground/50 tabular-nums">{conv.message_count}</span>
+        <span className="text-[11px] text-muted-foreground/80 dark:text-muted-foreground/60 tabular-nums">{conv.message_count}</span>
       </div>
 
       {/* date + hover actions (overlap) */}
@@ -231,8 +231,8 @@ function ConversationRow({
         {/* date — hidden on hover */}
         <span
           className={cn(
-            "absolute right-4 text-[12px] tabular-nums transition-opacity duration-75 group-hover:opacity-0",
-            isRead ? "text-muted-foreground/80 dark:text-muted-foreground/65" : "font-medium text-foreground/90 dark:text-foreground/80"
+            "absolute right-4 text-[13px] tabular-nums transition-opacity duration-75 group-hover:opacity-0",
+            isRead ? "text-muted-foreground/90 dark:text-muted-foreground/72" : "font-medium text-foreground/95 dark:text-foreground/88"
           )}
         >
           {gmailDate(conv.last_message_at)}
@@ -437,16 +437,16 @@ export default function Messages() {
                   {isSemi(matchedEsc.notification_type) ? (
                     <>
                       <Phone className="w-4 h-4 text-slate-400" />
-                      <span className="text-sm font-semibold text-foreground">Semi Escalation Reply</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Semi</span>
-                      <span className="text-xs text-muted-foreground">— Marina will reformat and send via WhatsApp</span>
+                      <span className="text-[15px] font-semibold text-foreground">Semi Escalation Reply</span>
+                      <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Semi</span>
+                      <span className="text-sm text-muted-foreground">— Marina will reformat and send via WhatsApp</span>
                     </>
                   ) : (
                     <>
                       <Mail className="w-4 h-4 text-rose-400" />
-                      <span className="text-sm font-semibold text-foreground">Full Escalation Email</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Full</span>
-                      <span className="text-xs text-muted-foreground">— opens in {emailSettings.client === "gmail" ? "Gmail" : "your mail app"}</span>
+                      <span className="text-[15px] font-semibold text-foreground">Full Escalation Email</span>
+                      <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Full</span>
+                      <span className="text-sm text-muted-foreground">— opens in {emailSettings.client === "gmail" ? "Gmail" : "your mail app"}</span>
                     </>
                   )}
                 </div>
@@ -458,14 +458,14 @@ export default function Messages() {
                 {isSemi(matchedEsc.notification_type) ? (
                   <>
                     <div className="flex items-center gap-3">
-                      <label className="text-xs font-semibold text-muted-foreground w-14 shrink-0">To</label>
-                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/20 text-sm text-foreground/70">
-                        {matchedEsc.customer_name}{matchedEsc.customer_id ? <span className="text-foreground/40 font-mono ml-2">· {matchedEsc.customer_id}</span> : ""}
+                      <label className="text-sm font-semibold text-muted-foreground w-14 shrink-0">To</label>
+                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/20 text-[15px] text-foreground/80">
+                        {matchedEsc.customer_name}{matchedEsc.customer_id ? <span className="text-foreground/50 font-mono ml-2">· {matchedEsc.customer_id}</span> : ""}
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <label className="text-xs font-semibold text-muted-foreground w-14 shrink-0">Context</label>
-                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/20 text-sm text-foreground/70">
+                      <label className="text-sm font-semibold text-muted-foreground w-14 shrink-0">Context</label>
+                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/20 text-[15px] text-foreground/80">
                         {cleanSubject(matchedEsc.subject)}
                       </div>
                     </div>
@@ -539,18 +539,18 @@ export default function Messages() {
         )}
 
         {/* breadcrumb */}
-        <div className="flex items-center gap-2 text-sm pb-4">
+        <div className="flex items-center gap-2 text-[15px] pb-4">
           <button
             onClick={backToList}
-            className="flex items-center gap-1 text-foreground/40 hover:text-foreground transition-colors pr-2 border-r border-border mr-1"
+            className="flex items-center gap-1 text-foreground/50 hover:text-foreground transition-colors pr-2 border-r border-border mr-1"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-4 h-4" />
           </button>
           <button onClick={backToList} className="font-medium text-muted-foreground hover:text-foreground transition-colors">
             {escalationsMode ? "Escalations" : "Inbox"}
           </button>
           <>
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
+            <ChevronRight className="w-4 h-4 text-muted-foreground/60" />
             <span className="text-foreground font-medium">
               {detail.booking_state?.fields?.customer_name as string || selectedPhone}
             </span>
@@ -560,10 +560,10 @@ export default function Messages() {
         <div className="max-w-3xl flex flex-col flex-1 gap-4">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h2 className="text-lg font-semibold text-foreground">
+              <h2 className="text-xl font-semibold text-foreground">
                 {detail.booking_state?.fields?.customer_name as string || selectedPhone}
               </h2>
-              <p className="text-xs text-muted-foreground font-mono">{selectedPhone}</p>
+              <p className="text-sm text-muted-foreground font-mono">{selectedPhone}</p>
             </div>
             <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
               {readSet.has(selectedPhone) && (
@@ -610,21 +610,21 @@ export default function Messages() {
               <div className="rounded-xl border border-border bg-card/60 p-4 space-y-4">
                 <div className="flex items-center gap-3 flex-wrap">
                   <span className={cn(
-                    "text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded",
+                    "text-sm font-bold uppercase tracking-wider px-2.5 py-1 rounded",
                     isSemi(matchedEsc.notification_type) ? "bg-blue-500/15 text-blue-400" : "bg-rose-500/15 text-rose-400"
                   )}>
                     {isSemi(matchedEsc.notification_type) ? "Semi" : "Full"} Escalation
                   </span>
-                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                    {matchedEsc.channel === "email" ? <Mail className="w-3 h-3" /> : <Phone className="w-3 h-3" />}
+                  <span className="inline-flex items-center gap-1 text-sm text-muted-foreground">
+                    {matchedEsc.channel === "email" ? <Mail className="w-3.5 h-3.5" /> : <Phone className="w-3.5 h-3.5" />}
                     {matchedEsc.channel}
                   </span>
-                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                    <Clock className="w-3 h-3" />
+                  <span className="inline-flex items-center gap-1 text-sm text-muted-foreground">
+                    <Clock className="w-3.5 h-3.5" />
                     {(() => { try { return formatDistanceToNow(new Date(matchedEsc.created_at), { addSuffix: true }); } catch { return matchedEsc.created_at; } })()}
                   </span>
                   <span className={cn(
-                    "text-xs font-bold uppercase px-2 py-0.5 rounded",
+                    "text-sm font-bold uppercase px-2 py-0.5 rounded",
                     matchedEsc.status === "resolved" ? "bg-emerald-500/15 text-emerald-400" : "bg-amber-500/15 text-amber-400"
                   )}>
                     {matchedEsc.status}
@@ -633,39 +633,39 @@ export default function Messages() {
 
                 <div className="flex flex-wrap gap-3">
                   <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Customer</p>
-                    <p className="text-sm font-medium text-foreground">{matchedEsc.customer_name}</p>
+                    <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Customer</p>
+                    <p className="text-[15px] font-medium text-foreground">{matchedEsc.customer_name}</p>
                   </div>
                   {parsed.email && (
                     <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
-                      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Email</p>
-                      <p className="text-sm text-foreground">{parsed.email}</p>
+                      <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Email</p>
+                      <p className="text-[15px] text-foreground">{parsed.email}</p>
                     </div>
                   )}
                   <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Contact</p>
-                    <p className="text-sm text-foreground">
+                    <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Contact</p>
+                    <p className="text-[15px] text-foreground">
                       {matchedEsc.customer_contact || matchedEsc.customer_id}
                     </p>
                     {matchedEsc.customer_phone && matchedEsc.customer_phone !== matchedEsc.customer_contact && (
-                      <p className="text-xs text-muted-foreground mt-1 font-mono">{matchedEsc.customer_phone}</p>
+                      <p className="text-sm text-muted-foreground mt-1 font-mono">{matchedEsc.customer_phone}</p>
                     )}
                     {matchedEsc.customer_email && matchedEsc.customer_email !== matchedEsc.customer_contact && (
-                      <p className="text-xs text-muted-foreground mt-0.5">{matchedEsc.customer_email}</p>
+                      <p className="text-sm text-muted-foreground mt-0.5">{matchedEsc.customer_email}</p>
                     )}
                   </div>
                   <div className="flex-1 min-w-[200px] p-3 rounded-lg bg-muted/30 border border-border">
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Reason</p>
-                    <p className="text-sm font-medium text-foreground">{parsed.question || cleanSubject(matchedEsc.subject)}</p>
+                    <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Reason</p>
+                    <p className="text-[15px] font-medium text-foreground">{parsed.question || cleanSubject(matchedEsc.subject)}</p>
                   </div>
                 </div>
 
                 {(parsed.chatLog || isSemi(matchedEsc.notification_type)) && (
                   <div>
-                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                       {isSemi(matchedEsc.notification_type) ? "Relay Details" : "Conversation"}
                     </h3>
-                    <pre className="text-sm text-foreground/80 whitespace-pre-wrap leading-relaxed bg-muted/30 border border-border rounded-xl p-4 max-h-48 overflow-y-auto font-sans">
+                    <pre className="text-[15px] text-foreground/88 whitespace-pre-wrap leading-relaxed bg-muted/30 border border-border rounded-xl p-4 max-h-48 overflow-y-auto font-sans">
                       {isSemi(matchedEsc.notification_type) ? matchedEsc.body : parsed.chatLog}
                     </pre>
                   </div>
@@ -712,13 +712,13 @@ export default function Messages() {
               })() : (
                 <div key={idx} className={cn("flex", msg.role === "user" ? "justify-start" : "justify-end")}>
                   <div className={cn(
-                    "max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed",
+                    "max-w-[75%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed",
                     msg.role === "user"
                       ? "bg-muted/60 border border-border text-foreground"
                       : "bg-primary/15 border border-primary/20 text-foreground"
                   )}>
                     <p className="whitespace-pre-wrap">{msg.text}</p>
-                    <p className="text-[10px] text-muted-foreground/50 mt-1.5">
+                    <p className="text-[11px] text-muted-foreground/60 mt-1.5">
                       {format(new Date(msg.created_at), "MMM d, h:mm a")}
                     </p>
                   </div>
@@ -726,21 +726,21 @@ export default function Messages() {
               )
             )}
             {detail.messages.length === 0 && (
-              <p className="text-sm text-muted-foreground italic text-center py-8">No messages in this conversation.</p>
+              <p className="text-base text-muted-foreground italic text-center py-8">No messages in this conversation.</p>
             )}
           </div>
 
           <div ref={bookingInfoRef} className="shrink-0 mt-2 pt-3 border-t border-border space-y-3">
             {(detail.booking_state?.completed_bookings ?? []).length > 0 && (
               <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Completed Bookings</p>
+                <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">Completed Bookings</p>
                 <div className="space-y-2">
                   {(detail.booking_state.completed_bookings as Record<string, unknown>[]).map((bk, i) => (
                     <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/15">
                       <Ticket className="w-4 h-4 text-emerald-500 shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-foreground">{String(bk.service_name || bk.service_key || "Service")}</p>
-                        <p className="text-xs text-muted-foreground">{String(bk.date || "")} {bk.guests ? `· ${bk.guests} guests` : ""} {bk.booking_ref ? `· ${bk.booking_ref}` : ""}</p>
+                        <p className="text-[15px] font-medium text-foreground">{String(bk.service_name || bk.service_key || "Service")}</p>
+                        <p className="text-sm text-muted-foreground">{String(bk.date || "")} {bk.guests ? `· ${bk.guests} guests` : ""} {bk.booking_ref ? `· ${bk.booking_ref}` : ""}</p>
                       </div>
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     </div>
@@ -750,15 +750,15 @@ export default function Messages() {
             )}
             {Object.keys(detail.booking_state?.fields ?? {}).length > 0 && (
               <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                   {(detail.booking_state?.completed_bookings ?? []).length > 0 ? "Current Booking" : "Booking Info"}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {Object.entries(detail.booking_state.fields).map(([key, val]) =>
                     val ? (
-                      <span key={key} className="text-xs bg-muted/50 border border-border rounded-lg px-2.5 py-1">
-                        <span className="text-muted-foreground/60">{key.replace(/_/g, " ")}:</span>{" "}
-                        <span className="text-foreground/80 font-medium">{String(val)}</span>
+                      <span key={key} className="text-sm bg-muted/50 border border-border rounded-lg px-2.5 py-1">
+                        <span className="text-muted-foreground/70">{key.replace(/_/g, " ")}:</span>{" "}
+                        <span className="text-foreground/88 font-medium">{String(val)}</span>
                       </span>
                     ) : null
                   )}
@@ -794,7 +794,7 @@ export default function Messages() {
         {someSelected ? (
           /* ── SELECTION MODE ── */
           <>
-            <span className="text-[13px] text-foreground/65 mr-1 shrink-0 tabular-nums">
+            <span className="text-sm text-foreground/75 mr-1 shrink-0 tabular-nums">
               {selectedSet.size} selected
             </span>
 
@@ -824,7 +824,7 @@ export default function Messages() {
                       openEmailCompose(emailSettings, to, `Re: ${singleConv.customer_name}`, "");
                     }}
                     title="Reply to email"
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded text-foreground/65 hover:text-foreground hover:bg-white/[0.10] transition-colors text-[13px]"
+                    className="flex items-center gap-1.5 px-2 py-1.5 rounded text-foreground/75 hover:text-foreground hover:bg-white/[0.10] transition-colors text-sm"
                   >
                     <Mail className="w-[17px] h-[17px]" />
                     <span className="hidden sm:inline">Reply</span>
@@ -866,7 +866,7 @@ export default function Messages() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search…"
-                className="w-48 pl-8 pr-3 py-1.5 rounded-md border border-border/40 bg-white/[0.04] text-[13px] text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-white/[0.06] transition-all"
+                className="w-48 pl-8 pr-3 py-1.5 rounded-md border border-border/40 bg-white/[0.04] text-sm text-foreground placeholder:text-foreground/35 focus:outline-none focus:border-primary/40 focus:bg-white/[0.06] transition-all"
               />
             </div>
           </>
@@ -876,7 +876,7 @@ export default function Messages() {
       {/* ── Unread count ── */}
       {unreadCount > 0 && (
         <div
-          className="flex items-center gap-1.5 px-[52px] py-1.5 text-[11px] text-muted-foreground/70 dark:text-muted-foreground/45 border-b border-border/40 dark:border-border/20"
+          className="flex items-center gap-1.5 px-[52px] py-1.5 text-xs text-muted-foreground/85 dark:text-muted-foreground/60 border-b border-border/40 dark:border-border/20"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-primary/50 shrink-0" />
           {unreadCount} unread
@@ -888,7 +888,7 @@ export default function Messages() {
         {isLoading ? (
           <div className="divide-y divide-border/[0.10]">
             {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-              <div key={i} className="flex items-center h-[52px] px-4 gap-3">
+              <div key={i} className="flex items-center h-[56px] px-4 gap-3">
                 <Skeleton className="w-4 h-4 rounded" />
                 <Skeleton className="w-32 h-3 rounded" />
                 <Skeleton className="flex-1 h-3 rounded" />
@@ -916,8 +916,8 @@ export default function Messages() {
           </>
         ) : (
           <div className="flex flex-col items-center justify-center h-48 gap-2">
-            <MessageCircle className="w-7 h-7 text-foreground/15" />
-            <p className="text-sm text-foreground/35">
+            <MessageCircle className="w-7 h-7 text-foreground/20" />
+            <p className="text-base text-foreground/50">
               {(conversations?.length ?? 0) === 0
                 ? "No conversations yet"
                 : escalationsMode
@@ -932,7 +932,7 @@ export default function Messages() {
           <div className="border-t border-border/40 dark:border-border/[0.08]">
             <button
               onClick={() => setShowHidden((s) => !s)}
-              className="flex items-center gap-2 px-[52px] py-2.5 text-[12px] text-muted-foreground/70 dark:text-muted-foreground/45 hover:text-muted-foreground transition-colors w-full"
+              className="flex items-center gap-2 px-[52px] py-2.5 text-[13px] text-muted-foreground/85 dark:text-muted-foreground/60 hover:text-muted-foreground transition-colors w-full"
             >
               <Archive className="w-3.5 h-3.5" />
               {showHidden ? "Hide" : "Show"} {hiddenCount} archived
@@ -945,7 +945,7 @@ export default function Messages() {
                 >
                   <button
                     onClick={() => { unhideAll(); setShowHidden(false); }}
-                    className="text-[11px] text-primary/60 hover:text-primary transition-colors"
+                    className="text-xs text-primary/70 hover:text-primary transition-colors"
                   >
                     Restore all
                   </button>

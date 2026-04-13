@@ -19,10 +19,10 @@ export function PlatformFilterBar({ className }: { className?: string }) {
       <button
         onClick={clear}
         className={cn(
-          "relative flex items-center h-full px-3 text-sm transition-colors duration-100 shrink-0",
+          "relative flex items-center h-full px-3 text-[15px] transition-colors duration-100 shrink-0",
           isAll
             ? "text-foreground font-medium"
-            : "text-foreground/70 dark:text-foreground/55 hover:text-foreground/90 dark:hover:text-foreground/85"
+            : "text-foreground/80 dark:text-foreground/65 hover:text-foreground/95 dark:hover:text-foreground/90"
         )}
       >
         All
@@ -39,13 +39,13 @@ export function PlatformFilterBar({ className }: { className?: string }) {
             key={p.key}
             onClick={() => toggle(p.key)}
             className={cn(
-              "relative flex items-center gap-1.5 h-full px-3 text-sm transition-colors duration-100 shrink-0",
+              "relative flex items-center gap-1.5 h-full px-3 text-[15px] transition-colors duration-100 shrink-0",
               active
                 ? "text-foreground font-medium"
-                : "text-foreground/70 dark:text-foreground/55 hover:text-foreground/90 dark:hover:text-foreground/85"
+                : "text-foreground/80 dark:text-foreground/65 hover:text-foreground/95 dark:hover:text-foreground/90"
             )}
           >
-            <Icon className="w-3 h-3 shrink-0" />
+            <Icon className="w-3.5 h-3.5 shrink-0" />
             <span>{p.label}</span>
             {active && (
               <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/90 rounded-t-full" />

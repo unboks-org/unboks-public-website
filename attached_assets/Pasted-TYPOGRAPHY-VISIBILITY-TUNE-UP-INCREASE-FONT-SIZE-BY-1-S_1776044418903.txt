@@ -1,0 +1,113 @@
+TYPOGRAPHY VISIBILITY TUNE-UP — INCREASE FONT SIZE BY 1 STEP AND MAKE ALL TEXT BRIGHTER, WHILE KEEPING THE PREMIUM LOOK
+
+PROBLEM
+The current typography is still too small and too dim.
+I need better readability across the whole inbox/dashboard experience.
+
+REQUIRED CHANGES
+1. Increase font sizes by 1 step everywhere in the dashboard inbox/escalations shell where it improves readability.
+2. Make all text brighter / higher contrast.
+3. Keep the interface premium, refined, and dark-mode appropriate.
+4. Do NOT redesign the product.
+5. Do NOT make it look cheap, shouty, or overly bright white.
+
+IMPORTANT
+This is a readability / contrast tuning task.
+Not a layout redesign.
+Not a new theme.
+Not a spacing overhaul unless the font increase requires minimal spacing corrections.
+
+SCOPE
+Apply this to the dashboard inbox / escalations / related shell UI:
+- sidebar labels
+- top toolbar text
+- platform filter labels
+- message row text
+- sender names
+- subject/snippet text
+- metadata
+- timestamps
+- badges / labels
+- detail view text
+- escalation summary text
+- actions and buttons
+- settings text if it is part of the same dashboard shell and currently too dim
+
+PRIMARY INSTRUCTION
+Everything should feel one size bigger and easier to read.
+Everything should also feel brighter and more legible.
+But still premium and controlled.
+
+FONT SIZE REQUIREMENT
+Increase typography by approximately one design step.
+Examples:
+- text-xs → text-sm
+- text-sm → text-base
+- text-base → slightly larger if appropriate
+Apply judgment carefully so hierarchy remains correct.
+
+Do NOT:
+- make headings cartoonishly large
+- make metadata as large as titles
+- destroy visual hierarchy
+- create oversized UI
+
+CONTRAST REQUIREMENT
+Brighten text across the interface:
+- primary text should be clearly readable
+- secondary text should still be visible and useful
+- muted text should not be washed out or nearly invisible
+- timestamps / metadata / labels need stronger visibility
+- row preview text should be easier to read
+- sidebar inactive items must still be readable
+- active items should stand out clearly
+
+PREMIUM CONSTRAINT
+Keep it:
+- dark
+- elegant
+- calm
+- expensive-looking
+- refined
+
+Do NOT make it:
+- harsh white everywhere
+- neon
+- over-contrasted in a cheap way
+- flat and ugly
+- generic admin-panel gray
+
+ALLOWED METHODS
+You may adjust:
+- typography scale classes
+- text color tokens
+- opacity values
+- muted foreground values
+- selected/active text contrast
+- icon/text contrast pairing
+- badge text contrast
+
+DO NOT
+- do not redesign layout
+- do not heavily change spacing unless required by font increase
+- do not touch marketing site
+- do not touch demo site
+- do not introduce random new colors
+- do not break Gmail-like structure
+
+SUCCESS CRITERIA
+When I open the dashboard:
+- all text is easier to read
+- font size feels about 1 step larger
+- text is brighter / clearer
+- contrast is improved across the board
+- hierarchy still looks premium and intentional
+- the UI still feels refined and expensive
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. which typography classes/tokens were increased
+3. which text contrast values were improved
+4. confirmation that hierarchy was preserved
+5. confirmation that premium aesthetics were maintained

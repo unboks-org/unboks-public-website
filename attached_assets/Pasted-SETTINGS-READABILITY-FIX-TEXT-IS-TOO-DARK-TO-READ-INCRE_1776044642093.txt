@@ -1,0 +1,67 @@
+SETTINGS READABILITY FIX — TEXT IS TOO DARK TO READ, INCREASE TEXT CONTRAST ONLY
+
+PROBLEM
+In Settings, the text is too dark against the dark background and is hard to read.
+I need the text color corrected so the content is clearly readable.
+
+IMPORTANT
+This is a targeted readability fix.
+Do NOT redesign the Settings page.
+Do NOT change layout.
+Do NOT change spacing.
+Do NOT change card structure.
+Do NOT change icons unless needed for contrast consistency.
+
+GOAL
+Make the Settings text readable while keeping the premium dark look.
+
+WHAT TO FIX
+Increase contrast for all Settings text that is currently too dark, including:
+- section titles
+- card titles
+- subtitles / helper text
+- accordion labels
+- muted descriptive text
+- any collapsed card text
+- any expanded section text that is too dim
+
+SPECIFIC REQUIREMENT
+The text should be:
+- clearly readable
+- brighter than it is now
+- still premium and refined
+- not harsh pure white everywhere unless needed for hierarchy
+
+HIERARCHY RULE
+Keep proper hierarchy:
+- primary titles strongest
+- secondary descriptive text slightly softer
+- muted/helper text still readable
+- nothing should disappear into the background
+
+DO NOT
+- do not redesign settings
+- do not alter card colors unless absolutely required
+- do not change accent colors
+- do not touch unrelated dashboard pages unless they use the exact same broken text token and fixing that token is the cleanest solution
+- do not introduce random new colors
+
+PREFERRED IMPLEMENTATION
+- fix the text color tokens/classes used in Settings
+- or adjust the specific Settings component styles causing low contrast
+- prefer the smallest clean change that restores readability
+
+SUCCESS CRITERIA
+When I open Settings:
+- I can easily read the titles
+- I can read the descriptions/subtitles
+- contrast feels clearly improved
+- the page still looks premium and dark
+- no layout/design drift happened
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. which text colors/tokens/classes were corrected
+3. confirmation that only readability/contrast was adjusted
+4. confirmation that premium dark aesthetics were preserved

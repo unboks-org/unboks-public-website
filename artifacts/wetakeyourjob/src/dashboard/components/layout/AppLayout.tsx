@@ -81,12 +81,12 @@ function NotificationBell() {
           }}
         >
           <div className="px-4 py-3 border-b border-white/[0.06] flex items-center justify-between">
-            <span className="text-sm font-semibold text-foreground">Notifications</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Clear</span>
+            <span className="text-[15px] font-semibold text-foreground">Notifications</span>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/55">Clear</span>
           </div>
           <div className="px-4 py-8 text-center">
-            <Bell className="w-5 h-5 text-muted-foreground/15 mx-auto mb-2" />
-            <p className="text-xs text-muted-foreground/50">No new notifications</p>
+            <Bell className="w-5 h-5 text-muted-foreground/20 mx-auto mb-2" />
+            <p className="text-sm text-muted-foreground/60">No new notifications</p>
           </div>
         </div>
       )}
@@ -122,12 +122,12 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
       }}
     >
       <div className="flex items-center gap-2">
-        <Icon className="w-3.5 h-3.5 text-muted-foreground/40" />
-        <span className="text-sm font-medium text-foreground/80 tracking-tight">{match.label}</span>
+        <Icon className="w-4 h-4 text-muted-foreground/55" />
+        <span className="text-[15px] font-medium text-foreground/90 tracking-tight">{match.label}</span>
       </div>
 
       <div className="flex items-center gap-1">
-        <span className="text-muted-foreground/35 text-xs font-medium tabular-nums mr-2">{dateStr}</span>
+        <span className="text-muted-foreground/50 text-sm font-medium tabular-nums mr-2">{dateStr}</span>
 
         <button
           onClick={toggle}
@@ -141,7 +141,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/[0.07] transition-all duration-150 text-xs font-medium ml-1"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/[0.07] transition-all duration-150 text-sm font-medium ml-1"
         >
           <LogOut className="w-3.5 h-3.5" />
           Sign out
@@ -155,7 +155,7 @@ function DryRunBanner() {
   const { data, toggle } = useDryRun();
   if (!data?.dry_run) return null;
   return (
-    <div className="w-full bg-amber-500/10 text-amber-400 px-4 py-2.5 flex items-center justify-between gap-3 text-xs font-medium border-b border-amber-500/15 shrink-0">
+    <div className="w-full bg-amber-500/10 text-amber-400 px-4 py-2.5 flex items-center justify-between gap-3 text-sm font-medium border-b border-amber-500/15 shrink-0">
       <div className="flex items-center gap-2 min-w-0">
         <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
         <span className="truncate">
@@ -246,16 +246,16 @@ export function AppLayout() {
       >
         <div className="select-none flex items-center justify-between">
           <div>
-            <p className="text-[15px] font-bold tracking-tight leading-none text-gradient-ocean">
+            <p className="text-base font-bold tracking-tight leading-none text-gradient-ocean">
               Blue Marlin Tours
             </p>
-            <p className="text-[10px] font-bold tracking-[0.24em] text-primary/45 uppercase mt-2">
+            <p className="text-[11px] font-bold tracking-[0.24em] text-primary/60 uppercase mt-2">
               Dashboard
             </p>
           </div>
           {unreadCount > 0 && (
             <span
-              className="text-[11px] font-bold text-primary px-2 py-0.5 rounded-full tabular-nums"
+              className="text-xs font-bold text-primary px-2 py-0.5 rounded-full tabular-nums"
               style={{
                 background: "rgba(225,206,157,0.12)",
                 boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.25)",
@@ -293,7 +293,7 @@ export function AppLayout() {
                   "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
                   active
                     ? "text-foreground"
-                    : "text-foreground/70 hover:text-foreground hover:bg-black/[0.05] dark:hover:bg-white/[0.07]"
+                    : "text-foreground/80 hover:text-foreground hover:bg-black/[0.05] dark:hover:bg-white/[0.07]"
                 )}
               >
                 <div className="relative flex-shrink-0">
@@ -306,7 +306,7 @@ export function AppLayout() {
                   />
                 </div>
                 <span className={cn(
-                  "text-[15px] flex-1 tracking-tight",
+                  "text-base flex-1 tracking-tight",
                   active ? "font-semibold" : "font-medium"
                 )}>
                   {item.label}
@@ -339,7 +339,7 @@ export function AppLayout() {
               "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
               isSettingsActive
                 ? "text-foreground"
-                : "text-foreground/70 hover:text-foreground hover:bg-black/[0.05] dark:hover:bg-white/[0.07]"
+                : "text-foreground/80 hover:text-foreground hover:bg-black/[0.05] dark:hover:bg-white/[0.07]"
             )}
           >
             <Settings
@@ -350,7 +350,7 @@ export function AppLayout() {
               style={isSettingsActive ? { filter: "drop-shadow(0 0 6px rgba(225,206,157,0.70))" } : undefined}
             />
             <span className={cn(
-              "text-[15px] flex-1 tracking-tight",
+              "text-base flex-1 tracking-tight",
               isSettingsActive ? "font-semibold" : "font-medium"
             )}>
               Settings
@@ -363,14 +363,14 @@ export function AppLayout() {
         <div className="px-3 pb-3 pt-1 border-t border-white/[0.08] space-y-0.5">
           <button
             onClick={toggle}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/65 hover:text-foreground hover:bg-white/[0.07] transition-colors w-full text-[14px] tracking-tight"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/75 hover:text-foreground hover:bg-white/[0.07] transition-colors w-full text-[15px] tracking-tight"
           >
             {theme === "dark" ? <Sun className="w-[17px] h-[17px]" /> : <Moon className="w-[17px] h-[17px]" />}
             <span className="font-medium">{theme === "dark" ? "Light mode" : "Dark mode"}</span>
           </button>
           <button
             onClick={() => logout()}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/65 hover:text-rose-400 hover:bg-rose-500/[0.07] transition-colors w-full text-[14px] tracking-tight"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/75 hover:text-rose-400 hover:bg-rose-500/[0.07] transition-colors w-full text-[15px] tracking-tight"
           >
             <LogOut className="w-[17px] h-[17px]" />
             <span className="font-medium">Sign out</span>
