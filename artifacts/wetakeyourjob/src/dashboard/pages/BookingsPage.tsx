@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useAvailability } from "@dashboard/hooks/use-bluemarlin";
 import { useBookingsLabel } from "@dashboard/hooks/use-bookings-label";
 import { format, parseISO } from "date-fns";
@@ -13,7 +13,6 @@ import type { AvailabilitySlot } from "@dashboard/lib/api";
 
 type FilterMode = "all" | "today" | "sold-out" | "nearly-full" | "available";
 type DayRange = 7 | 14 | 30;
-type ServiceFilter = string | null;
 
 function formatService(key: string) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -46,7 +45,7 @@ export default function BookingsPage() {
   const { label: bookingsLabel } = useBookingsLabel();
   const [range, setRange] = useState<DayRange>(7);
   const [filter, setFilter] = useState<FilterMode>("all");
-  const [serviceFilter, setServiceFilter] = useState<ServiceFilter>(null);
+  const [serviceFilters, setServiceFilters] = useState<Set<string>>(new Set());
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [capacityOpen, setCapacityOpen] = useState(true);
 
@@ -62,14 +61,30 @@ export default function BookingsPage() {
   const todayPct = todayCapacity > 0 ? Math.round((todayBooked / todayCapacity) * 100) : 0;
   const soldOutCount = allSlots.filter((s) => s.spots_remaining === 0).length;
   const nearlyFullCount = allSlots.filter((s) => slotStatus(s) === "nearly-full").length;
-  const needsAttention = soldOutCount + nearlyFullCount;
+
+  const toggleService = useCallback((key: string) => {
+    setServiceFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+    setExpandedId(null);
+  }, []);
+
+  const clearServiceFilters = useCallback(() => {
+    setServiceFilters(new Set());
+  }, []);
 
   const filteredSlots = useMemo(() => {
     let sorted = [...allSlots].sort(
       (a, b) => a.date.localeCompare(b.date) || a.slot_time.localeCompare(b.slot_time)
     );
-    if (serviceFilter) {
-      sorted = sorted.filter((s) => s.service_key === serviceFilter);
+    if (serviceFilters.size > 0) {
+      sorted = sorted.filter((s) => serviceFilters.has(s.service_key));
     }
     switch (filter) {
       case "today":       return sorted.filter((s) => s.date === todayStr);
@@ -78,7 +93,7 @@ export default function BookingsPage() {
       case "available":   return sorted.filter((s) => s.spots_remaining > 0);
       default:            return sorted;
     }
-  }, [allSlots, filter, serviceFilter, todayStr]);
+  }, [allSlots, filter, serviceFilters, todayStr]);
 
   const groupedByDate = useMemo(() => {
     const map = new Map<string, AvailabilitySlot[]>();
@@ -168,6 +183,20 @@ export default function BookingsPage() {
       activeCls: "border-sky-500/40 bg-sky-500/8",
     },
   ];
+
+  const hasServiceFilter = serviceFilters.size > 0;
+  const hasAnyFilter = hasServiceFilter || filter !== "all";
+
+  const listTitle = hasServiceFilter
+    ? serviceFilters.size === 1
+      ? formatService([...serviceFilters][0])
+      : `${serviceFilters.size} trips selected`
+    : filter === "all"
+    ? `All Slots — Next ${range} Days`
+    : filter === "today" ? "Today"
+    : filter === "sold-out" ? "Sold Out"
+    : filter === "nearly-full" ? "Nearly Full"
+    : "Available Slots";
 
   return (
     <div className="space-y-4 max-w-5xl">
@@ -292,14 +321,11 @@ export default function BookingsPage() {
                     : remaining / svc.total <= 0.5 ? "filling"
                     : "available";
                   const cfg = STATUS[st];
-                  const isActive = serviceFilter === svc.key;
+                  const isActive = serviceFilters.has(svc.key);
                   return (
                     <button
                       key={svc.key}
-                      onClick={() => {
-                        setServiceFilter(isActive ? null : svc.key);
-                        setExpandedId(null);
-                      }}
+                      onClick={() => toggleService(svc.key)}
                       className={cn(
                         "group flex items-center gap-3 px-4 py-3 text-left w-full transition-colors",
                         idx % 2 === 1 && "sm:border-l sm:border-border/50",
@@ -354,21 +380,64 @@ export default function BookingsPage() {
 
       {/* ── LAYER 3 — Live List ────────────────────────────────────── */}
       <div className="rounded-xl border border-border bg-card overflow-hidden">
+
+        {/* ── Trip filter bar ── */}
+        {!isLoading && !error && serviceBlocks.length > 0 && (
+          <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-border/60 overflow-x-auto scrollbar-none">
+            {/* ALL pill */}
+            <button
+              onClick={() => { clearServiceFilters(); }}
+              className={cn(
+                "shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors border",
+                !hasServiceFilter
+                  ? "bg-foreground/10 border-foreground/20 text-foreground"
+                  : "border-border/50 text-muted-foreground hover:text-foreground hover:border-border"
+              )}
+            >
+              All
+              <span className={cn(
+                "text-[10px] tabular-nums",
+                !hasServiceFilter ? "text-foreground/60" : "text-muted-foreground/60"
+              )}>
+                {allSlots.length}
+              </span>
+            </button>
+
+            {/* Trip pills */}
+            {serviceBlocks.map((svc) => {
+              const on = serviceFilters.has(svc.key);
+              return (
+                <button
+                  key={svc.key}
+                  onClick={() => toggleService(svc.key)}
+                  className={cn(
+                    "shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors border",
+                    on
+                      ? "bg-primary/12 border-primary/35 text-primary"
+                      : "border-border/50 text-muted-foreground hover:text-foreground hover:border-border"
+                  )}
+                >
+                  {svc.name}
+                  <span className={cn(
+                    "text-[10px] tabular-nums",
+                    on ? "text-primary/70" : "text-muted-foreground/50"
+                  )}>
+                    {svc.slots}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         {/* List header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/20">
+        <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-muted/20">
           <div className="flex items-center gap-2 min-w-0">
             <CalendarDays className="w-4 h-4 text-primary/70 shrink-0" />
             <span className="text-sm font-semibold text-foreground truncate">
-              {serviceFilter
-                ? formatService(serviceFilter)
-                : filter === "all"
-                ? `All Slots — Next ${range} Days`
-                : filter === "today" ? "Today"
-                : filter === "sold-out" ? "Sold Out"
-                : filter === "nearly-full" ? "Nearly Full"
-                : "Available Slots"}
+              {listTitle}
             </span>
-            {serviceFilter && filter !== "all" && (
+            {hasServiceFilter && filter !== "all" && (
               <span className="text-[11px] text-muted-foreground/70 shrink-0">
                 · {filter === "today" ? "today" : filter === "sold-out" ? "sold out" : filter === "nearly-full" ? "nearly full" : "available"}
               </span>
@@ -379,24 +448,14 @@ export default function BookingsPage() {
               </span>
             )}
           </div>
-          <div className="flex items-center gap-3 shrink-0">
-            {serviceFilter && (
-              <button
-                onClick={() => setServiceFilter(null)}
-                className="flex items-center gap-1 text-xs text-primary/70 hover:text-primary transition-colors"
-              >
-                <X className="w-3 h-3" /> {formatService(serviceFilter)}
-              </button>
-            )}
-            {filter !== "all" && (
-              <button
-                onClick={() => setFilter("all")}
-                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <X className="w-3 h-3" /> Clear filter
-              </button>
-            )}
-          </div>
+          {hasAnyFilter && (
+            <button
+              onClick={() => { clearServiceFilters(); setFilter("all"); }}
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0"
+            >
+              <X className="w-3 h-3" /> Clear all
+            </button>
+          )}
         </div>
 
         {/* Table header */}
@@ -426,24 +485,14 @@ export default function BookingsPage() {
             <div className="flex flex-col items-center justify-center py-14 gap-2 text-center">
               <CalendarDays className="w-7 h-7 text-foreground/15" />
               <p className="text-sm text-muted-foreground">No slots match this filter.</p>
-              <div className="flex items-center gap-3 mt-1">
-                {serviceFilter && (
-                  <button
-                    onClick={() => setServiceFilter(null)}
-                    className="text-xs text-primary/70 hover:text-primary transition-colors"
-                  >
-                    Clear trip filter
-                  </button>
-                )}
-                {filter !== "all" && (
-                  <button
-                    onClick={() => setFilter("all")}
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Clear status filter
-                  </button>
-                )}
-              </div>
+              {hasAnyFilter && (
+                <button
+                  onClick={() => { clearServiceFilters(); setFilter("all"); }}
+                  className="text-xs text-primary/70 hover:text-primary transition-colors mt-1"
+                >
+                  Clear all filters
+                </button>
+              )}
             </div>
           ) : (
             <div className="divide-y divide-border/40">
@@ -557,15 +606,13 @@ export default function BookingsPage() {
                                   { label: "Departure",  value: slot.slot_time },
                                   { label: "Service",    value: slot.service_key },
                                   { label: "Booked",     value: `${slot.booked_guests} guest${slot.booked_guests !== 1 ? "s" : ""}` },
-                                  { label: "Capacity",   value: `${slot.capacity} guest${slot.capacity !== 1 ? "s" : ""}` },
+                                  { label: "Capacity",   value: `${slot.capacity} total` },
                                   { label: "Remaining",  value: `${slot.spots_remaining} spot${slot.spots_remaining !== 1 ? "s" : ""}` },
-                                  { label: "Utilization", value: `${fillPct}%` },
-                                ].map((f) => (
-                                  <div key={f.label}>
-                                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">
-                                      {f.label}
-                                    </p>
-                                    <p className="text-sm text-foreground">{f.value}</p>
+                                  { label: "Fill Rate",  value: `${fillPct}%` },
+                                ].map(({ label, value }) => (
+                                  <div key={label}>
+                                    <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">{label}</p>
+                                    <p className="text-[13px] font-medium text-foreground">{value}</p>
                                   </div>
                                 ))}
                               </div>
