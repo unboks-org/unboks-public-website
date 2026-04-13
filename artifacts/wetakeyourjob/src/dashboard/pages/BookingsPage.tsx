@@ -11,7 +11,7 @@ import { Skeleton } from "@dashboard/components/ui/skeleton";
 import { ErrorState } from "@dashboard/components/ui/error-state";
 import type { AvailabilitySlot } from "@dashboard/lib/api";
 
-type FilterMode = "all" | "today" | "sold-out" | "nearly-full" | "available";
+type FilterMode = "all" | "today" | "sold-out" | "nearly-full" | "today-available" | "capacity";
 type DayRange = 7 | 14 | 30;
 
 function formatService(key: string) {
@@ -87,11 +87,12 @@ export default function BookingsPage() {
       sorted = sorted.filter((s) => serviceFilters.has(s.service_key));
     }
     switch (filter) {
-      case "today":       return sorted.filter((s) => s.date === todayStr);
-      case "sold-out":    return sorted.filter((s) => s.spots_remaining === 0);
-      case "nearly-full": return sorted.filter((s) => slotStatus(s) === "nearly-full");
-      case "available":   return sorted.filter((s) => s.spots_remaining > 0);
-      default:            return sorted;
+      case "today":           return sorted.filter((s) => s.date === todayStr);
+      case "sold-out":        return sorted.filter((s) => s.spots_remaining === 0);
+      case "nearly-full":     return sorted.filter((s) => slotStatus(s) === "nearly-full");
+      case "today-available": return sorted.filter((s) => s.date === todayStr && s.spots_remaining > 0);
+      case "capacity":        return sorted.filter((s) => s.date === todayStr);
+      default:                return sorted;
     }
   }, [allSlots, filter, serviceFilters, todayStr]);
 
@@ -147,7 +148,7 @@ export default function BookingsPage() {
       activeCls: "border-primary/40 bg-primary/8",
     },
     {
-      id: "available",
+      id: "today-available",
       label: "Spots Left Today",
       value: isLoading ? "—" : todayRemaining,
       sub: todayCapacity > 0 ? `${100 - todayPct}% remaining` : "no trips today",
@@ -174,7 +175,7 @@ export default function BookingsPage() {
       activeCls: "border-rose-500/40 bg-rose-500/8",
     },
     {
-      id: "all",
+      id: "capacity",
       label: "Capacity Today",
       value: isLoading ? "—" : `${todayPct}%`,
       sub: todayCapacity > 0 ? `${todayBooked} / ${todayCapacity} seats` : "no trips today",
@@ -191,12 +192,13 @@ export default function BookingsPage() {
     ? serviceFilters.size === 1
       ? formatService([...serviceFilters][0])
       : `${serviceFilters.size} trips selected`
-    : filter === "all"
-    ? `All Slots — Next ${range} Days`
-    : filter === "today" ? "Today"
-    : filter === "sold-out" ? "Sold Out"
-    : filter === "nearly-full" ? "Nearly Full"
-    : "Available Slots";
+    : filter === "all"            ? `All Slots — Next ${range} Days`
+    : filter === "today"          ? "Booked Today"
+    : filter === "today-available"? "Spots Left Today"
+    : filter === "sold-out"       ? "Sold Out"
+    : filter === "nearly-full"    ? "Nearly Full"
+    : filter === "capacity"       ? "Today's Capacity Breakdown"
+    : "All Slots";
 
   return (
     <div className="space-y-4 max-w-5xl">
@@ -429,11 +431,6 @@ export default function BookingsPage() {
             <span className="text-sm font-semibold text-foreground truncate">
               {listTitle}
             </span>
-            {hasServiceFilter && filter !== "all" && (
-              <span className="text-[11px] text-muted-foreground/70 shrink-0">
-                · {filter === "today" ? "today" : filter === "sold-out" ? "sold out" : filter === "nearly-full" ? "nearly full" : "available"}
-              </span>
-            )}
             {!isLoading && (
               <span className="text-xs text-muted-foreground shrink-0">
                 ({filteredSlots.length} slot{filteredSlots.length !== 1 ? "s" : ""})
@@ -449,6 +446,23 @@ export default function BookingsPage() {
             </button>
           )}
         </div>
+
+        {/* Capacity summary banner — shown when "Capacity Today" card is active */}
+        {!isLoading && !error && filter === "capacity" && todayCapacity > 0 && (
+          <div className="grid grid-cols-4 divide-x divide-border/50 border-b border-border/60 bg-sky-500/[0.04]">
+            {[
+              { label: "Total seats today", value: todayCapacity, cls: "text-foreground" },
+              { label: "Booked",            value: todayBooked,   cls: "text-foreground" },
+              { label: "Remaining",         value: todayRemaining, cls: "text-emerald-400" },
+              { label: "Fill rate",         value: `${todayPct}%`, cls: todayPct >= 75 ? "text-rose-400" : todayPct >= 50 ? "text-orange-400" : "text-emerald-400" },
+            ].map((m) => (
+              <div key={m.label} className="flex flex-col gap-0.5 px-4 py-3">
+                <span className={cn("text-xl font-bold tabular-nums", m.cls)}>{m.value}</span>
+                <span className="text-[11px] text-muted-foreground">{m.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Table header */}
         {!isLoading && !error && filteredSlots.length > 0 && (
@@ -476,7 +490,14 @@ export default function BookingsPage() {
           ) : filteredSlots.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-14 gap-2 text-center">
               <CalendarDays className="w-7 h-7 text-foreground/15" />
-              <p className="text-sm text-muted-foreground">No slots match this filter.</p>
+              <p className="text-sm text-muted-foreground">
+                {filter === "sold-out"        ? "No slots are sold out right now."
+                 : filter === "nearly-full"   ? "No slots are nearly full right now."
+                 : filter === "today"         ? "No bookings found for today."
+                 : filter === "today-available" ? "No available spots remain for today."
+                 : filter === "capacity"      ? "No trips scheduled for today."
+                 : "No slots match this filter."}
+              </p>
               {hasAnyFilter && (
                 <button
                   onClick={() => { clearServiceFilters(); setFilter("all"); }}

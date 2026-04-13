@@ -1,0 +1,157 @@
+BOOKINGS / ORDERS METRIC CARDS MUST ACT AS INBOX-STYLE FILTER CONTROLS — CLICK CARD = SHOW MATCHING INFO IN MAIN PANE
+
+PROBLEM
+The top metric cards are currently just visual summary cards.
+That is not enough.
+
+When I click a card, I need the MAIN PANE below to update and show the actual matching data, just like the inbox works when filters are clicked.
+
+IMPORTANT
+The page must stay STATIC.
+No jump.
+No page reload feeling.
+No route swap feeling.
+No violent movement.
+No layout shift.
+No modal detour.
+
+ONLY the content in the main pane should change.
+
+GOAL
+Make the top cards behave like inbox-style filters / drill-down controls.
+
+CARDS THAT MUST BE CLICKABLE
+At minimum:
+- Booked Today
+- Spots Left Today
+- Nearly Full
+- Sold Out
+- Capacity Today
+
+When I click any of these, the main pane must update to show the underlying information that explains that card.
+
+REQUIRED BEHAVIOR
+
+1. BOOKED TODAY
+Example:
+If the card says:
+- 3 Booked Today
+
+Then when I click it:
+- the main pane should show all 3 bookings/orders that make up that number
+- each item should be clickable
+- clicking an item should open its detail view
+
+This should feel exactly like:
+top card = filter
+main pane = filtered list
+
+2. SPOTS LEFT TODAY
+When I click this card:
+- the main pane should show the underlying capacity information that explains the remaining spots
+- show the relevant trips/slots/products and how many spaces remain
+- this is a capacity/info drill-down, not just a decorative card
+
+3. NEARLY FULL
+When I click this card:
+- the main pane should show only the trips/slots/products that are nearly full
+- example: slots with <= 25% remaining if that is the current rule
+- if the card says 1, I should see that 1 corresponding slot/item in the pane
+
+4. SOLD OUT
+When I click this card:
+- the main pane should show the sold-out trips/slots/products
+- if 0, show a clean empty state in the same main pane
+- do not do nothing — show the meaning of the metric
+
+5. CAPACITY TODAY
+When I click this card:
+- the main pane should show the capacity breakdown behind that number
+- example:
+  - total capacity today
+  - sold today
+  - remaining today
+  - related slots/trips contributing to that percentage
+- this should explain the card in practical terms
+
+PRIMARY UX RULE
+Top cards are not decoration.
+They are operational controls.
+Click card → main pane explains the metric.
+
+MAIN PANE RULE
+Treat the lower bookings/orders area exactly like the inbox list pane:
+- same shell stays
+- same page stays
+- only the dataset/content changes
+- selected card becomes the active filter/state
+- active card should be visually obvious
+
+STATE MODEL
+Suggested behavior:
+- default = normal bookings/orders overview
+- click one card = activate that card’s filter/drill-down
+- click another card = switch to that card’s view
+- click the active card again or click “All” control = return to full default view
+
+If there is no “All” reset yet, add a simple clean reset behavior.
+
+INTERACTION MODEL
+This should behave like:
+- inbox platform filters
+- capacity filters
+- card-driven drill-down
+All inside the same static operational page.
+
+VISUAL REQUIREMENTS
+- clicked/active card should look selected
+- active state should be obvious but premium
+- do not overanimate
+- do not move cards around
+- do not turn this into tabs with page remount behavior
+
+DATA RULES
+- use real existing booking/order/capacity data
+- do not invent backend endpoints
+- do not fake results
+- if a card corresponds to 0 items, show a clean empty state in the main pane
+- if a card corresponds to mixed informational data rather than rows, show the correct explanatory breakdown in the main pane
+
+IMPLEMENTATION GUIDANCE
+Think of these cards as:
+- filter chips in card form
+- dashboard summary controls
+- inbox-style entry points into the dataset
+
+For each card, define its underlying query/filter logic and use that to populate the main pane.
+
+EXAMPLES OF EXPECTED UX
+- click "3 Booked Today" → see the 3 booked items
+- click "1 Nearly Full" → see the 1 nearly full slot/trip
+- click "0 Sold Out" → see a clear empty-state pane saying there are no sold-out items today
+- click "2% Capacity Today" → see the capacity breakdown behind the 2%
+
+DO NOT
+- do not navigate away
+- do not open separate pages
+- do not show popups instead of using the main pane
+- do not leave cards as dead summaries
+- do not create layout jump
+- do not redesign the whole page
+
+SUCCESS CRITERIA
+When I click a top metric card:
+- the page shell stays static
+- the card becomes active
+- the main pane updates with the real information behind that metric
+- if it is a count, I see the underlying matching records
+- if it is a capacity metric, I see the corresponding capacity breakdown
+- it feels like inbox filtering, not navigation
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. how each top card maps to main-pane content
+3. how active-card state works
+4. how the reset/default view works
+5. confirmation that the page shell stays static and only main-pane content changes
