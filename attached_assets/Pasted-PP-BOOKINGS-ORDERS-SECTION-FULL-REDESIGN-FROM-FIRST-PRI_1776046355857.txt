@@ -1,0 +1,331 @@
+PP:
+
+BOOKINGS / ORDERS SECTION — FULL REDESIGN FROM FIRST PRINCIPLES
+
+OBJECTIVE
+Redesign the entire Bookings / Orders section so it becomes the clearest, simplest, most practical operational view in the dashboard.
+
+This section exists for one reason:
+to let the client instantly understand what is happening on the sales / booking side of the system.
+
+No fluff.
+No gimmicks.
+No decorative dashboard nonsense.
+No features that do not directly help operational oversight.
+
+CORE PRODUCT TRUTH
+WTYJ handles incoming communication.
+The business outcome is:
+- a booking
+or
+- an order
+
+So this section must answer, in one glance:
+- what came in today
+- what is confirmed
+- what is pending
+- what needs attention
+- how much capacity is left
+- whether the business is filling up or falling behind
+
+PRIMARY UX GOAL
+When the client clicks Bookings / Orders, they should immediately understand the commercial state of the business in one screen.
+
+The page should feel like:
+- command center
+- one-view oversight
+- practical
+- simple
+- decisive
+- operational
+
+NOT:
+- analytics toy
+- fluffy CRM
+- overbuilt admin panel
+- decorative SaaS nonsense
+
+MAIN DESIGN PRINCIPLE
+One page.
+One clear overview.
+Fast drill-down.
+Everything important visible immediately.
+Details only appear when clicked.
+
+REQUIRED OUTCOME
+Design the page so the client can do this flow:
+
+1. Open Bookings / Orders
+2. Immediately see today’s outcome
+3. Immediately see what is pending / confirmed / cancelled / needs action
+4. Immediately see capacity utilization
+5. Click any number/card/list item
+6. Open the underlying bookings/orders
+7. Click an item
+8. See the details of that booking/order
+
+FIRST-PRINCIPLES INFORMATION ARCHITECTURE
+
+TOP SECTION — TODAY AT A GLANCE
+At the very top, show only the most important commercial numbers for TODAY.
+
+Required quick stats:
+- Bookings / Orders Today
+- Confirmed Today
+- Pending Today
+- Needs Attention
+- Revenue Today (only if real data exists)
+- Capacity Sold Today (%)
+
+Every number must be clickable.
+Clicking a number filters the list below to the relevant items.
+
+Examples:
+- click "Bookings Today" → show all today’s bookings
+- click "Pending" → show only pending bookings/orders
+- click "Needs Attention" → show only problematic / incomplete / blocked items
+- click "Capacity Sold %" → open/filter relevant capacity breakdown
+
+This top section should be clean, flat, operational, not giant vanity cards.
+
+SECOND SECTION — CAPACITY OVERVIEW
+This is critical.
+The client must understand whether they are filling up.
+
+Show capacity in a practical way.
+
+If the business is booking-based:
+- total capacity available today
+- total sold today
+- % utilization today
+- upcoming capacity by date/slot/product
+- sold out / nearly full / healthy / low-fill status
+
+If the business is order-based:
+- capacity can mean fulfillment bandwidth / stock / production slots / delivery slots
+- adapt wording based on configured business type
+
+Capacity view must be visual but practical:
+- compact utilization bars
+- percentage sold
+- numbers visible
+- highlight critical states:
+  - sold out
+  - nearly full
+  - underbooked
+  - overbooked if relevant
+
+No useless fancy charts.
+If a bar is enough, use bars.
+
+THIRD SECTION — LIVE LIST
+Below the overview, show the actual list of bookings/orders.
+
+This is the working table/list.
+
+The list must be:
+- easy to scan
+- clickable
+- filterable from the top numbers
+- dense enough to be useful
+- not overloaded
+
+Each row should show only the essentials:
+- customer name
+- product / trip / service
+- date / time
+- quantity / guests / units
+- status
+- amount / value if available
+- source channel if useful
+- attention flag if needed
+
+Clicking a row opens the full detail view.
+
+FOURTH SECTION — DETAIL VIEW
+When a booking/order is clicked, open a detail panel or detail area.
+This must not feel like leaving the operational page entirely unless routing already requires it.
+
+The detail must show:
+- customer details
+- product/service booked
+- date/time
+- quantity / guests
+- payment / confirmation state
+- notes
+- source channel / origin if useful
+- linked conversation if available
+- any operational action needed
+
+If current codebase already has partial detail functionality, reuse it.
+Do not rebuild what already exists.
+
+STRUCTURE TO BUILD
+
+MAIN PAGE LAYOUT
+Design this page in 3 practical layers:
+
+LAYER 1 — COMMERCIAL SNAPSHOT
+Small high-value metrics:
+- Today
+- Pending
+- Confirmed
+- Needs Attention
+- Capacity %
+
+LAYER 2 — CAPACITY BLOCK
+Compact operational utilization overview
+
+LAYER 3 — BOOKINGS / ORDERS LIST
+Interactive list of actual records
+
+OPTIONAL RIGHT PANEL OR DRAWER
+When clicking a list row:
+- open detail in side panel / drawer / inline detail pane if this feels clean
+- preserve the overview context if possible
+
+KEY UX REQUIREMENTS
+
+1. ONE-VIEW OVERSIGHT
+The user must not need to click around just to understand what is happening today.
+
+2. CLICKABLE METRICS
+Every important number at the top must function as a filter/drill-down control.
+
+3. SIMPLE CAPACITY LOGIC
+Capacity must be obvious and visual:
+- sold / total
+- percentage
+- remaining
+- risk states
+
+4. PRACTICAL FILTERING
+At minimum support:
+- today
+- pending
+- confirmed
+- cancelled
+- needs attention
+- by product/service
+- by date if relevant
+
+5. BUSINESS-LABEL FLEXIBILITY
+This section may be called:
+- Bookings
+or
+- Orders
+based on settings/client config
+
+The page should adapt copy/labels cleanly.
+
+6. NO OVERBUILDING
+Do not add:
+- vanity charts
+- cluttered analytics
+- heavy CRM modules
+- unnecessary tabs
+- noisy widgets
+- meaningless graphs
+
+7. MOBILE / SMALL SCREEN SANITY
+On smaller screens:
+- top metrics stack cleanly
+- capacity remains readable
+- list is still usable
+- details can open in drawer/modal if needed
+
+RECOMMENDED FINAL DESIGN MODEL
+
+PAGE TITLE
+Bookings / Orders
+
+SUBTITLE
+A single sentence explaining the page, e.g.:
+“Live overview of today’s bookings, pipeline status, and capacity.”
+
+TOP METRICS ROW
+Compact clickable metric blocks:
+- Today
+- Confirmed
+- Pending
+- Needs Attention
+- Capacity Sold
+
+CAPACITY PANEL
+For each core product / slot / service:
+- Name
+- Sold / Total
+- %
+- status indicator
+
+LIVE LIST
+Default sort:
+- today first
+- urgent/pending attention items surfaced
+- then upcoming
+
+DETAIL PANEL
+Open on click.
+Do not bury the details.
+
+DATA / TECHNICAL RULES
+- reuse current booking/order/capacity logic where possible
+- do not invent backend endpoints
+- if exact backend data is missing, design the UI cleanly and use honest placeholders only where absolutely necessary
+- preserve current multi-client behavior
+- keep implementation within dashboard only
+- do not touch marketing site
+- do not touch demo site
+
+IF CURRENT PAGE IS TOO FRAGMENTED
+Refactor the Bookings / Orders section into one unified operational page.
+Merge capacity and bookings logic into one coherent experience.
+
+DESIGN DIRECTION
+Think:
+- airline operations board, but simpler
+- hotel occupancy overview, but cleaner
+- Shopify orders + capacity overlay, but stripped to essentials
+- command center for outcomes
+
+VISUAL STYLE
+- premium
+- dark-mode compatible
+- clean
+- highly readable
+- minimal noise
+- operational first
+
+DO NOT
+- do not make giant fluffy cards
+- do not make “analytics theater”
+- do not add things without operational purpose
+- do not split core information across too many tabs
+- do not bury today's business outcome
+- do not build for fantasy complexity
+
+SUCCESS CRITERIA
+When the client opens this page, they can answer within seconds:
+- how many bookings/orders came in today
+- which ones are pending
+- which need attention
+- how full capacity is
+- what exactly each booking/order contains
+- what action is needed, if any
+
+DELIVERABLE FORMAT
+Return in this order:
+1. Proposed page structure
+2. Files to modify/create
+3. Reuse plan for current booking/capacity logic
+4. UI implementation
+5. Validation summary
+
+FINAL INSTRUCTION
+Redesign this section around real operational decision-making.
+Less features.
+More clarity.
+More outcome visibility.
+One-view oversight.
+
+My take: the strongest version is one page with 3 layers — top snapshot, middle capacity, bottom live list. That is the cleanest setup.
