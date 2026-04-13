@@ -155,7 +155,7 @@ export default function Settings() {
 
   return (
     <div className="space-y-4 max-w-3xl">
-      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-foreground/50 hover:text-foreground transition-colors">
+      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-foreground/65 hover:text-foreground transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back
       </button>
       <div>
@@ -163,7 +163,7 @@ export default function Settings() {
           <SettingsIcon className="w-7 h-7 text-primary" />
           Settings
         </h1>
-        <p className="text-muted-foreground text-sm">Manage your brand, connections, and system configuration.</p>
+        <p className="text-muted-foreground text-[15px]">Manage your brand, connections, and system configuration.</p>
       </div>
 
       {/* ── Sidebar Modules ──────────────────────────────────────────────── */}
@@ -174,7 +174,7 @@ export default function Settings() {
           </div>
           <div>
             <p className="text-sm font-semibold text-foreground">Sidebar Modules</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Choose which sections appear in the navigation</p>
+            <p className="text-sm text-muted-foreground mt-0.5">Choose which sections appear in the navigation</p>
           </div>
         </div>
 
@@ -183,8 +183,8 @@ export default function Settings() {
           <div className="flex items-center gap-3">
             <Share2 className="w-4 h-4 text-muted-foreground shrink-0" />
             <div>
-              <p className="text-sm font-medium text-foreground">Social Media</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Content pipeline and post management</p>
+              <p className="text-[15px] font-medium text-foreground">Social Media</p>
+              <p className="text-sm text-muted-foreground mt-0.5">Content pipeline and post management</p>
             </div>
           </div>
           <button
@@ -208,8 +208,8 @@ export default function Settings() {
           <div className="flex items-center gap-3">
             <PenSquare className="w-4 h-4 text-muted-foreground shrink-0" />
             <div>
-              <p className="text-sm font-medium text-foreground">Create</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Manual content creation tools</p>
+              <p className="text-[15px] font-medium text-foreground">Create</p>
+              <p className="text-sm text-muted-foreground mt-0.5">Manual content creation tools</p>
             </div>
           </div>
           <button
@@ -233,15 +233,15 @@ export default function Settings() {
           <div className="flex items-center gap-3">
             <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
             <div>
-              <p className="text-sm font-medium text-foreground">Bookings / Orders Label</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Customize the sidebar navigation label</p>
+              <p className="text-[15px] font-medium text-foreground">Bookings / Orders Label</p>
+              <p className="text-sm text-muted-foreground mt-0.5">Customize the sidebar navigation label</p>
             </div>
           </div>
           <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-0.5 shrink-0">
             <button
               onClick={() => saveBookingsLabel("Bookings")}
               className={cn(
-                "px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                "px-3 py-1 rounded-md text-sm font-medium transition-colors",
                 bookingsLabel === "Bookings" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -250,7 +250,7 @@ export default function Settings() {
             <button
               onClick={() => saveBookingsLabel("Orders")}
               className={cn(
-                "px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                "px-3 py-1 rounded-md text-sm font-medium transition-colors",
                 bookingsLabel === "Orders" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -270,8 +270,8 @@ export default function Settings() {
             <BarChart3 className="w-5 h-5 text-violet-600 dark:text-violet-400" />
           </div>
           <div className="text-left">
-            <p className="text-sm font-semibold text-foreground">Analytics</p>
-            <p className="text-xs text-muted-foreground">Inbox volume, platform stats, and activity trends</p>
+            <p className="text-[15px] font-semibold text-foreground">Analytics</p>
+            <p className="text-sm text-muted-foreground">Inbox volume, platform stats, and activity trends</p>
           </div>
         </div>
         <ArrowRight className="w-4 h-4 text-muted-foreground" />
@@ -287,8 +287,8 @@ export default function Settings() {
             <BrainCircuit className="w-5 h-5 text-teal-600 dark:text-teal-400" />
           </div>
           <div className="text-left">
-            <p className="text-sm font-semibold text-foreground">Brand Training</p>
-            <p className="text-xs text-muted-foreground">Examples, voice rules, and visual guidelines</p>
+            <p className="text-[15px] font-semibold text-foreground">Brand Training</p>
+            <p className="text-sm text-muted-foreground">Examples, voice rules, and visual guidelines</p>
           </div>
         </div>
         <ArrowRight className="w-4 h-4 text-muted-foreground" />
@@ -421,7 +421,7 @@ export default function Settings() {
         contentBg="bg-indigo-50/80 dark:bg-indigo-950/30"
       >
         <div className="space-y-4">
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-[15px] text-muted-foreground leading-relaxed">
             Set weekly time slots for auto-publishing. When you schedule a draft without a specific time, it picks the next open slot.
           </p>
 
@@ -431,8 +431,8 @@ export default function Settings() {
               {slots.map((slot, idx) => (
                 <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border group">
                   <CalendarDays className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
-                  <span className="text-sm font-medium text-foreground flex-1">{slot.day_of_week}</span>
-                  <span className="text-sm text-muted-foreground font-mono">{slot.time_utc} UTC</span>
+                  <span className="text-[15px] font-medium text-foreground flex-1">{slot.day_of_week}</span>
+                  <span className="text-[15px] text-muted-foreground font-mono">{slot.time_utc} UTC</span>
                   <button
                     onClick={() => removeSlot(idx)}
                     className="p-1 rounded text-rose-400/50 hover:text-rose-400 hover:bg-rose-400/10 transition-colors shrink-0"
@@ -443,7 +443,7 @@ export default function Settings() {
               ))}
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground italic">No weekly slots configured. Posts must be scheduled manually.</p>
+            <p className="text-[15px] text-muted-foreground italic">No weekly slots configured. Posts must be scheduled manually.</p>
           )}
 
           {/* Add slot */}
@@ -451,7 +451,7 @@ export default function Settings() {
             <select
               value={newSlotDay}
               onChange={(e) => setNewSlotDay(e.target.value)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-border bg-muted/50 text-foreground"
+              className="px-3 py-1.5 text-[15px] rounded-lg border border-border bg-muted/50 text-foreground"
             >
               {DAYS.map((d) => <option key={d} value={d}>{d}</option>)}
             </select>
@@ -459,7 +459,7 @@ export default function Settings() {
               type="time"
               value={newSlotTime}
               onChange={(e) => setNewSlotTime(e.target.value)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-border bg-muted/50 text-foreground font-mono"
+              className="px-3 py-1.5 text-[15px] rounded-lg border border-border bg-muted/50 text-foreground font-mono"
             />
             <Button size="sm" variant="outline" onClick={addSlot} className="border-border">
               <Plus className="w-3.5 h-3.5 mr-1" /> Add Slot
@@ -474,13 +474,13 @@ export default function Settings() {
           {/* Upcoming */}
           {upcoming && upcoming.length > 0 && (
             <div className="mt-4 pt-4 border-t border-border">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Upcoming Posts</p>
+              <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Upcoming Posts</p>
               <div className="space-y-2">
                 {upcoming.map((draft) => (
                   <div key={draft.id} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border">
                     <Clock className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                    <p className="text-sm text-foreground/80 flex-1 truncate">{draft.instagram_caption.slice(0, 60)}...</p>
-                    <span className="text-xs text-muted-foreground font-mono shrink-0">
+                    <p className="text-[15px] text-foreground/85 flex-1 truncate">{draft.instagram_caption.slice(0, 60)}...</p>
+                    <span className="text-sm text-muted-foreground font-mono shrink-0">
                       {draft.scheduled_at ? format(new Date(draft.scheduled_at), 'MMM d, h:mm a') : '—'}
                     </span>
                   </div>
@@ -505,14 +505,14 @@ export default function Settings() {
         contentBg="bg-amber-50/80 dark:bg-amber-950/30"
       >
         <div className="space-y-3">
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-[15px] text-muted-foreground leading-relaxed">
             View real-time availability across all trips. The system uses this data to write urgency-calibrated social posts.
           </p>
           <button
             onClick={() => navigate("/dashboard/bookings")}
             className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border hover:bg-muted/60 transition-colors"
           >
-            <p className="text-sm font-semibold text-foreground">Open Capacity Checker</p>
+            <p className="text-[15px] font-semibold text-foreground">Open Capacity Checker</p>
             <ArrowRight className="w-4 h-4 text-muted-foreground" />
           </button>
         </div>
@@ -532,15 +532,15 @@ export default function Settings() {
         contentBg="bg-rose-50/80 dark:bg-rose-950/30"
       >
         <div className="space-y-5">
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-[15px] text-muted-foreground leading-relaxed">
             Enable this to get an email compose button inside each conversation. When you click it, a pre-filled draft opens directly in your chosen email client — nothing is sent automatically.
           </p>
 
           {/* Enable toggle */}
           <div className="flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border">
             <div>
-              <p className="text-sm font-semibold text-foreground">Enable email button in Messages</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Shows a compose button on each conversation</p>
+              <p className="text-[15px] font-semibold text-foreground">Enable email button in Messages</p>
+              <p className="text-sm text-muted-foreground mt-0.5">Shows a compose button on each conversation</p>
             </div>
             <button
               onClick={() => saveEmailSettings({ ...emailSettings, enabled: !emailSettings.enabled })}
@@ -559,7 +559,7 @@ export default function Settings() {
           {/* Client choice */}
           {emailSettings.enabled && (
             <div className="space-y-2">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Email client</p>
+              <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Email client</p>
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => saveEmailSettings({ ...emailSettings, client: "gmail" })}
@@ -574,8 +574,8 @@ export default function Settings() {
                     <Mail className="w-4 h-4 text-red-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Gmail</p>
-                    <p className="text-xs text-muted-foreground">Opens in browser</p>
+                    <p className="text-[15px] font-semibold text-foreground">Gmail</p>
+                    <p className="text-sm text-muted-foreground">Opens in browser</p>
                   </div>
                   {emailSettings.client === "gmail" && <CheckCircle2 className="w-4 h-4 text-sky-400 ml-auto" />}
                 </button>
@@ -592,8 +592,8 @@ export default function Settings() {
                     <Mail className="w-4 h-4 text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Default App</p>
-                    <p className="text-xs text-muted-foreground">Outlook, Apple Mail…</p>
+                    <p className="text-[15px] font-semibold text-foreground">Default App</p>
+                    <p className="text-sm text-muted-foreground">Outlook, Apple Mail…</p>
                   </div>
                   {emailSettings.client === "mailto" && <CheckCircle2 className="w-4 h-4 text-sky-400 ml-auto" />}
                 </button>
@@ -661,7 +661,7 @@ export default function Settings() {
         contentBg="bg-purple-50/80 dark:bg-purple-950/30"
       >
         <div className="space-y-4">
-          <p className="text-xs text-muted-foreground">Technical configuration injected into the system. Read-only.</p>
+          <p className="text-sm text-muted-foreground">Technical configuration injected into the system. Read-only.</p>
 
           {configLoading ? (
             <Skeleton className="h-48 w-full rounded-xl" />
@@ -681,14 +681,14 @@ export default function Settings() {
                         <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center bg-muted")}>
                           <section.icon className={cn("w-4 h-4", section.color)} />
                         </div>
-                        <span className="flex-1 text-sm font-medium text-foreground">{section.title}</span>
+                        <span className="flex-1 text-[15px] font-medium text-foreground">{section.title}</span>
                         {expandedConfigSection === idx
                           ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
                           : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
                       </button>
                       {expandedConfigSection === idx && (
                         <div className="px-4 pb-4 border-t border-border">
-                          <pre className="text-xs text-foreground/70 font-mono whitespace-pre-wrap leading-relaxed mt-3">
+                          <pre className="text-sm text-foreground/80 font-mono whitespace-pre-wrap leading-relaxed mt-3">
                             {section.content}
                           </pre>
                         </div>
@@ -701,11 +701,11 @@ export default function Settings() {
               {/* Raw context */}
               <div className="rounded-xl border border-border overflow-hidden">
                 <div className="bg-muted/50 px-4 py-2 border-b border-border flex justify-between items-center">
-                  <span className="text-xs font-mono text-muted-foreground">system_context.txt</span>
-                  <span className="text-xs text-primary/70">Read-only</span>
+                  <span className="text-sm font-mono text-muted-foreground">system_context.txt</span>
+                  <span className="text-sm text-primary/80">Read-only</span>
                 </div>
                 <div className="p-4 max-h-72 overflow-y-auto">
-                  <pre className="text-xs text-foreground/60 font-mono whitespace-pre-wrap leading-relaxed">
+                  <pre className="text-sm text-foreground/75 font-mono whitespace-pre-wrap leading-relaxed">
                     {config?.context || "No configuration loaded."}
                   </pre>
                 </div>
