@@ -1,8 +1,6 @@
 import Button from '../components/Button';
 import Seo from '../components/Seo';
 
-const CHANNELS = ['WhatsApp', 'Instagram', 'Facebook', 'Email', 'X', 'Telegram', 'Messenger'];
-
 const BENEFITS = [
   {
     title: 'One Inbox. Every Channel.',
@@ -27,10 +25,10 @@ const BENEFITS = [
 ];
 
 const STEPS = [
-  { num: '01', title: 'Every message. One inbox.', desc: 'Connect all your channels in minutes. WhatsApp, Instagram, Email — everything lands in one place.' },
-  { num: '02', title: 'AI handles the routine.', desc: 'Repetitive questions get answered instantly. Your team never has to type the same reply again.' },
-  { num: '03', title: 'You stay in control.', desc: 'Review, adjust, approve — whenever it actually matters. Human oversight, always on.' },
-  { num: '04', title: 'More time. More clients.', desc: 'Scale without burning out. Grow without hiring a team of 10.' },
+  { num: '01', title: 'Connect your channels', desc: 'WhatsApp, Instagram, Email — everything lands in one inbox. Setup takes minutes.' },
+  { num: '02', title: 'AI handles the routine', desc: 'Repetitive questions get answered instantly. Your team never types the same reply again.' },
+  { num: '03', title: 'You stay in control', desc: 'Review, adjust, approve — whenever it matters. Human oversight, always on.' },
+  { num: '04', title: 'Scale without burnout', desc: 'More clients, same team. Grow without hiring a team of 10.' },
 ];
 
 export default function HomePage() {
@@ -38,74 +36,50 @@ export default function HomePage() {
     <>
       <Seo />
 
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="bg-white pt-16">
-        <div className="mx-auto max-w-3xl px-6 pt-14 pb-10 text-center">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-500">
-            WTYJ · We Take Your Job
-          </p>
-          <h1
-            className="text-5xl font-bold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl leading-[1.04]"
-            data-testid="hero-title"
-          >
-            All your messages.<br />1 Inbox.
-          </h1>
-          <p
-            className="mx-auto mt-6 max-w-xl text-xl leading-relaxed text-slate-500"
-            data-testid="hero-subtitle"
-          >
-            Every channel. One place. More time for what matters.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button to="/contact" data-testid="button-hero-cta">Book a strategy call</Button>
-            <Button to="/services" variant="secondary" data-testid="button-hero-services">See how it works</Button>
-          </div>
-        </div>
-
-        {/* Hero image — full width, no overlay, no crop */}
-        <div className="w-full" data-testid="hero-panel">
-          <img
-            src="/wtyj-hero-layout.png"
-            alt="We Take Your Job — unified inbox for all your channels"
-            className="w-full h-auto"
-            loading="eager"
-            fetchPriority="high"
-            width="1920"
-            height="900"
-          />
-        </div>
+      {/* ── Hero — bright banner, top portion only ───────────────── */}
+      <section className="relative w-full overflow-hidden bg-sky-50" data-testid="hero-panel">
+        <h1 className="sr-only" data-testid="hero-title">All your messages. 1 Inbox.</h1>
+        <img
+          src="/a_bright_clean_promotional_hero_banner_compositio.png"
+          alt="All your messages. 1 Inbox. — unified inbox across every channel"
+          className="w-full h-[50vw] min-h-[400px] max-h-[620px] object-cover object-[center_top]"
+          loading="eager"
+          fetchPriority="high"
+        />
       </section>
 
-      {/* ── Channel strip ────────────────────────────────────────── */}
-      <section className="border-y border-slate-100 bg-slate-50/70 py-5">
-        <div className="wrap">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
-              Every channel
-            </span>
-            {CHANNELS.map((c) => (
-              <span key={c} className="text-sm font-medium text-slate-600">
-                {c}
-              </span>
-            ))}
+      {/* ── CTA bar below hero ───────────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-white py-8">
+        <div className="wrap text-center">
+          <p
+            className="mb-4 text-lg text-slate-500 sm:text-xl"
+            data-testid="hero-subtitle"
+          >
+            AI tools that handle emails, DMs, and messages. Your team stays in control.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button to="/contact" data-testid="button-hero-cta">Book a strategy call</Button>
+            <Button to="/services" variant="secondary" data-testid="button-hero-services">See how it works</Button>
           </div>
         </div>
       </section>
 
       {/* ── Benefits ─────────────────────────────────────────────── */}
-      <section className="bg-white py-24">
+      <section className="bg-white py-20">
         <div className="wrap">
-          <div className="mb-14 max-w-2xl">
+          <div className="mb-12 max-w-2xl">
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-sky-500">Why WTYJ</p>
-            <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-              Less noise.<br />More business.
+            <h2
+              className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+            >
+              Less noise. More business.
             </h2>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {BENEFITS.map((b) => (
               <div
                 key={b.title}
-                className="rounded-2xl border border-slate-100 bg-slate-50/60 p-7 hover:border-slate-200 hover:bg-slate-50 transition-colors"
+                className="rounded-2xl border border-slate-100 bg-slate-50/60 p-7 transition-colors hover:border-slate-200 hover:bg-slate-50"
               >
                 <h3 className="mb-2 text-[17px] font-semibold text-slate-900">{b.title}</h3>
                 <p className="text-sm leading-relaxed text-slate-500">{b.desc}</p>
@@ -115,53 +89,45 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Time / Freedom ───────────────────────────────────────── */}
-      <section className="overflow-hidden bg-slate-50">
-        <div className="wrap grid items-center gap-0 lg:grid-cols-2">
-          {/* Copy side */}
-          <div className="py-20 lg:pr-16 order-2 lg:order-1">
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-sky-500">Take back your time</p>
-            <h2 className="mb-6 text-4xl font-bold tracking-tight text-slate-900 leading-[1.08] sm:text-5xl">
-              Live the island life<br />you actually want.
-            </h2>
-            <p className="max-w-md text-lg leading-relaxed text-slate-500">
-              We take the repetitive communication off your hands so you can focus on clients, growth, and the life you actually want.
-            </p>
-            <p className="mt-3 max-w-md text-base leading-relaxed text-slate-400">
-              Smart automation. Human oversight. More time for what matters.
-            </p>
-            <div className="mt-8">
-              <Button to="/contact">Book a strategy call</Button>
-            </div>
-          </div>
+      {/* ── Feature showcase — professional composite cards ─────── */}
+      <section className="relative w-full overflow-hidden border-y border-slate-100 bg-slate-50">
+        <img
+          src="/a_clean_professional_marketing_composite_layout_w.png"
+          alt="Feature cards — 24/7 coverage, multilingual, total control, faster replies, less busywork, smart automation"
+          className="w-full h-[35vw] min-h-[280px] max-h-[440px] object-cover object-[center_bottom]"
+          loading="lazy"
+        />
+      </section>
 
-          {/* Photo side */}
-          <div className="order-1 lg:order-2 lg:-mr-8">
-            <img
-              src="/wtyj-hero-photo.jpg"
-              alt="Island life — time, freedom, and business growth in Curaçao"
-              className="w-full h-auto object-cover rounded-2xl lg:rounded-l-2xl lg:rounded-r-none shadow-sm"
-              loading="lazy"
-              width="800"
-              height="600"
-            />
+      {/* ── Time / Freedom ───────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 via-white to-blue-50 py-20 lg:py-28">
+        <div className="wrap relative z-10 mx-auto max-w-3xl text-center">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-sky-500">Take back your time</p>
+          <h2 className="mb-5 text-3xl font-bold tracking-tight text-slate-900 leading-[1.1] sm:text-4xl lg:text-5xl">
+            Live the island life<br />you actually want.
+          </h2>
+          <p className="mx-auto max-w-lg text-lg leading-relaxed text-slate-500">
+            We take the repetitive communication off your hands so you can focus on clients, growth, and the life you moved here for.
+          </p>
+          <div className="mt-8">
+            <Button to="/contact">Book a strategy call</Button>
           </div>
         </div>
       </section>
 
       {/* ── How it works ─────────────────────────────────────────── */}
-      <section className="border-y border-slate-100 bg-white py-24" data-testid="section-how">
+      <section className="bg-slate-50 py-20" data-testid="section-how">
         <div className="wrap">
-          <div className="mb-14 max-w-2xl">
+          <div className="mb-12 max-w-2xl">
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-sky-500">How it works</p>
-            <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
               Simple. Powerful. Done.
             </h2>
           </div>
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s) => (
               <div key={s.num}>
-                <p className="mb-3 text-5xl font-bold text-slate-100 tabular-nums leading-none">{s.num}</p>
+                <p className="mb-3 text-5xl font-bold tabular-nums leading-none text-slate-200">{s.num}</p>
                 <h3 className="mb-2 text-[15px] font-semibold text-slate-900">{s.title}</h3>
                 <p className="text-sm leading-relaxed text-slate-500">{s.desc}</p>
               </div>
@@ -170,8 +136,18 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Dark tech showcase — full dramatic section ──────────── */}
+      <section className="relative w-full overflow-hidden bg-slate-950">
+        <img
+          src="/a_dark_high_contrast_tech_marketing_montage_con.png"
+          alt="Technology — one inbox, every channel, total control"
+          className="mx-auto w-full max-w-[1400px] h-auto"
+          loading="lazy"
+        />
+      </section>
+
       {/* ── Curaçao identity ─────────────────────────────────────── */}
-      <section className="bg-sky-50 py-20" data-testid="section-audience">
+      <section className="bg-sky-50 py-16" data-testid="section-audience">
         <div className="wrap mx-auto max-w-2xl text-center">
           <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-sky-500">Where we're from</p>
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -185,10 +161,10 @@ export default function HomePage() {
       </section>
 
       {/* ── Final CTA ────────────────────────────────────────────── */}
-      <section className="bg-white py-28">
+      <section className="bg-white py-24">
         <div className="wrap mx-auto max-w-2xl text-center">
-          <h2 className="mb-5 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl leading-[1.06]">
-            More time.<br />More clients.<br />More life.
+          <h2 className="mb-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl leading-[1.06]">
+            More time. More clients.<br />More life.
           </h2>
           <p className="mb-8 text-lg text-slate-500">
             Stop drowning in messages. Start growing with the same team.
