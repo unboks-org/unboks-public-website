@@ -143,6 +143,7 @@ interface RowProps {
   isHidden?: boolean;
   isSelected?: boolean;
   readSet: Set<string>;
+  escalationType?: string;
   onOpen: (phone: string) => void;
   onHide: (phone: string) => void;
   onUnhide: (phone: string) => void;
@@ -153,7 +154,7 @@ interface RowProps {
 }
 
 function ConversationRow({
-  conv, isHidden = false, isSelected = false, readSet,
+  conv, isHidden = false, isSelected = false, readSet, escalationType,
   onOpen, onHide, onUnhide, onMarkRead, onMarkUnread, onSelect, onDelete,
 }: RowProps) {
   const isEscalated = conv.status === "escalated";
@@ -215,9 +216,14 @@ function ConversationRow({
       {/* inline badges — always visible */}
       <div className="flex items-center gap-2 ml-2 shrink-0">
         {isEscalated && (
-          <span className="flex items-center gap-1 text-[11px] font-medium text-rose-400/90">
+          <span className={cn(
+            "flex items-center gap-1 text-[11px] font-medium",
+            escalationType && isSemi(escalationType) ? "text-blue-400/90" : "text-rose-400/90"
+          )}>
             <AlertTriangle className="w-3 h-3" />
-            Escalated
+            {escalationType
+              ? isSemi(escalationType) ? "Semi Escalation" : "Full Escalation"
+              : "Escalated"}
           </span>
         )}
         <span className="text-muted-foreground/80 dark:text-muted-foreground/65">
@@ -904,6 +910,14 @@ export default function Messages() {
                 conv={conv}
                 isSelected={selectedSet.has(conv.phone)}
                 readSet={readSet}
+                escalationType={conv.status === "escalated"
+                  ? (escalations ?? []).find((e) =>
+                      e.customer_id === conv.phone ||
+                      e.customer_phone === conv.phone ||
+                      e.customer_contact === conv.phone ||
+                      (conv.customer_name && e.customer_name === conv.customer_name)
+                    )?.notification_type
+                  : undefined}
                 onOpen={openConversation}
                 onHide={hide}
                 onUnhide={unhide}
@@ -957,6 +971,14 @@ export default function Messages() {
                     isHidden
                     isSelected={selectedSet.has(conv.phone)}
                     readSet={readSet}
+                    escalationType={conv.status === "escalated"
+                      ? (escalations ?? []).find((e) =>
+                          e.customer_id === conv.phone ||
+                          e.customer_phone === conv.phone ||
+                          e.customer_contact === conv.phone ||
+                          (conv.customer_name && e.customer_name === conv.customer_name)
+                        )?.notification_type
+                      : undefined}
                     onOpen={openConversation}
                     onHide={hide}
                     onUnhide={unhide}

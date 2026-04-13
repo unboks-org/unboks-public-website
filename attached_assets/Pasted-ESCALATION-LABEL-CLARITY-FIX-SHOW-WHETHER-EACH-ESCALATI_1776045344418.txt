@@ -1,0 +1,74 @@
+ESCALATION LABEL CLARITY FIX — SHOW WHETHER EACH ESCALATION IS FULL OR SEMI IN THE LIST VIEW
+
+PROBLEM
+In the escalations list, I currently only see a generic "Escalated" label.
+That is not enough.
+I need to immediately see whether each escalation is:
+- FULL escalation
+or
+- SEMI escalation
+
+GOAL
+Where the UI currently says "Escalated", replace or extend that label so it clearly shows the escalation type:
+- Full Escalation
+- Semi Escalation
+
+IMPORTANT
+This is not a redesign task.
+This is a clarity / labeling fix.
+Do NOT redesign the list.
+Do NOT change layout unnecessarily.
+Do NOT move things around unless needed for proper label fit.
+Keep the current inbox / escalations shell.
+
+REQUIRED BEHAVIOR
+In the escalations list row, the escalation status area must clearly show the type:
+- if full escalation → show "Full Escalation"
+- if semi escalation → show "Semi Escalation"
+
+This must be visible directly in the list row without opening the item.
+
+PREFERRED IMPLEMENTATION
+- use the existing escalation data/type already present in the project
+- inspect old escalation implementation if needed
+- find the field or logic that distinguishes semi vs full
+- map that into the row label
+
+DO NOT
+- do not hardcode fake values
+- do not guess from random text
+- do not invent a new backend field if the data already exists
+- do not keep the generic "Escalated" label if real type is available
+
+IF SPACE IS TIGHT
+If row space is limited:
+- still prioritize showing the type
+- acceptable formats:
+  - Full Escalation
+  - Semi Escalation
+or shorter, only if truly necessary:
+  - Full
+  - Semi
+But preferred is explicit text.
+
+VISUAL REQUIREMENTS
+- label must remain readable in dark mode
+- preserve premium look
+- keep styling consistent with the current escalation badge style
+- do not make it flashy
+- do not reduce readability
+
+SUCCESS CRITERIA
+When I look at the escalations list:
+- I can immediately tell which rows are full escalations
+- I can immediately tell which rows are semi escalations
+- I do not need to click into the item to know the type
+- no layout redesign happened
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. which field/logic was used to determine semi vs full
+3. how the row label was updated
+4. confirmation that generic "Escalated" was replaced or clarified with the actual type
+5. confirmation that no unnecessary layout redesign was introduced
