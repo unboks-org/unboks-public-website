@@ -183,6 +183,7 @@ export function AppLayout() {
   const { features } = useFeatureToggles();
 
   const isEscalationsView = location.pathname === "/dashboard" && searchParams.get("view") === "escalations";
+  const isHome = (location.pathname === "/dashboard" || location.pathname === "/dashboard/") && !isEscalationsView;
 
   const NAV_ITEMS = [
     {
@@ -229,8 +230,6 @@ export function AppLayout() {
   const unreadCount = (conversations ?? []).filter(
     (c) => !readSet.has(c.phone) && !getHiddenSet().has(c.phone)
   ).length;
-
-  const isHome = (location.pathname === "/dashboard" || location.pathname === "/dashboard/") && !isEscalationsView;
 
   const SidebarContent = ({ hideActions = false }: { hideActions?: boolean }) => (
     <div className="flex flex-col h-full">
