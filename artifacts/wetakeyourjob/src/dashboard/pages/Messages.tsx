@@ -138,11 +138,34 @@ function channelLabel(channel?: string): string {
   return "WhatsApp";
 }
 
+/** Looks like a raw UUID / long hex ID — not human-readable */
+function looksLikeId(s: string): boolean {
+  return /^[0-9a-f\-]{20,}$/i.test(s);
+}
+
+/**
+ * Priority order for the main visible sender/customer label:
+ * 1. Real name (has a space, or is an email, or is short & not an ID)
+ * 2. Phone field — may hold a real phone number, email, or social handle for
+ *    the channel (WhatsApp number, IG handle, etc.)
+ * 3. "Unknown customer" — never leave the column empty
+ */
 function senderText(conv: Conversation): string {
-  const name = conv.customer_name ?? "";
-  // Real names are short or have a space; long hex-like strings are IDs → suppress
-  if (name && (name.includes(" ") || name.length <= 20)) return name;
-  return "";
+  const name = (conv.customer_name ?? "").trim();
+
+  // Looks like a real full name
+  if (name && name.includes(" ")) return name;
+  // Looks like an email
+  if (name && name.includes("@")) return name;
+  // Short non-ID string — could be a handle, username, or short name
+  if (name && name.length <= 30 && !looksLikeId(name)) return name;
+
+  // Fall back to the phone/identifier field — for WhatsApp it's a real number,
+  // for email channels it may be the address, for socials a handle
+  const phone = (conv.phone ?? "").trim();
+  if (phone && phone.length <= 50 && !looksLikeId(phone)) return phone;
+
+  return "Unknown customer";
 }
 
 function channelBadgeLabel(channel?: string): string {
@@ -204,18 +227,16 @@ function ConversationRow({
         )}
       </div>
 
-      {/* sender block: name (if real) + compact channel badge */}
+      {/* sender block: identity (always present) + compact channel badge */}
       <div className="w-[190px] shrink-0 flex items-center gap-1.5 pr-2 min-w-0">
-        {senderText(conv) && (
-          <span
-            className={cn(
-              "text-sm truncate",
-              isRead ? "font-normal text-foreground dark:text-foreground/85" : "font-semibold text-foreground"
-            )}
-          >
-            {senderText(conv)}
-          </span>
-        )}
+        <span
+          className={cn(
+            "text-sm truncate min-w-0",
+            isRead ? "font-normal text-foreground dark:text-foreground/85" : "font-semibold text-foreground"
+          )}
+        >
+          {senderText(conv)}
+        </span>
         <span className="shrink-0 inline-block text-[9px] font-semibold uppercase tracking-wide leading-tight px-1.5 py-[2px] rounded border border-border/50 bg-muted/50 text-muted-foreground/75">
           {channelBadgeLabel(conv.channel)}
         </span>
