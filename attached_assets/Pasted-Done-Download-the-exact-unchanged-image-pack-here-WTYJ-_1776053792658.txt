@@ -1,0 +1,232 @@
+Done.
+
+Download the exact unchanged image pack here:
+WTYJ exact images pack￼
+
+And here is the Replit prompt:
+
+Rebuild the wetakeyourjob.com homepage around the EXACT supplied visual direction and messaging style.
+
+CRITICAL RULE
+Use the supplied images exactly as provided by the user.
+Do NOT redesign them.
+Do NOT recolor them.
+Do NOT crop them creatively.
+Do NOT replace them with other AI images.
+Do NOT generate alternatives.
+Do NOT “improve” them.
+Do NOT restyle the mood.
+Treat the provided images as approved final creative assets.
+
+PRIMARY OBJECTIVE
+Redesign the homepage so it feels like a premium brand campaign, not a boring SaaS brochure.
+
+The site must sell:
+- time back
+- freedom
+- less busywork
+- more business
+- more focus
+- more client time
+- growth without drowning in repetitive communication
+
+The site must NOT feel like:
+- a crypto website
+- a dark hacker dashboard
+- a technical software spec sheet
+- an “AI automation platform” brochure
+- a yoga retreat site
+
+The approved creative direction is:
+- clean
+- bright
+- premium
+- calm
+- modern
+- island-proud
+- Curaçao-aware
+- Apple/Nike style emotional marketing
+- strong business outcome focus
+- very little boring explanation up front
+
+BRAND MESSAGE
+WTYJ helps businesses handle all repetitive messages across channels in one inbox, so owners and teams get their time back.
+
+Main emotional outcomes:
+- less repetitive work
+- more time
+- faster replies
+- stronger reputation
+- happier clients
+- ability to grow with the same team
+- local pride, global standard
+
+CHANNELS TO REFERENCE
+- Email
+- WhatsApp
+- Instagram
+- Facebook
+- X
+- Telegram
+- Messenger
+
+VISUAL RULE
+The supplied image(s) are the hero creative reference and must be used exactly.
+They already express:
+- 1 Inbox
+- all channels in one place
+- Curaçao identity
+- lifestyle/time-freedom angle
+- business productivity angle
+
+Use them prominently on the homepage.
+
+HOMEPAGE STRATEGY
+The homepage must lead with emotion and transformation, not technical explanation.
+
+Homepage must communicate:
+- all your messages, 1 inbox
+- more time for what matters
+- less busywork, more business
+- proudly based in Curaçao
+- smart automation, human oversight
+- take back your time, live your island life
+
+COPY TONE
+- short
+- bold
+- premium
+- human
+- confident
+- emotional
+- clear
+- no fluff
+
+Avoid:
+- jargon
+- “AI-driven omnichannel workflow transformation”
+- crypto-style darkness
+- feature dumping
+- boring technical paragraphs
+
+HOMEPAGE SECTIONS
+Build the homepage using the approved supplied visuals and this structure:
+
+1. HERO
+Use the approved exact hero image prominently.
+Main headline:
+All your messages. 1 Inbox.
+
+Subheadline:
+Every channel. One place. More time for what matters.
+
+Support brand line:
+WTYJ — We Take Your Job.
+
+Primary CTA:
+Book a strategy call
+
+Secondary CTA:
+See how it works
+
+2. BENEFIT STRIP / VALUE SECTION
+Short sharp cards or panels:
+- One Inbox. Every Channel. Total Control.
+- Less Busywork. More Business.
+- Faster Replies. Happier Clients. Stronger Reputation.
+- Smart Automation. Human Oversight.
+- Proudly based in Curaçao.
+
+3. TIME / FREEDOM SECTION
+Headline:
+Take Back Your Time.
+
+Support line:
+We take the repetitive communication off your hands so you can focus on clients, growth, and the life you actually want.
+
+4. HOW IT WORKS — SIMPLE VERSION
+Keep this short and visual.
+Explain simply:
+- Messages from all platforms come into one inbox
+- WTYJ handles repetitive communication
+- Your team keeps visibility and control
+- You save time and scale better
+
+Do not make this section heavy.
+
+5. CURAÇAO / IDENTITY SECTION
+Use the island pride angle tastefully.
+Headline idea:
+Proudly based in Curaçao.
+Body:
+Island mindset. Global standards. Local pride.
+
+This should feel premium and authentic, not touristy.
+
+6. FINAL CTA
+Headline:
+More time. More clients. More life.
+
+CTA:
+Book a strategy call
+
+IMAGE IMPLEMENTATION RULES
+- Import and use the supplied exact images
+- Keep them crisp and large
+- Let them drive the mood
+- Use bright clean layout around them
+- Do not bury them below the fold
+- Do not overlay too much text over busy areas unless readability is excellent
+
+LAYOUT STYLE
+- modern premium marketing site
+- bright sections
+- lots of white / light space
+- strong typography
+- restrained blue accents
+- clean cards
+- subtle shadows
+- smooth rounded corners
+- polished responsive layout
+- premium spacing
+- Apple-style restraint
+- Nike-style emotional clarity
+
+COLOR DIRECTION
+Use the palette implied by the approved creative:
+- white / off-white backgrounds
+- clean navy text
+- light blue accents
+- subtle yellow accent only where already present in the image language
+- tropical light / sea / sky feel
+Do not turn the site dark or neon.
+
+TECH REQUIREMENTS
+- React
+- Vite
+- Tailwind CSS
+- responsive
+- reusable components
+- clean homepage structure
+- no backend needed
+- no unnecessary animations
+- tasteful motion only if subtle
+
+DELIVERABLE
+Return a polished homepage implementation that uses the supplied exact approved images and matches the brand vibe:
+- premium
+- bright
+- emotional
+- business-focused
+- Curaçao-proud
+- time/freedom centered
+
+FINAL WARNING
+Do not hallucinate.
+Do not drift.
+Do not replace the approved imagery.
+Do not turn this into a dark crypto-looking site.
+Do not over-explain the product.
+Lead with the transformation, not the machinery.
+
+If you want, I can now also write a second ultra-strict Codex version of this prompt. ￼
