@@ -13,6 +13,7 @@ import type { AvailabilitySlot } from "@dashboard/lib/api";
 
 type FilterMode = "all" | "today" | "sold-out" | "nearly-full" | "available";
 type DayRange = 7 | 14 | 30;
+type ServiceFilter = string | null;
 
 function formatService(key: string) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -45,6 +46,7 @@ export default function BookingsPage() {
   const { label: bookingsLabel } = useBookingsLabel();
   const [range, setRange] = useState<DayRange>(7);
   const [filter, setFilter] = useState<FilterMode>("all");
+  const [serviceFilter, setServiceFilter] = useState<ServiceFilter>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [capacityOpen, setCapacityOpen] = useState(true);
 
@@ -63,9 +65,12 @@ export default function BookingsPage() {
   const needsAttention = soldOutCount + nearlyFullCount;
 
   const filteredSlots = useMemo(() => {
-    const sorted = [...allSlots].sort(
+    let sorted = [...allSlots].sort(
       (a, b) => a.date.localeCompare(b.date) || a.slot_time.localeCompare(b.slot_time)
     );
+    if (serviceFilter) {
+      sorted = sorted.filter((s) => s.service_key === serviceFilter);
+    }
     switch (filter) {
       case "today":       return sorted.filter((s) => s.date === todayStr);
       case "sold-out":    return sorted.filter((s) => s.spots_remaining === 0);
@@ -73,7 +78,7 @@ export default function BookingsPage() {
       case "available":   return sorted.filter((s) => s.spots_remaining > 0);
       default:            return sorted;
     }
-  }, [allSlots, filter, todayStr]);
+  }, [allSlots, filter, serviceFilter, todayStr]);
 
   const groupedByDate = useMemo(() => {
     const map = new Map<string, AvailabilitySlot[]>();
@@ -287,16 +292,29 @@ export default function BookingsPage() {
                     : remaining / svc.total <= 0.5 ? "filling"
                     : "available";
                   const cfg = STATUS[st];
+                  const isActive = serviceFilter === svc.key;
                   return (
-                    <div
+                    <button
                       key={svc.key}
+                      onClick={() => {
+                        setServiceFilter(isActive ? null : svc.key);
+                        setExpandedId(null);
+                      }}
                       className={cn(
-                        "flex items-center gap-3 px-4 py-3",
-                        idx % 2 === 1 && "sm:border-l sm:border-border/50"
+                        "group flex items-center gap-3 px-4 py-3 text-left w-full transition-colors",
+                        idx % 2 === 1 && "sm:border-l sm:border-border/50",
+                        isActive
+                          ? "bg-primary/8 ring-1 ring-inset ring-primary/30"
+                          : "hover:bg-muted/25 active:bg-muted/40"
                       )}
                     >
                       <div className="w-[130px] shrink-0">
-                        <p className="text-[13px] font-medium text-foreground truncate">{svc.name}</p>
+                        <p className={cn(
+                          "text-[13px] font-medium truncate transition-colors",
+                          isActive ? "text-primary" : "text-foreground group-hover:text-foreground"
+                        )}>
+                          {svc.name}
+                        </p>
                         <p className="text-[11px] text-muted-foreground mt-0.5">
                           {svc.slots} slot{svc.slots !== 1 ? "s" : ""}
                         </p>
@@ -317,12 +335,15 @@ export default function BookingsPage() {
                           />
                         </div>
                       </div>
-                      <div className="shrink-0">
+                      <div className="shrink-0 flex items-center gap-1.5">
                         <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full", cfg.badgeCls)}>
                           {cfg.label}
                         </span>
+                        {isActive && (
+                          <X className="w-3 h-3 text-primary/60 shrink-0" />
+                        )}
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
@@ -335,30 +356,47 @@ export default function BookingsPage() {
       <div className="rounded-xl border border-border bg-card overflow-hidden">
         {/* List header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/20">
-          <div className="flex items-center gap-2">
-            <CalendarDays className="w-4 h-4 text-primary/70" />
-            <span className="text-sm font-semibold text-foreground">
-              {filter === "all"
+          <div className="flex items-center gap-2 min-w-0">
+            <CalendarDays className="w-4 h-4 text-primary/70 shrink-0" />
+            <span className="text-sm font-semibold text-foreground truncate">
+              {serviceFilter
+                ? formatService(serviceFilter)
+                : filter === "all"
                 ? `All Slots — Next ${range} Days`
                 : filter === "today" ? "Today"
                 : filter === "sold-out" ? "Sold Out"
                 : filter === "nearly-full" ? "Nearly Full"
                 : "Available Slots"}
             </span>
+            {serviceFilter && filter !== "all" && (
+              <span className="text-[11px] text-muted-foreground/70 shrink-0">
+                · {filter === "today" ? "today" : filter === "sold-out" ? "sold out" : filter === "nearly-full" ? "nearly full" : "available"}
+              </span>
+            )}
             {!isLoading && (
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-muted-foreground shrink-0">
                 ({filteredSlots.length} slot{filteredSlots.length !== 1 ? "s" : ""})
               </span>
             )}
           </div>
-          {filter !== "all" && (
-            <button
-              onClick={() => setFilter("all")}
-              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <X className="w-3 h-3" /> Clear filter
-            </button>
-          )}
+          <div className="flex items-center gap-3 shrink-0">
+            {serviceFilter && (
+              <button
+                onClick={() => setServiceFilter(null)}
+                className="flex items-center gap-1 text-xs text-primary/70 hover:text-primary transition-colors"
+              >
+                <X className="w-3 h-3" /> {formatService(serviceFilter)}
+              </button>
+            )}
+            {filter !== "all" && (
+              <button
+                onClick={() => setFilter("all")}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X className="w-3 h-3" /> Clear filter
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Table header */}
@@ -388,12 +426,24 @@ export default function BookingsPage() {
             <div className="flex flex-col items-center justify-center py-14 gap-2 text-center">
               <CalendarDays className="w-7 h-7 text-foreground/15" />
               <p className="text-sm text-muted-foreground">No slots match this filter.</p>
-              <button
-                onClick={() => setFilter("all")}
-                className="text-xs text-primary/70 hover:text-primary transition-colors mt-1"
-              >
-                Clear filter
-              </button>
+              <div className="flex items-center gap-3 mt-1">
+                {serviceFilter && (
+                  <button
+                    onClick={() => setServiceFilter(null)}
+                    className="text-xs text-primary/70 hover:text-primary transition-colors"
+                  >
+                    Clear trip filter
+                  </button>
+                )}
+                {filter !== "all" && (
+                  <button
+                    onClick={() => setFilter("all")}
+                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Clear status filter
+                  </button>
+                )}
+              </div>
             </div>
           ) : (
             <div className="divide-y divide-border/40">

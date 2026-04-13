@@ -1,0 +1,147 @@
+BOOKINGS / ORDERS MAIN PANE FILTER MODEL — MAKE CAPACITY/TRIP OPTIONS WORK LIKE INBOX FILTERS
+
+GOAL
+Treat the bookings/orders page like the inbox.
+
+The large slots/orders table is the MAIN PANE.
+Above it, I need filter options just like the inbox has platform filters.
+
+FILTER OPTIONS
+There must be:
+- ALL
+- Sunset Cruise
+- Klein Curacao
+- Jet Ski
+- Snorkeling 3in1
+- West Coast Beach
+- any other real trip/product types already in the data
+
+These filter options should behave like inbox filters.
+
+REQUIRED BEHAVIOR
+1. Default state = ALL
+   - main pane shows all slots / bookings / orders
+
+2. When I click one option:
+   - the SAME main pane stays in place
+   - only the content inside the pane changes
+   - it filters to that trip/product only
+
+3. I must be able to select MULTIPLE options at once
+   Example:
+   - Jet Ski + Klein Curacao selected
+   - main pane shows only Jet Ski and Klein Curacao related rows
+
+4. Clicking ALL:
+   - resets back to all items
+   - clears other trip filters unless you already have a clean multi-select logic where ALL means no filter
+
+5. Clicking an already active trip option again:
+   - should toggle it OFF
+   - like a true filter toggle
+
+PRIMARY UX RULE
+This must behave like the inbox filter model.
+Static shell.
+Static page.
+Static pane.
+Only the data inside the main pane changes.
+
+IMPORTANT
+NO:
+- page jumps
+- route-change feeling
+- violent movement
+- new page opening
+- layout shift
+- reloading the whole section
+- modal detours
+
+The bookings/orders page must feel like one operational workspace.
+
+MAIN PANE DEFINITION
+Treat this table/list area as the main pane:
+- All Slots — Next 7 Days
+- grouped days
+- trip rows
+- date / departs / fill / left / status
+This is the core work area.
+
+FILTER BAR REQUIREMENT
+Add a horizontal filter row above the main pane, modeled after the inbox top filters.
+
+Example structure:
+- All
+- Sunset Cruise
+- Klein Curacao
+- Jet Ski
+- Snorkeling 3in1
+- West Coast Beach
+
+Requirements:
+- visually clean
+- clickable
+- multi-select
+- active/inactive states obvious
+- dark-mode readable
+- premium but practical
+- not giant ugly pills
+- not flashy
+- feels like inbox filters adapted to bookings
+
+DATA BEHAVIOR
+The main pane should filter rows based on selected trip/product names.
+
+Examples:
+- ALL selected → all rows
+- Jet Ski selected → only Jet Ski rows
+- Klein Curacao + Sunset Cruise → only those rows
+- no explicit filters selected after toggling off everything → fallback to ALL
+
+OPTIONAL GOOD BEHAVIOR
+If useful and easy:
+- show item counts on the filters
+- keep selected filters when switching subviews inside bookings/orders
+But do not overbuild.
+
+IMPLEMENTATION RULE
+- reuse current bookings/capacity data already on the page
+- do not invent backend endpoints
+- do not redesign the page shell
+- do not rebuild the table from zero unless needed
+- add a shared filter state for the bookings/orders page
+- keep the page structure static
+
+VISUAL / UX CONSTRAINT
+The interaction must feel exactly like:
+“this is the bookings equivalent of the inbox”
+
+Meaning:
+- filters on top
+- data pane below
+- click filters → pane content changes
+- no other interface movement
+
+DO NOT
+- do not navigate to separate trip pages
+- do not open drawers just for filtering
+- do not move the capacity section around
+- do not turn this into tabs that remount the page
+- do not make it complicated
+
+SUCCESS CRITERIA
+- I see ALL + trip/product filter options above the main pane
+- I can click one filter and only that data shows
+- I can select multiple filters at once
+- clicking active filters toggles them off
+- clicking ALL resets to everything
+- the page shell stays static
+- only the main pane content changes
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. how the bookings/orders filter row was implemented
+3. how multi-select works
+4. how ALL reset works
+5. confirmation that the main pane stays static and only content changes

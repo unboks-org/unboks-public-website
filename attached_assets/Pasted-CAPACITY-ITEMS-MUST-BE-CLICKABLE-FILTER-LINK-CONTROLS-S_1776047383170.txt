@@ -1,0 +1,100 @@
+CAPACITY ITEMS MUST BE CLICKABLE FILTER/LINK CONTROLS — STATIC UI, ONLY MAIN PANE CONTENT CHANGES
+
+PROBLEM
+The capacity items in the "Capacity — Next 7 Days" section need to behave like links / drill-down controls.
+When I click a capacity item (example: Sunset Cruise, Jet Ski, Klein Curacao, etc.), I want the related booking/order information to show in the main pane.
+
+IMPORTANT
+The interface must stay STATIC.
+No page jump.
+No route-change feeling.
+No violent movement.
+No layout shift.
+No pane resize.
+No full-page navigation feel.
+
+ONLY the content in the main pane should change.
+
+GOAL
+Turn each capacity item into a clickable operational filter/drill-down control.
+
+REQUIRED BEHAVIOR
+When I click a capacity item:
+- keep the overall page shell exactly the same
+- keep the top metrics exactly where they are
+- keep the capacity block exactly where it is
+- keep the page layout static
+- only update the main content/list/detail area below or beside it
+- show the relevant bookings/orders/info for that clicked capacity item
+
+EXAMPLES
+- click "Sunset Cruise" → show only Sunset Cruise related bookings/orders/details in the main pane
+- click "Jet Ski" → show only Jet Ski related bookings/orders/details in the main pane
+- click "Klein Curacao" → show only Klein Curacao related bookings/orders/details in the main pane
+
+UX MODEL
+Treat these capacity rows as:
+- links
+or
+- filter controls
+or
+- drill-down selectors
+
+NOT as navigation to another page.
+
+STATE MODEL
+Selected capacity item becomes the active filter for the main pane.
+
+Suggested behavior:
+- default = all bookings/orders shown
+- click one capacity item = main pane filters to that item
+- click another = switch filter to that item
+- optional: click active item again = clear filter back to all
+This last behavior is acceptable if it feels clean and useful.
+
+VISUAL REQUIREMENTS
+- capacity items must look clearly clickable
+- subtle hover/active state is needed
+- keep premium dark style
+- do not turn them into ugly buttons
+- do not clutter the card
+- active selected capacity item should be visually obvious but restrained
+
+MAIN PANE REQUIREMENT
+The main pane should update with relevant information such as:
+- related orders/bookings
+- relevant slots
+- relevant statuses
+- related details for that trip/product/service
+Use existing data where available.
+Do not invent backend endpoints.
+
+IMPLEMENTATION RULE
+- keep everything inside the same Bookings / Orders page shell
+- no full route transition needed for each capacity click unless it can be done invisibly with preserved shell
+- prefer local/shared state filtering over hard navigation
+- reuse existing list/detail components where possible
+
+DO NOT
+- do not make the whole interface jump
+- do not reload the page shell
+- do not move the capacity card
+- do not open a totally separate page
+- do not bury the result in a modal unless that is clearly the cleanest existing pattern
+- do not redesign unrelated parts of the page
+
+SUCCESS CRITERIA
+When I click a capacity item:
+- the clicked item is clearly active
+- the page stays visually static
+- only the main pane content changes
+- I immediately see the relevant information for that capacity item
+- no layout jump occurs
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. how capacity items were made clickable
+3. how the selected capacity state updates the main pane
+4. confirmation that the page shell stays static
+5. confirmation that no route-change / jumpy UI was introduced
