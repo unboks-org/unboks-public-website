@@ -1,0 +1,151 @@
+BOOKED TODAY CARD BEHAVIOR IS WRONG — WHEN BOOKED TODAY IS SELECTED, SHOW ONLY THE ACTUAL 3 BOOKINGS AS A SIMPLE CLICKABLE LIST
+
+PROBLEM
+Right now, when "Booked Today" is selected, the page is still showing slot/capacity structures and other mixed information.
+That is wrong.
+
+If the card says:
+- 3 Booked Today
+
+Then I want to see exactly:
+- a simple list of those 3 bookings
+- nothing else mixed into that main pane view
+
+This is not a capacity view.
+This is not a slots view.
+This is not a grouped trip-capacity board.
+It is a BOOKINGS view.
+
+GOAL
+When "Booked Today" is active, the main pane must switch to a pure bookings list showing the actual booked items for today.
+
+WHAT I WANT
+If "Booked Today" = 3,
+then the main pane should show only 3 booking rows.
+
+Each booking row should be clickable.
+When I click one booking, I want to see the booking details:
+- who booked
+- how many people
+- which trip / product
+- what date
+- what time
+- payment / status if available
+- any other useful booking details already in the data
+
+PRIMARY RULE
+Booked Today = bookings list.
+Not slots.
+Not capacity.
+Not mixed occupancy rows.
+Not grouped slot structures.
+
+REQUIRED BEHAVIOR
+
+1. WHEN BOOKED TODAY CARD IS ACTIVE
+Replace the current main pane content with a simple list of today’s bookings only.
+
+If there are 3 bookings, show 3 rows.
+Nothing else should dilute that view.
+
+2. EACH ROW MUST REPRESENT A REAL BOOKING
+Each row should represent an actual booking/order record, not a trip slot summary.
+
+The row should prioritize useful booking info such as:
+- customer name
+- trip / product name
+- people / guests count
+- date / departure time
+- booking status
+- payment state if available
+
+3. CLICKING A BOOKING
+When I click one booking row:
+- open the booking details
+- keep the overall page shell static if possible
+- show full booking detail clearly
+
+Details should include whatever real data exists, especially:
+- who booked
+- how many people
+- which trip
+- date/time
+- channel/source if useful
+- booking reference if available
+- payment/confirmation state
+- notes if available
+
+4. REMOVE THE WRONG CONTENT FROM THIS VIEW
+When Booked Today is selected, do NOT show:
+- slot inventory rows as the primary content
+- capacity utilization rows as the main list
+- grouped slot structures
+- mixed “all slots” operational data
+That belongs to other cards/views, not Booked Today.
+
+5. CARD-TO-PANE MAPPING MUST BE CORRECT
+Interpret the cards correctly:
+- Booked Today → actual bookings list
+- Spots Left Today → capacity/remaining slots info
+- Nearly Full → nearly full slots/trips
+- Sold Out → sold-out slots/trips
+- Capacity Today → capacity breakdown
+
+The current Booked Today mapping is wrong and must be corrected.
+
+UI / UX REQUIREMENTS
+- keep the shell static
+- no layout jump
+- no new page feeling
+- no violent movement
+- just swap the main pane dataset/view properly
+- active card remains obvious
+- make the result operational and dead simple
+
+PREFERRED MAIN PANE FOR BOOKED TODAY
+A clean bookings list/table with only today’s booking records.
+
+Suggested columns/fields:
+- Customer
+- Trip
+- Guests
+- Time / Date
+- Status
+Optional:
+- Booking reference
+- Channel/source
+if useful and not cluttery
+
+DETAIL VIEW
+Clicking a booking should reveal the actual booking details.
+Do not make me infer booking details from slot rows.
+
+IMPLEMENTATION RULE
+- use real booking/order records already in the data if they exist
+- do not invent backend endpoints
+- do not fake booking detail data
+- if there is an existing booking detail component, reuse it
+- if not, create a simple detail panel using the real data already available
+
+DO NOT
+- do not keep showing slot summary rows for Booked Today
+- do not merge Booked Today with capacity view
+- do not overcomplicate
+- do not bury the booking data behind extra clicks
+- do not leave this as an abstract metric with no direct operational list
+
+SUCCESS CRITERIA
+If Booked Today shows 3:
+- I see exactly 3 booking rows in the main pane
+- each row is an actual booking
+- clicking a row shows the booking details
+- I can clearly see who booked, how many people, and which trip
+- no slot/capacity noise pollutes this specific view
+
+DELIVERABLE FORMAT
+Return:
+1. exact files changed
+2. how Booked Today now maps to actual booking records
+3. which fields are shown in the bookings list
+4. how booking detail opens on click
+5. confirmation that slot/capacity rows are no longer used for the Booked Today main-pane view

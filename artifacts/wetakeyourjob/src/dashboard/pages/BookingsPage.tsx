@@ -87,7 +87,7 @@ export default function BookingsPage() {
       sorted = sorted.filter((s) => serviceFilters.has(s.service_key));
     }
     switch (filter) {
-      case "today":           return sorted.filter((s) => s.date === todayStr);
+      case "today":           return sorted.filter((s) => s.date === todayStr && s.booked_guests > 0);
       case "sold-out":        return sorted.filter((s) => s.spots_remaining === 0);
       case "nearly-full":     return sorted.filter((s) => slotStatus(s) === "nearly-full");
       case "today-available": return sorted.filter((s) => s.date === todayStr && s.spots_remaining > 0);
@@ -464,8 +464,8 @@ export default function BookingsPage() {
           </div>
         )}
 
-        {/* Table header */}
-        {!isLoading && !error && filteredSlots.length > 0 && (
+        {/* Table header — hidden for booking-centric views */}
+        {!isLoading && !error && filteredSlots.length > 0 && filter !== "today" && (
           <div className="grid grid-cols-[1fr_80px_80px_100px_80px_90px] gap-0 px-4 py-2 border-b border-border/50 bg-muted/10">
             <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Trip</span>
             <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Date</span>
@@ -491,11 +491,11 @@ export default function BookingsPage() {
             <div className="flex flex-col items-center justify-center py-14 gap-2 text-center">
               <CalendarDays className="w-7 h-7 text-foreground/15" />
               <p className="text-sm text-muted-foreground">
-                {filter === "sold-out"        ? "No slots are sold out right now."
-                 : filter === "nearly-full"   ? "No slots are nearly full right now."
-                 : filter === "today"         ? "No bookings found for today."
+                {filter === "sold-out"          ? "No slots are sold out right now."
+                 : filter === "nearly-full"     ? "No slots are nearly full right now."
+                 : filter === "today"           ? "No bookings recorded for today."
                  : filter === "today-available" ? "No available spots remain for today."
-                 : filter === "capacity"      ? "No trips scheduled for today."
+                 : filter === "capacity"        ? "No trips scheduled for today."
                  : "No slots match this filter."}
               </p>
               {hasAnyFilter && (
@@ -507,7 +507,104 @@ export default function BookingsPage() {
                 </button>
               )}
             </div>
+
+          ) : filter === "today" ? (
+            /* ── Booked Today — booking-centric list ── */
+            <div className="divide-y divide-border/40">
+              {filteredSlots.map((slot) => {
+                const id = slotId(slot);
+                const isExpanded = expandedId === id;
+                const st = slotStatus(slot);
+                const cfg = STATUS[st];
+                const fillPct = slot.capacity > 0
+                  ? Math.round((slot.booked_guests / slot.capacity) * 100)
+                  : 0;
+                return (
+                  <div key={id} className="group">
+                    <button
+                      onClick={() => setExpandedId(isExpanded ? null : id)}
+                      className={cn(
+                        "w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-muted/20 transition-colors",
+                        isExpanded && "bg-muted/20"
+                      )}
+                    >
+                      {/* Expand chevron */}
+                      <span className="shrink-0 text-muted-foreground/40 group-hover:text-muted-foreground transition-colors">
+                        {isExpanded
+                          ? <ChevronUp className="w-3.5 h-3.5" />
+                          : <ChevronDown className="w-3.5 h-3.5" />}
+                      </span>
+
+                      {/* Trip + time */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13px] font-semibold text-foreground truncate">
+                          {formatService(slot.service_key)}
+                        </p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">
+                          Departs <span className="font-mono text-foreground/70">{slot.slot_time}</span>
+                          {" · "}{format(parseISO(slot.date), "EEE, MMM d")}
+                        </p>
+                      </div>
+
+                      {/* Guests booked */}
+                      <div className="shrink-0 flex items-center gap-1.5 text-foreground/80">
+                        <Users className="w-3.5 h-3.5 text-primary/60" />
+                        <span className="text-sm font-semibold tabular-nums">
+                          {slot.booked_guests}
+                        </span>
+                        <span className="text-[11px] text-muted-foreground">
+                          guest{slot.booked_guests !== 1 ? "s" : ""}
+                        </span>
+                      </div>
+
+                      {/* Status badge */}
+                      <div className="shrink-0">
+                        <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full", cfg.badgeCls)}>
+                          {cfg.label}
+                        </span>
+                      </div>
+                    </button>
+
+                    {/* Expanded detail */}
+                    {isExpanded && (
+                      <div className="mx-4 mb-3 rounded-lg border border-border/60 bg-muted/15 overflow-hidden">
+                        <div className="px-4 py-3 border-b border-border/40 flex items-center justify-between">
+                          <span className="text-[13px] font-semibold text-foreground">
+                            {formatService(slot.service_key)}
+                          </span>
+                          <span className={cn("text-[10px] font-semibold px-2 py-0.5 rounded-full", cfg.badgeCls)}>
+                            {cfg.label}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3 px-4 py-3">
+                          {[
+                            { label: "Date",      value: format(parseISO(slot.date), "EEEE, MMMM d, yyyy") },
+                            { label: "Departure", value: slot.slot_time },
+                            { label: "Booked",    value: `${slot.booked_guests} guest${slot.booked_guests !== 1 ? "s" : ""}` },
+                            { label: "Capacity",  value: `${slot.capacity} total seats` },
+                            { label: "Remaining", value: `${slot.spots_remaining} spot${slot.spots_remaining !== 1 ? "s" : ""} left` },
+                            { label: "Fill Rate", value: `${fillPct}%` },
+                          ].map(({ label, value }) => (
+                            <div key={label}>
+                              <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">{label}</p>
+                              <p className="text-[13px] font-medium text-foreground">{value}</p>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="px-4 py-2 border-t border-border/30 bg-muted/10">
+                          <p className="text-[10px] text-muted-foreground/60">
+                            Individual guest names and booking references are available in your booking management system.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
           ) : (
+            /* ── All other filters — slot inventory table (grouped by date) ── */
             <div className="divide-y divide-border/40">
               {groupedByDate.map(([date, daySlots]) => {
                 const dateObj = parseISO(date);
