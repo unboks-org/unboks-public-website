@@ -1,0 +1,162 @@
+Use this:
+
+Fix the homepage asset usage mistake and finish the wetakeyourjob.com homepage properly.
+
+CRITICAL PRIORITY
+You previously handled the supporting image section incorrectly.
+You must correct that now.
+
+THE MISTAKE TO FIX
+The supporting panel section was treated as if it could come from a combined screenshot/composite image.
+That is wrong.
+
+Correct rule:
+- the hero is one single large image
+- the supporting section is made from separate individual image files
+- each card must be rendered from its own file
+- do not crop or slice a combined image
+- do not simulate separate cards from one screenshot
+- do not use merged/composite support images
+
+DO NOT HALLUCINATE
+DO NOT DRIFT
+DO NOT IMPROVISE
+DO NOT REINTERPRET THE ASSET PLAN
+
+EXACT ASSET MAP
+
+HERO IMAGE
+- wtyj_panel_hero_main.png
+Use only for:
+- homepage hero
+Display rules:
+- full-width
+- directly below the navbar
+- visually dominant
+- no large empty white gap above it
+- preserve the key message and composition
+- do not crop out:
+  - “All your messages. 1 Inbox.”
+  - the central inbox hub
+  - the phone
+  - the laptop
+
+SUPPORT CARD IMAGES
+Use these as separate individual support cards:
+- wtyj_panel_one_inbox_total_control.png
+- wtyj_panel_less_busywork_more_business.png
+- wtyj_panel_faster_replies.png
+- wtyj_panel_24_7_coverage.png
+- wtyj_panel_all_languages.png
+
+DO NOT USE these files in the homepage support card grid:
+- wtyj_grid_v1.png
+- wtyj_grid_v2.png
+- wtyj_grid_v3.png
+
+Those are not to be used for the final homepage support card layout.
+
+HOMEPAGE STRUCTURE TO IMPLEMENT
+
+1. NAVBAR
+Keep it clean and minimal.
+Links:
+- Services
+- About
+- Contact
+- Login
+CTA:
+- Get started
+
+2. HERO
+Place wtyj_panel_hero_main.png directly below the navbar.
+This must be the emotional and visual lead of the whole page.
+
+3. SUPPORT CARD GRID
+Directly below the hero, render a clean responsive grid using ONLY the 5 separate support card files listed above.
+
+Desktop grid:
+- row 1: 3 cards
+  - wtyj_panel_one_inbox_total_control.png
+  - wtyj_panel_less_busywork_more_business.png
+  - wtyj_panel_faster_replies.png
+- row 2: 2 cards
+  - wtyj_panel_24_7_coverage.png
+  - wtyj_panel_all_languages.png
+
+Grid rules:
+- each card is its own image file
+- equal spacing
+- consistent radius
+- premium clean layout
+- no fake slicing from a bigger screenshot
+- no awkward empty space between sections
+- no giant white dead zones
+
+4. BIG BRAND STATEMENT SECTION
+Place this below the support grid.
+
+Headline:
+More time. More clients. More life.
+
+Subheadline:
+All your messages. 1 Inbox. More time for what matters.
+
+This section must be strong, centered, premium, and not buried too low on the page.
+
+5. CTA SECTION
+Place a strong CTA section below the brand statement.
+
+Use:
+- Get started
+- See how it works
+
+Keep it premium, clean, and aligned with the rest of the page.
+
+6. FOOTER
+Simple, clean, lower on the page.
+Do not let the footer arrive too quickly.
+
+VISUAL RULES
+- bright
+- premium
+- calm
+- minimal
+- Apple/Nike-style outcome-first energy
+- no crypto look
+- no dark heavy SaaS look
+- no feature-dump layout
+- no disconnected leftover sections
+
+LAYOUT RULES
+- reduce unnecessary whitespace
+- remove giant vertical gaps
+- make the page feel intentional and finished
+- improve section flow
+- hero must dominate first impression
+- support cards must feel like one designed section
+- footer must not feel too close
+
+TECHNICAL RULES
+- import the exact asset files correctly
+- each support card must be its own image
+- use responsive grid behavior
+- do not distort image aspect ratios
+- do not blur or heavily compress the images
+- keep the homepage performant and visually stable
+
+FINAL GOAL
+Finish the homepage so it feels like:
+- one coherent premium campaign
+not:
+- a hero plus random leftover pieces
+
+SUCCESS CONDITION
+When finished, the homepage must clearly show:
+- one big hero image on top
+- five separate support cards below it
+- a big centered statement section
+- a CTA section
+- a footer
+
+And the support cards must come from separate files, not a composite screenshot.

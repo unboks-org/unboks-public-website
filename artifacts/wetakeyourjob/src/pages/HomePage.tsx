@@ -1,6 +1,8 @@
 import Button from '../components/Button';
 import Seo from '../components/Seo';
 
+const base = import.meta.env.BASE_URL;
+
 export default function HomePage() {
   return (
     <>
@@ -12,7 +14,7 @@ export default function HomePage() {
           All your messages. 1 Inbox.
         </h1>
         <img
-          src="/wtyj_hero_main.png"
+          src={`${base}wtyj_hero_main.png`}
           alt="All your messages. 1 Inbox. More time for what matters."
           className="w-full h-auto"
           width="1536"
@@ -22,39 +24,15 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ── VALUE PROPOSITION ────────────────────────────────────── */}
-      <section className="bg-white py-12 sm:py-16">
-        <div className="wrap mx-auto max-w-4xl">
-          <div className="grid gap-6 sm:grid-cols-3 text-center">
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 sm:text-xl">Less busywork.</h2>
-              <p className="mt-1 text-sm text-slate-500" data-testid="hero-subtitle">More business.</p>
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 sm:text-xl">Faster replies.</h2>
-              <p className="mt-1 text-sm text-slate-500">Happier clients.</p>
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 sm:text-xl">Smart automation.</h2>
-              <p className="mt-1 text-sm text-slate-500">Human oversight.</p>
-            </div>
-          </div>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button to="/contact" data-testid="button-hero-cta">Get started</Button>
-            <Button to="/services" variant="secondary" data-testid="button-hero-services">See how it works</Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PANEL SHOWCASE ───────────────────────────────────────── */}
-      <section className="bg-slate-50 py-12 sm:py-16">
+      {/* ── SUPPORT CARD GRID ──────────────────────────────────── */}
+      <section className="bg-slate-50 py-10 sm:py-14">
         <div className="wrap">
-          <p className="mb-8 text-center text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+          <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-widest text-slate-400">
             What we handle for you
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <img
-              src="/wtyj_panel_inbox.png"
+              src={`${base}wtyj_panel_inbox.png`}
               alt="One Inbox. Every Channel. Total Control."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
@@ -62,7 +40,7 @@ export default function HomePage() {
               loading="lazy"
             />
             <img
-              src="/wtyj_panel_busywork.png"
+              src={`${base}wtyj_panel_busywork.png`}
               alt="Less busywork. More business."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
@@ -70,15 +48,17 @@ export default function HomePage() {
               loading="lazy"
             />
             <img
-              src="/wtyj_panel_replies.png"
+              src={`${base}wtyj_panel_replies.png`}
               alt="Faster replies. Happier clients. Stronger reputation."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
               height="230"
               loading="lazy"
             />
+          </div>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:max-w-[66.8%] lg:mx-auto">
             <img
-              src="/wtyj_panel_24_7.png"
+              src={`${base}wtyj_panel_24_7.png`}
               alt="24/7 coverage. Every hour. Every day."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
@@ -86,19 +66,11 @@ export default function HomePage() {
               loading="lazy"
             />
             <img
-              src="/wtyj_panel_languages.png"
+              src={`${base}wtyj_panel_languages.png`}
               alt="All languages. One system."
               className="w-full h-auto rounded-xl shadow-sm"
               width="512"
               height="250"
-              loading="lazy"
-            />
-            <img
-              src="/wtyj_panel_automation.png"
-              alt="Smart automation. Human oversight."
-              className="w-full h-auto rounded-xl shadow-sm"
-              width="512"
-              height="230"
               loading="lazy"
             />
           </div>
@@ -106,7 +78,7 @@ export default function HomePage() {
       </section>
 
       {/* ── BIG BRAND STATEMENT ──────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-24">
+      <section className="bg-white py-14 sm:py-20">
         <div className="wrap mx-auto max-w-3xl text-center">
           <h2 className="text-4xl font-bold tracking-tight text-slate-900 leading-[1.1] sm:text-5xl lg:text-6xl">
             More time.<br />More clients.<br />More life.
@@ -118,7 +90,7 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────────── */}
-      <section className="bg-slate-900 py-16 sm:py-20">
+      <section className="bg-slate-900 py-14 sm:py-18">
         <div className="wrap mx-auto max-w-2xl text-center">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
             Ready to take back your time?
@@ -127,7 +99,7 @@ export default function HomePage() {
             Less noise. More business. Let's talk.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button to="/contact">Get started</Button>
+            <Button to="/contact" data-testid="button-hero-cta">Get started</Button>
             <Button to="/services" variant="secondary" className="border-slate-700 text-slate-300 hover:bg-slate-800">See how it works</Button>
           </div>
         </div>
