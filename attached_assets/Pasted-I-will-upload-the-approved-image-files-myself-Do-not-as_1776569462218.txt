@@ -1,0 +1,146 @@
+I will upload the approved image files myself.
+
+Do not assume the files are already present until I upload them.
+Do not substitute missing files with placeholders, composite images, or “similar” assets.
+Wait for the uploaded filenames and then use those exact files only.
+If a required file has not been uploaded yet, stop and report exactly which filename is missing.
+
+You are fixing a specific homepage implementation error in the existing wetakeyourjob.com frontend.
+
+THIS IS NOT A DESIGN EXPLORATION TASK.
+THIS IS A PRECISE CORRECTION TASK.
+
+DO NOT HALLUCINATE.
+DO NOT DRIFT.
+DO NOT IMPROVISE.
+DO NOT USE “CLOSE ENOUGH” SUBSTITUTIONS.
+DO NOT USE COMPOSITE IMAGES WHERE SEPARATE FILES ARE REQUIRED.
+DO NOT CLAIM COMPLETION UNLESS THE DOM STRUCTURE MATCHES THE REQUIREMENTS BELOW.
+
+PROBLEM TO FIX
+The homepage support section is wrong.
+
+Current incorrect behavior:
+- row 1 is rendered from 1 combined image that visually contains 3 cards
+- row 2 is rendered from 1 combined image that visually contains 2 cards
+
+That means the page currently has:
+- 2 image elements / 2 card wrappers
+instead of:
+- 5 separate card elements / 5 separate images
+
+THIS MUST BE FIXED.
+
+REQUIRED FINAL RESULT
+The support section must render EXACTLY 5 separate individual cards.
+Each card must use EXACTLY 1 image file.
+Each card must be its own DOM element.
+Each card must be independently rendered.
+
+NO combined image.
+NO screenshot containing multiple cards.
+NO CSS slicing.
+NO background-position tricks.
+NO cropping of a merged image.
+NO “visually similar” workaround.
+
+EXACT FILES TO USE
+Use these exact files and nothing else for the support card section:
+
+1. wtyj_panel_one_inbox_total_control.png
+2. wtyj_panel_less_busywork_more_business.png
+3. wtyj_panel_faster_replies.png
+4. wtyj_panel_24_7_coverage.png
+5. wtyj_panel_all_languages.png
+
+FILES THAT MUST NOT BE USED IN THE SUPPORT SECTION
+Do NOT use any of these for the support section:
+- wtyj_grid_v1.png
+- wtyj_grid_v2.png
+- wtyj_grid_v3.png
+- any screenshot or composite image containing multiple cards
+- any previously exported collage image
+
+DOM / COMPONENT REQUIREMENTS
+The support section must have:
+- 1 parent section
+- 1 grid container
+- 5 child card elements
+- each child card contains 1 image element
+- each image element points to exactly 1 of the files listed above
+
+Required DOM logic:
+- Card 1 -> wtyj_panel_one_inbox_total_control.png
+- Card 2 -> wtyj_panel_less_busywork_more_business.png
+- Card 3 -> wtyj_panel_faster_replies.png
+- Card 4 -> wtyj_panel_24_7_coverage.png
+- Card 5 -> wtyj_panel_all_languages.png
+
+LAYOUT REQUIREMENTS
+Desktop:
+- row 1: 3 separate cards
+- row 2: 2 separate cards
+- row 2 may be centered for balance
+- consistent gap
+- consistent border radius
+- consistent card shadow / styling if used
+
+Tablet:
+- responsive reduction without merging assets
+
+Mobile:
+- 5 separate stacked cards
+- still separate DOM nodes
+- still separate image files
+- no combined asset usage
+
+IMAGE USAGE RULES
+Each card must:
+- preserve aspect ratio
+- use the full separate image file
+- not be visually merged with neighboring cards
+- not be cropped in a way that makes it look sliced from a bigger image
+- not be turned into a CSS background if an img/component is more reliable
+
+If needed, use standard image tags or framework image components, but keep each file independent.
+
+HERO SECTION RULE
+Do not change the hero asset logic unless needed.
+Hero should still use:
+- wtyj_panel_hero_main.png
+
+But this task is primarily about fixing the support section asset misuse.
+
+IMPLEMENTATION INSTRUCTIONS
+1. Find the current support section.
+2. Remove any use of combined support images.
+3. Remove any code that maps the support section to only 2 assets.
+4. Replace that logic with explicit rendering of 5 separate cards.
+5. Bind each card to exactly one approved file.
+6. Keep the visual styling premium and clean.
+7. Ensure mobile still shows 5 separate cards.
+
+VALIDATION REQUIREMENTS
+Before considering the task complete, verify all of the following:
+
+A. There are 5 separate support card elements in the rendered page.
+B. There are 5 separate support images used for that section.
+C. No support card uses a combined image.
+D. The support section does not use wtyj_grid_v1.png / v2 / v3.
+E. Mobile view still shows 5 separate stacked cards.
+F. Desktop view shows 3 cards on top row and 2 on second row.
+G. The support section is visually premium and aligned with the rest of the homepage.
+
+MANDATORY SELF-CHECK
+At the end of the work, perform a code-level self-check and confirm:
+- which file each of the 5 support cards uses
+- that the support section contains 5 cards, not 2
+- that no composite support image remains in use
+
+If you cannot confirm those 3 points from the code, do not mark the task complete.
+
+OUTPUT EXPECTATION
+Make the code changes directly.
+Do not just describe what should happen.
+Do not stop at analysis.
+Implement the fix.

@@ -24,55 +24,66 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ── SUPPORT CARD GRID ──────────────────────────────────── */}
-      <section className="bg-slate-50 py-10 sm:py-14">
+      {/* ── SUPPORT CARD GRID ──────────────────────────────────────
+          5 separate cards, 5 separate image files, no composites.
+          Desktop: row 1 = 3 cards, row 2 = 2 cards centered.
+          Mobile: 5 stacked cards, each a distinct DOM element.       */}
+      <section className="bg-slate-50 py-10 sm:py-14" data-testid="support-section">
         <div className="wrap">
           <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-widest text-slate-400">
             What we handle for you
           </p>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <img
-              src={`${base}wtyj_panel_one_inbox_total_control.png`}
-              alt="One Inbox. Every Channel. Total Control."
-              className="w-full h-auto rounded-xl shadow-sm"
-              width="512"
-              height="250"
-              loading="lazy"
-            />
-            <img
-              src={`${base}wtyj_panel_less_busywork_more_business.png`}
-              alt="Less busywork. More business."
-              className="w-full h-auto rounded-xl shadow-sm"
-              width="512"
-              height="230"
-              loading="lazy"
-            />
-            <img
-              src={`${base}wtyj_panel_faster_replies.png`}
-              alt="Faster replies. Happier clients. Stronger reputation."
-              className="w-full h-auto rounded-xl shadow-sm"
-              width="512"
-              height="230"
-              loading="lazy"
-            />
-          </div>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:max-w-[66.8%] lg:mx-auto">
-            <img
-              src={`${base}wtyj_panel_24_7_coverage.png`}
-              alt="24/7 coverage. Every hour. Every day."
-              className="w-full h-auto rounded-xl shadow-sm"
-              width="512"
-              height="250"
-              loading="lazy"
-            />
-            <img
-              src={`${base}wtyj_panel_all_languages.png`}
-              alt="All languages. One system."
-              className="w-full h-auto rounded-xl shadow-sm"
-              width="512"
-              height="250"
-              loading="lazy"
-            />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-6" data-testid="support-grid">
+            <figure className="lg:col-span-2 overflow-hidden rounded-xl shadow-sm bg-white" data-testid="support-card-1">
+              <img
+                src={`${base}wtyj_panel_one_inbox_total_control.png`}
+                alt="One Inbox. Every Channel. Total Control."
+                className="block w-full h-auto"
+                width="512"
+                height="250"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="lg:col-span-2 overflow-hidden rounded-xl shadow-sm bg-white" data-testid="support-card-2">
+              <img
+                src={`${base}wtyj_panel_less_busywork_more_business.png`}
+                alt="Less busywork. More business."
+                className="block w-full h-auto"
+                width="512"
+                height="230"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="lg:col-span-2 overflow-hidden rounded-xl shadow-sm bg-white" data-testid="support-card-3">
+              <img
+                src={`${base}wtyj_panel_faster_replies.png`}
+                alt="Faster replies. Happier clients. Stronger reputation."
+                className="block w-full h-auto"
+                width="512"
+                height="230"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="lg:col-span-3 lg:col-start-1 overflow-hidden rounded-xl shadow-sm bg-white" data-testid="support-card-4">
+              <img
+                src={`${base}wtyj_panel_24_7_coverage.png`}
+                alt="24/7 coverage. Every hour. Every day."
+                className="block w-full h-auto"
+                width="512"
+                height="250"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="lg:col-span-3 overflow-hidden rounded-xl shadow-sm bg-white" data-testid="support-card-5">
+              <img
+                src={`${base}wtyj_panel_all_languages.png`}
+                alt="All languages. One system."
+                className="block w-full h-auto"
+                width="512"
+                height="250"
+                loading="lazy"
+              />
+            </figure>
           </div>
         </div>
       </section>
