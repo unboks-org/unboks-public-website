@@ -4,13 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { TooltipProvider } from '@dashboard/components/ui/tooltip';
 
-import SiteLayout from './layout/SiteLayout';
-
-import HomePage from './pages/HomePage';
-import ServicesPage from './pages/ServicesPage';
-import AboutPage from './pages/AboutPage';
-import ContactPage from './pages/ContactPage';
-
 import { ThemeProvider, useTheme } from '@dashboard/lib/theme';
 import { FeatureTogglesProvider } from '@dashboard/lib/feature-toggles';
 import { AuthProvider } from '@dashboard/components/auth/AuthProvider';
@@ -21,7 +14,6 @@ import { PlatformFilterProvider } from '@dashboard/hooks/use-platform-filter';
 import Login from '@dashboard/pages/Login';
 import Overview from '@dashboard/pages/Overview';
 import Messages from '@dashboard/pages/Messages';
-import Escalations from '@dashboard/pages/Escalations';
 import ContentPipeline from '@dashboard/pages/ContentPipeline';
 import Create from '@dashboard/pages/Create';
 import BrandTraining from '@dashboard/pages/BrandTraining';
@@ -29,7 +21,6 @@ import Settings from '@dashboard/pages/Settings';
 import PublishedPosts from '@dashboard/pages/PublishedPosts';
 import BrandLearnings from '@dashboard/pages/BrandLearnings';
 import AssetLibrary from '@dashboard/pages/AssetLibrary';
-import CapacityChecker from '@dashboard/pages/CapacityChecker';
 import BookingsPage from '@dashboard/pages/BookingsPage';
 import Analytics from '@dashboard/pages/Analytics';
 import DashboardNotFound from '@dashboard/pages/not-found';
@@ -122,18 +113,10 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route element={<SiteLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Route>
-
+        <Route path="/" element={<Navigate to="/dashboard/login" replace />} />
         <Route path="/dashboard/*" element={<DashboardShell />} />
-
         <Route path="/demo/bluemarlin/*" element={<DemoApp />} />
-
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard/login" replace />} />
       </Routes>
     </>
   );

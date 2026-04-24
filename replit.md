@@ -2,7 +2,7 @@
 
 ## Overview
 
-pnpm workspace monorepo with a marketing website and operator dashboard for wetakeyourjob.com. Frontend-only React + Vite + Tailwind CSS site with embedded BlueMarlin dashboard.
+pnpm workspace monorepo hosting the BlueMarlin operator dashboard for wetakeyourjob.com. The marketing site has been removed — the root path `/` now redirects directly to the dashboard login. A separate BlueMarlin Tours Curaçao booking demo is also kept for prospective clients.
 
 ## Stack
 
@@ -12,31 +12,25 @@ pnpm workspace monorepo with a marketing website and operator dashboard for weta
 - **TypeScript version**: 5.9
 - **Frontend**: React 18 + Vite + Tailwind CSS v4
 - **Routing**: react-router-dom v6
-- **SEO**: react-helmet-async
 - **Icons**: lucide-react
 - **Font**: Inter (Google Fonts)
-- **API framework**: Express 5 (shared backend, not used by wetakeyourjob)
+- **API framework**: Express 5 (separate api-server artifact)
 - **Dashboard deps**: @tanstack/react-query, sonner, framer-motion, shadcn/radix UI, recharts, date-fns, cmdk
 
-## wetakeyourjob.com
-
-Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light design with minimal text.
+## wetakeyourjob.com app
 
 ### Routes
 
-**Marketing (public, SiteLayout)**
-- `/` — Homepage with hero, services overview, how it works, benefits, audience, CTA
-- `/services` — Services page with service cards, human-in-the-loop controls, outcomes
-- `/about` — About page with philosophy cards and practice description
-- `/contact` — Contact form with strategy call info and direct contact details
+**Root**
+- `/` — Redirects to `/dashboard/login`
+- Any unmatched URL — Redirects to `/dashboard/login`
 
-**Dashboard (real BlueMarlin operator dashboard)**
-- `/dashboard/login` — Login page (client selector + access key, dark theme)
-- `/dashboard` — OmniInbox (primary view, dense Gmail-style conversation list with PlatformFilterBar)
-- `/dashboard/escalations` — Escalation queue with PlatformFilterBar + delete in detail view
+**Dashboard (BlueMarlin operator dashboard)**
+- `/dashboard/login` — Login page (workspace code + access key, dark theme)
+- `/dashboard` — OmniInbox (primary view, Gmail-style conversation list with PlatformFilterBar)
 - `/dashboard/bookings` — Bookings/Orders page (wraps CapacityChecker)
-- `/dashboard/analytics` — Analytics charts (platform counts, escalation status, 14-day trend via recharts)
-- `/dashboard/settings` — Settings (feature toggles, analytics shortcut, bookings/orders label toggle, email, etc.)
+- `/dashboard/settings` — Settings (feature toggles, analytics shortcut, bookings/orders label toggle, email)
+- `/dashboard/settings/analytics` — Analytics charts (platform counts, escalation status, 14-day trend via recharts)
 - `/dashboard/overview` — Legacy overview (hidden from nav, accessible by direct URL)
 - `/dashboard/social` — Social media content pipeline (hidden from nav)
 - `/dashboard/create` — Manual post creation (hidden from nav)
@@ -44,7 +38,7 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 - `/dashboard/published` — Published posts archive (hidden from nav)
 - `/dashboard/learnings` — Brand learnings manager (hidden from nav)
 - `/dashboard/assets` — Photo/video asset library (hidden from nav)
-- Legacy redirects: `/dashboard/messages` → `/dashboard`, `/dashboard/capacity` → `/dashboard/bookings`
+- Legacy redirects: `/dashboard/messages` → `/dashboard`, `/dashboard/capacity` → `/dashboard/bookings`, `/dashboard/escalations` → `/dashboard?view=escalations`
 
 **Demo — BlueMarlin Tours Curaçao (booking site)**
 - `/demo/bluemarlin/` — Homepage (hero, packages, stats, FAQ, CTA)
@@ -54,8 +48,6 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 - `/demo/bluemarlin/about` — About BlueMarlin Tours
 
 ### Architecture
-
-**Marketing site** uses direct Tailwind slate colors (white bg, slate-900 accent) with SiteLayout (Navbar + Footer + Outlet).
 
 **Dashboard** is a self-contained sub-app under `/dashboard/*` with its own:
 - `ThemeProvider` (dark/light, scoped to `#dashboard-root` div)
@@ -69,7 +61,6 @@ Frontend-only marketing website at root path `/`. Apple/AWS-inspired clean light
 API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
 
 ### CSS Theme System
-- Marketing: direct colors on body (`background: #fff`, `color: #475569`), `.wrap` container
 - Dashboard: HSL CSS custom properties on `:root` (light) and `.dark` (dark mode), scoped via `#dashboard-root`
 - Demo: teal-themed HSL variables scoped via `#demo-root`, Manrope + Playfair Display fonts
 - `@custom-variant dark (&:is(.dark *))` for Tailwind dark variant
@@ -77,34 +68,15 @@ API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
 - Demo utilities: `.demo-section-shell`, `.demo-input`, `#demo-root .font-serif`
 
 ### Path Aliases
-- `@/` → `src/` (marketing + shared)
+- `@/` → `src/`
 - `@dashboard/` → `src/dashboard/` (dashboard-only imports)
 - `@demo/` → `src/demo/bluemarlin/` (demo-only imports)
 - `@assets/` → `../../attached_assets/` (shared images)
 
-### Positioning
-- AI tools that save time on repetitive communication
-- Human + AI symbiosis (humans always in control)
-- Manager dashboard oversight
-- Teams become more productive
-- NOT "AI replaces the whole team"
-
-### Design System (Marketing)
-- Background: white (#ffffff)
-- Surface: slate-50 (#f8fafc)
-- Accent: slate-900 (#0f172a)
-- Border: slate-200 (#e2e8f0)
-- Clean, light, minimal — Apple/AWS aesthetic
-- Inter font, rounded-2xl cards, subtle borders
-- Tailwind v4 CSS-first config via `@theme inline` in index.css
-- Layout container: `.wrap` class (max-w-72rem, auto margins)
-
-### Key Files
-- `artifacts/wetakeyourjob/src/` — all source code
-- `artifacts/wetakeyourjob/src/data/siteContent.ts` — centralized marketing content data
-- `artifacts/wetakeyourjob/src/components/` — reusable marketing UI components
-- `artifacts/wetakeyourjob/src/pages/` — marketing page components
-- `artifacts/wetakeyourjob/src/layout/` — Navbar, Footer, SiteLayout
+### Source Layout
+- `artifacts/wetakeyourjob/src/App.tsx` — Root router (redirects `/` → `/dashboard/login`, mounts dashboard + demo)
+- `artifacts/wetakeyourjob/src/main.tsx` — App entry point
+- `artifacts/wetakeyourjob/src/index.css` — Global styles + theme tokens for dashboard and demo
 - `artifacts/wetakeyourjob/src/dashboard/` — full BlueMarlin operator dashboard
 - `artifacts/wetakeyourjob/src/dashboard/components/` — auth, layout, ui (58+ shadcn components)
 - `artifacts/wetakeyourjob/src/dashboard/hooks/` — use-bluemarlin, use-read-status, use-email-settings, use-go-back, use-mobile, use-platform-filter, use-bookings-label
@@ -116,16 +88,8 @@ API base: `https://api.wetakeyourjob.com/{client}/dashboard/api`
 - `artifacts/wetakeyourjob/src/demo/bluemarlin/pages/` — home, trips, booking, book, about, not-found
 - `artifacts/wetakeyourjob/src/demo/bluemarlin/components/` — Navbar, Footer, Logo
 - `artifacts/wetakeyourjob/src/demo/bluemarlin/config/resources.ts` — trip packages and boat data
+- `artifacts/wetakeyourjob/public/` — favicon.svg, opengraph.jpg only
 - `attached_assets/stock_images/` — trip photos (catamaran, snorkeling, beach, sunset, jetski)
-
-### Homepage Image Assets (in `artifacts/wetakeyourjob/public/`)
-- `wtyj_panel_hero_main.png` (1536×500) — full-width hero image
-- `wtyj_panel_one_inbox_total_control.png` (512×250) — support card 1
-- `wtyj_panel_less_busywork_more_business.png` (512×230) — support card 2
-- `wtyj_panel_faster_replies.png` (512×230) — support card 3
-- `wtyj_panel_24_7_coverage.png` (512×250) — support card 4
-- `wtyj_panel_all_languages.png` (512×250) — support card 5
-- RULE: hero = one large image; support section = 5 separate individual image cards (never a composite)
 
 ## Key Commands
 
