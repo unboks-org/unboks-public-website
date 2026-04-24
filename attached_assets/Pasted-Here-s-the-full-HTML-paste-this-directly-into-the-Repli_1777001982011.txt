@@ -1,0 +1,259 @@
+Here's the full HTML — paste this directly into the Replit prompt:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unboks — All your messages. One inbox.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --bg-secondary: #f5f5f4; --text: #0f0f0e;
+      --text-secondary: #6b6b67; --text-tertiary: #a0a09c;
+      --border: rgba(0,0,0,0.1); --border-secondary: rgba(0,0,0,0.18);
+      --radius-md: 8px; --radius-lg: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111110; --bg-secondary: #1c1c1a; --text: #f0f0ee;
+        --text-secondary: #a0a09c; --text-tertiary: #6b6b67;
+        --border: rgba(255,255,255,0.1); --border-secondary: rgba(255,255,255,0.18);
+      }
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .site { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 0.5px solid var(--border); }
+    .nav-logo { font-size: 15px; font-weight: 500; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-primary { background: var(--text); color: var(--bg); border: none; padding: 9px 18px; border-radius: 99px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 0.15s; }
+    .btn-primary:hover { opacity: 0.82; }
+    .btn-ghost { background: transparent; border: 0.5px solid var(--border-secondary); color: var(--text); padding: 9px 18px; border-radius: 99px; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.15s; }
+    .btn-ghost:hover { background: var(--bg-secondary); }
+    .hero { padding: 100px 0 90px; max-width: 780px; }
+    .hero-tag { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(44px, 6vw, 72px); font-weight: 500; line-height: 1.08; color: var(--text); margin-bottom: 28px; }
+    .hero h1 em { font-style: normal; color: var(--text-secondary); }
+    .hero p { font-size: 18px; color: var(--text-secondary); line-height: 1.6; max-width: 520px; margin-bottom: 40px; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .channels { padding: 28px 0; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin-bottom: 80px; display: flex; align-items: center; }
+    .channels-label { font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; margin-right: 32px; }
+    .channel-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill { font-size: 13px; color: var(--text-secondary); background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: 99px; padding: 5px 14px; }
+    .section-label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 12px; }
+    .section-title { font-size: clamp(28px, 3.5vw, 40px); font-weight: 500; color: var(--text); line-height: 1.2; margin-bottom: 16px; }
+    .section-sub { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 560px; }
+    .features { margin-bottom: 100px; }
+    .features-header { margin-bottom: 48px; }
+    .features-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .feature-card { background: var(--bg); padding: 36px 32px; }
+    .feature-num { font-size: 12px; color: var(--text-tertiary); font-weight: 500; margin-bottom: 20px; }
+    .feature-title { font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+    .feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .how { margin-bottom: 100px; }
+    .how-header { margin-bottom: 56px; }
+    .steps { display: flex; flex-direction: column; border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .step { display: flex; align-items: flex-start; gap: 28px; padding: 32px 36px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num { font-size: 13px; color: var(--text-tertiary); font-weight: 500; min-width: 24px; padding-top: 2px; }
+    .step-content h3 { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .step-content p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .outcomes { margin-bottom: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .outcomes-left .section-title { margin-bottom: 32px; }
+    .outcome-list { display: flex; flex-direction: column; gap: 12px; }
+    .outcome-item { padding: 16px 20px; border: 0.5px solid var(--border); border-radius: var(--radius-md); font-size: 15px; color: var(--text); background: var(--bg); }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .stat-card { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 20px; }
+    .stat-num { font-size: 28px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: var(--text-secondary); }
+    .cta-band { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 72px 60px; text-align: center; margin-bottom: 80px; border: 0.5px solid var(--border); }
+    .cta-band h2 { font-size: clamp(26px, 3.5vw, 42px); font-weight: 500; color: var(--text); margin-bottom: 16px; line-height: 1.2; }
+    .cta-band p { font-size: 16px; color: var(--text-secondary); margin-bottom: 36px; }
+    .cta-band .hero-cta { justify-content: center; }
+    footer { border-top: 0.5px solid var(--border); padding: 32px 0; display: flex; align-items: center; justify-content: space-between; }
+    .footer-brand { font-size: 14px; font-weight: 500; color: var(--text); }
+    .footer-sub { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-email { font-size: 13px; color: var(--text-secondary); }
+    @media (max-width: 768px) {
+      .site { padding: 0 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .outcomes { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { display: none; }
+      .cta-band { padding: 48px 24px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="site">
+
+  <nav>
+    <a class="nav-logo" href="#">Unboks</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="/login" class="btn-ghost">Log in</a>
+      <a href="#contact" class="btn-primary">Get started</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">AI communication tools</div>
+    <h1>All your messages.<br><em>One inbox.</em></h1>
+    <p>We build the communication layer your team is missing — so you spend less time on messages and more time on your business.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get started</a>
+      <a href="#how" class="btn-ghost">See how it works</a>
+    </div>
+  </section>
+
+  <div class="channels">
+    <span class="channels-label">Channels</span>
+    <div class="channel-pills">
+      <span class="pill">Email</span>
+      <span class="pill">WhatsApp</span>
+      <span class="pill">Instagram</span>
+      <span class="pill">Facebook</span>
+      <span class="pill">Telegram</span>
+      <span class="pill">Messenger</span>
+      <span class="pill">X / Twitter</span>
+    </div>
+  </div>
+
+  <section class="features" id="services">
+    <div class="features-header">
+      <div class="section-label">What we handle</div>
+      <div class="section-title">Less busywork. More business.</div>
+      <p class="section-sub">We take the repetitive communication work off your team's plate — without taking them out of the loop.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <div class="feature-title">One inbox, every channel</div>
+        <p class="feature-desc">Email, WhatsApp, Instagram, Facebook, Telegram — all in a single flow. No tab-switching, nothing missed.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Faster replies, happier clients</div>
+        <p class="feature-desc">AI handles the repetitive replies instantly. Your team reviews anything sensitive before it goes out.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <div class="feature-title">24/7 coverage</div>
+        <p class="feature-desc">Every hour, every day. Clients get a response at 2am on Sunday. You sleep. Nobody misses a lead.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <div class="feature-title">All languages, one system</div>
+        <p class="feature-desc">Communicate in any language, automatically. Reach every client without extra effort or overhead.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="how-header">
+      <div class="section-label">How it works</div>
+      <div class="section-title">We study your process, then build around it.</div>
+      <p class="section-sub">No generic templates. We look at exactly where your team loses time and build a system around your actual workflow.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Discovery call</h3>
+          <p>30 minutes to map where your team spends the most time on communication — and where AI can take over safely.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>We build your system</h3>
+          <p>Unified inbox, automated replies, escalation rules, and a control dashboard — all tailored to your workflow.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Your team stays in control</h3>
+          <p>Managers review, approve, and intervene anytime. Full visibility into every channel, no black boxes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="outcomes">
+    <div class="outcomes-left">
+      <div class="section-label">What you get</div>
+      <div class="section-title">More time.<br>More clients.<br>More life.</div>
+      <div class="outcome-list">
+        <div class="outcome-item">Less repetitive reply work</div>
+        <div class="outcome-item">Faster response across every channel</div>
+        <div class="outcome-item">Full visibility without the manual load</div>
+        <div class="outcome-item">More consistent client experience</div>
+      </div>
+    </div>
+    <div class="outcomes-right">
+      <div class="section-label">By the numbers</div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">7+</div>
+          <div class="stat-label">Channels in one inbox</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Coverage, always on</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">&lt;1 min</div>
+          <div class="stat-label">Average response time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Messages missed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band" id="contact">
+    <h2>Let's see where your team is losing time.</h2>
+    <p>Tell us what your team spends too much time on. We'll take it from there.</p>
+    <div class="hero-cta">
+      <a href="mailto:hello@unboks.org" class="btn-primary">Book a discovery call</a>
+      <a href="mailto:hello@unboks.org" class="btn-ghost">hello@unboks.org</a>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Unboks</div>
+      <div class="footer-sub">AI communication tools for lean teams.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-email">hello@unboks.org</div>
+  </footer>
+
+</div>
+</body>
+</html>
+```
+
+That's the complete file, nothing missing. Just wrap it in the prompt I wrote earlier and you're good to go.
