@@ -23,7 +23,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-tag">AI communication tools</div>
         <h1>All your messages.<br /><em>One inbox.</em></h1>
-        <p>We build the communication layer your team is missing — so you spend less time on messages and more time on your business.</p>
+        <p>We build the communication layer your team is missing, so you spend less time on messages and more time on your business.</p>
         <div className="hero-cta">
           <a href="#contact" className="btn-primary">Get started</a>
           <a href="#how" className="btn-ghost">See how it works</a>
@@ -47,13 +47,13 @@ export default function HomePage() {
         <div className="features-header">
           <div className="section-label">What we handle</div>
           <div className="section-title">Less busywork. More business.</div>
-          <p className="section-sub">We take the repetitive communication work off your team's plate — without taking them out of the loop.</p>
+          <p className="section-sub">We take the repetitive communication work off your team's plate, without taking them out of the loop.</p>
         </div>
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-num">01</div>
             <div className="feature-title">One inbox, every channel</div>
-            <p className="feature-desc">Email, WhatsApp, Instagram, Facebook, Telegram — all in a single flow. No tab-switching, nothing missed.</p>
+            <p className="feature-desc">Email, WhatsApp, Instagram, Facebook, Telegram, all in a single flow. No tab-switching, nothing missed.</p>
           </div>
           <div className="feature-card">
             <div className="feature-num">02</div>
@@ -84,14 +84,14 @@ export default function HomePage() {
             <div className="step-num">1</div>
             <div className="step-content">
               <h3>Discovery call</h3>
-              <p>30 minutes to map where your team spends the most time on communication — and where AI can take over safely.</p>
+              <p>30 minutes to map where your team spends the most time on communication and where AI can take over safely.</p>
             </div>
           </div>
           <div className="step">
             <div className="step-num">2</div>
             <div className="step-content">
               <h3>We build your system</h3>
-              <p>Unified inbox, automated replies, escalation rules, and a control dashboard — all tailored to your workflow.</p>
+              <p>Unified inbox, automated replies, escalation rules, and a control dashboard, all tailored to your workflow.</p>
             </div>
           </div>
           <div className="step">
