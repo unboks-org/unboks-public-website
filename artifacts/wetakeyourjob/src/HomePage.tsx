@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
 import logo from '@assets/logo_whe_BG_1777002782162.png';
+import logoPap from '@assets/logo_papiamento__1777004055008.png';
 import heroImg from '@assets/wtyj_panel_hero_main_premium_1777003348842.png';
 import imgSmartAuto from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
 import imgFasterReplies from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
@@ -31,7 +32,7 @@ export default function HomePage() {
 
       <nav>
         <a className="nav-logo" href="#">
-          <img src={logo} alt="Unboks.org" className="nav-logo-img" />
+          <img src={lang === 'pap' ? logoPap : logo} alt="Unboks.org" className="nav-logo-img" />
         </a>
         <div className="nav-links">
           <a href="#services">{tx.nav_services}</a>
