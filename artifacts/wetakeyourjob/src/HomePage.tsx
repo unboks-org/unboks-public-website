@@ -41,39 +41,6 @@ export default function HomePage() {
   return (
     <div className="hp-site">
 
-      {/* Language bar */}
-      <div className="lang-bar">
-        <div className="lang-dropdown" ref={dropRef}>
-          <button
-            className="lang-trigger"
-            onClick={() => setDropOpen(o => !o)}
-            aria-haspopup="listbox"
-            aria-expanded={dropOpen}
-          >
-            <span className="lang-flag">{activeLang.flag}</span>
-            <span className="lang-name">{activeLang.label}</span>
-            <span className="lang-chevron">{dropOpen ? '▲' : '▼'}</span>
-          </button>
-          {dropOpen && (
-            <div className="lang-menu" role="listbox">
-              {LANGUAGES.map(l => (
-                <button
-                  key={l.code}
-                  className={`lang-option${lang === l.code ? ' lang-option--active' : ''}`}
-                  role="option"
-                  aria-selected={lang === l.code}
-                  onClick={() => { setLang(l.code); setDropOpen(false); }}
-                >
-                  <span className="lang-flag">{l.flag}</span>
-                  <span className="lang-name">{l.label}</span>
-                  {lang === l.code && <span className="lang-check">✓</span>}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
       <nav>
         <a className="nav-logo" href="#">
           <img src={lang === 'pap' ? logoPap : logo} alt="Unboks.org" className="nav-logo-img" />
@@ -84,6 +51,35 @@ export default function HomePage() {
           <a href="#contact">{tx.nav_contact}</a>
         </div>
         <div className="nav-actions">
+          <div className="lang-dropdown" ref={dropRef}>
+            <button
+              className="lang-trigger"
+              onClick={() => setDropOpen(o => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={dropOpen}
+            >
+              <span className="lang-flag">{activeLang.flag}</span>
+              <span className="lang-name">{activeLang.label}</span>
+              <span className="lang-chevron">{dropOpen ? '▲' : '▼'}</span>
+            </button>
+            {dropOpen && (
+              <div className="lang-menu lang-menu--right" role="listbox">
+                {LANGUAGES.map(l => (
+                  <button
+                    key={l.code}
+                    className={`lang-option${lang === l.code ? ' lang-option--active' : ''}`}
+                    role="option"
+                    aria-selected={lang === l.code}
+                    onClick={() => { setLang(l.code); setDropOpen(false); }}
+                  >
+                    <span className="lang-flag">{l.flag}</span>
+                    <span className="lang-name">{l.label}</span>
+                    {lang === l.code && <span className="lang-check">✓</span>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <a href="/dashboard/login" className="btn-ghost">{tx.nav_login}</a>
           <a href="#contact" className="btn-primary">{tx.nav_cta}</a>
         </div>

@@ -19,12 +19,7 @@ body {
   font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
 }
 
-/* ── Language bar & dropdown ── */
-.hp-site .lang-bar {
-  display: flex; align-items: center;
-  padding: 8px 0;
-  border-bottom: 0.5px solid var(--border);
-}
+/* ── Language dropdown ── */
 .hp-site .lang-dropdown {
   position: relative;
 }
@@ -47,6 +42,7 @@ body {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   overflow: hidden; min-width: 160px; z-index: 100;
 }
+.hp-site .lang-menu.lang-menu--right { left: auto; right: 0; }
 .hp-site .lang-option {
   display: flex; align-items: center; gap: 10px;
   width: 100%; padding: 10px 16px;
