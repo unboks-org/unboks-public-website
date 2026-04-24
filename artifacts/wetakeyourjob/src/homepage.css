@@ -24,16 +24,17 @@ body {
   position: relative;
 }
 .hp-site .lang-trigger {
-  display: flex; align-items: center; gap: 7px;
+  display: flex; align-items: center; gap: 5px;
   background: transparent; border: 0.5px solid var(--border-secondary);
   color: var(--text); font-size: 13px; font-weight: 500;
-  letter-spacing: -0.01em; padding: 6px 14px; border-radius: 99px;
+  letter-spacing: -0.01em; padding: 6px 10px; border-radius: 99px;
   cursor: pointer; font-family: inherit; transition: all 0.15s;
 }
 .hp-site .lang-trigger:hover { border-color: var(--text); }
-.hp-site .lang-flag { font-size: 16px; line-height: 1; }
+.hp-site .lang-flag { font-size: 18px; line-height: 1; }
+.hp-site .lang-trigger .lang-name { display: none; }
 .hp-site .lang-chevron {
-  font-size: 8px; opacity: 0.5; margin-left: 2px;
+  font-size: 8px; opacity: 0.5; margin-left: 1px;
 }
 .hp-site .lang-menu {
   position: absolute; top: calc(100% + 6px); left: 0;
@@ -255,15 +256,31 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .hp-site { padding: 0 20px; }
-  .hp-site .nav-logo-img { height: 40px; }
-  .hp-site .feature-img-grid { grid-template-columns: 1fr; }
-  .hp-site .hero-visual { border-radius: 12px; }
-  .hp-site .outcomes { grid-template-columns: 1fr; gap: 48px; }
+  .hp-site { padding: 0 16px; }
+  .hp-site .nav-logo-img { height: 120px; }
   .hp-site .nav-links { display: none; }
-  .hp-site .cta-band { padding: 52px 28px; }
-  .hp-site footer { flex-direction: column; gap: 24px; text-align: center; }
+
+
+  .hp-site .hero { padding: 16px 0 24px; }
+  .hp-site .hero-visual { border-radius: 12px; margin-bottom: 20px; }
+
+  .hp-site .channels { padding: 14px 0; margin-bottom: 36px; }
+
+  .hp-site .features { margin-bottom: 40px; }
+  .hp-site .features-header { margin-bottom: 20px; }
+  .hp-site .feature-img-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  .hp-site .how { margin-bottom: 40px; }
+  .hp-site .how-header { margin-bottom: 20px; }
+  .hp-site .step { padding: 18px 20px; gap: 20px; }
+
+  .hp-site .outcomes { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+  .hp-site .outcomes-left .section-title { margin-bottom: 16px; }
+  .hp-site .stat-card { padding: 16px; }
+
+  .hp-site .cta-band { padding: 36px 20px; margin-bottom: 40px; }
+  .hp-site .cta-band p { margin-bottom: 20px; }
+
+  .hp-site footer { flex-direction: column; gap: 20px; text-align: center; padding: 24px 0; }
   .hp-site .footer-links { justify-content: center; }
-  .hp-site .hero { padding: 32px 0 40px; }
-  .hp-site .channels { margin-bottom: 64px; }
 }
