@@ -1,5 +1,10 @@
 import './homepage.css';
 import logo from '@assets/logo_whe_BG_1777002782162.png';
+import heroImg from '@assets/wtyj_panel_hero_main_premium_1777003348842.png';
+import imgSmartAuto from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
+import imgFasterReplies from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
+import img247 from '@assets/wtyj_panel_24_7_coverage_clean_1777003337351.png';
+import imgLanguages from '@assets/wtyj_panel_all_languages_clean_1777003337352.png';
 
 export default function HomePage() {
   return (
@@ -30,6 +35,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="hero-visual">
+        <img src={heroImg} alt="Unboks unified inbox dashboard" />
+      </div>
+
       <div className="channels">
         <span className="channels-label">Channels</span>
         <div className="channel-pills">
@@ -49,26 +58,18 @@ export default function HomePage() {
           <div className="section-title">Less busywork. More business.</div>
           <p className="section-sub">We take the repetitive communication work off your team's plate, without taking them out of the loop.</p>
         </div>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-num">01</div>
-            <div className="feature-title">One inbox, every channel</div>
-            <p className="feature-desc">Email, WhatsApp, Instagram, Facebook, Telegram, all in a single flow. No tab-switching, nothing missed.</p>
+        <div className="feature-img-grid">
+          <div className="feature-img-panel">
+            <img src={imgSmartAuto} alt="Smart automation with human oversight" />
           </div>
-          <div className="feature-card">
-            <div className="feature-num">02</div>
-            <div className="feature-title">Faster replies, happier clients</div>
-            <p className="feature-desc">AI handles the repetitive replies instantly. Your team reviews anything sensitive before it goes out.</p>
+          <div className="feature-img-panel">
+            <img src={imgFasterReplies} alt="Faster replies, happier clients" />
           </div>
-          <div className="feature-card">
-            <div className="feature-num">03</div>
-            <div className="feature-title">24/7 coverage</div>
-            <p className="feature-desc">Every hour, every day. Clients get a response at 2am on Sunday. You sleep. Nobody misses a lead.</p>
+          <div className="feature-img-panel">
+            <img src={img247} alt="24/7 coverage" />
           </div>
-          <div className="feature-card">
-            <div className="feature-num">04</div>
-            <div className="feature-title">All languages, one system</div>
-            <p className="feature-desc">Communicate in any language, automatically. Reach every client without extra effort or overhead.</p>
+          <div className="feature-img-panel">
+            <img src={imgLanguages} alt="All languages, one system" />
           </div>
         </div>
       </section>
