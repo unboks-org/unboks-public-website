@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
 import logo from '@assets/logo_whe_BG_1777002782162.png';
@@ -17,23 +17,55 @@ import imgLanguagesPap from '@assets/all_language_PAPIA_1777004201262.png';
 
 export default function HomePage() {
   const [lang, setLang] = useState<Lang>('pap');
+  const [dropOpen, setDropOpen] = useState(false);
+  const dropRef = useRef<HTMLDivElement>(null);
   const tx = t[lang];
+  const activeLang = LANGUAGES.find(l => l.code === lang)!;
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropRef.current && !dropRef.current.contains(e.target as Node)) {
+        setDropOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
 
   return (
     <div className="hp-site">
 
       {/* Language bar */}
       <div className="lang-bar">
-        <span className="lang-bar-label">🌐</span>
-        {LANGUAGES.map(l => (
+        <div className="lang-dropdown" ref={dropRef}>
           <button
-            key={l.code}
-            className={`lang-btn${lang === l.code ? ' lang-btn--active' : ''}`}
-            onClick={() => setLang(l.code)}
+            className="lang-trigger"
+            onClick={() => setDropOpen(o => !o)}
+            aria-haspopup="listbox"
+            aria-expanded={dropOpen}
           >
-            {l.label}
+            <span className="lang-flag">{activeLang.flag}</span>
+            <span className="lang-name">{activeLang.label}</span>
+            <span className="lang-chevron">{dropOpen ? '▲' : '▼'}</span>
           </button>
-        ))}
+          {dropOpen && (
+            <div className="lang-menu" role="listbox">
+              {LANGUAGES.map(l => (
+                <button
+                  key={l.code}
+                  className={`lang-option${lang === l.code ? ' lang-option--active' : ''}`}
+                  role="option"
+                  aria-selected={lang === l.code}
+                  onClick={() => { setLang(l.code); setDropOpen(false); }}
+                >
+                  <span className="lang-flag">{l.flag}</span>
+                  <span className="lang-name">{l.label}</span>
+                  {lang === l.code && <span className="lang-check">✓</span>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <nav>

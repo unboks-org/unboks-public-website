@@ -1,10 +1,10 @@
 export type Lang = 'pap' | 'en' | 'es' | 'nl';
 
-export const LANGUAGES: { code: Lang; label: string }[] = [
-  { code: 'pap', label: 'Papiamentu' },
-  { code: 'en',  label: 'English' },
-  { code: 'es',  label: 'Español' },
-  { code: 'nl',  label: 'Nederlands' },
+export const LANGUAGES: { code: Lang; label: string; flag: string }[] = [
+  { code: 'pap', label: 'Papiamentu', flag: '🇨🇼' },
+  { code: 'en',  label: 'English',    flag: '🇬🇧' },
+  { code: 'es',  label: 'Español',    flag: '🇪🇸' },
+  { code: 'nl',  label: 'Nederlands', flag: '🇳🇱' },
 ];
 
 export const t: Record<Lang, Record<string, string>> = {
