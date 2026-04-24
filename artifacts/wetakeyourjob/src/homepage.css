@@ -52,7 +52,7 @@ body {
 }
 .hp-site .nav-logo { text-decoration: none; display: flex; align-items: center; }
 .hp-site .nav-logo-img {
-  height: 234px; width: auto; display: block;
+  height: 88px; width: auto; display: block;
   border-radius: 6px;
 }
 .hp-site .nav-links { display: flex; gap: 32px; align-items: center; }
@@ -82,26 +82,26 @@ body {
 .hp-site .btn-ghost:hover { background: var(--bg-secondary); }
 
 /* ── Hero ── */
-.hp-site .hero { padding: 64px 0 44px; max-width: 800px; }
+.hp-site .hero { padding: 44px 0 32px; max-width: 800px; }
 .hp-site .hero-tag {
   font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
-  color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 28px;
+  color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 18px;
 }
 .hp-site .hero h1 {
   font-size: clamp(48px, 6.5vw, 76px); font-weight: 500;
   line-height: 1.06; letter-spacing: -0.03em;
-  color: var(--text); margin-bottom: 28px;
+  color: var(--text); margin-bottom: 20px;
 }
 .hp-site .hero h1 em { font-style: normal; color: var(--text-secondary); }
 .hp-site .hero p {
   font-size: 18px; color: var(--text-secondary); line-height: 1.65;
-  max-width: 500px; margin-bottom: 40px; letter-spacing: -0.01em;
+  max-width: 500px; margin-bottom: 28px; letter-spacing: -0.01em;
 }
 .hp-site .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
 
 /* ── Hero visual ── */
 .hp-site .hero-visual {
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 4px 48px rgba(0,0,0,0.10);
@@ -113,8 +113,8 @@ body {
 
 /* ── Channel pills strip ── */
 .hp-site .channels {
-  padding: 24px 0; border-top: 0.5px solid var(--border);
-  border-bottom: 0.5px solid var(--border); margin-bottom: 96px;
+  padding: 20px 0; border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border); margin-bottom: 64px;
   display: flex; align-items: center; gap: 0;
 }
 .hp-site .channels-label {
@@ -143,8 +143,8 @@ body {
 }
 
 /* ── Features image grid ── */
-.hp-site .features { margin-bottom: 112px; }
-.hp-site .features-header { margin-bottom: 52px; }
+.hp-site .features { margin-bottom: 72px; }
+.hp-site .features-header { margin-bottom: 36px; }
 .hp-site .feature-img-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
 }
@@ -161,15 +161,15 @@ body {
 .hp-site .feature-img-panel img { width: 100%; display: block; }
 
 /* ── How it works ── */
-.hp-site .how { margin-bottom: 112px; }
-.hp-site .how-header { margin-bottom: 52px; }
+.hp-site .how { margin-bottom: 72px; }
+.hp-site .how-header { margin-bottom: 36px; }
 .hp-site .steps {
   display: flex; flex-direction: column;
   border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
 }
 .hp-site .step {
   display: flex; align-items: flex-start; gap: 32px;
-  padding: 36px 40px; background: var(--bg); border-bottom: 0.5px solid var(--border);
+  padding: 26px 32px; background: var(--bg); border-bottom: 0.5px solid var(--border);
 }
 .hp-site .step:last-child { border-bottom: none; }
 .hp-site .step-num {
@@ -186,10 +186,10 @@ body {
 
 /* ── Outcomes / stats ── */
 .hp-site .outcomes {
-  margin-bottom: 112px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+  margin-bottom: 72px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;
 }
-.hp-site .outcomes-left .section-title { margin-bottom: 36px; }
+.hp-site .outcomes-left .section-title { margin-bottom: 24px; }
 .hp-site .outcome-list { display: flex; flex-direction: column; gap: 10px; }
 .hp-site .outcome-item {
   padding: 16px 22px; border: 0.5px solid var(--border); border-radius: var(--radius-md);
@@ -209,16 +209,16 @@ body {
 /* ── CTA band ── */
 .hp-site .cta-band {
   background: var(--bg-secondary); border-radius: var(--radius-lg);
-  padding: 80px 60px; text-align: center; margin-bottom: 88px;
+  padding: 60px 48px; text-align: center; margin-bottom: 64px;
   border: 0.5px solid var(--border);
 }
 .hp-site .cta-band h2 {
   font-size: clamp(28px, 3.5vw, 44px); font-weight: 500; letter-spacing: -0.03em;
-  color: var(--text); margin-bottom: 16px; line-height: 1.15;
+  color: var(--text); margin-bottom: 12px; line-height: 1.15;
 }
 .hp-site .cta-band p {
   font-size: 16px; color: var(--text-secondary);
-  margin-bottom: 40px; letter-spacing: -0.01em;
+  margin-bottom: 28px; letter-spacing: -0.01em;
 }
 .hp-site .cta-band .hero-cta { justify-content: center; }
 
@@ -247,6 +247,6 @@ body {
   .hp-site .cta-band { padding: 52px 28px; }
   .hp-site footer { flex-direction: column; gap: 24px; text-align: center; }
   .hp-site .footer-links { justify-content: center; }
-  .hp-site .hero { padding: 48px 0 60px; }
+  .hp-site .hero { padding: 32px 0 40px; }
   .hp-site .channels { margin-bottom: 64px; }
 }
