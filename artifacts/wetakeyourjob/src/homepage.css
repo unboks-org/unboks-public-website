@@ -63,18 +63,19 @@ body {
 /* ── Nav ── */
 .hp-site nav {
   display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: nowrap; gap: 16px;
   padding: 10px 0;
   border-bottom: 0.5px solid var(--border);
 }
 .hp-site .nav-logo { text-decoration: none; display: flex; align-items: center; }
 .hp-site .nav-logo-img {
-  height: 220px; width: auto; display: block;
+  height: 176px; width: auto; display: block;
   border-radius: 6px;
 }
-.hp-site .nav-links { display: flex; gap: 32px; align-items: center; }
+.hp-site .nav-links { display: flex; gap: 24px; align-items: center; }
 .hp-site .nav-links a {
   font-size: 14px; color: var(--text-secondary); text-decoration: none;
-  letter-spacing: -0.01em; transition: color 0.15s;
+  letter-spacing: -0.01em; transition: color 0.15s; white-space: nowrap;
 }
 .hp-site .nav-links a:hover { color: var(--text); }
 .hp-site .nav-actions { display: flex; gap: 10px; align-items: center; }
