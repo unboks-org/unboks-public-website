@@ -1,10 +1,11 @@
-export type Lang = 'pap' | 'en' | 'es' | 'nl';
+export type Lang = 'pap' | 'en' | 'es' | 'nl' | 'sv';
 
 export const LANGUAGES: { code: Lang; label: string; flag: string }[] = [
   { code: 'pap', label: 'Papiamentu', flag: '🇨🇼' },
   { code: 'en',  label: 'English',    flag: '🇬🇧' },
   { code: 'es',  label: 'Español',    flag: '🇪🇸' },
   { code: 'nl',  label: 'Nederlands', flag: '🇳🇱' },
+  { code: 'sv',  label: 'Svenska',    flag: '🇸🇪' },
 ];
 
 export const t: Record<Lang, Record<string, string>> = {
@@ -164,6 +165,59 @@ export const t: Record<Lang, Record<string, string>> = {
     cta_book:       'Reservar una llamada de descubrimiento',
 
     footer_sub:     'Herramientas de comunicación con IA para equipos pequeños.',
+    footer_email:   'hello@unboks.org',
+  },
+
+  sv: {
+    nav_services:   'Tjänster',
+    nav_how:        'Hur det fungerar',
+    nav_contact:    'Kontakt',
+    nav_login:      'Logga in',
+    nav_cta:        'Kom igång',
+
+    hero_tag:       'AI-kommunikationsverktyg',
+    hero_h1a:       'Alla dina meddelanden.',
+    hero_h1b:       'En inkorg.',
+    hero_p:         'Vi bygger kommunikationslagret ditt team saknar, så du spenderar mindre tid på meddelanden och mer tid på din verksamhet.',
+    hero_cta:       'Kom igång',
+    hero_see:       'Se hur det fungerar',
+
+    channels_label: 'Kanaler',
+
+    feat_label:     'Vad vi hanterar',
+    feat_title:     'Mindre rutinarbete. Mer affärer.',
+    feat_sub:       'Vi tar det repetitiva kommunikationsarbetet från ditt teams axlar, utan att ta dem ur loopen.',
+
+    how_label:      'Hur det fungerar',
+    how_title:      'Vi studerar din process, sedan bygger vi runt den.',
+    how_sub:        'Inga generiska mallar. Vi tittar exakt på var ditt team förlorar tid och bygger ett system runt ditt verkliga arbetsflöde.',
+    step1_title:    'Upptäckssamtal',
+    step1_p:        '30 minuter för att kartlägga var ditt team spenderar mest tid på kommunikation och var AI säkert kan ta över.',
+    step2_title:    'Vi bygger ditt system',
+    step2_p:        'Unified inbox, automatiserade svar, eskaleringsregler och en kontrollpanel, allt anpassat till ditt arbetsflöde.',
+    step3_title:    'Ditt team behåller kontrollen',
+    step3_p:        'Chefer granskar, godkänner och ingriper när som helst. Full synlighet i varje kanal, inga svarta lådor.',
+
+    out_label:      'Vad du får',
+    out_title_a:    'Mer tid.',
+    out_title_b:    'Fler kunder.',
+    out_title_c:    'Mer liv.',
+    out1:           'Mindre repetitivt svarsarbete',
+    out2:           'Snabbare svar i varje kanal',
+    out3:           'Full synlighet utan den manuella bördan',
+    out4:           'Mer konsekvent kundupplevelse',
+
+    stat_label:     'I siffror',
+    stat1_lbl:      'Kanaler i en inkorg',
+    stat2_lbl:      'Täckning, alltid på',
+    stat3_lbl:      'Genomsnittlig svarstid',
+    stat4_lbl:      'Missade meddelanden',
+
+    cta_h2:         'Låt oss se var ditt team förlorar tid.',
+    cta_p:          'Berätta vad ditt team lägger för mycket tid på. Vi tar det därifrån.',
+    cta_book:       'Boka ett upptäckssamtal',
+
+    footer_sub:     'AI-kommunikationsverktyg för snabba team.',
     footer_email:   'hello@unboks.org',
   },
 

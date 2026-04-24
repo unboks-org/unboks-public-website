@@ -15,6 +15,12 @@ import imgFasterRepliesPap from '@assets/chica_PAPIA_1777004355009.png';
 import img247Pap from '@assets/panel_papia_1777004313296.png';
 import imgLanguagesPap from '@assets/all_language_PAPIA_1777004201262.png';
 
+import heroImgSv from '@assets/hero_swedish_1777004229903.png';
+import imgSmartAutoSv from '@assets/smart_automation_swedish_1777004242843.png';
+import imgFasterRepliesSv from '@assets/chica_swedish_1777004355009.png';
+import img247Sv from '@assets/panel_swedish_1777004313296.png';
+import imgLanguagesSv from '@assets/all_language_swedish_1777004201262.png';
+
 export default function HomePage() {
   const [lang, setLang] = useState<Lang>('pap');
   const [dropOpen, setDropOpen] = useState(false);
@@ -94,7 +100,7 @@ export default function HomePage() {
       </section>
 
       <div className="hero-visual">
-        <img src={lang === 'pap' ? heroImgPap : heroImg} alt="Unboks unified inbox dashboard" />
+        <img src={lang === 'pap' ? heroImgPap : lang === 'sv' ? heroImgSv : heroImg} alt="Unboks unified inbox dashboard" />
       </div>
 
       <div className="channels">
@@ -118,16 +124,16 @@ export default function HomePage() {
         </div>
         <div className="feature-img-grid">
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgSmartAutoPap : imgSmartAuto} alt="Smart automation with human oversight" />
+            <img src={lang === 'pap' ? imgSmartAutoPap : lang === 'sv' ? imgSmartAutoSv : imgSmartAuto} alt="Smart automation with human oversight" />
           </div>
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgFasterRepliesPap : imgFasterReplies} alt="Faster replies, happier clients" />
+            <img src={lang === 'pap' ? imgFasterRepliesPap : lang === 'sv' ? imgFasterRepliesSv : imgFasterReplies} alt="Faster replies, happier clients" />
           </div>
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? img247Pap : img247} alt="24/7 coverage" />
+            <img src={lang === 'pap' ? img247Pap : lang === 'sv' ? img247Sv : img247} alt="24/7 coverage" />
           </div>
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgLanguagesPap : imgLanguages} alt="All languages, one system" />
+            <img src={lang === 'pap' ? imgLanguagesPap : lang === 'sv' ? imgLanguagesSv : imgLanguages} alt="All languages, one system" />
           </div>
         </div>
       </section>

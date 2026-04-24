@@ -1,5 +1,34 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "86pRaCK2BrhAl0C4bZuQ3"
+uri = "file://attached_assets/hero_swedish_1777004229903.png"
+type = "image"
+title = "Swedish hero panel"
+
+[[generated]]
+id = "6q248maaXja68lQ05TlJ_"
+uri = "file://attached_assets/smart_automation_swedish_1777004242843.png"
+type = "image"
+title = "Swedish smart automation panel"
+
+[[generated]]
+id = "LOYz0DQZC2-jVBzl-ES0k"
+uri = "file://attached_assets/chica_swedish_1777004355009.png"
+type = "image"
+title = "Swedish faster replies panel"
+
+[[generated]]
+id = "DFoWGHGFLl_dTrOI3KNqK"
+uri = "file://attached_assets/panel_swedish_1777004313296.png"
+type = "image"
+title = "Swedish 24/7 panel"
+
+[[generated]]
+id = "5HcG78F4dAHbQ0-MAEcx-"
+uri = "file://attached_assets/all_language_swedish_1777004201262.png"
+type = "image"
+title = "Swedish all languages panel"
 
 [[outputs]]
 id = "5OQhGvKL9v7H-wnxa2q1v"
