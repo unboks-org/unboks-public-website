@@ -69,7 +69,7 @@ body {
 }
 .hp-site .nav-logo { text-decoration: none; display: flex; align-items: center; }
 .hp-site .nav-logo-img {
-  height: 176px; width: auto; display: block;
+  height: 211px; width: auto; display: block;
   border-radius: 6px;
 }
 .hp-site .nav-links { display: flex; gap: 24px; align-items: center; }
