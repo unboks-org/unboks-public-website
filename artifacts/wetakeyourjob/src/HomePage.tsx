@@ -9,6 +9,12 @@ import imgFasterReplies from '@assets/wtyj_panel_faster_replies_clean_1777003337
 import img247 from '@assets/wtyj_panel_24_7_coverage_clean_1777003337351.png';
 import imgLanguages from '@assets/wtyj_panel_all_languages_clean_1777003337352.png';
 
+import heroImgPap from '@assets/hero_papia_1777004229903.png';
+import imgSmartAutoPap from '@assets/smart_automation_papia_1777004242843.png';
+import imgFasterRepliesPap from '@assets/chica_PAPIA_1777004355009.png';
+import img247Pap from '@assets/panel_papia_1777004313296.png';
+import imgLanguagesPap from '@assets/all_language_PAPIA_1777004201262.png';
+
 export default function HomePage() {
   const [lang, setLang] = useState<Lang>('pap');
   const tx = t[lang];
@@ -56,7 +62,7 @@ export default function HomePage() {
       </section>
 
       <div className="hero-visual">
-        <img src={heroImg} alt="Unboks unified inbox dashboard" />
+        <img src={lang === 'pap' ? heroImgPap : heroImg} alt="Unboks unified inbox dashboard" />
       </div>
 
       <div className="channels">
@@ -80,16 +86,16 @@ export default function HomePage() {
         </div>
         <div className="feature-img-grid">
           <div className="feature-img-panel">
-            <img src={imgSmartAuto} alt="Smart automation with human oversight" />
+            <img src={lang === 'pap' ? imgSmartAutoPap : imgSmartAuto} alt="Smart automation with human oversight" />
           </div>
           <div className="feature-img-panel">
-            <img src={imgFasterReplies} alt="Faster replies, happier clients" />
+            <img src={lang === 'pap' ? imgFasterRepliesPap : imgFasterReplies} alt="Faster replies, happier clients" />
           </div>
           <div className="feature-img-panel">
-            <img src={img247} alt="24/7 coverage" />
+            <img src={lang === 'pap' ? img247Pap : img247} alt="24/7 coverage" />
           </div>
           <div className="feature-img-panel">
-            <img src={imgLanguages} alt="All languages, one system" />
+            <img src={lang === 'pap' ? imgLanguagesPap : imgLanguages} alt="All languages, one system" />
           </div>
         </div>
       </section>
