@@ -1,11 +1,14 @@
 import './homepage.css';
+import logo from '@assets/logo_whe_BG_1777002782162.png';
 
 export default function HomePage() {
   return (
     <div className="hp-site">
 
       <nav>
-        <a className="nav-logo" href="#">Unboks</a>
+        <a className="nav-logo" href="#">
+          <img src={logo} alt="Unboks.org" className="nav-logo-img" />
+        </a>
         <div className="nav-links">
           <a href="#services">Services</a>
           <a href="#how">How it works</a>
