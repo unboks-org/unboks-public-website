@@ -26,6 +26,7 @@ import Analytics from '@dashboard/pages/Analytics';
 import DashboardNotFound from '@dashboard/pages/not-found';
 
 import DemoApp from './demo/bluemarlin/DemoApp';
+import HomePage from './HomePage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -113,7 +114,7 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard/login" replace />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/dashboard/*" element={<DashboardShell />} />
         <Route path="/demo/bluemarlin/*" element={<DemoApp />} />
         <Route path="*" element={<Navigate to="/dashboard/login" replace />} />
