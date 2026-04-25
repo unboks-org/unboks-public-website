@@ -168,6 +168,59 @@ export const t: Record<Lang, Record<string, string>> = {
     footer_email:   'hello@unboks.org',
   },
 
+  nl: {
+    nav_services:   'Wat we doen',
+    nav_how:        'Zo werkt het',
+    nav_contact:    'Contact',
+    nav_login:      'Inloggen',
+    nav_cta:        'Aan de slag',
+
+    hero_tag:       'AI voor je berichten',
+    hero_h1a:       'Al je berichten.',
+    hero_h1b:       'Één inbox.',
+    hero_p:         'Eén plek voor al je berichten. Van WhatsApp tot e-mail en socials, AI helpt met antwoorden, sorteren en doorzetten naar de juiste persoon.',
+    hero_cta:       'Aan de slag',
+    hero_see:       'Bekijk hoe het werkt',
+
+    channels_label: 'Kanalen',
+
+    feat_label:     'Wat wij uit handen nemen',
+    feat_title:     'Minder routinewerk. Meer tijd.',
+    feat_sub:       'Unboks helpt met het berichtenwerk dat elke dag terugkomt: vragen beantwoorden, afspraken opvolgen, orders herkennen, klanten informeren en belangrijke berichten doorzetten.\n\nJe ziet alleen wat echt aandacht nodig heeft: escalaties, orders en geboekte afspraken.',
+
+    how_label:      'Zo geven we je tijd terug',
+    how_title:      'Minder berichtenstress. Meer tijd voor je echte werk.',
+    how_sub:        'Alles komt samen in één inbox. AI handelt af wat kan en waarschuwt je wanneer iets jouw aandacht nodig heeft. Zo blijf je bereikbaar, zonder de hele dag in je inbox te zitten.',
+    step1_title:    'We kijken waar je tijd verliest',
+    step1_p:        'In een kort gesprek brengen we in kaart waar de meeste berichten binnenkomen, welke vragen steeds terugkomen en waar AI veilig kan helpen.',
+    step2_title:    'We richten Unboks voor je in',
+    step2_p:        'We koppelen je kanalen, voegen je informatie toe en stellen regels in voor antwoorden, sorteren, opvolgen en doorzetten.',
+    step3_title:    'Jij blijft in controle',
+    step3_p:        'AI handelt af wat kan. Alles wat belangrijk, onduidelijk of gevoelig is, komt bij jou of de juiste persoon terecht.',
+
+    out_label:      'Wat je krijgt',
+    out_title_a:    'Meer tijd.',
+    out_title_b:    'Meer overzicht.',
+    out_title_c:    'Minder gedoe.',
+    out1:           'Minder handmatig antwoordwerk',
+    out2:           'Snellere reacties via al je kanalen',
+    out3:           'Alle berichten overzichtelijk op één plek',
+    out4:           'Belangrijke zaken direct bij de juiste persoon',
+
+    stat_label:     'In cijfers',
+    stat1_lbl:      'Kanalen in één inbox',
+    stat2_lbl:      'Altijd bereikbaar',
+    stat3_lbl:      'Snellere reacties',
+    stat4_lbl:      'Minder gemiste berichten',
+
+    cta_h2:         'Krijg je dag terug.',
+    cta_p:          'Laat ons zien waar je berichten binnenkomen en waar je tijd verliest. Dan laten wij zien hoe Unboks dat werk uit handen neemt.',
+    cta_book:       'Plan een kort gesprek',
+
+    footer_sub:     'AI voor berichten, opvolging en overzicht.',
+    footer_email:   'hello@unboks.org',
+  },
+
   sv: {
     nav_services:   'Tjänster',
     nav_how:        'Hur det fungerar',
