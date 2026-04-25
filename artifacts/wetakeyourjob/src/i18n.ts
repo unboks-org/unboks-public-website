@@ -190,7 +190,7 @@ export const t: Record<Lang, Record<string, string>> = {
 
     how_label:      'Zo geven we je tijd terug',
     how_title:      'Minder berichtenstress. Meer tijd voor je echte werk.',
-    how_sub:        'Alles komt samen in één inbox. AI handelt af wat kan en waarschuwt je wanneer iets jouw aandacht nodig heeft. Zo blijf je bereikbaar, zonder de hele dag in je inbox te zitten.',
+    how_sub:        'Alles komt samen in één inbox. AI handelt af wat kan en waarschuwt je wanneer iets jouw aandacht nodig heeft. Zo blijft je communicatie 24/7 doorlopen, in meerdere talen, terwijl jij alleen ziet wat aandacht nodig heeft.',
     step1_title:    'We kijken waar je tijd verliest',
     step1_p:        'In een kort gesprek brengen we in kaart waar de meeste berichten binnenkomen, welke vragen steeds terugkomen en waar AI veilig kan helpen.',
     step2_title:    'We richten Unboks voor je in',
