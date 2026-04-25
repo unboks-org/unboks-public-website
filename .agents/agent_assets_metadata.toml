@@ -53,3 +53,9 @@ id = "C8BbbXYbdwmPJNj873H8q"
 uri = "file://artifacts/wetakeyourjob/public/wetakeyourjob.tar.gz"
 type = "unspecified"
 title = "wetakeyourjob.tar.gz (source code)"
+
+[[outputs]]
+id = "WueXMPW84BLJcob4GgBLn"
+uri = "file://artifacts/wetakeyourjob/public/project-history.md"
+type = "text"
+title = "Unboks.org — Project History & Reasoning"
