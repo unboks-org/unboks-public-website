@@ -15,6 +15,8 @@ import imgFasterRepliesPap from '@assets/chica_PAPIA_1777004355009.png';
 import img247Pap from '@assets/panel_papia_1777004313296.png';
 import imgLanguagesPap from '@assets/all_language_PAPIA_1777004201262.png';
 
+import heroIllustration from '@assets/image_1777081964209.png';
+
 import heroImgSv from '@assets/hero_swedish_1777004229903.png';
 import imgSmartAutoSv from '@assets/smart_automation_swedish_1777004242843.png';
 import imgFasterRepliesSv from '@assets/chica_swedish_1777004355009.png';
@@ -95,11 +97,10 @@ export default function HomePage() {
             <a href="#how" className="btn-ghost">{tx.hero_see}</a>
           </div>
         </div>
+        <div className="hero-right">
+          <img src={heroIllustration} alt="All your messaging channels in one inbox" className="hero-illustration" />
+        </div>
       </section>
-
-      <div className="hero-visual">
-        <img src={lang === 'pap' ? heroImgPap : lang === 'sv' ? heroImgSv : heroImg} alt="Unboks unified inbox dashboard" />
-      </div>
 
       <div className="channels">
         <span className="channels-label">{tx.channels_label}</span>
