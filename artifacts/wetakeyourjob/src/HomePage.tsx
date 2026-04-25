@@ -3,19 +3,17 @@ import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
 import logo from '@assets/logo_whe_BG_1777002782162.png';
 import logoPap from '@assets/image_1777081806501.png';
-import heroImg from '@assets/wtyj_panel_hero_main_premium_1777003348842.png';
-import imgSmartAuto from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
-import imgFasterReplies from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
 
-import heroImgPap from '@assets/hero_papia_1777004229903.png';
 import imgSmartAutoPap from '@assets/smart_automation_papia_1777004242843.png';
 import imgFasterRepliesPap from '@assets/chica_PAPIA_1777004355009.png';
 
 import heroIllustration from '@assets/image_1777081964209.png';
 
-import heroImgSv from '@assets/hero_swedish_1777004229903.png';
 import imgSmartAutoSv from '@assets/smart_automation_swedish_1777004242843.png';
 import imgFasterRepliesSv from '@assets/chica_swedish_1777004355009.png';
+
+import imgSmartAutoDefault from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
+import imgFasterRepliesDefault from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
 
 export default function HomePage() {
   const [lang, setLang] = useState<Lang>('pap');
@@ -39,7 +37,7 @@ export default function HomePage() {
 
       <nav>
         <a className="nav-logo" href="#">
-          <img src={lang === 'pap' ? logoPap : logo} alt="Unboks.org" className={`nav-logo-img${lang === 'pap' ? ' nav-logo-img--wide' : ''}`} />
+          <img src={lang === 'pap' ? logoPap : logo} alt="Unboks.org" className="nav-logo-img nav-logo-img--wide" />
         </a>
         <div className="nav-links">
           <a href="#services">{tx.nav_services}</a>
@@ -138,10 +136,10 @@ export default function HomePage() {
         </div>
         <div className="feature-img-grid">
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgSmartAutoPap : lang === 'sv' ? imgSmartAutoSv : imgSmartAuto} alt="Smart automation with human oversight" />
+            <img src={lang === 'pap' ? imgSmartAutoPap : lang === 'sv' ? imgSmartAutoSv : imgSmartAutoDefault} alt="Smart automation with human oversight" />
           </div>
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgFasterRepliesPap : lang === 'sv' ? imgFasterRepliesSv : imgFasterReplies} alt="Faster replies, happier clients" />
+            <img src={lang === 'pap' ? imgFasterRepliesPap : lang === 'sv' ? imgFasterRepliesSv : imgFasterRepliesDefault} alt="Faster replies, happier clients" />
           </div>
         </div>
       </section>

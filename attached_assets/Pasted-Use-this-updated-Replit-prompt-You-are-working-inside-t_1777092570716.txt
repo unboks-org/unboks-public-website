@@ -1,0 +1,109 @@
+Use this updated Replit prompt:
+
+You are working inside the existing Unboks / WTYJ project.
+Task:
+Use the current Papiamento version as the master visual and branding template for all other language versions.
+Context:
+I have been working on the Papiamento version and I am very happy with the results. The Papiamento version now represents the correct branding, layout, image style, section order, spacing, colors, typography, and overall premium corporate AI-business aesthetic.
+Important:
+The other languages already exist.
+Do NOT translate or rewrite the other language copy.
+This task is about visuals, layout, branding, structure, spacing, images, and consistency only.
+Goal:
+Make every other language version follow the Papiamento version visually and structurally.
+Do not:
+- Do not redesign the site.
+- Do not translate copy.
+- Do not rewrite existing copy in other languages.
+- Do not change the meaning of existing text.
+- Do not add new marketing text.
+- Do not change the core concept.
+- Do not add new sections unless the Papiamento version already has them.
+- Do not remove working functionality.
+- Do not break routing.
+- Do not touch backend/API logic unless absolutely required for language rendering.
+- Do not create a different layout per language.
+Required behavior:
+1. Identify the Papiamento language version currently implemented in the project.
+2. Treat it as the source of truth for:
+   - layout
+   - section order
+   - hero structure
+   - CTA placement
+   - image panels
+   - card structure
+   - spacing
+   - typography
+   - colors
+   - navigation structure
+   - footer structure
+   - mobile responsiveness
+   - overall branding
+   - premium corporate AI-business aesthetic
+3. Apply the same structure and styling to all other existing language versions.
+Languages:
+Use the existing supported languages in the project. Do not create new languages unless they already exist in the codebase.
+Content rules:
+- Preserve the existing text for each language.
+- Do not translate from Papiamento.
+- Do not overwrite existing language copy with Papiamento copy.
+- Do not generate new language copy.
+- Only move existing text into the new visual/layout structure where needed.
+- If a language is missing a text field required by the Papiamento template, use the current existing fallback behavior in the project.
+- If no fallback exists, leave a clear TODO comment in the code instead of inventing new copy.
+Branding rules:
+- Brand name remains: Unboks.org
+- Do not translate the brand name.
+- Keep the site suitable for serious SMB and enterprise clients.
+- No gimmicky “AI will replace jobs” language.
+- Position Unboks as a premium AI business communication and productivity solution.
+- The visual tone must be clean, serious, light, modern, and corporate.
+Visual rules:
+- The current Papiamento version is the visual master.
+- Match the image/card layout exactly.
+- Match panel sizes and dimensions.
+- Match spacing and alignment.
+- Match buttons and CTA styling.
+- Match desktop and mobile layout behavior.
+- Keep the clean premium light look.
+- Avoid too many colors.
+- No loud gradients.
+- No playful startup chaos.
+- Corporate AI solution provider aesthetic.
+- Billion-dollar SaaS look.
+Technical implementation:
+1. Search the codebase for the current language/content structure.
+2. Find how the Papiamento version is implemented.
+3. Refactor if needed so the Papiamento version becomes the canonical visual template.
+4. Other languages should reuse the same components and visual structure.
+5. Language versions should only swap their existing text/content.
+6. Avoid duplicating entire page components per language if unnecessary.
+7. Prefer a single reusable page/component that receives existing language strings from the current language/content object.
+8. Keep all language files/objects clean and easy to edit.
+9. Make sure missing content fields fall back gracefully.
+10. Make sure all language switcher links still work.
+11. Make sure selected language state persists if the current system already supports that.
+12. Make sure SEO/meta handling is not broken if the project already has SEO handling.
+Deliverables:
+- All supported language versions visually match the Papiamento version.
+- Existing language text remains unchanged unless technically necessary to move it into the shared layout.
+- No layout drift between languages.
+- No broken images.
+- No broken navigation.
+- No console errors.
+- Mobile view still works.
+- Existing routes still work.
+Self-check before finishing:
+1. Open the Papiamento version.
+2. Open each other language version.
+3. Compare section by section.
+4. Confirm the structure is identical.
+5. Confirm only the existing language text differs.
+6. Confirm no copy was translated, rewritten, or replaced.
+7. Confirm all images/panels/cards are present.
+8. Confirm no text overflows on desktop.
+9. Confirm mobile view is clean.
+10. Confirm language switching works.
+11. Confirm there are no runtime errors.
+Expected result:
+The Papiamento version becomes the master visual and branding template for the whole multilingual site. All other existing language versions now look and feel exactly like it, while keeping their existing language copy.
