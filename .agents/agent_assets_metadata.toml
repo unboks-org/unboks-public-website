@@ -47,3 +47,9 @@ id = "nCXcFZrzyHWOWT0JqzbMn"
 uri = "file://wetakeyourjob-source.tar.gz"
 type = "unspecified"
 title = "wetakeyourjob-source.tar.gz — Full project source export"
+
+[[outputs]]
+id = "C8BbbXYbdwmPJNj873H8q"
+uri = "file://artifacts/wetakeyourjob/public/wetakeyourjob.tar.gz"
+type = "unspecified"
+title = "wetakeyourjob.tar.gz (source code)"
