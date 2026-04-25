@@ -1,0 +1,52 @@
+nav_services:   'Loke nos ta hasi'
+nav_how:        'Asina ta funshoná'
+nav_contact:    'Kontakto'
+nav_login:      'Drenta'
+nav_cta:        'Kuminsá'
+
+hero_tag:       'AI pa bo mensahenan'
+hero_h1a:       'Tur bo mensahenan.'
+hero_h1b:       'Un inbox.'
+hero_p:         'Un solo lugá pa tur bo mensahenan. Di WhatsApp te na e-mail i socials, AI ta yuda ku kontesta, ordená i manda e mensahe pa e persona korekto.'
+hero_cta:       'Kuminsá'
+hero_see:       'Mira kon ta funshoná'
+
+channels_label: 'Kanalnan'
+
+feat_label:     'Loke nos ta kita for di bo man'
+feat_title:     'Menos trabou rutinario. Mas tempu.'
+feat_sub:       'Unboks ta yuda ku e trabou di mensahe ku ta bolbe tur dia: kontesta pregunta, sigui sita, rekonosé òrden, informá klientenan i manda mensahenan importante pa e persona korekto.\n\nBo ta mira solamente loke realmente mester atenshon: eskalashonnan, òrdennan i sitanan buká.'
+
+how_label:      'Asina nos ta duna bo tempu bèk'
+how_title:      'Menos strès di mensahe. Mas tempu pa bo trabou real.'
+how_sub:        'Tur kos ta bin huntu den un inbox. AI ta hasi loke e por hasi i ta avisá bo ora algu mester bo atenshon. Asina bo komunikashon ta sigui kore 24/7, den varios idioma, mientras bo ta mira solamente loke mester atenshon.'
+
+step1_title:    'Nos ta wak unda bo ta pèrdè tempu'
+step1_p:        'Den un kòmbersashon kòrtiku nos ta mira unda mas mensahenan ta drenta, kua preguntanan ta bolbe i unda AI por yuda ku siguridat.'
+
+step2_title:    'Nos ta konfigurá Unboks pa bo'
+step2_p:        'Nos ta konektá bo kanalnan, agregá bo informashon i pone regla pa kontesta, ordená, sigui i manda mensahenan pa e persona korekto.'
+
+step3_title:    'Bo ta keda na kontrol'
+step3_p:        'AI ta hasi loke e por hasi. Tur kos ku ta importante, poko kla of sensibel ta yega serka bo of e persona korekto.'
+
+out_label:      'Loke bo ta haña'
+out_title_a:    'Mas tempu.'
+out_title_b:    'Mas bista.'
+out_title_c:    'Menos stress.'
+out1:           'Menos kontesta manual'
+out2:           'Kontesta mas lihé riba tur bo kanalnan'
+out3:           'Tur mensahenan kla i ordená den un lugá'
+out4:           'Kosnan importante direktamente serka e persona korekto'
+
+stat_label:     'Den sifra'
+stat1_lbl:      'Kanalnan den un inbox'
+stat2_lbl:      'Semper disponibel'
+stat3_lbl:      'Kontesta mas lihé'
+stat4_lbl:      'Menos mensahenan pèrdí'
+
+cta_h2:         'Haña bo dia bèk.'
+cta_p:          'Mustra nos unda bo mensahenan ta drenta i unda bo ta pèrdè tempu. Nos ta mustra bo kon Unboks ta kita e trabou ei for di bo man.'
+
+footer_sub:     'AI pa mensahenan, seguimiento i bista general.'
+footer_email:   'hello@unboks.org'

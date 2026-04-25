@@ -1,0 +1,52 @@
+nav_services:   'What we do'
+nav_how:        'How it works'
+nav_contact:    'Contact'
+nav_login:      'Log in'
+nav_cta:        'Get started'
+
+hero_tag:       'AI for your messages'
+hero_h1a:       'All your messages.'
+hero_h1b:       'One inbox.'
+hero_p:         'One place for all your messages. From WhatsApp to email and socials, AI helps answer, sort, and send messages to the right person.'
+hero_cta:       'Get started'
+hero_see:       'See how it works'
+
+channels_label: 'Channels'
+
+feat_label:     'What we take off your hands'
+feat_title:     'Less routine work. More time.'
+feat_sub:       'Unboks helps with the message work that comes back every day: answering questions, following up on appointments, recognizing orders, informing customers, and forwarding important messages.\n\nYou only see what really needs attention: escalations, orders, and booked appointments.'
+
+how_label:      'How we give you time back'
+how_title:      'Less message stress. More time for your real work.'
+how_sub:        'Everything comes together in one inbox. AI handles what it can and alerts you when something needs your attention. Your communication keeps running 24/7, in multiple languages, while you only see what needs attention.'
+
+step1_title:    'We find where you lose time'
+step1_p:        'In a short call, we map where most messages come in, which questions keep coming back, and where AI can safely help.'
+
+step2_title:    'We set up Unboks for you'
+step2_p:        'We connect your channels, add your information, and set rules for answering, sorting, following up, and forwarding messages.'
+
+step3_title:    'You stay in control'
+step3_p:        'AI handles what it can. Anything important, unclear, or sensitive goes to you or the right person.'
+
+out_label:      'What you get'
+out_title_a:    'More time.'
+out_title_b:    'More overview.'
+out_title_c:    'Less hassle.'
+out1:           'Less manual reply work'
+out2:           'Faster replies across all your channels'
+out3:           'All messages clearly organized in one place'
+out4:           'Important matters sent straight to the right person'
+
+stat_label:     'By the numbers'
+stat1_lbl:      'Channels in one inbox'
+stat2_lbl:      'Always reachable'
+stat3_lbl:      'Faster replies'
+stat4_lbl:      'Fewer missed messages'
+
+cta_h2:         'Get your day back.'
+cta_p:          'Show us where your messages come in and where you lose time. We’ll show you how Unboks takes that work off your hands.'
+
+footer_sub:     'AI for messages, follow-up, and overview.'
+footer_email:   'hello@unboks.org'
