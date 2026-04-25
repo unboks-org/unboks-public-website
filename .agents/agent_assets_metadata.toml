@@ -59,3 +59,9 @@ id = "WueXMPW84BLJcob4GgBLn"
 uri = "file://artifacts/wetakeyourjob/public/project-history.md"
 type = "text"
 title = "Unboks.org — Project History & Reasoning"
+
+[[outputs]]
+id = "PI4SuWqOwPwKwuhldMyhU"
+uri = "file://artifacts/wetakeyourjob/public/unboks-monorepo.tar.gz"
+type = "unspecified"
+title = "unboks-monorepo.tar.gz — full workspace snapshot"
