@@ -76,6 +76,9 @@ body {
 .hp-site .nav-logo-img--wide {
   height: auto; max-height: 72px; max-width: 260px; border-radius: 0;
 }
+.hp-site .nav-logo-img--wide-lg {
+  height: auto; max-height: 96px; max-width: 320px; border-radius: 0;
+}
 .hp-site .nav-links { display: flex; gap: 24px; align-items: center; }
 .hp-site .nav-links a {
   font-size: 14px; color: var(--text-secondary); text-decoration: none;
