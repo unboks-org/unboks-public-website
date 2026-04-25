@@ -115,7 +115,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateX(-20%);
+  transform: translateX(-40%);
 }
 .hp-site .hero-illustration {
   width: 100%;
