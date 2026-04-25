@@ -150,6 +150,7 @@ body {
 }
 .hp-site .channel-pills { display: flex; gap: 8px; flex-wrap: wrap; }
 .hp-site .pill {
+  display: inline-flex; align-items: center; gap: 5px;
   font-size: 13px; color: var(--text-secondary);
   background: var(--bg-secondary); border: 0.5px solid var(--border);
   border-radius: 99px; padding: 5px 14px; letter-spacing: -0.01em;
