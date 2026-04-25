@@ -308,6 +308,11 @@ body {
   .hp-site { padding: 0 20px; overflow-x: hidden; max-width: 100%; box-sizing: border-box; }
   .hp-site .nav-logo-img { height: 120px; }
   .hp-site .nav-links { display: none; }
+  .hp-site .nav-actions .btn-primary { display: none; }
+
+  .hp-site .channels { flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+  .hp-site .channels-label { margin-right: 0; }
+  .hp-site .channel-pills { justify-content: center; }
 
   .hp-site .hero {
     padding: 16px 0 24px;
