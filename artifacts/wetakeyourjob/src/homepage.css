@@ -265,18 +265,9 @@ body {
   font-size: 16px; color: rgba(255,255,255,0.55);
   margin-bottom: 32px; letter-spacing: -0.01em;
 }
-.hp-site .cta-band .hero-cta { justify-content: center; }
-.hp-site .cta-contact-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-.hp-site .cta-contact-note {
-  font-size: 13px;
-  color: rgba(255,255,255,0.48);
-  letter-spacing: -0.01em;
+.hp-site .cta-actions {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
 }
 
 /* WhatsApp button */
@@ -309,7 +300,18 @@ body {
   font-size: 13px; color: var(--text-secondary); text-decoration: none; letter-spacing: -0.01em;
 }
 .hp-site .footer-links a:hover { color: var(--text); }
-.hp-site .footer-email { font-size: 13px; color: var(--text-secondary); letter-spacing: -0.01em; }
+.hp-site .footer-wa-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(37,211,102,0.10); color: #1a9e4e;
+  border: 1px solid rgba(37,211,102,0.25);
+  padding: 8px 14px; border-radius: 99px;
+  font-size: 13px; font-weight: 500; letter-spacing: -0.01em;
+  text-decoration: none; transition: background 0.15s, border-color 0.15s;
+}
+.hp-site .footer-wa-chip:hover {
+  background: rgba(37,211,102,0.18); border-color: rgba(37,211,102,0.45);
+}
+.hp-site .footer-wa-icon { width: 14px; height: 14px; flex-shrink: 0; color: #25D366; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
