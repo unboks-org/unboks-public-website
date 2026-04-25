@@ -6,7 +6,7 @@ import { AuthContext } from "./useAuthContext";
 // Brief 177 — namespace the token key by client so switching clients
 // doesn't bleed one client's session into another's. Each client gets
 // its own localStorage slot (`wtyj_token_bluemarlin`, `wtyj_token_adamus`,
-// `wtyj_token_roberto`).
+// `wtyj_token_consultadespertares`).
 function getTokenKey(): string {
   return `wtyj_token_${getClient()}`;
 }

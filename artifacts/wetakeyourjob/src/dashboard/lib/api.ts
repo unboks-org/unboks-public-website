@@ -1,7 +1,7 @@
 // Brief 177 — multi-client dashboard routing. Path-prefix dispatches to
 // one of three backend containers via nginx on the VPS. The selected
 // client is persisted in localStorage so it survives reloads.
-export const VALID_CLIENTS = ["bluemarlin", "adamus", "roberto"] as const;
+export const VALID_CLIENTS = ["bluemarlin", "adamus", "consultadespertares"] as const;
 export type Client = typeof VALID_CLIENTS[number];
 
 const CLIENT_STORAGE_KEY = "wtyj_client";
