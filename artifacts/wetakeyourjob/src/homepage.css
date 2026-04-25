@@ -246,19 +246,44 @@ body {
 
 /* ── CTA band ── */
 .hp-site .cta-band {
-  background: var(--bg-secondary); border-radius: var(--radius-lg);
-  padding: 60px 48px; text-align: center; margin-bottom: 64px;
-  border: 0.5px solid var(--border);
+  background: #0f0f0f;
+  border-radius: var(--radius-lg);
+  padding: 64px 48px; text-align: center; margin-bottom: 64px;
+  position: relative; overflow: hidden;
+}
+.hp-site .cta-band::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 110%, rgba(37,211,102,0.18) 0%, transparent 70%);
+  pointer-events: none;
 }
 .hp-site .cta-band h2 {
   font-size: clamp(28px, 3.5vw, 44px); font-weight: 500; letter-spacing: -0.03em;
-  color: var(--text); margin-bottom: 12px; line-height: 1.15;
+  color: #fff; margin-bottom: 12px; line-height: 1.15;
 }
 .hp-site .cta-band p {
-  font-size: 16px; color: var(--text-secondary);
-  margin-bottom: 28px; letter-spacing: -0.01em;
+  font-size: 16px; color: rgba(255,255,255,0.55);
+  margin-bottom: 32px; letter-spacing: -0.01em;
 }
 .hp-site .cta-band .hero-cta { justify-content: center; }
+
+/* WhatsApp button */
+.hp-site .btn-whatsapp {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: #25D366; color: #fff;
+  padding: 14px 26px; border-radius: 99px;
+  font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+  text-decoration: none; transition: background 0.15s, transform 0.12s;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+}
+.hp-site .btn-whatsapp:hover { background: #1ebe5d; transform: translateY(-1px); }
+.hp-site .btn-whatsapp svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* dark CTA band overrides primary button */
+.hp-site .cta-band .btn-primary {
+  background: #fff; color: #0f0f0f;
+}
+.hp-site .cta-band .btn-primary:hover { background: #e8e8e8; }
 
 /* ── Footer ── */
 .hp-site footer {
