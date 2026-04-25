@@ -83,7 +83,7 @@ export default function HomePage() {
             )}
           </div>
           <a href="/dashboard/login" className="btn-ghost">{tx.nav_login}</a>
-          <a href="#contact" className="btn-primary">{tx.nav_cta}</a>
+          <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.nav_cta}</a>
         </div>
       </nav>
 
@@ -93,7 +93,7 @@ export default function HomePage() {
           <h1>{tx.hero_h1a}<br /><em>{tx.hero_h1b}</em></h1>
           <p>{tx.hero_p}</p>
           <div className="hero-cta">
-            <a href="#contact" className="btn-primary">{tx.hero_cta}</a>
+            <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.hero_cta}</a>
             <a href="#how" className="btn-ghost">{tx.hero_see}</a>
           </div>
         </div>
@@ -212,8 +212,8 @@ export default function HomePage() {
         <h2>{tx.cta_h2}</h2>
         <p>{tx.cta_p}</p>
         <div className="hero-cta">
-          <a href="mailto:hello@unboks.org" className="btn-primary">{tx.cta_book}</a>
-          <a href="mailto:hello@unboks.org" className="btn-ghost">hello@unboks.org</a>
+          <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.cta_book}</a>
+          <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-ghost">+599 968 81585</a>
         </div>
       </div>
 
@@ -225,9 +225,9 @@ export default function HomePage() {
         <div className="footer-links">
           <a href="#services">{tx.nav_services}</a>
           <a href="#how">{tx.nav_how}</a>
-          <a href="#contact">{tx.nav_contact}</a>
+          <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer">{tx.nav_contact}</a>
         </div>
-        <div className="footer-email">hello@unboks.org</div>
+        <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="footer-email">+599 968 81585</a>
       </footer>
 
     </div>
