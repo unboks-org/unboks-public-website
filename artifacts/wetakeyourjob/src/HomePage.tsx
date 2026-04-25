@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
-import logo from '@assets/logo_whe_BG_1777002782162.png';
+import logo from '@assets/image_1777095356119.png';
 import logoPap from '@assets/image_1777081806501.png';
 
 import imgSmartAutoPap from '@assets/smart_automation_papia_1777004242843.png';
