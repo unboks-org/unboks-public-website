@@ -111,10 +111,11 @@ body {
 }
 .hp-site .hero-left { flex: 1 1 0; min-width: 0; }
 .hp-site .hero-right {
-  flex: 0 0 340px;
+  flex: 0 0 320px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 10px;
 }
 .hp-site .hero-illustration {
   width: 100%;
