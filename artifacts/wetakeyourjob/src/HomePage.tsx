@@ -6,22 +6,16 @@ import logoPap from '@assets/image_1777081806501.png';
 import heroImg from '@assets/wtyj_panel_hero_main_premium_1777003348842.png';
 import imgSmartAuto from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
 import imgFasterReplies from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
-import img247 from '@assets/wtyj_panel_24_7_coverage_clean_1777003337351.png';
-import imgLanguages from '@assets/wtyj_panel_all_languages_clean_1777003337352.png';
 
 import heroImgPap from '@assets/hero_papia_1777004229903.png';
 import imgSmartAutoPap from '@assets/smart_automation_papia_1777004242843.png';
 import imgFasterRepliesPap from '@assets/chica_PAPIA_1777004355009.png';
-import img247Pap from '@assets/panel_papia_1777004313296.png';
-import imgLanguagesPap from '@assets/all_language_PAPIA_1777004201262.png';
 
 import heroIllustration from '@assets/image_1777081964209.png';
 
 import heroImgSv from '@assets/hero_swedish_1777004229903.png';
 import imgSmartAutoSv from '@assets/smart_automation_swedish_1777004242843.png';
 import imgFasterRepliesSv from '@assets/chica_swedish_1777004355009.png';
-import img247Sv from '@assets/panel_swedish_1777004313296.png';
-import imgLanguagesSv from '@assets/all_language_swedish_1777004201262.png';
 
 export default function HomePage() {
   const [lang, setLang] = useState<Lang>('pap');
@@ -127,12 +121,6 @@ export default function HomePage() {
           </div>
           <div className="feature-img-panel">
             <img src={lang === 'pap' ? imgFasterRepliesPap : lang === 'sv' ? imgFasterRepliesSv : imgFasterReplies} alt="Faster replies, happier clients" />
-          </div>
-          <div className="feature-img-panel">
-            <img src={lang === 'pap' ? img247Pap : lang === 'sv' ? img247Sv : img247} alt="24/7 coverage" />
-          </div>
-          <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgLanguagesPap : lang === 'sv' ? imgLanguagesSv : imgLanguages} alt="All languages, one system" />
           </div>
         </div>
       </section>
