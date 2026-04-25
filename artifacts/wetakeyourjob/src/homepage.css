@@ -304,15 +304,42 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .hp-site { padding: 0 16px; overflow-x: hidden; }
+  .hp-site { padding: 0 20px; overflow-x: hidden; max-width: 100%; box-sizing: border-box; }
   .hp-site .nav-logo-img { height: 120px; }
   .hp-site .nav-links { display: none; }
 
-  .hp-site .hero { padding: 16px 0 24px; flex-direction: column; gap: 28px; }
-  .hp-site .hero-left { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .hp-site .hero-left p { max-width: 100%; }
+  .hp-site .hero {
+    padding: 16px 0 24px;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .hp-site .hero-left {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hp-site .hero h1 {
+    font-size: clamp(28px, 8vw, 38px);
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .hp-site .hero p {
+    font-size: 15px;
+    max-width: 100%;
+  }
   .hp-site .hero-cta { justify-content: center; }
-  .hp-site .hero-right { transform: none; width: 100%; justify-content: center; }
+  .hp-site .hero-right {
+    transform: none;
+    flex: 0 0 auto;
+    width: 100%;
+    justify-content: center;
+  }
+  .hp-site .hero-illustration { max-width: 180px; }
 
   .hp-site .channels { padding: 14px 0; margin-bottom: 36px; }
 
