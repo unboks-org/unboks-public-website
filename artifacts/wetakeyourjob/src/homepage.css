@@ -266,6 +266,18 @@ body {
   margin-bottom: 32px; letter-spacing: -0.01em;
 }
 .hp-site .cta-band .hero-cta { justify-content: center; }
+.hp-site .cta-contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.hp-site .cta-contact-note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.48);
+  letter-spacing: -0.01em;
+}
 
 /* WhatsApp button */
 .hp-site .btn-whatsapp {
