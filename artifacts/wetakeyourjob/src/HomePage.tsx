@@ -45,7 +45,7 @@ export default function HomePage() {
 
       <nav>
         <a className="nav-logo" href="#">
-          <img src={lang === 'pap' ? logoPap : logo} alt="Unboks.org" className="nav-logo-img" />
+          <img src={lang === 'pap' ? logoPap : logo} alt="Unboks.org" className={`nav-logo-img${lang === 'pap' ? ' nav-logo-img--wide' : ''}`} />
         </a>
         <div className="nav-links">
           <a href="#services">{tx.nav_services}</a>

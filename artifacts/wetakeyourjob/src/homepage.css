@@ -73,6 +73,9 @@ body {
   height: 211px; width: auto; display: block;
   border-radius: 6px;
 }
+.hp-site .nav-logo-img--wide {
+  height: auto; max-height: 72px; max-width: 260px; border-radius: 0;
+}
 .hp-site .nav-links { display: flex; gap: 24px; align-items: center; }
 .hp-site .nav-links a {
   font-size: 14px; color: var(--text-secondary); text-decoration: none;
@@ -116,7 +119,7 @@ body {
 .hp-site .hero-illustration {
   width: 100%;
   max-width: 320px;
-  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.13));
+  mix-blend-mode: multiply;
 }
 .hp-site .hero-tag {
   font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
