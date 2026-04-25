@@ -1,0 +1,52 @@
+nav_services:   'Vad vi gör'
+nav_how:        'Så fungerar det'
+nav_contact:    'Kontakt'
+nav_login:      'Logga in'
+nav_cta:        'Kom igång'
+
+hero_tag:       'AI för dina meddelanden'
+hero_h1a:       'Alla dina meddelanden.'
+hero_h1b:       'En inkorg.'
+hero_p:         'En plats för alla dina meddelanden. Från WhatsApp till e-post och sociala medier hjälper AI till att svara, sortera och skicka vidare till rätt person.'
+hero_cta:       'Kom igång'
+hero_see:       'Se hur det fungerar'
+
+channels_label: 'Kanaler'
+
+feat_label:     'Det vi tar hand om'
+feat_title:     'Mindre rutinjobb. Mer tid.'
+feat_sub:       'Unboks hjälper till med meddelandearbetet som kommer tillbaka varje dag: svara på frågor, följa upp bokningar, känna igen beställningar, informera kunder och skicka viktiga meddelanden vidare.\n\nDu ser bara det som verkligen behöver uppmärksamhet: eskaleringar, beställningar och bokade tider.'
+
+how_label:      'Så ger vi dig tid tillbaka'
+how_title:      'Mindre meddelandestress. Mer tid för ditt riktiga arbete.'
+how_sub:        'Allt samlas i en inkorg. AI hanterar det den kan och varnar dig när något behöver din uppmärksamhet. Din kommunikation fortsätter 24/7, på flera språk, medan du bara ser det som behöver uppmärksamhet.'
+
+step1_title:    'Vi ser var du förlorar tid'
+step1_p:        'I ett kort samtal går vi igenom var flest meddelanden kommer in, vilka frågor som återkommer och var AI kan hjälpa till på ett säkert sätt.'
+
+step2_title:    'Vi ställer in Unboks åt dig'
+step2_p:        'Vi kopplar dina kanaler, lägger till din information och sätter regler för svar, sortering, uppföljning och vidarebefordran.'
+
+step3_title:    'Du behåller kontrollen'
+step3_p:        'AI hanterar det den kan. Allt som är viktigt, oklart eller känsligt går till dig eller rätt person.'
+
+out_label:      'Det du får'
+out_title_a:    'Mer tid.'
+out_title_b:    'Bättre överblick.'
+out_title_c:    'Mindre krångel.'
+out1:           'Mindre manuellt svarsarbete'
+out2:           'Snabbare svar i alla dina kanaler'
+out3:           'Alla meddelanden tydligt samlade på en plats'
+out4:           'Viktiga saker direkt till rätt person'
+
+stat_label:     'I siffror'
+stat1_lbl:      'Kanaler i en inkorg'
+stat2_lbl:      'Alltid nåbar'
+stat3_lbl:      'Snabbare svar'
+stat4_lbl:      'Färre missade meddelanden'
+
+cta_h2:         'Ta tillbaka din dag.'
+cta_p:          'Visa oss var dina meddelanden kommer in och var du förlorar tid. Vi visar hur Unboks tar det arbetet från dina händer.'
+
+footer_sub:     'AI för meddelanden, uppföljning och överblick.'
+footer_email:   'hello@unboks.org'
