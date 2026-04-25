@@ -231,7 +231,7 @@ export const t: Record<Lang, Record<string, string>> = {
     hero_tag:       'AI communicatietools',
     hero_h1a:       'Al je berichten.',
     hero_h1b:       'Één inbox.',
-    hero_p:         'We bouwen de communicatielaag die jouw team mist, zodat je minder tijd besteedt aan berichten en meer aan je bedrijf.',
+    hero_p:         'Eén plek voor al je berichten. Van WhatsApp tot e-mail en socials, AI helpt met antwoorden, sorteren en doorzetten naar de juiste persoon.',
     hero_cta:       'Aan de slag',
     hero_see:       'Zie hoe het werkt',
 
