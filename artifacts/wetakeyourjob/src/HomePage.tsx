@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
 import logo from '@assets/logo_whe_BG_1777002782162.png';
-import logoPap from '@assets/logo_papiamento__1777004055008.png';
+import logoPap from '@assets/image_1777081806501.png';
 import heroImg from '@assets/wtyj_panel_hero_main_premium_1777003348842.png';
 import imgSmartAuto from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
 import imgFasterReplies from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
