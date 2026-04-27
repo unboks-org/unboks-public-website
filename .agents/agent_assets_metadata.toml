@@ -71,3 +71,9 @@ id = "6O7alsHixpsPKa6lIH0b7"
 uri = "file://dashboard_code.zip"
 type = "unspecified"
 title = "Dashboard Source Code"
+
+[[outputs]]
+id = "fZh3z9uxQWjNxFYSLiLhS"
+uri = "file://dashboard_core.zip"
+type = "unspecified"
+title = "Dashboard Core Code (pages, auth, lib, hooks)"
