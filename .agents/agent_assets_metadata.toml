@@ -65,3 +65,9 @@ id = "PI4SuWqOwPwKwuhldMyhU"
 uri = "file://artifacts/wetakeyourjob/public/unboks-monorepo.tar.gz"
 type = "unspecified"
 title = "unboks-monorepo.tar.gz — full workspace snapshot"
+
+[[outputs]]
+id = "6O7alsHixpsPKa6lIH0b7"
+uri = "file://dashboard_code.zip"
+type = "unspecified"
+title = "Dashboard Source Code"
