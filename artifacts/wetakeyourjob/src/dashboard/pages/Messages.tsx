@@ -261,7 +261,7 @@ function ConversationRow({
           )}>
             <AlertTriangle className="w-3 h-3" />
             {escalationType
-              ? isSemi(escalationType) ? "Soft Escalation" : "Hard Escalation"
+              ? isSemi(escalationType) ? "Semi Escalation" : "Full Escalation"
               : "Escalated"}
           </span>
         </div>
@@ -490,15 +490,15 @@ export default function Messages() {
                   {isSemi(matchedEsc.notification_type) ? (
                     <>
                       <Phone className="w-4 h-4 text-slate-400" />
-                      <span className="text-[15px] font-semibold text-foreground">Soft Escalation — Answer AI</span>
-                      <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Soft</span>
+                      <span className="text-[15px] font-semibold text-foreground">Semi Escalation Reply</span>
+                      <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Semi</span>
                       <span className="text-sm text-muted-foreground">— The AI will reformat and send to the customer.</span>
                     </>
                   ) : (
                     <>
                       <Mail className="w-4 h-4 text-rose-400" />
-                      <span className="text-[15px] font-semibold text-foreground">Hard Escalation — Reply to Customer</span>
-                      <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Hard</span>
+                      <span className="text-[15px] font-semibold text-foreground">Full Escalation Email</span>
+                      <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Full</span>
                       <span className="text-sm text-muted-foreground">— opens in {emailSettings.client === "gmail" ? "Gmail" : "your mail app"}</span>
                     </>
                   )}
@@ -666,7 +666,7 @@ export default function Messages() {
                     "text-sm font-bold uppercase tracking-wider px-2.5 py-1 rounded",
                     isSemi(matchedEsc.notification_type) ? "bg-blue-500/15 text-blue-400" : "bg-rose-500/15 text-rose-400"
                   )}>
-                    {isSemi(matchedEsc.notification_type) ? "Soft" : "Hard"} Escalation
+                    {isSemi(matchedEsc.notification_type) ? "Semi" : "Full"} Escalation
                   </span>
                   <span className="inline-flex items-center gap-1 text-sm text-muted-foreground">
                     {matchedEsc.channel === "email" ? <Mail className="w-3.5 h-3.5" /> : <Phone className="w-3.5 h-3.5" />}
