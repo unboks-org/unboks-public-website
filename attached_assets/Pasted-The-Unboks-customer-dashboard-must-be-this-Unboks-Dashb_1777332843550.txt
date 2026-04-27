@@ -1,0 +1,575 @@
+The Unboks customer dashboard must be this:
+
+Unboks Dashboard = Gmail-style AI Inbox Control Center
+
+Not a SaaS analytics dashboard.
+Not a setup wizard.
+Not a social media publishing tool.
+Not a booking dashboard.
+
+It is the place where the customer manages this question:
+
+“What does the AI need from me today?”
+
+The client has already been onboarded by Unboks. Meta/WhatsApp/Zernio connection is already handled live by Unboks. The customer logs in after setup.
+
+⸻
+
+1. Main dashboard structure
+
+The main navigation should be minimal:
+
+Inbox
+Escalations
+Channels
+Settings
+
+That is enough.
+
+Everything else goes inside Settings or behind advanced views.
+
+No big menu jungle. No fake productivity dashboard. No random cards.
+
+⸻
+
+2. Inbox — the core product
+
+The Inbox must be a real Gmail-style inbox.
+
+This is the main screen. It should feel familiar immediately.
+
+Inbox layout
+
+Desktop:
+
+Left sidebar/nav
+Top search/filter bar
+Conversation/message list
+Conversation detail pane
+
+Like Gmail:
+
+* rows
+* checkboxes
+* sender name
+* subject/message preview
+* timestamp
+* unread bold text
+* labels/chips
+* channel icon
+* star/pin optional
+* archive
+* mark read/unread
+* bulk select
+* search
+* filters
+
+Inbox row should show
+
+Each row should show:
+
+Checkbox
+Channel icon
+Customer name
+Message preview
+Status label
+Escalation label if needed
+Last activity time
+Unread indicator
+
+Example row:
+
+☐  WhatsApp  Maria Gomez   “Do you have availability tomorrow?”   AI replied   2m ago
+☐  Instagram David K.      “What are your prices?”                 Escalated   6m ago
+☐  Email     Sarah Ltd     “Can we schedule a demo?”               Human needed  12m ago
+
+Inbox filters
+
+At the top:
+
+All
+Unread
+Escalated
+AI Handled
+Human Needed
+Archived
+
+Channel filters:
+
+WhatsApp
+Email
+Instagram
+Facebook
+X
+TikTok
+
+The customer should be able to select one or multiple channels.
+
+Bulk actions
+
+When rows are selected:
+
+Archive
+Mark read
+Mark unread
+Assign
+Resolve
+
+Do not hide these behind hover only. They must be visible and obvious.
+
+Conversation detail pane
+
+When clicking a conversation, the right/main pane opens the conversation.
+
+It should show:
+
+* customer name
+* channel
+* status
+* full message history
+* AI replies
+* human replies
+* escalation reason
+* internal notes
+* reply box
+* actions
+
+Important: no page jump. The inbox list should stay stable.
+
+⸻
+
+3. Escalations — the most important daily page
+
+Escalations are where the customer spends most of the time.
+
+The Escalations page should be a focused queue:
+
+“These are the conversations where the AI needs human help.”
+
+Two escalation types
+
+Soft escalation
+
+The AI asks the human/operator for help.
+
+Flow:
+
+Customer asks something
+AI is unsure
+AI asks human internally
+Human replies to AI
+AI replies to customer
+
+The customer may not know a human helped.
+
+Dashboard UI should make this clear:
+
+Soft escalation
+AI needs guidance
+Reply to AI
+
+Buttons:
+
+Answer AI
+Edit suggested reply
+Send AI Reply
+Mark resolved
+
+Example:
+
+Customer: “Can I get the Valentine’s discount tomorrow?”
+AI question to human: “I don’t know if the Valentine’s discount is valid tomorrow. Please confirm.”
+Human answer: “Yes, valid until Sunday.”
+AI sends to customer: “Yes, the Valentine’s offer is valid until Sunday.”
+
+Hard escalation
+
+The AI stops and hands over.
+
+Flow:
+
+Customer asks something sensitive/complex
+AI hands over to human
+Human replies directly to customer
+AI stays silent
+
+Dashboard UI should show:
+
+Hard escalation
+Human must reply directly
+AI paused
+
+Buttons:
+
+Take over
+Reply to customer
+Mark resolved
+Hand back to AI
+Archive
+
+Example hard escalation cases:
+
+* angry customer
+* refund request
+* legal issue
+* payment issue
+* complaint
+* VIP lead
+* unclear request
+* human specifically requested
+* anything outside allowed rules
+
+⸻
+
+4. The dashboard homepage
+
+I would not create a classic “Overview” dashboard as the main page.
+
+When the customer logs in, they should land on:
+
+/dashboard → Inbox
+
+At the top of Inbox, you can show a small daily status bar:
+
+12 unread   4 escalations   89 AI-handled today   2 channels need attention
+
+That is enough.
+
+No giant charts. No useless stat cards.
+
+⸻
+
+5. Channels page
+
+The Channels page should be simple status, not setup-heavy.
+
+Remember: Unboks does onboarding and connection live.
+
+The customer should only see:
+
+WhatsApp       Connected
+Instagram      Connected / Not connected
+Facebook       Connected / Not connected
+Email          Connected / Not connected
+X              Coming soon / Not connected
+TikTok         Coming soon / Not connected
+
+Each channel card can show:
+
+* status
+* connected account/name
+* last message received
+* health status
+* reconnect needed warning
+
+But do not expose Zernio details.
+
+No “connect Meta yourself” wizard for now.
+
+If a channel needs action:
+
+Needs attention — contact Unboks support
+
+or
+
+Schedule reconnection call
+
+⸻
+
+6. Settings page
+
+Settings should contain the less-daily things.
+
+Main Settings sections:
+
+Business Info
+Source of Truth
+Rules
+Team Members
+Notifications
+Language
+Advanced
+
+Business Info
+
+Simple editable info:
+
+* business name
+* website
+* phone
+* email
+* address
+* opening hours
+* languages
+* short business description
+
+Source of Truth
+
+This should not be a big main menu item.
+
+It lives inside Settings.
+
+Purpose:
+
+“Add information the AI is allowed to use.”
+
+Customers should be trained to add updates whenever something changes.
+
+They can upload:
+
+* PDFs
+* menus
+* price lists
+* service sheets
+* screenshots
+* images
+* policies
+* FAQs
+* Word docs
+* text notes
+
+They can add quick updates:
+
+Special offer this weekend
+Holiday opening hours
+Valentine’s Day promo
+Temporary closure
+New price
+New service
+Sold out product
+Staff unavailable
+Policy change
+
+The UI should be extremely simple:
+
+Add update
+Upload file
+View uploaded knowledge
+
+Each item should show:
+
+Title
+Type
+Date added
+Status: Active / Expired / Draft
+Used by AI: Yes/No
+
+For time-sensitive info, allow expiry date:
+
+Valentine’s Day promo
+Active from Feb 10 to Feb 15
+
+This prevents old promos from being used forever.
+
+Rules
+
+Rules define AI behavior.
+
+Sections:
+
+AI may answer automatically when...
+AI must soft escalate when...
+AI must hard escalate when...
+AI must never answer...
+Tone of voice
+Languages
+Human handoff rules
+
+Examples:
+
+AI may answer FAQs, opening hours, pricing, service descriptions.
+AI must soft escalate if it lacks information.
+AI must hard escalate for complaints, refunds, legal issues, payment problems.
+AI must never invent prices or promises.
+AI must never say a human confirmed something unless true.
+
+Team Members
+
+Who can access the dashboard:
+
+* owner
+* manager
+* operator
+* read-only
+
+Notifications
+
+Where escalation alerts go:
+
+* email
+* WhatsApp
+* dashboard only
+* mobile app later
+
+Advanced
+
+Hide complicated stuff here.
+
+Possible advanced items:
+
+* AI confidence threshold
+* internal prompt settings
+* dry run mode
+* debug logs
+* export data
+* API/webhook info
+
+Most customers should never touch this.
+
+⸻
+
+7. Reply experience
+
+The reply box is critical.
+
+For each conversation, the operator should understand who they are replying to:
+
+In normal conversation
+
+Reply to customer
+
+In soft escalation
+
+Answer AI
+
+Because the human is not directly replying to the customer. They are giving information to the AI.
+
+In hard escalation
+
+Reply directly to customer
+
+Because AI has handed over.
+
+This must be visually obvious. No confusion.
+
+⸻
+
+8. Status labels
+
+Every conversation should have one clear status.
+
+Examples:
+
+AI handled
+Unread
+Soft escalation
+Hard escalation
+Human active
+Resolved
+Archived
+AI paused
+Needs attention
+
+Color coding helps, but labels must be readable without relying only on color.
+
+⸻
+
+9. Customer mental model
+
+The customer should understand the system like this:
+
+The AI answers normal repetitive questions.
+When the AI is unsure, it asks me.
+When the situation is serious, it hands over to me.
+I can update what the AI knows in Settings.
+
+That is the whole product.
+
+⸻
+
+10. What NOT to build into the customer dashboard
+
+Do not make these prominent:
+
+Social media content publishing
+Post generation
+Brand training
+Asset library
+Capacity checker
+Booking analytics
+Heavy charts
+Internal admin tools
+Zernio setup
+Meta developer settings
+Prompt engineering screens
+
+Some may exist for old clients like BlueMarlin, but they should be hidden or optional modules.
+
+The Unboks customer dashboard should not feel like BlueMarlin anymore.
+
+⸻
+
+11. Optional modules later
+
+Some clients may need extras.
+
+Examples:
+
+Bookings
+Orders
+Payments
+Reservations
+Reviews
+Leads/CRM
+
+But those are client modules, not core dashboard.
+
+Core Unboks is:
+
+Inbox
+Escalations
+Channels
+Settings
+
+⸻
+
+12. Mobile version later
+
+The mobile app should not try to copy the whole dashboard.
+
+Mobile should focus on:
+
+Escalations
+Reply
+Resolve
+Hand back to AI
+
+Mobile purpose:
+
+“AI needs help. Human answers fast.”
+
+No heavy settings. No full knowledge management. No big analytics.
+
+⸻
+
+13. Design standard
+
+The dashboard should feel:
+
+Gmail familiar
+WhatsApp simple
+Enterprise clean
+Fast
+Calm
+No clutter
+No jumping
+No overlapping
+Readable
+
+Not “cool for the sake of cool.”
+
+Premium means:
+
+* spacing is clean
+* text is readable
+* actions are obvious
+* status is clear
+* nothing moves unexpectedly
+* mobile does not break
+* dark mode has enough contrast
+
+⸻
+
+14. The one-sentence definition
+
+The Unboks customer dashboard is a Gmail-style AI inbox where customers review conversations, handle soft and hard escalations, monitor connected channels, and update the AI’s source of truth through Settings.

@@ -1,0 +1,166 @@
+TASK: Inspect the existing customer dashboard code before making changes.
+
+DO NOT MODIFY CODE IN THIS PASS.
+DO NOT REFACTOR.
+DO NOT RENAME FILES.
+DO NOT DELETE PAGES.
+ONLY INSPECT AND REPORT.
+
+Context:
+We are building the Unboks.org customer dashboard.
+
+Unboks helps businesses automatically answer repetitive WhatsApp messages, emails, and social media DMs. The dashboard is mainly for reviewing conversations and handling escalations.
+
+This dashboard is NOT:
+- a Meta onboarding wizard
+- a Zernio setup screen
+- a social media publishing dashboard
+- a booking/capacity dashboard
+- an internal Unboks admin panel
+
+Customer onboarding happens before dashboard access:
+1. Client contacts Unboks.
+2. Unboks speaks with the client and agrees to proceed.
+3. Unboks does an intake conversation.
+4. Unboks helps connect Meta/WhatsApp/social channels live by Zoom or in person.
+5. Unboks configures the client.
+6. Client receives login credentials by email.
+7. Client logs into the dashboard.
+
+Therefore:
+Do not build customer self-service Meta connection UI.
+Do not expose Zernio to customers.
+Do not make Source of Truth a main navigation item.
+
+Desired customer dashboard main navigation:
+- Inbox
+- Escalations
+- Channels
+- Settings
+
+Settings should contain:
+- Business Info
+- Source of Truth / Knowledge Uploads
+- Rules
+- Team Members
+- Notifications
+- Language
+- Advanced
+
+Source of Truth / Knowledge Uploads:
+This should be a simple Settings area where clients can upload files and add comments/updates for the AI to use.
+
+Examples:
+- PDFs
+- images/screenshots
+- menus
+- pricing sheets
+- service lists
+- policies
+- FAQs
+- holiday schedules
+- temporary opening hours
+- special offers
+- Valentine’s Day promotions
+- tone instructions
+- escalation instructions
+- forbidden answers
+
+The goal is to train customers that they can always add new information for the AI to use.
+
+Main dashboard priority:
+Escalations.
+
+There are two escalation types:
+
+1. Soft escalation
+The AI/agent asks the operator/human a question.
+The human replies to the AI/agent.
+The AI/agent then replies to the customer.
+The customer may not know a human helped behind the scenes.
+
+2. Hard escalation
+The AI/agent immediately hands over the conversation.
+A human replies directly to the customer.
+The AI/agent stops being involved until the conversation is resolved or handed back.
+
+Inspection requirements:
+Inspect the current codebase and report what already exists.
+
+For every relevant finding, include:
+- exact file path
+- component/function/hook name
+- current behavior
+- whether it should be reused, moved, hidden, renamed later, or rewritten
+
+Inspect specifically for:
+
+1. Current dashboard routes/pages.
+2. Current sidebar/navigation structure.
+3. Existing Messages/Inbox functionality.
+4. Existing Escalations functionality.
+5. Whether soft escalation already exists.
+6. Whether hard escalation already exists.
+7. Reply flows:
+   - reply to customer directly
+   - reply to AI/agent/Marina
+   - AI suggested replies
+   - edit reply
+   - mark resolved
+   - archive
+   - take over
+   - hand back to AI
+8. Settings page structure.
+9. File upload/document upload functionality.
+10. Knowledge base/source-of-truth functionality.
+11. Channel connection/status functionality.
+12. Hardcoded client/agent names:
+   - BlueMarlin
+   - Blue Marlin
+   - Marina
+   - wetakeyourjob
+   - WTYJ
+13. localStorage keys and config files related to old clients.
+14. API endpoints/hooks used by dashboard pages.
+15. Existing mobile behavior for inbox/escalations.
+16. Existing code that is only legacy social media publishing.
+17. Existing code that is only legacy booking/capacity logic.
+18. Missing pieces for the new Unboks dashboard.
+
+Output report format:
+
+A. Executive summary
+Short diagnosis of what the dashboard currently is.
+
+B. Route/page map
+List all dashboard routes and what each does.
+
+C. Reuse map
+Table:
+- Feature
+- Existing file/component
+- Reuse / Move / Hide / Rewrite
+- Notes
+
+D. Escalation capability audit
+Explain what exists for soft escalation and hard escalation.
+
+E. Source of Truth audit
+Explain what exists for uploads, knowledge files, notes, rules, and client info.
+
+F. Legacy code list
+List BlueMarlin/social/booking code that should not be prominent in Unboks.
+
+G. Missing pieces
+List what must be built.
+
+H. Smallest safe first change
+Recommend the first code change after this report.
+
+I. Risks
+List what could break if we refactor too aggressively.
+
+Again:
+Do not modify files.
+Only inspect and report.
+Wait for approval before making changes.
