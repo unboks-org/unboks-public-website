@@ -2,7 +2,7 @@
 
 ## Overview
 
-pnpm workspace monorepo hosting the BlueMarlin operator dashboard for wetakeyourjob.com. The marketing site has been removed — the root path `/` now redirects directly to the dashboard login. A separate BlueMarlin Tours Curaçao booking demo is also kept for prospective clients.
+pnpm workspace monorepo hosting the **Unboks** customer dashboard and the Unboks.org marketing site. The product is a multi-tenant AI inbox / escalation platform. The dashboard is being transitioned from the legacy BlueMarlin brand to the Unboks brand. A separate BlueMarlin Tours Curaçao booking demo is also kept for prospective clients.
 
 ## Stack
 
@@ -25,20 +25,19 @@ pnpm workspace monorepo hosting the BlueMarlin operator dashboard for wetakeyour
 - `/` — Redirects to `/dashboard/login`
 - Any unmatched URL — Redirects to `/dashboard/login`
 
-**Dashboard (BlueMarlin operator dashboard)**
+**Dashboard (Unboks customer dashboard)**
 - `/dashboard/login` — Login page (workspace code + access key, dark theme)
-- `/dashboard` — OmniInbox (primary view, Gmail-style conversation list with PlatformFilterBar)
-- `/dashboard/bookings` — Bookings/Orders page (wraps CapacityChecker)
-- `/dashboard/settings` — Settings (feature toggles, analytics shortcut, bookings/orders label toggle, email)
+- `/dashboard` — Inbox (primary view, Gmail-style conversation list with PlatformFilterBar)
+- `/dashboard?view=escalations` — Escalations view (Soft/Hard escalations, compose modal)
+- `/dashboard/channels` — Channels status page (WhatsApp connected, others not connected/coming soon)
+- `/dashboard/settings` — Settings (Business Info, Source of Truth, Rules, Team Members, Notifications, Language, Email Integration; Advanced section with legacy features)
 - `/dashboard/settings/analytics` — Analytics charts (platform counts, escalation status, 14-day trend via recharts)
-- `/dashboard/overview` — Legacy overview (hidden from nav, accessible by direct URL)
-- `/dashboard/social` — Social media content pipeline (hidden from nav)
-- `/dashboard/create` — Manual post creation (hidden from nav)
-- `/dashboard/training` — Brand training examples (hidden from nav)
-- `/dashboard/published` — Published posts archive (hidden from nav)
-- `/dashboard/learnings` — Brand learnings manager (hidden from nav)
-- `/dashboard/assets` — Photo/video asset library (hidden from nav)
+- Hidden/legacy (accessible by direct URL): `/dashboard/overview`, `/dashboard/social`, `/dashboard/create`, `/dashboard/training`, `/dashboard/published`, `/dashboard/learnings`, `/dashboard/assets`, `/dashboard/bookings`
 - Legacy redirects: `/dashboard/messages` → `/dashboard`, `/dashboard/capacity` → `/dashboard/bookings`, `/dashboard/escalations` → `/dashboard?view=escalations`
+
+**Tenant config** (`src/dashboard/lib/tenant.ts`): `PRODUCT_NAME = "Unboks"`, `CLIENT_NAME = "Unboks.org"`, `AGENT_NAME = "AI Assistant"`. All brand references in the dashboard shell use these constants (AppLayout.tsx sidebar and mobile header).
+
+**Escalation terminology**: "Semi Escalation" → "Soft Escalation", "Full Escalation" → "Hard Escalation". "Marina" → "the AI" in all labels, buttons, and placeholders.
 
 **Demo — BlueMarlin Tours Curaçao (booking site)**
 - `/demo/bluemarlin/` — Homepage (hero, packages, stats, FAQ, CTA)

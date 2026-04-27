@@ -24,6 +24,7 @@ import AssetLibrary from '@dashboard/pages/AssetLibrary';
 import BookingsPage from '@dashboard/pages/BookingsPage';
 import Analytics from '@dashboard/pages/Analytics';
 import DashboardNotFound from '@dashboard/pages/not-found';
+import Channels from '@dashboard/pages/Channels';
 
 import DemoApp from './demo/bluemarlin/DemoApp';
 import HomePage from './HomePage';
@@ -81,6 +82,7 @@ function DashboardShell() {
                       <Route index element={<Messages />} />
                       <Route path="escalations" element={<Navigate to="/dashboard?view=escalations" replace />} />
                       <Route path="bookings" element={<BookingsPage />} />
+                      <Route path="channels" element={<Channels />} />
                       <Route path="settings" element={<Settings />} />
                       <Route path="settings/analytics" element={<Analytics />} />
 

@@ -9,20 +9,17 @@ import {
   Bell,
   Sun,
   Moon,
-  CalendarDays,
   Inbox,
-  Share2,
-  PenSquare,
+  Wifi,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@dashboard/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@dashboard/components/ui/sheet";
 import { cn } from "@dashboard/lib/utils";
 import { motion } from "framer-motion";
-import { useConversations, useDryRun } from "@dashboard/hooks/use-bluemarlin";
+import { useConversations } from "@dashboard/hooks/use-bluemarlin";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
-import { useBookingsLabel } from "@dashboard/hooks/use-bookings-label";
-import { useFeatureToggles } from "@dashboard/lib/feature-toggles";
+import { PRODUCT_NAME } from "@dashboard/lib/tenant";
 
 const HIDDEN_KEY = "bluemarlin_hidden_conversations";
 function getHiddenSet(): Set<string> {
@@ -35,17 +32,9 @@ function getHiddenSet(): Set<string> {
 const PAGE_LABELS: Record<string, { label: string; icon: React.ElementType }> = {
   "/dashboard": { label: "Inbox", icon: Inbox },
   "/dashboard/escalations": { label: "Escalations", icon: AlertTriangle },
-  "/dashboard/bookings": { label: "Bookings", icon: CalendarDays },
+  "/dashboard/channels": { label: "Channels", icon: Wifi },
   "/dashboard/settings": { label: "Settings", icon: Settings },
   "/dashboard/settings/analytics": { label: "Analytics", icon: Settings },
-  "/dashboard/overview": { label: "Overview", icon: Inbox },
-  "/dashboard/social": { label: "Social Media", icon: Inbox },
-  "/dashboard/create": { label: "Create", icon: Inbox },
-  "/dashboard/training": { label: "Brand Training", icon: Settings },
-  "/dashboard/published": { label: "Published", icon: Inbox },
-  "/dashboard/learnings": { label: "Learnings", icon: Settings },
-  "/dashboard/assets": { label: "Assets", icon: Settings },
-  "/dashboard/capacity": { label: "Capacity", icon: CalendarDays },
 };
 
 function NotificationBell() {
@@ -151,27 +140,9 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
   );
 }
 
-function DryRunBanner() {
-  const { data, toggle } = useDryRun();
-  if (!data?.dry_run) return null;
-  return (
-    <div className="w-full bg-amber-500/10 text-amber-400 px-4 py-2.5 flex items-center justify-between gap-3 text-sm font-medium border-b border-amber-500/15 shrink-0">
-      <div className="flex items-center gap-2 min-w-0">
-        <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
-        <span className="truncate">
-          Dry-run mode active — posts are marked "published" but nothing is actually sent to social media.
-        </span>
-      </div>
-      <button
-        onClick={() => toggle.mutate()}
-        disabled={toggle.isPending}
-        className="ml-2 bg-amber-500 text-amber-950 px-3 py-1 rounded-lg font-bold hover:bg-amber-400 disabled:opacity-50 shrink-0 text-xs transition-colors"
-      >
-        {toggle.isPending ? "Disabling…" : "Disable"}
-      </button>
-    </div>
-  );
-}
+// DryRunBanner: intentionally not shown in the main Unboks customer nav.
+// It is preserved here for legacy BlueMarlin clients who use social publishing.
+// TODO: render conditionally when tenant has social publishing enabled.
 
 export function AppLayout() {
   const { logout } = useAuthContext();
@@ -179,8 +150,6 @@ export function AppLayout() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { label: bookingsLabel } = useBookingsLabel();
-  const { features } = useFeatureToggles();
 
   const isEscalationsView = location.pathname === "/dashboard" && searchParams.get("view") === "escalations";
   const isHome = (location.pathname === "/dashboard" || location.pathname === "/dashboard/") && !isEscalationsView;
@@ -189,7 +158,7 @@ export function AppLayout() {
     {
       path: "/dashboard",
       search: "",
-      label: "Home",
+      label: "Inbox",
       icon: Inbox,
       isActive: isHome,
     },
@@ -201,26 +170,12 @@ export function AppLayout() {
       isActive: isEscalationsView,
     },
     {
-      path: "/dashboard/bookings",
+      path: "/dashboard/channels",
       search: "",
-      label: bookingsLabel,
-      icon: CalendarDays,
-      isActive: location.pathname === "/dashboard/bookings" || location.pathname.startsWith("/dashboard/bookings/"),
+      label: "Channels",
+      icon: Wifi,
+      isActive: location.pathname === "/dashboard/channels",
     },
-    ...(features.showSocial ? [{
-      path: "/dashboard/social",
-      search: "",
-      label: "Social Media",
-      icon: Share2,
-      isActive: location.pathname === "/dashboard/social" || location.pathname.startsWith("/dashboard/social/"),
-    }] : []),
-    ...(features.showCreate ? [{
-      path: "/dashboard/create",
-      search: "",
-      label: "Create",
-      icon: PenSquare,
-      isActive: location.pathname === "/dashboard/create" || location.pathname.startsWith("/dashboard/create/"),
-    }] : []),
   ];
 
   const isSettingsActive = location.pathname === "/dashboard/settings" || location.pathname.startsWith("/dashboard/settings/");
@@ -247,7 +202,7 @@ export function AppLayout() {
         <div className="select-none flex items-center justify-between">
           <div>
             <p className="text-base font-bold tracking-tight leading-none text-gradient-ocean">
-              Blue Marlin Tours
+              {PRODUCT_NAME}
             </p>
             <p className="text-[11px] font-bold tracking-[0.24em] text-primary/60 uppercase mt-2">
               Dashboard
@@ -387,7 +342,6 @@ export function AppLayout() {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <DryRunBanner />
         <TopBar onLogout={logout} />
 
         <header
@@ -398,7 +352,7 @@ export function AppLayout() {
           }}
         >
           <div className="flex items-center gap-2 select-none">
-            <span className="text-sm font-bold text-foreground text-gradient-ocean">Blue Marlin Tours</span>
+            <span className="text-sm font-bold text-foreground text-gradient-ocean">{PRODUCT_NAME}</span>
           </div>
           <div className="flex items-center gap-1">
             <button

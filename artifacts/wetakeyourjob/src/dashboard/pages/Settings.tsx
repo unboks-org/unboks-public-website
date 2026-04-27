@@ -13,6 +13,7 @@ import {
   Info, Code, Map, Ship, Sun, Palette, ArrowRight, ArrowLeft, FolderOpen,
   Settings as SettingsIcon, CalendarDays, Plus, Clock, X, Mail, BrainCircuit, RefreshCw, Zap, Wrench,
   LayoutDashboard, Share2, PenSquare, BarChart3,
+  Building2, FileText, Users, Bell, Globe, Upload, Lock, ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
 import { useEmailSettings } from "@dashboard/hooks/use-email-settings";
@@ -113,6 +114,16 @@ function AccordionSection({ title, subtitle, icon: Icon, iconColor, iconBg, clos
   );
 }
 
+// ─── Placeholder coming-soon notice ──────────────────────────────────────────
+function ComingSoon({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 border border-border/60">
+      <Clock className="w-4 h-4 text-muted-foreground/50 shrink-0" />
+      <p className="text-sm text-muted-foreground">{label} — coming soon. Contact Unboks to configure this.</p>
+    </div>
+  );
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Settings() {
   const navigate = useNavigate();
@@ -123,7 +134,8 @@ export default function Settings() {
   const { data: driveFolders } = useGoogleDriveFolders(!!driveStatus?.connected);
   const { data: dryRunData, toggle: toggleDryRun } = useDryRun();
   const [expandedConfigSection, setExpandedConfigSection] = useState<number | null>(null);
-  const [modulesOpen, setModulesOpen] = useState(true);
+  const [modulesOpen, setModulesOpen] = useState(false);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
 
   // Schedule
   const { data: scheduleSlots } = useScheduleSlots();
@@ -155,7 +167,7 @@ export default function Settings() {
   const { label: bookingsLabel, save: saveBookingsLabel } = useBookingsLabel();
 
   return (
-    <div className="space-y-4 max-w-3xl">
+    <div className="space-y-4 max-w-3xl pb-16">
       <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-foreground/65 hover:text-foreground transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back
       </button>
@@ -164,275 +176,14 @@ export default function Settings() {
           <SettingsIcon className="w-7 h-7 text-primary" />
           Settings
         </h1>
-        <p className="text-muted-foreground text-[15px]">Manage your brand, connections, and system configuration.</p>
+        <p className="text-muted-foreground text-[15px]">Manage your account, AI knowledge, team, and integrations.</p>
       </div>
 
-      {/* ── Sidebar Modules ──────────────────────────────────────────────── */}
-      <div className="rounded-2xl border border-border bg-card overflow-hidden">
-        <button
-          onClick={() => setModulesOpen((o) => !o)}
-          className="w-full px-5 py-4 flex items-center gap-3 text-left hover:bg-muted/20 transition-colors"
-        >
-          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-            <LayoutDashboard className="w-4 h-4 text-primary" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-foreground">Sidebar Modules</p>
-            <p className="text-sm text-muted-foreground mt-0.5">Choose which sections appear in the navigation</p>
-          </div>
-          <div className="w-7 h-7 rounded-full flex items-center justify-center bg-primary/10 shrink-0">
-            {modulesOpen
-              ? <ChevronUp className="w-4 h-4 text-primary" />
-              : <ChevronDown className="w-4 h-4 text-primary" />}
-          </div>
-        </button>
-
-        <AnimatePresence>
-          {modulesOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="border-t border-border overflow-hidden"
-            >
-              {/* Social Media toggle */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
-                <div className="flex items-center gap-3">
-                  <Share2 className="w-4 h-4 text-muted-foreground shrink-0" />
-                  <div>
-                    <p className="text-[15px] font-medium text-foreground">Social Media</p>
-                    <p className="text-sm text-muted-foreground mt-0.5">Content pipeline and post management</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => toggleFeature("showSocial")}
-                  className={cn(
-                    "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
-                    features.showSocial ? "bg-primary" : "bg-muted-foreground/20"
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
-                      features.showSocial ? "translate-x-5" : "translate-x-0"
-                    )}
-                  />
-                </button>
-              </div>
-
-              {/* Create toggle */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
-                <div className="flex items-center gap-3">
-                  <PenSquare className="w-4 h-4 text-muted-foreground shrink-0" />
-                  <div>
-                    <p className="text-[15px] font-medium text-foreground">Create</p>
-                    <p className="text-sm text-muted-foreground mt-0.5">Manual content creation tools</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => toggleFeature("showCreate")}
-                  className={cn(
-                    "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
-                    features.showCreate ? "bg-primary" : "bg-muted-foreground/20"
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
-                      features.showCreate ? "translate-x-5" : "translate-x-0"
-                    )}
-                  />
-                </button>
-              </div>
-
-              {/* Bookings / Orders label */}
-              <div className="flex items-center justify-between px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
-                  <div>
-                    <p className="text-[15px] font-medium text-foreground">Bookings / Orders Label</p>
-                    <p className="text-sm text-muted-foreground mt-0.5">Customize the sidebar navigation label</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-0.5 shrink-0">
-                  <button
-                    onClick={() => saveBookingsLabel("Bookings")}
-                    className={cn(
-                      "px-3 py-1 rounded-md text-sm font-medium transition-colors",
-                      bookingsLabel === "Bookings" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    Bookings
-                  </button>
-                  <button
-                    onClick={() => saveBookingsLabel("Orders")}
-                    className={cn(
-                      "px-3 py-1 rounded-md text-sm font-medium transition-colors",
-                      bookingsLabel === "Orders" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    Orders
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* ── Analytics shortcut ───────────────────────────────────────────── */}
-      <button
-        onClick={() => navigate("/dashboard/settings/analytics")}
-        className="w-full flex items-center justify-between p-4 rounded-2xl border-l-4 border-l-violet-500 border-t border-r border-b border-border/70 bg-violet-50/60 dark:bg-violet-950/20 hover:bg-violet-50 dark:hover:bg-violet-950/30 shadow-sm transition-all"
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-500/20 flex items-center justify-center shrink-0">
-            <BarChart3 className="w-5 h-5 text-violet-600 dark:text-violet-400" />
-          </div>
-          <div className="text-left">
-            <p className="text-[15px] font-semibold text-foreground">Analytics</p>
-            <p className="text-sm text-muted-foreground">Inbox volume, platform stats, and activity trends</p>
-          </div>
-        </div>
-        <ArrowRight className="w-4 h-4 text-muted-foreground" />
-      </button>
-
-      {/* ── Brand Training shortcut ──────────────────────────────────────── */}
-      <button
-        onClick={() => navigate("/dashboard/training")}
-        className="w-full flex items-center justify-between p-4 rounded-2xl border-l-4 border-l-teal-500 border-t border-r border-b border-border/70 bg-teal-50/60 dark:bg-teal-950/20 hover:bg-teal-50 dark:hover:bg-teal-950/30 shadow-sm transition-all"
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center shrink-0">
-            <BrainCircuit className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-          </div>
-          <div className="text-left">
-            <p className="text-[15px] font-semibold text-foreground">Brand Training</p>
-            <p className="text-sm text-muted-foreground">Examples, voice rules, and visual guidelines</p>
-          </div>
-        </div>
-        <ArrowRight className="w-4 h-4 text-muted-foreground" />
-      </button>
-
-      {/* ── Assets & Connections ─────────────────────────────────────────── */}
+      {/* ── Business Info ─────────────────────────────────────────────────── */}
       <AccordionSection
-        title="Assets & Connections"
-        subtitle="Google Drive, photo library"
-        icon={FolderOpen}
-        iconColor="text-blue-700 dark:text-blue-300"
-        iconBg="bg-blue-200 dark:bg-blue-500/25"
-        closedIconBg="bg-blue-100 dark:bg-blue-500/15"
-        accentBorder="border-l-blue-500"
-        headerOpenBg="bg-blue-50 dark:bg-blue-950/60"
-        closedBg="bg-blue-50/60 dark:bg-card"
-        contentBg="bg-blue-50/80 dark:bg-blue-950/30"
-      >
-        <div className="space-y-4">
-          {/* Google Drive */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                <HardDrive className="w-4.5 h-4.5 text-blue-400" style={{ width: 18, height: 18 }} />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Google Drive</p>
-                <p className="text-xs text-muted-foreground">
-                  {driveStatus?.connected
-                    ? driveStatus.folder_id ? "Connected — syncing from selected folder" : "Connected — no folder selected"
-                    : "Not connected"}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {driveStatus?.connected ? (
-                <>
-                  <span className="flex items-center gap-1 text-xs font-semibold text-emerald-500 dark:text-emerald-400">
-                    <CheckCircle2 className="w-3.5 h-3.5" /> Connected
-                  </span>
-                  <Button size="sm" variant="outline" onClick={() => driveDisconnect.mutate()} disabled={driveDisconnect.isPending} className="text-rose-500 border-rose-500/30 hover:bg-rose-500/10">
-                    <XCircle className="w-3.5 h-3.5 mr-1" /> Disconnect
-                  </Button>
-                </>
-              ) : (
-                <a href={api.getGoogleAuthUrl(window.location.href)}>
-                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">Connect</Button>
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* Folder picker + sync */}
-          {driveStatus?.connected && (
-            <div className="p-4 rounded-xl bg-muted/40 border border-border space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-foreground">Sync Folder</p>
-                  <p className="text-xs text-muted-foreground">
-                    {driveStatus.folder_id ? "Syncing from selected folder" : "Select a folder to sync photos from"}
-                  </p>
-                </div>
-                {driveStatus.folder_id && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => driveSync.mutate()}
-                    disabled={driveSync.isPending}
-                    className="border-border"
-                  >
-                    <RefreshCw className={cn("w-3.5 h-3.5 mr-1.5", driveSync.isPending && "animate-spin")} />
-                    {driveSync.isPending ? "Syncing…" : "Sync Now"}
-                  </Button>
-                )}
-              </div>
-              {driveFolders && driveFolders.length > 0 && (
-                <div className="grid grid-cols-2 gap-2">
-                  {driveFolders.map((f) => (
-                    <button
-                      key={f.id}
-                      onClick={() => driveSetFolder.mutate(f.id)}
-                      disabled={driveSetFolder.isPending}
-                      className={cn(
-                        "flex items-center gap-2 p-3 rounded-lg border text-left text-sm transition-all",
-                        driveStatus.folder_id === f.id
-                          ? "border-blue-500 bg-blue-500/10 text-foreground font-medium"
-                          : "border-border bg-muted/30 text-muted-foreground hover:border-border/80"
-                      )}
-                    >
-                      <FolderOpen className="w-4 h-4 shrink-0" />
-                      <span className="truncate">{f.name}</span>
-                      {driveStatus.folder_id === f.id && <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 ml-auto shrink-0" />}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Asset Library link */}
-          <button
-            onClick={() => navigate("/dashboard/assets")}
-            className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border hover:bg-muted/60 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center">
-                <FolderOpen className="w-4 h-4 text-muted-foreground" />
-              </div>
-              <div className="text-left">
-                <p className="text-sm font-semibold text-foreground">Photo & Video Library</p>
-                <p className="text-xs text-muted-foreground">Browse and manage uploaded assets</p>
-              </div>
-            </div>
-            <ArrowRight className="w-4 h-4 text-muted-foreground" />
-          </button>
-        </div>
-      </AccordionSection>
-
-      {/* ── Schedule & Automation ─────────────────────────────────────── */}
-      <AccordionSection
-        title="Schedule & Automation"
-        subtitle={`${(scheduleSlots ?? []).length} weekly slot${(scheduleSlots ?? []).length !== 1 ? "s" : ""}`}
-        icon={CalendarDays}
+        title="Business Info"
+        subtitle="Name, contact details, and opening hours"
+        icon={Building2}
         iconColor="text-indigo-700 dark:text-indigo-300"
         iconBg="bg-indigo-200 dark:bg-indigo-500/25"
         closedIconBg="bg-indigo-100 dark:bg-indigo-500/15"
@@ -441,82 +192,49 @@ export default function Settings() {
         closedBg="bg-indigo-50/60 dark:bg-card"
         contentBg="bg-indigo-50/80 dark:bg-indigo-950/30"
       >
+        <ComingSoon label="Business profile editor" />
+      </AccordionSection>
+
+      {/* ── Source of Truth ───────────────────────────────────────────────── */}
+      <AccordionSection
+        title="Source of Truth"
+        subtitle="Documents and quick updates the AI can draw from"
+        icon={FileText}
+        iconColor="text-teal-700 dark:text-teal-300"
+        iconBg="bg-teal-200 dark:bg-teal-500/25"
+        closedIconBg="bg-teal-100 dark:bg-teal-500/15"
+        accentBorder="border-l-teal-500"
+        headerOpenBg="bg-teal-50 dark:bg-teal-950/60"
+        closedBg="bg-teal-50/60 dark:bg-card"
+        contentBg="bg-teal-50/80 dark:bg-teal-950/30"
+      >
         <div className="space-y-4">
           <p className="text-[15px] text-muted-foreground leading-relaxed">
-            Set weekly time slots for auto-publishing. When you schedule a draft without a specific time, it picks the next open slot.
+            Upload documents (PDFs, Word files) or add quick text updates so the AI has accurate, up-to-date information to draw from when answering customers.
           </p>
-
-          {/* Current slots */}
-          {slots.length > 0 ? (
-            <div className="space-y-2">
-              {slots.map((slot, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border group">
-                  <CalendarDays className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
-                  <span className="text-[15px] font-medium text-foreground flex-1">{slot.day_of_week}</span>
-                  <span className="text-[15px] text-muted-foreground font-mono">{slot.time_utc} UTC</span>
-                  <button
-                    onClick={() => removeSlot(idx)}
-                    className="p-1 rounded text-rose-400/50 hover:text-rose-400 hover:bg-rose-400/10 transition-colors shrink-0"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-[15px] text-muted-foreground italic">No weekly slots configured. Posts must be scheduled manually.</p>
-          )}
-
-          {/* Add slot */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <select
-              value={newSlotDay}
-              onChange={(e) => setNewSlotDay(e.target.value)}
-              className="px-3 py-1.5 text-[15px] rounded-lg border border-border bg-muted/50 text-foreground"
+          <div className="flex flex-wrap gap-3">
+            <button
+              disabled
+              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dashed border-teal-500/40 text-teal-600 dark:text-teal-400 text-sm font-semibold opacity-50 cursor-not-allowed"
             >
-              {DAYS.map((d) => <option key={d} value={d}>{d}</option>)}
-            </select>
-            <input
-              type="time"
-              value={newSlotTime}
-              onChange={(e) => setNewSlotTime(e.target.value)}
-              className="px-3 py-1.5 text-[15px] rounded-lg border border-border bg-muted/50 text-foreground font-mono"
-            />
-            <Button size="sm" variant="outline" onClick={addSlot} className="border-border">
-              <Plus className="w-3.5 h-3.5 mr-1" /> Add Slot
-            </Button>
-            {isDirty && (
-              <Button size="sm" onClick={saveSlots} disabled={updateSlots.isPending} className="bg-primary text-primary-foreground hover:bg-primary/90 ml-auto">
-                {updateSlots.isPending ? "Saving..." : "Save Schedule"}
-              </Button>
-            )}
+              <Upload className="w-4 h-4" /> Upload document
+            </button>
+            <button
+              disabled
+              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dashed border-teal-500/40 text-teal-600 dark:text-teal-400 text-sm font-semibold opacity-50 cursor-not-allowed"
+            >
+              <Plus className="w-4 h-4" /> Add quick update
+            </button>
           </div>
-
-          {/* Upcoming */}
-          {upcoming && upcoming.length > 0 && (
-            <div className="mt-4 pt-4 border-t border-border">
-              <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Upcoming Posts</p>
-              <div className="space-y-2">
-                {upcoming.map((draft) => (
-                  <div key={draft.id} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border">
-                    <Clock className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                    <p className="text-[15px] text-foreground/85 flex-1 truncate">{draft.instagram_caption.slice(0, 60)}...</p>
-                    <span className="text-sm text-muted-foreground font-mono shrink-0">
-                      {draft.scheduled_at ? format(new Date(draft.scheduled_at), 'MMM d, h:mm a') : '—'}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <ComingSoon label="Document upload and quick updates" />
         </div>
       </AccordionSection>
 
-      {/* ── Capacity & Availability ──────────────────────────────────────── */}
+      {/* ── Rules ────────────────────────────────────────────────────────── */}
       <AccordionSection
-        title="Capacity & Availability"
-        subtitle="Real-time trip occupancy"
-        icon={Ship}
+        title="Rules"
+        subtitle="What the AI must always do or never do"
+        icon={Lock}
         iconColor="text-amber-700 dark:text-amber-300"
         iconBg="bg-amber-200 dark:bg-amber-500/25"
         closedIconBg="bg-amber-100 dark:bg-amber-500/15"
@@ -525,18 +243,55 @@ export default function Settings() {
         closedBg="bg-amber-50/60 dark:bg-card"
         contentBg="bg-amber-50/80 dark:bg-amber-950/30"
       >
-        <div className="space-y-3">
-          <p className="text-[15px] text-muted-foreground leading-relaxed">
-            View real-time availability across all trips. The system uses this data to write urgency-calibrated social posts.
-          </p>
-          <button
-            onClick={() => navigate("/dashboard/bookings")}
-            className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border hover:bg-muted/60 transition-colors"
-          >
-            <p className="text-[15px] font-semibold text-foreground">Open Capacity Checker</p>
-            <ArrowRight className="w-4 h-4 text-muted-foreground" />
-          </button>
-        </div>
+        <ComingSoon label="Rule editor" />
+      </AccordionSection>
+
+      {/* ── Team Members ─────────────────────────────────────────────────── */}
+      <AccordionSection
+        title="Team Members"
+        subtitle="Who has access to this dashboard"
+        icon={Users}
+        iconColor="text-blue-700 dark:text-blue-300"
+        iconBg="bg-blue-200 dark:bg-blue-500/25"
+        closedIconBg="bg-blue-100 dark:bg-blue-500/15"
+        accentBorder="border-l-blue-500"
+        headerOpenBg="bg-blue-50 dark:bg-blue-950/60"
+        closedBg="bg-blue-50/60 dark:bg-card"
+        contentBg="bg-blue-50/80 dark:bg-blue-950/30"
+      >
+        <ComingSoon label="Team member management" />
+      </AccordionSection>
+
+      {/* ── Notifications ────────────────────────────────────────────────── */}
+      <AccordionSection
+        title="Notifications"
+        subtitle="How and when you receive alerts"
+        icon={Bell}
+        iconColor="text-rose-700 dark:text-rose-300"
+        iconBg="bg-rose-200 dark:bg-rose-500/25"
+        closedIconBg="bg-rose-100 dark:bg-rose-500/15"
+        accentBorder="border-l-rose-500"
+        headerOpenBg="bg-rose-50 dark:bg-rose-950/60"
+        closedBg="bg-rose-50/60 dark:bg-card"
+        contentBg="bg-rose-50/80 dark:bg-rose-950/30"
+      >
+        <ComingSoon label="Notification preferences" />
+      </AccordionSection>
+
+      {/* ── Language ─────────────────────────────────────────────────────── */}
+      <AccordionSection
+        title="Language"
+        subtitle="Dashboard and AI response language"
+        icon={Globe}
+        iconColor="text-green-700 dark:text-green-300"
+        iconBg="bg-green-200 dark:bg-green-500/25"
+        closedIconBg="bg-green-100 dark:bg-green-500/15"
+        accentBorder="border-l-green-500"
+        headerOpenBg="bg-green-50 dark:bg-green-950/60"
+        closedBg="bg-green-50/60 dark:bg-card"
+        contentBg="bg-green-50/80 dark:bg-green-950/30"
+      >
+        <ComingSoon label="Language settings" />
       </AccordionSection>
 
       {/* ── Email Integration ────────────────────────────────────────────── */}
@@ -624,117 +379,522 @@ export default function Settings() {
         </div>
       </AccordionSection>
 
-      {/* ── Developer ──────────────────────────────────────────────── */}
-      <AccordionSection
-        title="Developer"
-        subtitle="Dry-run mode and experimental settings"
-        icon={Wrench}
-        iconColor="text-slate-700 dark:text-slate-300"
-        iconBg="bg-slate-200 dark:bg-slate-500/25"
-        closedIconBg="bg-slate-100 dark:bg-slate-500/15"
-        accentBorder="border-l-slate-500"
-        headerOpenBg="bg-slate-50 dark:bg-slate-900/60"
-        closedBg="bg-slate-50/60 dark:bg-card"
-        contentBg="bg-slate-50/80 dark:bg-slate-900/30"
-      >
-        <div className="space-y-4">
-          {/* Publishing Mode toggle */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
-                <Zap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Publishing Mode</p>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {dryRunData?.dry_run ? "Dry run — posts are not published to social media" : "Live — posts are published to social media"}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => toggleDryRun.mutate()}
-              disabled={toggleDryRun.isPending}
-              className={cn(
-                "relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none shrink-0",
-                dryRunData?.dry_run ? "bg-amber-500" : "bg-emerald-500"
-              )}
-            >
-              <span className={cn(
-                "inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform",
-                dryRunData?.dry_run ? "translate-x-1" : "translate-x-6"
-              )} />
-            </button>
+      {/* ── Advanced (legacy sections) ────────────────────────────────────── */}
+      <div className="rounded-2xl border border-border/60 overflow-hidden">
+        <button
+          onClick={() => setAdvancedOpen((o) => !o)}
+          className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-muted/20 transition-colors"
+        >
+          <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center shrink-0">
+            {advancedOpen
+              ? <ChevronDown className="w-4 h-4 text-muted-foreground" />
+              : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
           </div>
-        </div>
-      </AccordionSection>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-foreground">Advanced</p>
+            <p className="text-sm text-muted-foreground mt-0.5">System configuration, social publishing, and developer tools</p>
+          </div>
+        </button>
 
-      {/* ── Advanced View ────────────────────────────────────────────────── */}
-      <AccordionSection
-        title="Advanced View"
-        subtitle="System context, raw configuration"
-        icon={Code}
-        iconColor="text-purple-700 dark:text-purple-300"
-        iconBg="bg-purple-200 dark:bg-purple-500/25"
-        closedIconBg="bg-purple-100 dark:bg-purple-500/15"
-        accentBorder="border-l-purple-500"
-        headerOpenBg="bg-purple-50 dark:bg-purple-950/60"
-        closedBg="bg-purple-50/60 dark:bg-card"
-        contentBg="bg-purple-50/80 dark:bg-purple-950/30"
-      >
-        <div className="space-y-4">
-          <p className="text-sm text-muted-foreground">Technical configuration injected into the system. Read-only.</p>
+        <AnimatePresence>
+          {advancedOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="border-t border-border/60 overflow-hidden"
+            >
+              <div className="p-4 space-y-4">
 
-          {configLoading ? (
-            <Skeleton className="h-48 w-full rounded-xl" />
-          ) : configError ? (
-            <ErrorState error={configError} onRetry={() => refetchConfig()} title="Failed to load configuration" />
-          ) : (
-            <>
-              {/* Parsed sections */}
-              {configSections.length > 0 && (
-                <div className="space-y-2">
-                  {configSections.map((section, idx) => (
-                    <div key={idx} className="rounded-xl border border-border overflow-hidden">
-                      <button
-                        onClick={() => setExpandedConfigSection(expandedConfigSection === idx ? null : idx)}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-muted/30 transition-colors"
+                {/* Sidebar Modules */}
+                <div className="rounded-2xl border border-border bg-card overflow-hidden">
+                  <button
+                    onClick={() => setModulesOpen((o) => !o)}
+                    className="w-full px-5 py-4 flex items-center gap-3 text-left hover:bg-muted/20 transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <LayoutDashboard className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-foreground">Sidebar Modules</p>
+                      <p className="text-sm text-muted-foreground mt-0.5">Choose which sections appear in the navigation</p>
+                    </div>
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center bg-primary/10 shrink-0">
+                      {modulesOpen
+                        ? <ChevronUp className="w-4 h-4 text-primary" />
+                        : <ChevronDown className="w-4 h-4 text-primary" />}
+                    </div>
+                  </button>
+
+                  <AnimatePresence>
+                    {modulesOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="border-t border-border overflow-hidden"
                       >
-                        <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center bg-muted")}>
-                          <section.icon className={cn("w-4 h-4", section.color)} />
+                        {/* Social Media toggle */}
+                        <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
+                          <div className="flex items-center gap-3">
+                            <Share2 className="w-4 h-4 text-muted-foreground shrink-0" />
+                            <div>
+                              <p className="text-[15px] font-medium text-foreground">Social Media</p>
+                              <p className="text-sm text-muted-foreground mt-0.5">Content pipeline and post management</p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => toggleFeature("showSocial")}
+                            className={cn(
+                              "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
+                              features.showSocial ? "bg-primary" : "bg-muted-foreground/20"
+                            )}
+                          >
+                            <span
+                              className={cn(
+                                "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
+                                features.showSocial ? "translate-x-5" : "translate-x-0"
+                              )}
+                            />
+                          </button>
                         </div>
-                        <span className="flex-1 text-[15px] font-medium text-foreground">{section.title}</span>
-                        {expandedConfigSection === idx
-                          ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
-                          : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
-                      </button>
-                      {expandedConfigSection === idx && (
-                        <div className="px-4 pb-4 border-t border-border">
-                          <pre className="text-sm text-foreground/80 font-mono whitespace-pre-wrap leading-relaxed mt-3">
-                            {section.content}
-                          </pre>
+
+                        {/* Create toggle */}
+                        <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
+                          <div className="flex items-center gap-3">
+                            <PenSquare className="w-4 h-4 text-muted-foreground shrink-0" />
+                            <div>
+                              <p className="text-[15px] font-medium text-foreground">Create</p>
+                              <p className="text-sm text-muted-foreground mt-0.5">Manual content creation tools</p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => toggleFeature("showCreate")}
+                            className={cn(
+                              "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
+                              features.showCreate ? "bg-primary" : "bg-muted-foreground/20"
+                            )}
+                          >
+                            <span
+                              className={cn(
+                                "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200",
+                                features.showCreate ? "translate-x-5" : "translate-x-0"
+                              )}
+                            />
+                          </button>
                         </div>
+
+                        {/* Bookings / Orders label */}
+                        <div className="flex items-center justify-between px-5 py-4">
+                          <div className="flex items-center gap-3">
+                            <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
+                            <div>
+                              <p className="text-[15px] font-medium text-foreground">Bookings / Orders Label</p>
+                              <p className="text-sm text-muted-foreground mt-0.5">Customize the sidebar navigation label</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-0.5 shrink-0">
+                            <button
+                              onClick={() => saveBookingsLabel("Bookings")}
+                              className={cn(
+                                "px-3 py-1 rounded-md text-sm font-medium transition-colors",
+                                bookingsLabel === "Bookings" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
+                              )}
+                            >
+                              Bookings
+                            </button>
+                            <button
+                              onClick={() => saveBookingsLabel("Orders")}
+                              className={cn(
+                                "px-3 py-1 rounded-md text-sm font-medium transition-colors",
+                                bookingsLabel === "Orders" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground"
+                              )}
+                            >
+                              Orders
+                            </button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Analytics shortcut */}
+                <button
+                  onClick={() => navigate("/dashboard/settings/analytics")}
+                  className="w-full flex items-center justify-between p-4 rounded-2xl border-l-4 border-l-violet-500 border-t border-r border-b border-border/70 bg-violet-50/60 dark:bg-violet-950/20 hover:bg-violet-50 dark:hover:bg-violet-950/30 shadow-sm transition-all"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-500/20 flex items-center justify-center shrink-0">
+                      <BarChart3 className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[15px] font-semibold text-foreground">Analytics</p>
+                      <p className="text-sm text-muted-foreground">Inbox volume, platform stats, and activity trends</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                </button>
+
+                {/* Brand Training shortcut */}
+                <button
+                  onClick={() => navigate("/dashboard/training")}
+                  className="w-full flex items-center justify-between p-4 rounded-2xl border-l-4 border-l-teal-500 border-t border-r border-b border-border/70 bg-teal-50/60 dark:bg-teal-950/20 hover:bg-teal-50 dark:hover:bg-teal-950/30 shadow-sm transition-all"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center shrink-0">
+                      <BrainCircuit className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[15px] font-semibold text-foreground">Brand Training</p>
+                      <p className="text-sm text-muted-foreground">Examples, voice rules, and visual guidelines</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                </button>
+
+                {/* Assets & Connections */}
+                <AccordionSection
+                  title="Assets & Connections"
+                  subtitle="Google Drive, photo library"
+                  icon={FolderOpen}
+                  iconColor="text-blue-700 dark:text-blue-300"
+                  iconBg="bg-blue-200 dark:bg-blue-500/25"
+                  closedIconBg="bg-blue-100 dark:bg-blue-500/15"
+                  accentBorder="border-l-blue-500"
+                  headerOpenBg="bg-blue-50 dark:bg-blue-950/60"
+                  closedBg="bg-blue-50/60 dark:bg-card"
+                  contentBg="bg-blue-50/80 dark:bg-blue-950/30"
+                >
+                  <div className="space-y-4">
+                    {/* Google Drive */}
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                          <HardDrive className="w-4.5 h-4.5 text-blue-400" style={{ width: 18, height: 18 }} />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-foreground">Google Drive</p>
+                          <p className="text-xs text-muted-foreground">
+                            {driveStatus?.connected
+                              ? driveStatus.folder_id ? "Connected — syncing from selected folder" : "Connected — no folder selected"
+                              : "Not connected"}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {driveStatus?.connected ? (
+                          <>
+                            <span className="flex items-center gap-1 text-xs font-semibold text-emerald-500 dark:text-emerald-400">
+                              <CheckCircle2 className="w-3.5 h-3.5" /> Connected
+                            </span>
+                            <Button size="sm" variant="outline" onClick={() => driveDisconnect.mutate()} disabled={driveDisconnect.isPending} className="text-rose-500 border-rose-500/30 hover:bg-rose-500/10">
+                              <XCircle className="w-3.5 h-3.5 mr-1" /> Disconnect
+                            </Button>
+                          </>
+                        ) : (
+                          <a href={api.getGoogleAuthUrl(window.location.href)}>
+                            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">Connect</Button>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Folder picker + sync */}
+                    {driveStatus?.connected && (
+                      <div className="p-4 rounded-xl bg-muted/40 border border-border space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm font-semibold text-foreground">Sync Folder</p>
+                            <p className="text-xs text-muted-foreground">
+                              {driveStatus.folder_id ? "Syncing from selected folder" : "Select a folder to sync photos from"}
+                            </p>
+                          </div>
+                          {driveStatus.folder_id && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => driveSync.mutate()}
+                              disabled={driveSync.isPending}
+                              className="border-border"
+                            >
+                              <RefreshCw className={cn("w-3.5 h-3.5 mr-1.5", driveSync.isPending && "animate-spin")} />
+                              {driveSync.isPending ? "Syncing…" : "Sync Now"}
+                            </Button>
+                          )}
+                        </div>
+                        {driveFolders && driveFolders.length > 0 && (
+                          <div className="grid grid-cols-2 gap-2">
+                            {driveFolders.map((f) => (
+                              <button
+                                key={f.id}
+                                onClick={() => driveSetFolder.mutate(f.id)}
+                                disabled={driveSetFolder.isPending}
+                                className={cn(
+                                  "flex items-center gap-2 p-3 rounded-lg border text-left text-sm transition-all",
+                                  driveStatus.folder_id === f.id
+                                    ? "border-blue-500 bg-blue-500/10 text-foreground font-medium"
+                                    : "border-border bg-muted/30 text-muted-foreground hover:border-border/80"
+                                )}
+                              >
+                                <FolderOpen className="w-4 h-4 shrink-0" />
+                                <span className="truncate">{f.name}</span>
+                                {driveStatus.folder_id === f.id && <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 ml-auto shrink-0" />}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Asset Library link */}
+                    <button
+                      onClick={() => navigate("/dashboard/assets")}
+                      className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border hover:bg-muted/60 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center">
+                          <FolderOpen className="w-4 h-4 text-muted-foreground" />
+                        </div>
+                        <div className="text-left">
+                          <p className="text-sm font-semibold text-foreground">Photo & Video Library</p>
+                          <p className="text-xs text-muted-foreground">Browse and manage uploaded assets</p>
+                        </div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                  </div>
+                </AccordionSection>
+
+                {/* Schedule & Automation */}
+                <AccordionSection
+                  title="Schedule & Automation"
+                  subtitle={`${(scheduleSlots ?? []).length} weekly slot${(scheduleSlots ?? []).length !== 1 ? "s" : ""}`}
+                  icon={CalendarDays}
+                  iconColor="text-indigo-700 dark:text-indigo-300"
+                  iconBg="bg-indigo-200 dark:bg-indigo-500/25"
+                  closedIconBg="bg-indigo-100 dark:bg-indigo-500/15"
+                  accentBorder="border-l-indigo-500"
+                  headerOpenBg="bg-indigo-50 dark:bg-indigo-950/60"
+                  closedBg="bg-indigo-50/60 dark:bg-card"
+                  contentBg="bg-indigo-50/80 dark:bg-indigo-950/30"
+                >
+                  <div className="space-y-4">
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">
+                      Set weekly time slots for auto-publishing. When you schedule a draft without a specific time, it picks the next open slot.
+                    </p>
+
+                    {/* Current slots */}
+                    {slots.length > 0 ? (
+                      <div className="space-y-2">
+                        {slots.map((slot, idx) => (
+                          <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border group">
+                            <CalendarDays className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                            <span className="text-[15px] font-medium text-foreground flex-1">{slot.day_of_week}</span>
+                            <span className="text-[15px] text-muted-foreground font-mono">{slot.time_utc} UTC</span>
+                            <button
+                              onClick={() => removeSlot(idx)}
+                              className="p-1 rounded text-rose-400/50 hover:text-rose-400 hover:bg-rose-400/10 transition-colors shrink-0"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-[15px] text-muted-foreground italic">No weekly slots configured. Posts must be scheduled manually.</p>
+                    )}
+
+                    {/* Add slot */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <select
+                        value={newSlotDay}
+                        onChange={(e) => setNewSlotDay(e.target.value)}
+                        className="px-3 py-1.5 text-[15px] rounded-lg border border-border bg-muted/50 text-foreground"
+                      >
+                        {DAYS.map((d) => <option key={d} value={d}>{d}</option>)}
+                      </select>
+                      <input
+                        type="time"
+                        value={newSlotTime}
+                        onChange={(e) => setNewSlotTime(e.target.value)}
+                        className="px-3 py-1.5 text-[15px] rounded-lg border border-border bg-muted/50 text-foreground font-mono"
+                      />
+                      <Button size="sm" variant="outline" onClick={addSlot} className="border-border">
+                        <Plus className="w-3.5 h-3.5 mr-1" /> Add Slot
+                      </Button>
+                      {isDirty && (
+                        <Button size="sm" onClick={saveSlots} disabled={updateSlots.isPending} className="bg-primary text-primary-foreground hover:bg-primary/90 ml-auto">
+                          {updateSlots.isPending ? "Saving..." : "Save Schedule"}
+                        </Button>
                       )}
                     </div>
-                  ))}
-                </div>
-              )}
 
-              {/* Raw context */}
-              <div className="rounded-xl border border-border overflow-hidden">
-                <div className="bg-muted/50 px-4 py-2 border-b border-border flex justify-between items-center">
-                  <span className="text-sm font-mono text-muted-foreground">system_context.txt</span>
-                  <span className="text-sm text-primary/80">Read-only</span>
-                </div>
-                <div className="p-4 max-h-72 overflow-y-auto">
-                  <pre className="text-sm text-foreground/75 font-mono whitespace-pre-wrap leading-relaxed">
-                    {config?.context || "No configuration loaded."}
-                  </pre>
-                </div>
+                    {/* Upcoming */}
+                    {upcoming && upcoming.length > 0 && (
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Upcoming Posts</p>
+                        <div className="space-y-2">
+                          {upcoming.map((draft) => (
+                            <div key={draft.id} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-border">
+                              <Clock className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                              <p className="text-[15px] text-foreground/85 flex-1 truncate">{draft.instagram_caption.slice(0, 60)}...</p>
+                              <span className="text-sm text-muted-foreground font-mono shrink-0">
+                                {draft.scheduled_at ? format(new Date(draft.scheduled_at), 'MMM d, h:mm a') : '—'}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </AccordionSection>
+
+                {/* Capacity & Availability */}
+                <AccordionSection
+                  title="Capacity & Availability"
+                  subtitle="Real-time trip occupancy"
+                  icon={Ship}
+                  iconColor="text-amber-700 dark:text-amber-300"
+                  iconBg="bg-amber-200 dark:bg-amber-500/25"
+                  closedIconBg="bg-amber-100 dark:bg-amber-500/15"
+                  accentBorder="border-l-amber-500"
+                  headerOpenBg="bg-amber-50 dark:bg-amber-950/60"
+                  closedBg="bg-amber-50/60 dark:bg-card"
+                  contentBg="bg-amber-50/80 dark:bg-amber-950/30"
+                >
+                  <div className="space-y-3">
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">
+                      View real-time availability across all trips. The system uses this data to write urgency-calibrated social posts.
+                    </p>
+                    <button
+                      onClick={() => navigate("/dashboard/bookings")}
+                      className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border hover:bg-muted/60 transition-colors"
+                    >
+                      <p className="text-[15px] font-semibold text-foreground">Open Capacity Checker</p>
+                      <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                  </div>
+                </AccordionSection>
+
+                {/* Developer */}
+                <AccordionSection
+                  title="Developer"
+                  subtitle="Dry-run mode and experimental settings"
+                  icon={Wrench}
+                  iconColor="text-slate-700 dark:text-slate-300"
+                  iconBg="bg-slate-200 dark:bg-slate-500/25"
+                  closedIconBg="bg-slate-100 dark:bg-slate-500/15"
+                  accentBorder="border-l-slate-500"
+                  headerOpenBg="bg-slate-50 dark:bg-slate-900/60"
+                  closedBg="bg-slate-50/60 dark:bg-card"
+                  contentBg="bg-slate-50/80 dark:bg-slate-900/30"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+                          <Zap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-foreground">Publishing Mode</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            {dryRunData?.dry_run ? "Dry run — posts are not published to social media" : "Live — posts are published to social media"}
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => toggleDryRun.mutate()}
+                        disabled={toggleDryRun.isPending}
+                        className={cn(
+                          "relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none shrink-0",
+                          dryRunData?.dry_run ? "bg-amber-500" : "bg-emerald-500"
+                        )}
+                      >
+                        <span className={cn(
+                          "inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform",
+                          dryRunData?.dry_run ? "translate-x-1" : "translate-x-6"
+                        )} />
+                      </button>
+                    </div>
+                  </div>
+                </AccordionSection>
+
+                {/* Advanced View */}
+                <AccordionSection
+                  title="Advanced View"
+                  subtitle="System context, raw configuration"
+                  icon={Code}
+                  iconColor="text-purple-700 dark:text-purple-300"
+                  iconBg="bg-purple-200 dark:bg-purple-500/25"
+                  closedIconBg="bg-purple-100 dark:bg-purple-500/15"
+                  accentBorder="border-l-purple-500"
+                  headerOpenBg="bg-purple-50 dark:bg-purple-950/60"
+                  closedBg="bg-purple-50/60 dark:bg-card"
+                  contentBg="bg-purple-50/80 dark:bg-purple-950/30"
+                >
+                  <div className="space-y-4">
+                    <p className="text-sm text-muted-foreground">Technical configuration injected into the system. Read-only.</p>
+
+                    {configLoading ? (
+                      <Skeleton className="h-48 w-full rounded-xl" />
+                    ) : configError ? (
+                      <ErrorState error={configError} onRetry={() => refetchConfig()} title="Failed to load configuration" />
+                    ) : (
+                      <>
+                        {/* Parsed sections */}
+                        {configSections.length > 0 && (
+                          <div className="space-y-2">
+                            {configSections.map((section, idx) => (
+                              <div key={idx} className="rounded-xl border border-border overflow-hidden">
+                                <button
+                                  onClick={() => setExpandedConfigSection(expandedConfigSection === idx ? null : idx)}
+                                  className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-muted/30 transition-colors"
+                                >
+                                  <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center bg-muted")}>
+                                    <section.icon className={cn("w-4 h-4", section.color)} />
+                                  </div>
+                                  <span className="flex-1 text-[15px] font-medium text-foreground">{section.title}</span>
+                                  {expandedConfigSection === idx
+                                    ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                                    : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+                                </button>
+                                {expandedConfigSection === idx && (
+                                  <div className="px-4 pb-4 border-t border-border">
+                                    <pre className="text-sm text-foreground/80 font-mono whitespace-pre-wrap leading-relaxed mt-3">
+                                      {section.content}
+                                    </pre>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Raw context */}
+                        <div className="rounded-xl border border-border overflow-hidden">
+                          <div className="bg-muted/50 px-4 py-2 border-b border-border flex justify-between items-center">
+                            <span className="text-sm font-mono text-muted-foreground">system_context.txt</span>
+                            <span className="text-sm text-primary/80">Read-only</span>
+                          </div>
+                          <div className="p-4 max-h-72 overflow-y-auto">
+                            <pre className="text-sm text-foreground/75 font-mono whitespace-pre-wrap leading-relaxed">
+                              {config?.context || "No configuration loaded."}
+                            </pre>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </AccordionSection>
+
               </div>
-            </>
+            </motion.div>
           )}
-        </div>
-      </AccordionSection>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

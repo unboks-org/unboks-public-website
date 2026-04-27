@@ -1,0 +1,162 @@
+TASK: Customer dashboard cleanup pass 1 for Unboks.
+
+Use the inspection report findings. Do not rebuild from scratch. Preserve the existing Gmail-style inbox and existing escalation logic.
+
+Primary goal:
+Turn the current BlueMarlin-heavy dashboard into a clean Unboks customer dashboard focused on:
+1. Inbox
+2. Escalations
+3. Channels
+4. Settings
+
+Do not touch backend endpoints unless absolutely necessary.
+Do not remove existing routes from the router yet.
+Do not delete files.
+Do not split Messages.tsx.
+Do not rewrite the inbox.
+Do not rewrite the escalation system.
+Only hide/rename/relabel and add safe placeholder pages where needed.
+
+Required changes:
+
+1. Sidebar/navigation
+In AppLayout.tsx, change the visible customer sidebar to only:
+- Inbox
+- Escalations
+- Channels
+- Settings
+
+Hide these from the main customer nav:
+- Bookings
+- Social Media
+- Create
+- Training
+- Published
+- Learnings
+- Assets
+- Capacity
+- Analytics
+- Overview if it is currently visible as main daily page
+
+Do not delete the routes/pages. Only remove/hide them from visible navigation.
+
+2. Branding
+Replace visible “Blue Marlin Tours” in the dashboard shell with:
+- “Unboks”
+
+If there is a suitable tenant/client variable already available, use it.
+If not, define safe constants in one place:
+productName = "Unboks"
+clientName = "Unboks.org"
+agentName = "AI Assistant"
+
+Do not rename files in this pass.
+
+3. Inbox must remain the default
+/dashboard must continue opening the Gmail-style Inbox in Messages.tsx.
+
+Preserve:
+- row list
+- checkboxes
+- conversation detail pane
+- platform filters
+- search
+- unread/read styling
+- archive
+- reply controls
+- AI suggested replies
+
+Do not replace this with cards or stat widgets.
+
+4. Escalation labels
+Update customer-facing labels:
+- “Semi” → “Soft escalation”
+- “Full” → “Hard escalation”
+
+Soft escalation helper text:
+“The AI needs guidance. Your answer goes to the AI, and the AI replies to the customer.”
+
+Hard escalation helper text:
+“The AI has handed this conversation to a human. Reply directly to the customer.”
+
+Update reply labels/buttons where safe:
+- “Reply via Marina” → “Answer AI” for soft escalations
+- “Send Reply via Marina” → “Send AI Reply”
+- “Reply directly to customer” for hard escalations
+- avoid visible “Marina” in generic Unboks UI
+
+Do not change the underlying API call behavior unless needed.
+
+5. Add Channels page
+Create /dashboard/channels as a simple customer-facing status page.
+
+Cards:
+- WhatsApp — Connected
+- Email — Not connected
+- Instagram — Not connected
+- Facebook — Not connected
+- X/Twitter — Coming soon or Not connected
+- TikTok — Coming soon or Not connected
+
+This page is status-only.
+Do not expose Zernio.
+Do not build Meta connection UI.
+If action is needed, show: “Contact Unboks support to connect or reconnect this channel.”
+
+6. Settings cleanup
+Keep Settings.tsx working, but reorganize visible sections for Unboks.
+
+Visible sections should be:
+- Business Info
+- Source of Truth
+- Rules
+- Team Members
+- Notifications
+- Language
+- Advanced
+
+For this pass, placeholder shells are acceptable if backend endpoints are missing.
+
+Source of Truth section should explain:
+“Add information the AI is allowed to use.”
+
+Include placeholder actions:
+- Upload document
+- Add quick update
+
+Quick update examples:
+- special offer
+- holiday hours
+- Valentine’s Day promotion
+- temporary policy
+- new pricing
+- new service
+
+Do not build full upload backend unless already safely available.
+If upload endpoints exist but are BlueMarlin-specific, do not wire them deeply yet. Add TODO comments.
+
+7. Hide legacy social/booking settings
+Hide or move to Advanced:
+- Google Drive social sync
+- posting schedule
+- social dry-run
+- social publishing controls
+- booking/capacity labels
+
+Do not delete them.
+
+8. Keep old localStorage keys for now
+Do not rename bluemarlin_* localStorage keys in this pass.
+Add TODO comments that they should later be migrated to tenant-neutral keys.
+
+9. Acceptance criteria
+- /dashboard opens the existing Gmail-style inbox.
+- Sidebar only shows Inbox, Escalations, Channels, Settings.
+- No visible “Blue Marlin Tours” in the main dashboard shell.
+- No visible “Marina” in generic Unboks escalation/reply labels.
+- Escalation tabs say Soft escalation and Hard escalation.
+- Channels page exists and loads.
+- Settings shows Unboks-relevant sections.
+- Legacy social/booking pages are not visible in main nav.
+- No TypeScript/build errors.
+- Existing inbox and escalation functionality still works.

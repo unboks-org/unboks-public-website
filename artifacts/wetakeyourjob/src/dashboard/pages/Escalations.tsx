@@ -16,7 +16,7 @@ import {
 import { cn } from "@dashboard/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 
-const FILTERS = ["All", "Semi", "Full", "Pending", "Resolved"];
+const FILTERS = ["All", "Soft", "Hard", "Pending", "Resolved"];
 const HIDDEN_KEY = "bluemarlin_hidden_escalations";
 const READ_KEY = "bluemarlin_read_escalations";
 
@@ -96,16 +96,16 @@ export default function Escalations() {
   const tabCount = (f: string) => {
     if (f === "Pending") return pendingCount;
     if (f === "Resolved") return resolvedCount;
-    if (f === "Semi") return semiCount;
-    if (f === "Full") return fullCount;
+    if (f === "Soft") return semiCount;
+    if (f === "Hard") return fullCount;
     return allCount;
   };
 
   const filtered = visibleAll.filter((e) => {
     if (activeFilter === "Pending") return e.status !== "resolved";
     if (activeFilter === "Resolved") return e.status === "resolved";
-    if (activeFilter === "Semi") return e.notification_type === "relay" || e.notification_type === "semi_escalation";
-    if (activeFilter === "Full") return e.notification_type !== "relay" && e.notification_type !== "semi_escalation";
+    if (activeFilter === "Soft") return e.notification_type === "relay" || e.notification_type === "semi_escalation";
+    if (activeFilter === "Hard") return e.notification_type !== "relay" && e.notification_type !== "semi_escalation";
     return true;
   });
 
@@ -143,8 +143,8 @@ export default function Escalations() {
   const backToList = () => { setView("list"); setSelectedId(null); setCompose(null); };
 
   const getTypeLabel = (type: string) => {
-    if (type === "relay" || type === "semi_escalation") return "Semi";
-    return "Full";
+    if (type === "relay" || type === "semi_escalation") return "Soft escalation";
+    return "Hard escalation";
   };
   const isSemi = (type: string) => type === "relay" || type === "semi_escalation";
 
@@ -294,15 +294,15 @@ export default function Escalations() {
                 {selected && isSemi(selected.notification_type) ? (
                   <>
                     <Phone className="w-4 h-4 text-slate-400" />
-                    <span className="text-sm font-semibold text-foreground">Semi Escalation Reply</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Semi</span>
-                    <span className="text-xs text-muted-foreground">— Marina will reformat and send via WhatsApp</span>
+                    <span className="text-sm font-semibold text-foreground">Soft Escalation — Answer AI</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Soft</span>
+                    <span className="text-xs text-muted-foreground">— The AI will reformat and send to the customer.</span>
                   </>
                 ) : (
                   <>
                     <Mail className="w-4 h-4 text-rose-400" />
-                    <span className="text-sm font-semibold text-foreground">Full Escalation Email</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Full</span>
+                    <span className="text-sm font-semibold text-foreground">Hard Escalation — Reply to Customer</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Hard</span>
                     <span className="text-xs text-muted-foreground">— opens in {emailSettings.client === "gmail" ? "Gmail" : "your mail app"}</span>
                   </>
                 )}
@@ -350,7 +350,7 @@ export default function Escalations() {
                   value={compose.body}
                   onChange={(e) => setCompose({ ...compose, body: e.target.value })}
                   rows={5}
-                  placeholder={selected && isSemi(selected.notification_type) ? "Type your answer to Marina here..." : ""}
+                  placeholder={selected && isSemi(selected.notification_type) ? "Type your answer for the AI here..." : ""}
                   className="flex-1 w-full px-3 py-2 rounded-lg border border-border bg-muted/30 text-sm text-foreground resize-none focus:outline-none focus:border-primary/50 transition-colors"
                 />
               </div>
@@ -385,7 +385,7 @@ export default function Escalations() {
                     className="flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors ml-auto"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    {escalationReply.isPending ? "Sending…" : "Send Reply via Marina"}
+                    {escalationReply.isPending ? "Sending…" : "Send AI Reply"}
                   </button>
                 ) : (
                   <button onClick={sendCompose} disabled={!compose?.to} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors ml-auto">
