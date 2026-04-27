@@ -1,0 +1,87 @@
+SOCIAL MEDIA ICON FIX — X ICON SHOWS DOUBLE X
+
+Goal:
+In the social media list, the X/Twitter icon currently shows as “X X” or double X. It must show only one original X icon.
+
+Scope:
+Do NOT change social media logic.
+Do NOT change account linking logic.
+Do NOT change platform list data except what is needed to fix the icon.
+Only fix the X/Twitter visual icon.
+
+Current bug:
+The X platform chip/icon renders two X characters/icons inside the same pill.
+
+Required behavior:
+- X platform must show one single X icon only
+- no duplicate X text
+- no repeated icon
+- no “X X”
+- keep the rest of the platform list unchanged
+
+Implementation instructions:
+
+1. Audit social media platform rendering
+Find the component that renders the social media/platform list/chips.
+Look for:
+- X / Twitter platform entry
+- icon mapping
+- label rendering
+- fallback icon logic
+- platform initials
+- duplicated text + icon rendering
+
+Likely cause:
+- X platform icon is rendered as text “X”
+- and label/fallback also renders “X”
+- or icon mapping returns “X” and label displays “X” beside it
+
+2. Fix icon mapping
+For platform `x` / `twitter`:
+- render only one X mark
+- use a proper single X icon if available
+- otherwise render a single clean text X as the icon
+- do not also render an extra label inside the icon pill
+
+3. Keep label separate only if intended
+If the UI chip is icon-only:
+- show only `X`
+
+If the UI chip is icon + label:
+- show icon `X`
+- label should be `X` or `Twitter/X`, but not duplicated inside the icon area
+- visual result must not look like `X X` in the icon pill
+
+4. Add defensive rule
+If platform icon equals platform label, avoid duplicate rendering inside compact icon-only chips.
+
+Example:
+- iconOnly mode: render icon only
+- labeled mode: render icon + label with spacing
+- never icon + fallback initial + label all together
+
+5. Check all platform icons
+Verify other social media icons still render correctly:
+- Instagram
+- Facebook
+- TikTok
+- YouTube
+- Discord
+- Telegram
+- WhatsApp
+- X
+
+Do not break any other icon.
+
+6. Final self-check
+After implementation:
+- open social media list
+- confirm X shows one X only
+- no double X
+- no layout shift
+- no duplicated text
+- mobile and desktop both correct
+- no console errors
+
+Expected result:
+The X social media entry displays one clean original X icon only, not two X characters.

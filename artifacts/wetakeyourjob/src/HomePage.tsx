@@ -15,9 +15,44 @@ import imgFasterRepliesSv from '@assets/chica_swedish_1777004355009.png';
 import imgSmartAutoDefault from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
 import imgFasterRepliesDefault from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
 
+const LANG_KEY = 'unboks_language';
+const SUPPORTED = new Set(LANGUAGES.map(l => l.code));
+
+function detectBrowserLang(): Lang {
+  const candidates = [...(navigator.languages ?? []), navigator.language].filter(Boolean);
+  for (const raw of candidates) {
+    const lower = raw.toLowerCase();
+    // exact match e.g. "pap-cw" → "pap"
+    for (const code of SUPPORTED) {
+      if (lower === code || lower.startsWith(code + '-')) return code as Lang;
+    }
+    // base language match e.g. "nl-nl" → "nl"
+    const base = lower.split('-')[0];
+    if (SUPPORTED.has(base as Lang)) return base as Lang;
+  }
+  return 'en';
+}
+
+function getInitialLanguage(): Lang {
+  try {
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved && SUPPORTED.has(saved as Lang)) return saved as Lang;
+  } catch {}
+  return detectBrowserLang();
+}
+
+function saveLanguage(lang: Lang) {
+  try { localStorage.setItem(LANG_KEY, lang); } catch {}
+}
+
 export default function HomePage() {
-  const [lang, setLang] = useState<Lang>('pap');
+  const [lang, setLangState] = useState<Lang>(getInitialLanguage);
   const [dropOpen, setDropOpen] = useState(false);
+
+  function setLang(l: Lang) {
+    setLangState(l);
+    saveLanguage(l);
+  }
   const dropRef = useRef<HTMLDivElement>(null);
   const tx = t[lang];
   const activeLang = LANGUAGES.find(l => l.code === lang)!;

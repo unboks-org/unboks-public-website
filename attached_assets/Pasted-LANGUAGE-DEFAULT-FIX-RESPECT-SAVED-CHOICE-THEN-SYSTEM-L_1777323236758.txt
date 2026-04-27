@@ -1,0 +1,176 @@
+LANGUAGE DEFAULT FIX — RESPECT SAVED CHOICE, THEN SYSTEM LANGUAGE, FALLBACK ENGLISH
+
+Goal:
+The site currently defaults to Papiamento after refresh, even when the user changed language. This is wrong.
+
+Fix language detection and persistence.
+
+Required behavior:
+1. If the user manually selects a language:
+   - save it
+   - keep it after refresh
+   - keep it when navigating pages
+   - do NOT reset to Papiamento
+
+2. On first visit only, when no saved language exists:
+   - detect browser/system language using `navigator.language` and `navigator.languages`
+   - choose matching site language if supported
+   - if browser language is unsupported, use English
+
+3. English must be the fallback default.
+   - Papiamento must never be forced as default unless:
+     - browser/system language is Papiamento, OR
+     - user selected Papiamento manually
+
+Scope:
+Do NOT change translations.
+Do NOT remove Papiamento.
+Do NOT change routing unless current language logic is route-based.
+Only fix language initialization, persistence, and refresh behavior.
+
+Current bug:
+- refresh resets language to Papiamento
+- saved language is ignored or overwritten
+- Papiamento is probably hardcoded as default somewhere
+
+Required priority order:
+Language should resolve in this exact order:
+
+1. Saved user preference from localStorage / settings store
+2. Browser/system language match
+3. English fallback
+
+Example:
+- user selects English → refresh → English remains
+- user selects Dutch → refresh → Dutch remains
+- user selects Papiamento → refresh → Papiamento remains
+- new user with browser language `en-US` → English
+- new user with browser language `nl-NL` → Dutch if supported, otherwise English
+- new user with browser language `pt-PT` → Portuguese if supported, otherwise English
+- new user with unsupported language → English
+
+Implementation requirements:
+
+1. Audit current i18n/language logic
+Find:
+- language provider/context
+- translation files
+- language selector component
+- localStorage key
+- default language constant
+- any hardcoded `"pap"`, `"pap-CW"`, `"papiamento"`, or similar default
+- any effect that runs on mount and overwrites selected language
+
+2. Create one source of truth
+Use one language state source.
+Avoid multiple components independently setting language.
+
+Recommended:
+- `getInitialLanguage()`
+- `setLanguage(lang)`
+- `saveLanguage(lang)`
+- `SUPPORTED_LANGUAGES`
+
+3. Use stable localStorage key
+Use existing key if already present.
+If broken, standardize it.
+
+Example:
+- `gaimin_holdem_language`
+or existing project key.
+
+Do not create multiple competing keys.
+
+4. Browser/system language matching
+Implement helper:
+
+- read `navigator.languages` first
+- fallback to `navigator.language`
+- normalize to lowercase
+- match exact language code first
+- then match base language
+
+Examples:
+- `en-US` → `en`
+- `en-GB` → `en`
+- `nl-NL` → `nl`
+- `pt-PT` → `pt`
+- `pt-BR` → `pt` if supported
+- `pap-CW` → `pap` if supported
+
+If no match:
+- return `en`
+
+5. Do not overwrite saved language
+Critical:
+If localStorage contains a valid supported language, use it and stop.
+Do not run browser detection afterward.
+Do not reset it inside useEffect.
+
+Bad:
+- initialize to Papiamento, then later set saved language
+- always set default on mount
+- always write default language to localStorage on refresh
+
+Good:
+- compute initial language once
+- only write when user manually changes language
+
+6. Language selector behavior
+When user changes language:
+- update app language immediately
+- save to localStorage
+- update UI labels instantly
+- refresh keeps same language
+
+7. Invalid saved value handling
+If localStorage has invalid language:
+- ignore it
+- remove or replace it
+- use system language detection
+- fallback English
+
+8. English fallback hard rule
+Set English as final fallback.
+
+No default to Papiamento unless explicitly matched or selected.
+
+9. Testing checklist
+After implementation, test:
+
+Case A:
+- clear localStorage
+- set browser language English
+- load site
+- expected: English
+
+Case B:
+- choose Dutch/Portuguese/English from selector
+- refresh
+- expected: same selected language
+
+Case C:
+- choose Papiamento
+- refresh
+- expected: Papiamento
+
+Case D:
+- clear localStorage
+- unsupported browser language
+- expected: English
+
+Case E:
+- navigate between pages
+- expected: language remains stable
+
+10. Final self-check
+Search the codebase for:
+- hardcoded Papiamento default
+- duplicate language defaults
+- effects overwriting language on mount
+- multiple storage keys
+
+Remove/repair them.
+
+Expected result:
+The site no longer resets to Papiamento after refresh. It respects the user’s saved language. For new users it follows browser/system language when supported, otherwise English.
