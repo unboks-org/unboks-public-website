@@ -1,0 +1,25 @@
+ Copy-paste this to Replit AI:                                                                                                                                                                                                             
+                                                                                                                                                                                                                                            
+  ▎ Login is broken in browser for ALL tenants. We've diagnosed:                                                                                                                                                                            
+  ▎                                                                                                                                                                                                                                         
+  ▎ What works:                           
+  ▎ - Backend is healthy. curl -X POST https://api.wetakeyourjob.com/bluemarlin/dashboard/api/login -H "Content-Type: application/json" -H "Origin: https://wetakeyourjob.com" -d '{"password":"<correct>"}' returns a valid token from any 
+  ▎ machine.                                   
+  ▎ - CORS preflight returns correct headers (access-control-allow-origin: https://wetakeyourjob.com, access-control-allow-methods includes POST, access-control-allow-headers: content-type).
+  ▎ - DNS resolves correctly. HTTP/1.1 protocol confirmed working.
+  ▎ - The deployed JS bundle (assets/index-C6H7wlSw.js) contains the correct VALID_CLIENTS array including unboks.
+  ▎
+  ▎ What fails:
+  ▎ - In a real browser (macOS incognito Chrome, iOS Safari), clicking Continue on the login form returns "Can't reach server — check your connection or contact support" (which per Login.tsx only triggers on Failed to fetch).
+  ▎ - This affects ALL tenants, not just unboks. We tested with the bluemarlin workspace using its known-correct password.
+  ▎
+  ▎ What I need you to investigate:
+  ▎ 1. Open the live site https://wetakeyourjob.com/dashboard/login in your browser. Open DevTools (Network + Console tabs). Try logging in. Tell me exactly what shows in the Console (the error message) and the Network tab (status of
+  ▎ the OPTIONS preflight + POST login request).
+  ▎ 2. Check if the new tenant.ts import or recent vite.config.ts change introduced any global fetch interceptor or polyfill that would break cross-origin POSTs. The vite config commits in question: 9aa1be3 (default port/base path) and
+  ▎ 7eb8100 (conditional error overlay).
+  ▎ 3. Confirm that api.login in artifacts/wetakeyourjob/src/dashboard/lib/api.ts line 260-268 is actually being called (not intercepted/mocked anywhere).
+  ▎ 4. Check whether the /dashboard/login page is making any OTHER fetch calls before the user clicks Continue (e.g. a tenant config fetch, an analytics call) that could be failing and putting the auth context in an error state.
+  ▎
+  ▎ The Python backend on api.wetakeyourjob.com is unchanged in 2 weeks; only the Replit-side frontend has changed. Whatever broke is on the frontend bundle.
+
