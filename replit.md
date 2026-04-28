@@ -51,7 +51,7 @@ pnpm workspace monorepo hosting the **Unboks** customer dashboard and the Unboks
 **Dashboard** is a self-contained sub-app under `/dashboard/*` with its own:
 - `ThemeProvider` (dark/light, scoped to `#dashboard-root` div)
 - `FeatureTogglesProvider` (showSocial, showCreate flags in localStorage)
-- `AuthProvider` (token-based, localStorage `wtyj_token_{client}`, multi-client: bluemarlin/adamus/consultadespertares)
+- `AuthProvider` (token-based, localStorage `wtyj_token_{client}`, multi-client: bluemarlin/adamus/consultadespertares/unboks)
 - `QueryClientProvider` (@tanstack/react-query for API data)
 - `TooltipProvider` + `ThemedToaster` (sonner)
 - `AppLayout` with sidebar navigation + TopBar

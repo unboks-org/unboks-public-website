@@ -244,7 +244,7 @@ artifacts/wetakeyourjob/src/
 ### Authentication
 - Token-based via `AuthProvider`
 - Tokens stored in `localStorage` as `wtyj_token_{client}`
-- Multi-client support: `bluemarlin`, `adamus`, `consultadespertares`
+- Multi-client support: `bluemarlin`, `adamus`, `consultadespertares`, `unboks`
 - `ProtectedRoute` redirects unauthenticated users to `/dashboard/login`
 
 ### Providers (nested in DashboardShell)
@@ -256,7 +256,7 @@ artifacts/wetakeyourjob/src/
 
 ### API
 - Base URL: `https://api.wetakeyourjob.com/{client}/dashboard/api`
-- Client-specific routing (bluemarlin/adamus/consultadespertares)
+- Client-specific routing (bluemarlin/adamus/consultadespertares/unboks)
 - All requests include auth token header
 - Queries via TanStack React Query hooks in `use-bluemarlin.ts`
 
