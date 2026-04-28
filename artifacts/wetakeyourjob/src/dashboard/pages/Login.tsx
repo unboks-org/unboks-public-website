@@ -111,7 +111,6 @@ export default function Login() {
                   onChange={(e) => {
                     const next = e.target.value.toLowerCase().trim();
                     setSelectedClient(next as Client);
-                    setClient(next as Client);
                   }}
                   placeholder="e.g. bluemarlin"
                   className="w-full pl-10 h-11 rounded-xl text-sm transition-colors border appearance-none"

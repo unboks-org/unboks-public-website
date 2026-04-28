@@ -258,11 +258,19 @@ async function handleResponse<T>(res: Response): Promise<T> {
 
 export const api = {
   login: async (password: string): Promise<{ token: string }> => {
-    const res = await fetch(`${BASE_URL}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
-    });
+    const url = `${BASE_URL}/login`;
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+    } catch (err) {
+      const e = err instanceof Error ? err : new Error(String(err));
+      console.error("[api.login] fetch failed", { name: e.name, message: e.message, url });
+      throw e;
+    }
     if (!res.ok) throw new Error("Invalid password");
     return res.json();
   },
