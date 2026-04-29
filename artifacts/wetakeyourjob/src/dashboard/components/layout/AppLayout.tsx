@@ -12,6 +12,7 @@ import {
   Inbox,
   Wifi,
 } from "lucide-react";
+import unboksLogo from "@assets/image_1777435198078.png";
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@dashboard/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@dashboard/components/ui/sheet";
@@ -61,15 +62,9 @@ function NotificationBell() {
 
       {open && (
         <div
-          className="absolute right-0 top-full mt-2 w-72 rounded-2xl z-50 overflow-hidden"
-          style={{
-            background: "rgba(10, 18, 35, 0.96)",
-            border: "1px solid rgba(255,255,255,0.09)",
-            backdropFilter: "blur(24px)",
-            boxShadow: "0 8px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07)",
-          }}
+          className="absolute right-0 top-full mt-2 w-72 rounded-2xl z-50 overflow-hidden bg-popover border border-border shadow-xl"
         >
-          <div className="px-4 py-3 border-b border-white/[0.06] flex items-center justify-between">
+          <div className="px-4 py-3 border-b border-border/60 flex items-center justify-between">
             <span className="text-[15px] font-semibold text-foreground">Notifications</span>
             <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/55">Clear</span>
           </div>
@@ -104,11 +99,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div
-      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-8 h-16 shrink-0 backdrop-blur-2xl"
-      style={{
-        background: "var(--surface-overlay)",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
-      }}
+      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-8 h-[72px] shrink-0 bg-background/90 backdrop-blur-xl border-b border-border/60"
     >
       <div className="flex items-center gap-2.5">
         <Icon className="w-[18px] h-[18px] text-muted-foreground/50" />
@@ -120,7 +111,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
         <button
           onClick={toggle}
-          className="p-2 rounded-lg text-muted-foreground/60 hover:text-foreground hover:bg-white/[0.07] transition-all duration-150"
+          className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-all duration-150"
           title={theme === "dark" ? "Light mode" : "Dark mode"}
         >
           {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -130,7 +121,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted-foreground/60 hover:text-foreground hover:bg-white/[0.07] transition-all duration-150 text-[13px] font-medium ml-1"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-all duration-150 text-[13px] font-medium ml-1"
         >
           <LogOut className="w-[15px] h-[15px]" />
           Sign out
@@ -201,33 +192,12 @@ export function AppLayout() {
           setMobileOpen(false);
           window.dispatchEvent(new Event("bluemarlin:nav:messages"));
         }}
-        className="flex items-center h-[72px] px-4 border-b border-white/[0.07] shrink-0"
+        className="flex items-center h-[72px] px-5 border-b border-border/60 shrink-0"
       >
         <div className="select-none flex items-center justify-between w-full">
-          <div className="flex items-center gap-2.5">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-white text-sm"
-              style={{ background: "linear-gradient(135deg, #e96b3a 0%, #c0392b 100%)" }}
-            >
-              U
-            </div>
-            <div>
-              <p className="text-[15px] font-semibold tracking-tight leading-none text-foreground">
-                {PRODUCT_NAME}
-              </p>
-              <p className="text-[11px] text-muted-foreground/60 mt-[3px]">
-                Dashboard
-              </p>
-            </div>
-          </div>
+          <img src={unboksLogo} alt="Unboks" className="h-7 w-auto object-contain" />
           {unreadCount > 0 && (
-            <span
-              className="text-[11px] font-bold text-white px-2 py-0.5 rounded-full tabular-nums"
-              style={{
-                background: "rgba(225,206,157,0.18)",
-                boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.30)",
-              }}
-            >
+            <span className="text-[11px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full tabular-nums">
               {unreadCount}
             </span>
           )}
@@ -247,11 +217,7 @@ export function AppLayout() {
               {active && (
                 <motion.div
                   layoutId="sidebar-pill"
-                  className="absolute inset-0 rounded-xl"
-                  style={{
-                    background: "rgba(225,206,157,0.09)",
-                    boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.18)",
-                  }}
+                  className="absolute inset-0 rounded-xl bg-primary/[0.10]"
                   transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
                 />
               )}
@@ -259,14 +225,14 @@ export function AppLayout() {
                 className={cn(
                   "relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-100 group",
                   active
-                    ? "text-foreground"
-                    : "text-foreground/65 hover:text-foreground hover:bg-white/[0.06]"
+                    ? "text-primary"
+                    : "text-foreground/60 hover:text-foreground hover:bg-muted/70"
                 )}
               >
                 <item.icon
                   className={cn(
                     "w-[18px] h-[18px] shrink-0 transition-colors duration-150",
-                    active ? "text-primary" : "group-hover:text-foreground/90"
+                    active ? "text-primary" : "text-foreground/40 group-hover:text-foreground/70"
                   )}
                 />
                 <span className={cn(
@@ -282,19 +248,19 @@ export function AppLayout() {
       </nav>
 
       {!hideActions && (
-        <div className="px-3 pb-3 pt-1 border-t border-white/[0.08] space-y-0.5">
+        <div className="px-3 pb-4 pt-2 border-t border-border/50 space-y-0.5">
           <button
             onClick={toggle}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/75 hover:text-foreground hover:bg-white/[0.07] transition-colors w-full text-[15px] tracking-tight"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/55 hover:text-foreground hover:bg-muted/70 transition-colors w-full text-[14px] tracking-tight"
           >
-            {theme === "dark" ? <Sun className="w-[17px] h-[17px]" /> : <Moon className="w-[17px] h-[17px]" />}
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             <span className="font-medium">{theme === "dark" ? "Light mode" : "Dark mode"}</span>
           </button>
           <button
             onClick={() => logout()}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/75 hover:text-rose-400 hover:bg-rose-500/[0.07] transition-colors w-full text-[15px] tracking-tight"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/55 hover:text-destructive hover:bg-destructive/[0.07] transition-colors w-full text-[14px] tracking-tight"
           >
-            <LogOut className="w-[17px] h-[17px]" />
+            <LogOut className="w-4 h-4" />
             <span className="font-medium">Sign out</span>
           </button>
         </div>
@@ -304,7 +270,7 @@ export function AppLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <aside className="hidden md:block w-60 glass-panel shrink-0 z-20">
+      <aside className="hidden md:block w-[260px] glass-panel shrink-0 z-20">
         <SidebarContent hideActions />
       </aside>
 
@@ -312,19 +278,15 @@ export function AppLayout() {
         <TopBar onLogout={logout} />
 
         <header
-          className="md:hidden flex items-center justify-between px-4 py-3 backdrop-blur-2xl"
-          style={{
-            background: "var(--surface-overlay)",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
-          }}
+          className="md:hidden flex items-center justify-between px-4 py-3 bg-background/90 backdrop-blur-xl border-b border-border/60"
         >
           <div className="flex items-center gap-2 select-none">
-            <span className="text-sm font-bold text-foreground text-gradient-ocean">{PRODUCT_NAME}</span>
+            <img src={unboksLogo} alt="Unboks" className="h-6 w-auto object-contain" />
           </div>
           <div className="flex items-center gap-1">
             <button
               onClick={toggle}
-              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/[0.07] transition-colors"
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors"
             >
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
@@ -334,7 +296,7 @@ export function AppLayout() {
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="p-0 w-56 bg-background border-white/[0.06]">
+              <SheetContent side="left" className="p-0 w-[260px] bg-background border-border/50">
                 <SidebarContent />
               </SheetContent>
             </Sheet>

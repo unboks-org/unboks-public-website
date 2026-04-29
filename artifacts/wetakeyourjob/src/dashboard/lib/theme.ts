@@ -17,7 +17,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     const stored = localStorage.getItem("bluemarlin_theme");
     if (stored === "light" || stored === "dark") return stored;
-    return "dark";
+    return "light";
   });
 
   useEffect(() => {

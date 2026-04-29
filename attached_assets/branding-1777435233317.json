@@ -1,0 +1,135 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Inter",
+      "role": "body"
+    }
+  ],
+  "colors": {
+    "primary": "#25D366",
+    "secondary": "#475569",
+    "accent": "#25D366",
+    "background": "#FFFFFF",
+    "textPrimary": "#0F0F0E",
+    "link": "#E9FBF0"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Inter",
+      "heading": "Inter"
+    },
+    "fontStacks": {
+      "heading": [
+        "Inter",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ],
+      "body": [
+        "Inter",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "Inter",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "72px",
+      "h2": "44px",
+      "body": "18px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "8px"
+  },
+  "components": {
+    "buttonPrimary": {
+      "background": "#25D366",
+      "textColor": "#FFFFFF",
+      "borderRadius": "99px",
+      "borderRadiusCorners": {
+        "topLeft": "99px",
+        "topRight": "99px",
+        "bottomRight": "99px",
+        "bottomLeft": "99px"
+      },
+      "shadow": "rgba(37, 211, 102, 0.35) 0px 4px 20px 0px"
+    },
+    "buttonSecondary": {
+      "background": "transparent",
+      "textColor": "#0F0F0E",
+      "borderColor": "#D6D6D6",
+      "borderRadius": "99px",
+      "borderRadiusCorners": {
+        "topLeft": "99px",
+        "topRight": "99px",
+        "bottomRight": "99px",
+        "bottomLeft": "99px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "https://unboks.org/assets/image_1777095356119-kUnQ1rhc.png",
+    "favicon": "https://unboks.org/favicon.png",
+    "ogImage": null,
+    "logoHref": "File saved at: attached_assets/logoHref.html",
+    "logoAlt": "Unboks.org"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Selected #0 because it is visible, located in the header, and matches the brand name 'Unboks'. It is the most prominent logo on the page.",
+    "confidence": 0.9,
+    "source": "llm"
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 1,
+      "text": "Chat on WhatsApp",
+      "reasoning": "Button #1 uses the vibrant brand color #25D366, which is a strong indicator of a primary call-to-action. The text 'Chat on WhatsApp' suggests an immediate action, aligning with primary CTA characteristics."
+    },
+    "secondary": {
+      "index": 3,
+      "text": "See how it works",
+      "reasoning": "Button #3 has a transparent background, making it a suitable secondary button. It offers a less immediate action with 'See how it works', complementing the primary CTA."
+    },
+    "confidence": 0.95
+  },
+  "personality": {
+    "tone": "modern",
+    "energy": "medium",
+    "targetAudience": "tech-savvy individuals looking for communication solutions"
+  },
+  "designSystem": {
+    "framework": "custom",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0.95,
+    "colors": 0.9,
+    "overall": 0.925
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 0,
+        "selectedLogoReasoning": "Selected #0 because it is visible, located in the header, and matches the brand name 'Unboks'. It is the most prominent logo on the page.",
+        "confidence": 0.9
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": true,
+      "llmSucceeded": true
+    }
+  }
+}

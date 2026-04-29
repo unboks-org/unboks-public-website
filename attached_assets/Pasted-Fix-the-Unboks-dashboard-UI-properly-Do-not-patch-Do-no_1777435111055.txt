@@ -1,0 +1,188 @@
+Fix the Unboks dashboard UI properly. Do not patch. Do not half-fix. This must look like the Unboks.org brand and a premium inbox product.
+
+Current problem:
+The dashboard still looks cheap and broken. The logo is wrong, sidebar spacing is cramped, the header is poorly aligned, filters look like raw text, search is badly placed, and the whole dashboard does not match the Unboks.org website branding.
+
+Goal:
+Make the dashboard visually match the Unboks.org website branding:
+- clean
+- light
+- premium
+- corporate AI solution provider
+- Google Inbox / Gmail-inspired
+- spacious
+- calm
+- professional
+- not a dark developer admin panel
+
+Important:
+Use the attached Unboks logo asset.
+Do not use the orange U placeholder.
+Do not use plain text logo if the logo asset exists.
+Do not invent a new logo.
+Do not change backend logic.
+Do not change routes.
+Do not remove existing functionality.
+Only fix UI, layout, branding, spacing, and responsive behavior.
+
+Step 1: Find and use the correct logo
+Search the project assets/public folder for the attached Unboks logo file.
+Use the real Unboks logo in the sidebar header.
+If there are multiple logo files, use the clean horizontal Unboks logo suitable for a dashboard sidebar.
+The logo area must not show:
+- orange U circle
+- fake placeholder icon
+- broken text-only logo
+- old WTYJ branding
+
+Sidebar requirements:
+- Width: 260px desktop.
+- Background: light, premium off-white / soft white, matching Unboks.org website.
+- Border-right: subtle light gray.
+- Padding: 20px 16px.
+- Logo area height: 72px minimum.
+- Logo aligned left, vertically centered.
+- Navigation starts below logo with proper breathing room.
+- Nav items:
+  - height 44px
+  - border-radius 12px
+  - icon left
+  - label aligned
+  - 10px gap between icon and label
+  - no cramped text
+- Active nav item:
+  - soft blue background
+  - blue text/icon
+  - no ugly gold outline
+  - no harsh border
+- Inactive nav:
+  - dark navy/gray text
+  - hover background subtle light blue/gray
+- Sidebar must look like part of a premium SaaS app, not a terminal panel.
+
+Main app background:
+Use the same visual language as Unboks.org:
+- light background
+- soft blue/white gradients if needed
+- no flat black
+- no cheap dark admin panel
+- no harsh neon
+- no cramped dark mode
+
+Main layout:
+Create a proper 3-zone layout:
+1. Sidebar
+2. Top header
+3. Inbox content area
+
+Top header:
+- Height: 72px.
+- White or very light background.
+- Bottom border: subtle #e5e7eb style.
+- Left: page title “Inbox” with clean inbox icon.
+- Right: search bar, date/time, notification icon, sign out.
+- Everything vertically centered.
+- Nothing should touch the top, right, or edges.
+- Use 24px horizontal padding.
+
+Search bar:
+- Must be a proper premium search field.
+- Width: 320px desktop.
+- Height: 40px.
+- Rounded pill shape.
+- Light gray background.
+- Search icon inside.
+- Placeholder: “Search conversations…”
+- Proper padding.
+- Must not float randomly.
+- Must not collide with date/sign out.
+
+Inbox toolbar / channel filters:
+Place below the header in a clean toolbar row.
+- Height around 56px.
+- Padding 0 24px.
+- Left side: select checkbox.
+- Then channel chips:
+  - All
+  - WhatsApp
+  - X
+  - Instagram
+  - TikTok
+  - Facebook
+- Each channel must be a chip/pill, not raw text.
+- Chip height: 32px.
+- Border-radius: 999px.
+- Proper icon spacing.
+- Active chip: blue background or soft blue tint.
+- Inactive chip: white/light gray with subtle border.
+- Text readable.
+- No icons jammed into words.
+- No broken spacing.
+
+Inbox content area:
+- Background: very light gray / off-white.
+- Padding: 24px.
+- Message list container:
+  - white card
+  - rounded 20px
+  - subtle border
+  - soft shadow
+  - min-height calc based on viewport
+- Empty state centered inside the white card.
+- Empty state must include:
+  - clean icon
+  - “No conversations yet”
+  - “New messages will appear here.”
+- The empty state should look intentional, not like a raw placeholder.
+
+Typography:
+Use the same premium SaaS style as Unboks.org:
+- dark navy headings
+- muted gray secondary text
+- blue accent
+- no low-contrast gray on black
+- no cramped font sizes
+- consistent line-height
+
+Visual brand:
+Match Unboks.org:
+- white / soft blue
+- navy text
+- blue accents
+- subtle shadows
+- rounded cards
+- premium clean dashboard
+- no dark hacker/admin look
+
+Desktop acceptance criteria:
+1. Real Unboks logo appears in the top-left sidebar.
+2. No orange U placeholder remains.
+3. Sidebar has proper spacing and alignment.
+4. Header is clean and vertically centered.
+5. Search field is aligned and styled.
+6. Channel filters are styled as pills/chips.
+7. Empty state is centered inside a clean white card.
+8. Dashboard visually matches the Unboks.org website branding.
+9. No element touches the viewport edges.
+10. No raw text/icon collisions.
+11. No old WTYJ branding.
+12. No cheap dark admin-panel look.
+
+Mobile/tablet:
+- Sidebar may collapse if existing app supports it.
+- Layout must not overflow horizontally.
+- Search/filter row must wrap cleanly or become horizontally scrollable chips.
+- Nothing should be cropped.
+
+Self-check before finishing:
+Open the dashboard and visually compare it to Unboks.org.
+Ask:
+- Does this look like the same brand?
+- Is the logo real?
+- Is spacing professional?
+- Are filters clean?
+- Is search in the right place?
+- Does it feel like Gmail/Google Inbox?
+- Would this screenshot look acceptable to show a client?
+
+If the answer is no, keep fixing.
