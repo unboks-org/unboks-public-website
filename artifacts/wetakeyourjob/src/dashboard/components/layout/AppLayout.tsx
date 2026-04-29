@@ -119,12 +119,12 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
       <div className="flex items-center gap-2 ml-auto">
         {isInboxPage && (
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50 pointer-events-none" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 dark:text-muted-foreground/70 pointer-events-none" />
             <input
               value={searchQ}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search conversations…"
-              className="w-[300px] h-10 pl-10 pr-4 rounded-full bg-muted border border-border text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 transition-all"
+              className="w-[300px] h-10 pl-10 pr-4 rounded-full bg-background border border-border dark:border-white/[0.12] dark:bg-white/[0.07] text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 dark:focus:border-primary/50 transition-all"
             />
           </div>
         )}
