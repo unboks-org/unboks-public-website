@@ -12,8 +12,9 @@ import { Skeleton } from "@dashboard/components/ui/skeleton";
 import {
   MessageCircle, Phone, ArrowLeft, ChevronRight, ChevronDown,
   AlertTriangle, User, Archive, ArchiveRestore, Circle, CheckCircle,
-  CheckCircle2, Clock, Ticket, Instagram, Facebook, Twitter, Mail, Trash2, Check, X, Wand2, Send, Shield,
+  CheckCircle2, Clock, Ticket, Instagram, Facebook, Mail, Trash2, Check, X, Wand2, Send, Shield,
 } from "lucide-react";
+import { XBrandIcon } from "@dashboard/components/ui/x-brand-icon";
 import { cn } from "@dashboard/lib/utils";
 import { isToday, isThisYear, format, formatDistanceToNow } from "date-fns";
 
@@ -125,7 +126,7 @@ function gmailDate(dateStr: string): string {
 function ChannelIcon({ channel }: { channel?: string }) {
   if (channel === "instagram_dm") return <Instagram className="w-3.5 h-3.5" />;
   if (channel === "facebook_dm") return <Facebook className="w-3.5 h-3.5" />;
-  if (channel === "twitter_dm") return <Twitter className="w-3.5 h-3.5" />;
+  if (channel === "twitter_dm") return <XBrandIcon className="w-3.5 h-3.5" />;
   if (channel === "email") return <Mail className="w-3.5 h-3.5" />;
   return <Phone className="w-3.5 h-3.5" />;
 }
@@ -133,7 +134,7 @@ function ChannelIcon({ channel }: { channel?: string }) {
 function channelLabel(channel?: string): string {
   if (channel === "instagram_dm") return "Instagram";
   if (channel === "facebook_dm") return "Facebook";
-  if (channel === "twitter_dm") return "X / Twitter";
+  if (channel === "twitter_dm") return "X";
   if (channel === "email") return "Email";
   return "WhatsApp";
 }

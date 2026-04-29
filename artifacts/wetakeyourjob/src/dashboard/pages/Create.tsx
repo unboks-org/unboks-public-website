@@ -6,8 +6,9 @@ import { Button } from "@dashboard/components/ui/button";
 import { Textarea } from "@dashboard/components/ui/textarea";
 import { Input } from "@dashboard/components/ui/input";
 import {
-  PlusCircle, ArrowLeft, Send, CalendarDays, Instagram, Facebook, CheckCircle2, Twitter, Globe,
+  PlusCircle, ArrowLeft, Send, CalendarDays, Instagram, Facebook, CheckCircle2, Globe,
 } from "lucide-react";
+import { XBrandIcon } from "@dashboard/components/ui/x-brand-icon";
 import { cn } from "@dashboard/lib/utils";
 import { ContentClass } from "@dashboard/lib/api";
 
@@ -151,7 +152,7 @@ export default function Create() {
                 const active = platforms.includes(p);
                 const Icon = p === "instagram" ? Instagram
                   : p === "facebook" ? Facebook
-                  : p === "twitter" ? Twitter
+                  : p === "twitter" ? XBrandIcon
                   : Globe;
                 return (
                   <button
@@ -169,7 +170,7 @@ export default function Create() {
                     )}
                   >
                     <Icon className="w-4 h-4" />
-                    {p.charAt(0).toUpperCase() + p.slice(1)}
+                    {p === "twitter" ? "X" : p.charAt(0).toUpperCase() + p.slice(1)}
                     {active && <CheckCircle2 className="w-3.5 h-3.5" />}
                   </button>
                 );

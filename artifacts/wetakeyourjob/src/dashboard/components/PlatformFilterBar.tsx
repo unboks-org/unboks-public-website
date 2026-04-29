@@ -1,11 +1,12 @@
 import { usePlatformFilter } from "@dashboard/hooks/use-platform-filter";
 import { PLATFORMS, type PlatformKey } from "@dashboard/lib/channel-map";
 import { cn } from "@dashboard/lib/utils";
-import { Phone, Twitter, Instagram, Facebook, Music2 } from "lucide-react";
+import { Phone, Instagram, Facebook, Music2 } from "lucide-react";
+import { XBrandIcon } from "@dashboard/components/ui/x-brand-icon";
 
 const ICONS: Record<PlatformKey, React.ElementType> = {
   whatsapp: Phone,
-  x: Twitter,
+  x: XBrandIcon,
   instagram: Instagram,
   tiktok: Music2,
   facebook: Facebook,

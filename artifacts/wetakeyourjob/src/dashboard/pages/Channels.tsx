@@ -1,4 +1,5 @@
-import { CheckCircle2, XCircle, Clock, Phone, Mail, Instagram, Facebook, Twitter, Music2, AlertCircle } from "lucide-react";
+import { CheckCircle2, XCircle, Clock, Phone, Mail, Instagram, Facebook, Music2, AlertCircle } from "lucide-react";
+import { XBrandIcon } from "@dashboard/components/ui/x-brand-icon";
 import { cn } from "@dashboard/lib/utils";
 
 type ChannelStatus = "connected" | "not_connected" | "coming_soon" | "needs_attention";
@@ -42,9 +43,9 @@ const CHANNELS: ChannelCard[] = [
   },
   {
     id: "x",
-    label: "X / Twitter",
+    label: "X",
     description: "X Direct Messages",
-    icon: Twitter,
+    icon: XBrandIcon,
     status: "coming_soon",
   },
   {

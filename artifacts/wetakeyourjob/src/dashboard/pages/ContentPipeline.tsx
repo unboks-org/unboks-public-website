@@ -12,8 +12,9 @@ import { format } from "date-fns";
 import {
   Sparkles, AlertCircle, CheckCircle2, XCircle, Send, Clock, CalendarDays,
   ListTodo, ArrowRight, ArrowLeft, ChevronRight, ChevronUp, ChevronDown, ExternalLink, HelpCircle, Loader2,
-  ArrowUpDown, ArrowUp, ArrowDown, Pencil, Save, X, Instagram, Facebook, Trash2, Twitter, Globe,
+  ArrowUpDown, ArrowUp, ArrowDown, Pencil, Save, X, Instagram, Facebook, Trash2, Globe,
 } from "lucide-react";
+import { XBrandIcon } from "@dashboard/components/ui/x-brand-icon";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@dashboard/components/ui/dialog";
 import { Input } from "@dashboard/components/ui/input";
 import { Textarea } from "@dashboard/components/ui/textarea";
@@ -547,9 +548,9 @@ export default function ContentPipeline() {
                   const isActive = draftPlatforms.includes(platform);
                   const Icon = platform === "instagram" ? Instagram
                     : platform === "facebook" ? Facebook
-                    : platform === "twitter" ? Twitter
+                    : platform === "twitter" ? XBrandIcon
                     : Globe;
-                  const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                  const label = platform === "twitter" ? "X" : platform.charAt(0).toUpperCase() + platform.slice(1);
                   return (
                     <button
                       key={platform}
