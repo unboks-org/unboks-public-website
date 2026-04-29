@@ -1,0 +1,309 @@
+You are working inside the existing Unboks dashboard.
+
+This is a production UI polish task. The dashboard is now in the correct light Unboks.org direction, but it still looks cheap. I need a full premium polish pass.
+
+Current problems from screenshot:
+1. Sidebar spacing looks amateur.
+2. Logo area is too cramped and not balanced.
+3. Sidebar nav items look cheap and oversized horizontally.
+4. Active nav item looks like a basic blue block, not premium SaaS.
+5. Fonts look cheap / not aligned with the Unboks.org site.
+6. Search input is broken: the magnifying glass overlaps/merges with placeholder text.
+7. Search/header/sign-out section is messy.
+8. Sign out is too close to the right edge.
+9. Top header spacing lacks balance.
+10. Channel chips look cheap and cramped.
+11. Main inbox card is too empty/flat and lacks refined visual hierarchy.
+12. Overall design is technically light mode, but not premium.
+
+Goal:
+Make the dashboard look like a polished, premium, client-facing SaaS inbox product using the Unboks.org brand.
+
+Do not change:
+- backend logic
+- routes
+- authentication
+- channel functionality
+- inbox functionality
+- settings functionality
+- escalation functionality
+- data models
+
+Only change:
+- CSS/classes
+- layout spacing
+- typography
+- component styling
+- header/sidebar/search/chips/card polish
+- dashboard visual system
+
+Brand target:
+Use Unboks.org style:
+- clean white/off-white background
+- dark navy text
+- soft blue accents
+- premium spacing
+- rounded modern cards
+- subtle borders
+- soft shadows
+- calm professional AI product
+- not childish
+- not default Tailwind-looking
+- not cheap admin panel
+
+Typography:
+The current font rendering looks cheap. Fix it.
+
+Requirements:
+1. Use the same font family as the Unboks.org landing page if available.
+2. If the landing page uses Manrope, apply Manrope to the dashboard too.
+3. Dashboard typography should feel premium:
+   - nav labels: 14px / medium
+   - page title: 18px / 600
+   - body: 14px / regular
+   - muted text: 13px / regular
+4. Use better letter spacing and line-height.
+5. Avoid oversized bold labels where not needed.
+6. Make text colors consistent:
+   - primary: deep navy #0F172A or same as website
+   - secondary: #64748B
+   - muted: #94A3B8
+   - accent: Unboks blue
+
+Sidebar:
+Redesign sidebar spacing and nav styling.
+
+Sidebar requirements:
+- Width: 260px is okay, but improve internal spacing.
+- Background: #FFFFFF.
+- Border-right: 1px solid #E6EAF0.
+- Logo section:
+  - height: 96px
+  - padding: 24px 24px 18px 24px
+  - logo width around 150px, not cropped, not tiny
+  - tagline only if readable; if too small, hide tagline in dashboard sidebar
+- Navigation:
+  - padding: 12px 14px
+  - gap between nav items: 6px
+  - nav item height: 44px
+  - nav item border-radius: 14px
+  - nav icon size: 18px
+  - label font: 14px, weight 500
+  - nav item padding: 0 14px
+  - icon/label gap: 12px
+
+Active nav item:
+- Use subtle premium styling, not a cheap block.
+- background: linear-gradient or solid soft blue #EEF5FF / #EAF3FF
+- text/icon: Unboks blue #1677F2
+- optional subtle inset border: 1px solid rgba(22,119,242,0.10)
+- no harsh full-width ugly selection
+- no gold
+- no dark colors
+
+Inactive nav:
+- text: #64748B
+- icon: #94A3B8
+- hover: #F5F8FC
+- hover text: #0F172A
+
+Top header:
+The current top header is messy. Rebuild alignment cleanly.
+
+Header requirements:
+- height: 76px
+- background: #FFFFFF
+- border-bottom: 1px solid #E6EAF0
+- padding-left/right: 28px
+- display flex
+- align-items center
+- justify-content space-between
+- gap: 24px
+- no element should touch right edge
+
+Header left:
+- Page icon + title
+- Icon muted blue/gray
+- Title: Inbox, 18px, weight 600, dark navy
+- Gap between icon and title: 10px
+
+Header right:
+Create a dedicated wrapper:
+className something like:
+headerActions = "flex items-center gap-4 shrink-0 pr-2"
+
+Inside:
+1. Search input
+2. Date text
+3. theme/notification icons if still present
+4. Sign out
+
+Search input:
+Fix the icon/placeholder overlap permanently.
+
+Requirements:
+- wrapper position: relative
+- width: clamp(260px, 26vw, 360px)
+- height: 42px
+- input width: 100%
+- input height: 42px
+- border-radius: 999px
+- background: #F5F7FA
+- border: 1px solid #E2E8F0
+- text color: #0F172A
+- placeholder color: #94A3B8
+- padding-left: 42px
+- padding-right: 16px
+- box-sizing: border-box
+- search icon absolute:
+  - left: 15px
+  - top: 50%
+  - transform: translateY(-50%)
+  - width/height: 16px
+  - color: #94A3B8
+  - pointer-events none
+- The placeholder must start after the icon with clear spacing.
+- No overlap. No merged icon and text.
+
+Sign out:
+- Must not touch right edge.
+- Keep at least 24px from viewport right.
+- Use a proper button/link style:
+  - height: 36px
+  - padding: 0 12px
+  - border-radius: 10px
+  - color: #64748B
+  - hover background #F5F7FA
+  - hover color #0F172A
+- Align vertically with icons.
+- Do not let it drift outside the header.
+
+Date/icons:
+- Date text should be muted #94A3B8, 13px.
+- Icons should be 18px, muted #64748B.
+- Use consistent gap: 10–12px.
+- No cramped grouping.
+
+Inbox toolbar / channel filters:
+Current filter chips look cheap. Make them premium.
+
+Toolbar:
+- height: 64px
+- background: #FFFFFF
+- border-bottom: 1px solid #E6EAF0
+- padding: 0 28px
+- display flex
+- align-items center
+- gap: 10px
+
+Select checkbox:
+- Size 18px
+- Rounded 5px
+- Border #CBD5E1
+- Proper margin-right 8px
+
+Channel chips:
+- height: 36px
+- padding: 0 13px
+- border-radius: 999px
+- font-size: 14px
+- font-weight: 500
+- background: #F5F7FA
+- border: 1px solid #E2E8F0
+- text: #64748B
+- icon size: 15px
+- gap: 7px
+- no double icons
+- no icon touching label
+- no raw text
+- no cheap cramped pills
+
+Active chip:
+- background: #EAF3FF
+- border: 1px solid rgba(22,119,242,0.20)
+- color: #1677F2
+- subtle shadow optional, very light
+
+Main content:
+The inbox card currently feels like a huge empty white blob.
+
+Make it refined:
+- page background: #F7F9FC
+- content padding: 28px
+- inbox surface:
+  - background: #FFFFFF
+  - border: 1px solid #E6EAF0
+  - border-radius: 24px
+  - min-height: calc(100vh - 76px - 64px - 56px)
+  - box-shadow: 0 12px 40px rgba(15, 23, 42, 0.04)
+  - overflow hidden
+
+Empty state:
+- Centered in card
+- Icon circle:
+  - 64px
+  - background #EEF5FF
+  - icon #1677F2
+- Title:
+  - 15px or 16px
+  - weight 600
+  - dark navy
+- Subtitle:
+  - 14px
+  - #64748B
+- spacing: icon to title 16px, title to subtitle 6px
+- Make it feel intentional, not placeholder.
+
+Global polish:
+- Remove all remaining cheap default Tailwind visuals.
+- Use consistent border color #E6EAF0.
+- Use consistent border radii: 12, 14, 20, 24.
+- Use subtle shadows only.
+- Avoid large flat blue blocks.
+- Avoid default gray button look.
+- Avoid cramped elements.
+- Nothing should touch viewport edges.
+- Everything should align to a consistent grid.
+
+Dashboard shell:
+Ensure the dashboard fills viewport:
+- height: 100vh
+- overflow hidden on app shell
+- sidebar fixed height
+- main content flex column min-h-0
+- main content scroll only where needed
+
+Production quality:
+This is not a prototype.
+This must look acceptable to show a paying client.
+
+Acceptance criteria:
+1. Sidebar looks premium and balanced.
+2. Logo area is clean.
+3. Nav spacing is professional.
+4. Active nav item is subtle and premium.
+5. Header is clean and aligned.
+6. Search icon no longer overlaps placeholder.
+7. Search input looks premium.
+8. Sign out is not too far right and has proper spacing.
+9. Channel chips look polished.
+10. Main inbox card looks refined.
+11. Empty state looks intentional.
+12. Typography matches Unboks.org quality.
+13. Dashboard visually feels like the same brand as Unboks.org.
+14. No dark/admin styling remains.
+15. Screenshot should look like a premium SaaS product.
+
+Self-check:
+After changes, compare screenshot to the Unboks.org landing page.
+Ask:
+- Does this feel like the same brand?
+- Would this impress a client?
+- Is spacing calm and expensive-looking?
+- Is the search field fixed?
+- Is the sidebar polished?
+- Are the buttons/chips premium?
+If not, keep improving.
+
+Final response:
+Report the exact files changed and the styling system changes made.

@@ -20,10 +20,10 @@ export function PlatformFilterBar({ className }: { className?: string }) {
       <button
         onClick={clear}
         className={cn(
-          "flex items-center h-[34px] px-3.5 rounded-full text-[13px] font-medium transition-all duration-100 shrink-0 border",
+          "flex items-center h-[36px] px-[13px] rounded-full text-[14px] font-medium transition-all duration-100 shrink-0 border",
           isAll
-            ? "bg-primary/10 text-primary border-primary/25"
-            : "bg-muted text-muted-foreground border-border hover:bg-muted/80 hover:text-foreground"
+            ? "bg-[#EAF3FF] text-[#1677F2] border-[rgba(22,119,242,0.20)]"
+            : "bg-[#F5F7FA] text-[#64748B] border-[#E2E8F0] hover:bg-[#EEF2F7] hover:text-[#0F172A]"
         )}
       >
         All
@@ -37,13 +37,13 @@ export function PlatformFilterBar({ className }: { className?: string }) {
             key={p.key}
             onClick={() => toggle(p.key)}
             className={cn(
-              "flex items-center gap-1.5 h-[34px] px-3.5 rounded-full text-[13px] font-medium transition-all duration-100 shrink-0 border",
+              "flex items-center gap-[7px] h-[36px] px-[13px] rounded-full text-[14px] font-medium transition-all duration-100 shrink-0 border",
               active
-                ? "bg-primary/10 text-primary border-primary/25"
-                : "bg-muted text-muted-foreground border-border hover:bg-muted/80 hover:text-foreground"
+                ? "bg-[#EAF3FF] text-[#1677F2] border-[rgba(22,119,242,0.20)]"
+                : "bg-[#F5F7FA] text-[#64748B] border-[#E2E8F0] hover:bg-[#EEF2F7] hover:text-[#0F172A]"
             )}
           >
-            <Icon className="w-3.5 h-3.5 shrink-0" />
+            <Icon className="w-[15px] h-[15px] shrink-0" />
             {p.key !== "x" && <span>{p.label}</span>}
           </button>
         );

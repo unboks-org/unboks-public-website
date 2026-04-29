@@ -105,33 +105,34 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div
-      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-7 h-[80px] shrink-0 bg-card border-b border-border gap-4"
+      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-7 h-[76px] shrink-0 bg-card border-b border-border gap-4"
     >
       <div className="flex items-center gap-3 shrink-0">
-        <Icon className="w-5 h-5 text-muted-foreground/60" />
-        <span className="text-[17px] font-semibold text-foreground">{match.label}</span>
+        <Icon className="w-5 h-5 text-[#94A3B8]" />
+        <span className="text-[18px] font-semibold text-[#0F172A]">{match.label}</span>
       </div>
 
-      <div className="flex items-center gap-2 ml-auto">
+      <div className="flex items-center gap-3 ml-auto pr-1">
         {isInboxPage && (
-          <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 dark:text-muted-foreground/70 pointer-events-none" />
+          <div className="relative flex items-center" style={{ width: 'clamp(260px, 26vw, 360px)' }}>
+            <Search className="absolute left-[15px] top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8] pointer-events-none z-10" />
             <input
               value={searchQ}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search conversations…"
-              className="w-[300px] h-10 pl-10 pr-4 rounded-full bg-background border border-border dark:border-white/[0.12] dark:bg-white/[0.07] text-[14px] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 dark:focus:border-primary/50 transition-all"
+              style={{ paddingLeft: '42px' }}
+              className="w-full h-[42px] pr-4 rounded-full bg-[#F5F7FA] border border-[#E2E8F0] text-[14px] text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
             />
           </div>
         )}
 
-        <span className="text-muted-foreground/50 text-[13px] font-medium tabular-nums ml-1">{dateStr}</span>
+        <span className="text-[#94A3B8] text-[13px] font-medium tabular-nums shrink-0">{dateStr}</span>
 
         <NotificationBell />
 
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-150 text-[13px] font-medium"
+          className="flex items-center gap-1.5 h-[36px] px-3 rounded-[10px] text-[#64748B] hover:text-[#0F172A] hover:bg-[#F5F7FA] transition-all duration-150 text-[13px] font-medium shrink-0"
         >
           <LogOut className="w-[15px] h-[15px]" />
           Sign out
@@ -201,7 +202,7 @@ export function AppLayout() {
           setMobileOpen(false);
           window.dispatchEvent(new Event("bluemarlin:nav:messages"));
         }}
-        className="flex items-center h-[80px] px-5 border-b border-border shrink-0"
+        className="flex items-center h-[96px] px-6 border-b border-border shrink-0"
       >
         <div className="select-none flex items-center justify-between w-full">
           <img src={unboksLogo} alt="Unboks" className="w-[148px] h-auto object-contain" />
@@ -213,7 +214,7 @@ export function AppLayout() {
         </div>
       </Link>
 
-      <nav className="flex-1 px-3 pt-5 space-y-1 overflow-y-auto scrollbar-none">
+      <nav className="flex-1 px-[14px] pt-4 flex flex-col gap-[6px] overflow-y-auto scrollbar-none">
         {NAV_ITEMS.map((item) => {
           const active = item.isActive;
           return (
@@ -226,27 +227,27 @@ export function AppLayout() {
               {active && (
                 <motion.div
                   layoutId="sidebar-pill"
-                  className="absolute inset-0 rounded-xl bg-primary/[0.10]"
+                  className="absolute inset-0 rounded-[14px] bg-[#EAF3FF] border border-[rgba(22,119,242,0.10)]"
                   transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
                 />
               )}
               <div
                 className={cn(
-                  "relative flex items-center gap-[10px] px-3 min-h-[44px] rounded-xl transition-colors duration-100 group",
+                  "relative flex items-center gap-3 px-[14px] min-h-[44px] rounded-[14px] transition-colors duration-100 group",
                   active
-                    ? "text-primary bg-primary/[0.08]"
-                    : "text-foreground/65 hover:text-foreground hover:bg-muted"
+                    ? "text-[#1677F2]"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-[#F5F8FC]"
                 )}
               >
                 <item.icon
                   className={cn(
                     "w-[18px] h-[18px] shrink-0 transition-colors duration-150",
-                    active ? "text-primary" : "text-foreground/45 group-hover:text-foreground/75"
+                    active ? "text-[#1677F2]" : "text-[#94A3B8] group-hover:text-[#64748B]"
                   )}
                 />
                 <span className={cn(
-                  "text-[14px] flex-1",
-                  active ? "font-semibold text-primary" : "font-medium"
+                  "text-[14px] flex-1 font-medium",
+                  active ? "text-[#1677F2]" : ""
                 )}>
                   {item.label}
                 </span>
@@ -260,7 +261,7 @@ export function AppLayout() {
         <div className="px-3 pb-4 pt-2 border-t border-border/50">
           <button
             onClick={() => logout()}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/55 hover:text-destructive hover:bg-destructive/[0.07] transition-colors w-full text-[14px] tracking-tight"
+            className="flex items-center gap-3 px-[14px] py-2.5 rounded-[14px] text-[#64748B] hover:text-destructive hover:bg-destructive/[0.07] transition-colors w-full text-[14px]"
           >
             <LogOut className="w-4 h-4" />
             <span className="font-medium">Sign out</span>

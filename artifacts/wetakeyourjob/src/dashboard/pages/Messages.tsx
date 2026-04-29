@@ -833,7 +833,7 @@ export default function Messages() {
     <div className="flex flex-col h-full overflow-hidden bg-background">
 
       {/* ── Toolbar row — white bar, full width, border-bottom ── */}
-      <div className="flex items-center shrink-0 h-[60px] bg-card border-b border-border px-7 gap-3">
+      <div className="flex items-center shrink-0 h-[64px] bg-card border-b border-border px-7 gap-3">
         {/* master checkbox */}
         <div className="flex items-center shrink-0 gap-0.5">
           <div className="flex items-center justify-center w-9">
@@ -917,8 +917,8 @@ export default function Messages() {
       </div>
 
       {/* ── Main content area: padded, with white rounded card ── */}
-      <div className="flex-1 overflow-hidden p-6">
-        <div className="bg-card rounded-3xl border border-border shadow-sm h-full flex flex-col overflow-hidden">
+      <div className="flex-1 overflow-hidden p-7">
+        <div className="bg-card rounded-3xl border border-[#E6EAF0] shadow-[0_12px_40px_rgba(15,23,42,0.04)] h-full flex flex-col overflow-hidden">
 
           {/* Unread count header */}
           {unreadCount > 0 && (
@@ -972,24 +972,22 @@ export default function Messages() {
                 ))}
               </>
             ) : (
-              <div className="flex flex-col items-center justify-center h-full gap-4 py-24">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                  <MessageCircle className="w-7 h-7 text-primary" />
+              <div className="flex flex-col items-center justify-center h-full gap-0 py-24">
+                <div className="w-16 h-16 rounded-full bg-[#EEF5FF] flex items-center justify-center mb-4">
+                  <MessageCircle className="w-7 h-7 text-[#1677F2]" />
                 </div>
-                <div className="text-center">
-                  <p className="text-[16px] font-semibold text-foreground">
-                    {(conversations?.length ?? 0) === 0
-                      ? "No conversations yet"
-                      : escalationsMode
-                      ? "No escalated conversations"
-                      : "No conversations match this filter"}
-                  </p>
-                  <p className="text-[14px] text-muted-foreground mt-1.5">
-                    {(conversations?.length ?? 0) === 0
-                      ? "New messages will appear here."
-                      : "Try a different filter or search term."}
-                  </p>
-                </div>
+                <p className="text-[16px] font-semibold text-[#0F172A] mb-1.5">
+                  {(conversations?.length ?? 0) === 0
+                    ? "No conversations yet"
+                    : escalationsMode
+                    ? "No escalated conversations"
+                    : "No conversations match this filter"}
+                </p>
+                <p className="text-[14px] text-[#64748B]">
+                  {(conversations?.length ?? 0) === 0
+                    ? "New messages will appear here."
+                    : "Try a different filter or search term."}
+                </p>
               </div>
             )}
 
