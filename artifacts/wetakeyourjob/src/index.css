@@ -50,38 +50,39 @@
 }
 
 :root {
-  --background: 210 30% 96%;
-  --foreground: 222 47% 10%;
+  /* Unboks.org brand: #25D366 green primary, white bg, #0F0F0E near-black text */
+  --background: 0 0% 100%;
+  --foreground: 60 6% 5%;
 
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 10%;
-  --card-border: 220 18% 90%;
+  --card-foreground: 60 6% 5%;
+  --card-border: 142 12% 90%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 10%;
-  --popover-border: 220 18% 88%;
+  --popover-foreground: 60 6% 5%;
+  --popover-border: 142 12% 88%;
 
-  --primary: 217 89% 58%;
-  --primary-foreground: 220 50% 8%;
+  --primary: 142 70% 49%;
+  --primary-foreground: 0 0% 100%;
 
-  --secondary: 220 20% 94%;
-  --secondary-foreground: 222 40% 25%;
+  --secondary: 215 25% 95%;
+  --secondary-foreground: 215 25% 37%;
 
-  --muted: 220 18% 95%;
-  --muted-foreground: 220 15% 30%;
+  --muted: 142 12% 96%;
+  --muted-foreground: 215 20% 45%;
 
-  --accent: 217 89% 58%;
-  --accent-foreground: 220 50% 8%;
+  --accent: 142 70% 49%;
+  --accent-foreground: 0 0% 100%;
 
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 220 18% 80%;
+  --border: 215 16% 88%;
   --input: 0 0% 100%;
-  --ring: 217 89% 58%;
-  --radius: 0.75rem;
+  --ring: 142 70% 49%;
+  --radius: 0.5rem;
 
-  --surface-overlay: rgba(246, 249, 252, 0.90);
+  --surface-overlay: rgba(255, 255, 255, 0.92);
   --surface-panel: #FFFFFF;
 }
 
@@ -293,7 +294,7 @@ a, button, input, textarea {
 
   .glass-panel {
     background: #FFFFFF;
-    border-right: 1px solid hsl(220 18% 90%);
+    border-right: 1px solid hsl(var(--border));
   }
 
   .dark .glass-panel {
