@@ -1,0 +1,270 @@
+This is a production brand-reset task.
+
+I want the entire Unboks dashboard to use the same branding as the public Unboks.org website.
+
+Kill every other visual style.
+
+Context:
+The public Unboks.org website is the correct brand source of truth:
+- light premium SaaS look
+- white / off-white backgrounds
+- dark navy text
+- soft blue accents
+- subtle gray secondary text
+- rounded cards
+- clean spacing
+- calm professional AI-business product feel
+
+The dashboard must visually belong to the same product.
+
+Current problem:
+The dashboard still carries old styling from previous versions:
+- dark admin panel styling
+- old BlueMarlin / WTYJ / demo visual DNA
+- cramped dashboard shell
+- dark-mode tokens
+- gold accents
+- colorful platform/settings styling
+- inconsistent logo use
+- old localStorage theme behavior
+- mixed design systems
+
+Goal:
+Create one unified Unboks brand system and make the dashboard use it everywhere.
+
+This is not a small polish task.
+This is a full dashboard visual brand reset.
+
+Do not change:
+- backend logic
+- authentication logic
+- routes
+- API calls
+- Zernio/channel logic
+- settings functionality
+- inbox functionality
+- escalation logic
+- database/data models
+
+Only change:
+- styling
+- theme tokens
+- dashboard layout shell if needed
+- component styling
+- logo usage
+- visual hierarchy
+- spacing
+- colors
+- typography
+- old branding remnants
+
+Brand source of truth:
+Use the public Unboks.org website styling as the visual source of truth.
+
+Audit first:
+Before editing, inspect:
+- public website components/styles
+- dashboard shell
+- index.css
+- dashboard theme provider
+- AppLayout.tsx
+- Messages.tsx
+- Channels.tsx
+- Settings.tsx
+- PlatformFilterBar.tsx
+- dashboard ui components
+- logo assets
+
+Find the exact website colors, fonts, spacing, card styles, button styles, and logo asset.
+
+Then apply those brand patterns to the dashboard.
+
+Hard rules:
+1. Remove dark mode from the production dashboard for now.
+2. Force dashboard light mode only.
+3. Do not read old localStorage theme values.
+4. Remove/ignore bluemarlin_theme.
+5. Do not apply .dark to #dashboard-root.
+6. Remove any theme toggle from the dashboard header.
+7. Remove old WTYJ visual branding.
+8. Remove BlueMarlin visual naming from user-facing UI.
+9. Remove gold/champagne dashboard accents unless they are part of the public Unboks.org website brand.
+10. Remove colorful rainbow category styling.
+11. Remove dark admin panel surfaces.
+12. Remove placeholder logo usage.
+13. Use the real Unboks logo from the public website.
+14. Dashboard must be light, premium, spacious, and professional.
+
+Create one Unboks brand system:
+Use shared tokens/classes for:
+
+Colors:
+- page background
+- card background
+- border
+- primary text
+- secondary text
+- muted text
+- Unboks blue accent
+- soft blue background
+- hover states
+- focus states
+- success/error/status colors
+
+Typography:
+- same font family as Unboks.org where possible
+- same heading weight/feel
+- readable dashboard body text
+- no tiny cramped labels
+
+Surfaces:
+- white cards
+- soft borders
+- subtle shadows
+- rounded corners
+- no harsh outlines
+- no neon glow
+
+Buttons:
+- primary black or Unboks website-style CTA if that is what the public site uses
+- secondary outlined pill
+- consistent hover/focus states
+
+Inputs:
+- light pill inputs
+- soft gray background
+- blue focus ring
+- proper icon spacing
+
+Dashboard layout:
+Use a premium SaaS app shell:
+- left sidebar
+- top header
+- toolbar
+- main content area
+
+Sidebar:
+- light background
+- real Unboks logo, properly sized
+- clean nav items
+- soft active state
+- blue accent
+- no dark sidebar
+- no gold selected row
+- no cramped spacing
+
+Top header:
+- light background
+- clean title
+- search field aligned properly
+- notification/sign-out area with proper spacing
+- no dark strip
+- no cramped elements
+
+Inbox:
+- light page background
+- white inbox card
+- premium empty state
+- channel filters as clean chips
+- no raw text filters
+- no dark message area
+
+Channels:
+- light premium settings/list style
+- muted platform icons
+- no colorful left borders
+- no long explanatory blocks unless needed
+- simple status labels
+
+Settings:
+- light premium accordion/list style
+- no rainbow icons
+- one Unboks blue accent
+- clean rows
+- calm spacing
+
+Escalations:
+- must also use the same Unboks brand system
+- no separate dark/admin styling
+- clean list/detail layout
+- clear priority/status badges
+
+Logo:
+Find the exact logo used on the public Unboks.org website.
+Use that same asset in:
+- dashboard sidebar
+- login if applicable
+- any dashboard empty state/branding area
+
+Do not use:
+- orange U placeholder
+- WTYJ logo
+- old generated logos
+- tiny unreadable logo
+- stretched/cropped logo
+
+LocalStorage/theme cleanup:
+- remove old theme key or stop reading it:
+  bluemarlin_theme
+- if needed, clear it on dashboard load:
+  localStorage.removeItem('bluemarlin_theme')
+- if keeping a future key, use:
+  unboks_theme
+  but for now always use light
+
+Code cleanup:
+Search and report/remove user-facing occurrences of:
+- WTYJ
+- WeTakeYourJob
+- BlueMarlin
+- bluemarlin
+- old theme keys
+- dark admin-specific class usage
+- gold accent classes
+- rainbow category color props
+- old logo paths
+- placeholder logo code
+
+Important:
+Only remove/rename user-facing branding and visual styling.
+Do not break backend/internal identifiers if they are required for API/data compatibility.
+If an internal variable named bluemarlin is required and changing it risks breakage, leave it but ensure it does not appear in UI.
+
+Acceptance criteria:
+1. Dashboard always opens in light mode.
+2. Dashboard visually matches Unboks.org.
+3. No dark admin-panel design remains.
+4. No old WTYJ branding remains in UI.
+5. No BlueMarlin branding remains in UI.
+6. No orange placeholder logo remains.
+7. Real Unboks logo is used.
+8. Sidebar, header, inbox, channels, settings, and escalations all share the same brand system.
+9. No rainbow styling.
+10. No gold active rows.
+11. Search spacing is correct.
+12. Channel filters are clean chips.
+13. Main content sits in polished white cards.
+14. Empty states are intentional and premium.
+15. The dashboard looks production-ready for paying clients.
+
+Self-check:
+After making changes, open:
+- public Unboks.org landing page
+- /dashboard/inbox
+- /dashboard/channels
+- /dashboard/settings
+- /dashboard/escalations
+
+Compare them side by side.
+
+Ask:
+Do these look like the same product?
+
+If no, keep fixing.
+
+Final response must include:
+1. Files changed.
+2. Old branding/style removed.
+3. Theme/localStorage behavior changed.
+4. Remaining risks or internal names that were intentionally not changed.
+5. Confirmation that dashboard is light-mode-only and uses Unboks.org brand styling.

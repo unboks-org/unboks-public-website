@@ -128,8 +128,8 @@ function SummaryCard({
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
         style={{
           background: alertBorder
-            ? "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(225,206,157,0.06) 0%, transparent 70%)"
-            : "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%)",
+            ? "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(22,119,242,0.04) 0%, transparent 70%)"
+            : "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(22,119,242,0.02) 0%, transparent 70%)",
         }}
       />
 
@@ -137,12 +137,7 @@ function SummaryCard({
         {/* Header row */}
         <div className="flex items-center justify-between">
           <div
-            className={cn("w-9 h-9 rounded-xl flex items-center justify-center shrink-0", iconColor)}
-            style={{
-              background: "rgba(255,255,255,0.07)",
-              backdropFilter: "blur(8px)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 3px rgba(0,0,0,0.2)",
-            }}
+            className={cn("w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-muted/80 shadow-sm", iconColor)}
           >
             <Icon className="w-4 h-4" />
           </div>
@@ -162,7 +157,7 @@ function SummaryCard({
 
         {/* Stats footer */}
         {stats && stats.length > 0 && (
-          <div className="pt-3.5 mt-1 border-t border-white/[0.12] grid grid-cols-3 divide-x divide-white/[0.08]">
+          <div className="pt-3.5 mt-1 border-t border-border/60 grid grid-cols-3 divide-x divide-border/50">
             {stats.map(({ label, value: v }) => (
               <div key={label} className="flex flex-col items-center gap-2 first:pl-0 last:pr-0 py-0.5">
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.20em] text-foreground/40 leading-none">
@@ -319,7 +314,7 @@ export default function Overview() {
         );
 
         const renderRow = (post: typeof recent[0]) => (
-          <div key={post.id} className="flex items-center gap-3.5 px-5 py-3.5 group hover:bg-white/[0.02] transition-colors">
+          <div key={post.id} className="flex items-center gap-3.5 px-5 py-3.5 group hover:bg-muted/50 transition-colors">
             <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 ring-1 ring-emerald-500/15">
               <CheckCircle2 className="w-3 h-3 text-emerald-400" />
             </div>
@@ -337,16 +332,16 @@ export default function Overview() {
 
         return (
           <div className="glass-card rounded-2xl overflow-hidden">
-            <div className="flex items-center px-5 py-4 gap-3 border-b border-white/[0.06]">
+            <div className="flex items-center px-5 py-4 gap-3 border-b border-border">
               <h2 className="text-sm font-semibold text-foreground/80 flex-1 tracking-tight">Recent Activity</h2>
               <button
                 onClick={() => refetchActivity()}
-                className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-muted-foreground hover:bg-white/[0.06] transition-colors"
+                className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-muted-foreground hover:bg-muted/70 transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
               </button>
             </div>
-            <div className="divide-y divide-white/[0.04]">
+            <div className="divide-y divide-border/50">
               {recent.length === 0 && archived.length === 0 ? (
                 <div className="px-5 py-12 text-center">
                   <p className="text-sm text-muted-foreground/40">No recent activity.</p>
@@ -359,7 +354,7 @@ export default function Overview() {
                       {recent.length > 5 && (
                         <button
                           onClick={() => setActivityExpanded((e) => !e)}
-                          className="w-full flex items-center justify-center gap-2 px-5 py-2.5 text-xs text-muted-foreground/40 hover:text-muted-foreground hover:bg-white/[0.03] transition-colors"
+                          className="w-full flex items-center justify-center gap-2 px-5 py-2.5 text-xs text-muted-foreground/40 hover:text-muted-foreground hover:bg-muted/50 transition-colors"
                         >
                           {activityExpanded
                             ? <><ChevronUp className="w-3.5 h-3.5" /> Show less</>
@@ -372,7 +367,7 @@ export default function Overview() {
                     <>
                       <button
                         onClick={() => setArchiveExpanded((e) => !e)}
-                        className="w-full flex items-center gap-2 px-5 py-2.5 text-xs text-muted-foreground/35 hover:text-muted-foreground/60 hover:bg-white/[0.03] transition-colors"
+                        className="w-full flex items-center gap-2 px-5 py-2.5 text-xs text-muted-foreground/35 hover:text-muted-foreground/60 hover:bg-muted/50 transition-colors"
                       >
                         {archiveExpanded
                           ? <ChevronUp className="w-3.5 h-3.5" />

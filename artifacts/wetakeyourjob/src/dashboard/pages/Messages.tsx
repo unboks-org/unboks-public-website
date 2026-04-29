@@ -209,7 +209,7 @@ function ConversationRow({
         isSelected
           ? "bg-primary/[0.06]"
           : isRead
-          ? "hover:bg-[#F8FAFC]"
+          ? "hover:bg-muted/60"
           : "bg-primary/[0.03] hover:bg-primary/[0.05]",
         isHidden && "opacity-50"
       )}

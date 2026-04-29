@@ -1,14 +1,11 @@
 import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "@dashboard/components/auth/useAuthContext";
-import { useTheme } from "@dashboard/lib/theme";
 import {
   AlertTriangle,
   Settings,
   LogOut,
   Menu,
   Bell,
-  Sun,
-  Moon,
   Inbox,
   Wifi,
   Search,
@@ -82,7 +79,6 @@ function NotificationBell() {
 function TopBar({ onLogout }: { onLogout: () => void }) {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { theme, toggle } = useTheme();
 
   const isInboxPage = location.pathname === "/dashboard" || location.pathname === "/dashboard/";
   const isEscalationsView = isInboxPage && searchParams.get("view") === "escalations";
@@ -131,14 +127,6 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
         <span className="text-muted-foreground/50 text-[13px] font-medium tabular-nums ml-1">{dateStr}</span>
 
-        <button
-          onClick={toggle}
-          className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-150"
-          title={theme === "dark" ? "Light mode" : "Dark mode"}
-        >
-          {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-        </button>
-
         <NotificationBell />
 
         <button
@@ -159,7 +147,6 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
 export function AppLayout() {
   const { logout } = useAuthContext();
-  const { theme, toggle } = useTheme();
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -270,14 +257,7 @@ export function AppLayout() {
       </nav>
 
       {!hideActions && (
-        <div className="px-3 pb-4 pt-2 border-t border-border/50 space-y-0.5">
-          <button
-            onClick={toggle}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/55 hover:text-foreground hover:bg-muted/70 transition-colors w-full text-[14px] tracking-tight"
-          >
-            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            <span className="font-medium">{theme === "dark" ? "Light mode" : "Dark mode"}</span>
-          </button>
+        <div className="px-3 pb-4 pt-2 border-t border-border/50">
           <button
             onClick={() => logout()}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground/55 hover:text-destructive hover:bg-destructive/[0.07] transition-colors w-full text-[14px] tracking-tight"
@@ -306,12 +286,6 @@ export function AppLayout() {
             <img src={unboksLogo} alt="Unboks" className="h-6 w-auto object-contain" />
           </div>
           <div className="flex items-center gap-1">
-            <button
-              onClick={toggle}
-              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors"
-            >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground">

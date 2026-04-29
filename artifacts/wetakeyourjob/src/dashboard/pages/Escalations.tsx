@@ -191,15 +191,15 @@ export default function Escalations() {
         className={cn(
           "flex items-start gap-4 px-4 py-4 rounded-xl border border-border/60 bg-card cursor-pointer select-none group",
           "transition-all duration-150",
-          "hover:border-border hover:shadow-lg hover:shadow-black/20 hover:-translate-y-px",
+          "hover:border-border hover:shadow-md hover:shadow-foreground/[0.06] hover:-translate-y-px",
           isHidden && "opacity-50"
         )}
         onClick={() => openDetail(esc.id)}
       >
         <div className="relative w-9 h-9 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 mt-0.5">
           {isResolved
-            ? <CheckCircle2 className="w-4 h-4 text-emerald-400/70" />
-            : <AlertTriangle className={cn("w-4 h-4", semi ? "text-muted-foreground/50" : "text-rose-400/70")} />}
+            ? <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            : <AlertTriangle className={cn("w-4 h-4", semi ? "text-muted-foreground/60" : "text-rose-500")} />}
           {!isRead && !isHidden && (
             <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-primary border-2 border-card" />
           )}
@@ -216,8 +216,8 @@ export default function Escalations() {
             <span className={cn(
               "inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-md border",
               semi
-                ? "bg-foreground/[0.05] text-muted-foreground/70 border-border/40"
-                : "bg-rose-500/8 text-rose-400/80 border-rose-500/15"
+                ? "bg-muted text-muted-foreground border-border/60"
+                : "bg-rose-50 text-rose-600 border-rose-200/60"
             )}>
               {getTypeLabel(esc.notification_type)}
             </span>
@@ -237,14 +237,14 @@ export default function Escalations() {
           <button
             onClick={(e) => { e.stopPropagation(); openDetail(esc.id, true); }}
             title={semi ? "Reply to customer" : "Send email to customer"}
-            className="p-1.5 rounded-lg text-amber-400/50 hover:text-amber-400 hover:bg-amber-400/10 transition-colors"
+            className="p-1.5 rounded-lg text-muted-foreground/60 hover:text-amber-600 hover:bg-amber-50 transition-colors"
           >
             {semi ? <Phone className="w-4 h-4" /> : <Mail className="w-4 h-4" />}
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); isRead ? markUnread(String(esc.id)) : markRead(String(esc.id)); }}
             title={isRead ? "Mark as unread" : "Mark as read"}
-            className="p-1.5 rounded-lg text-sky-400/50 hover:text-sky-400 hover:bg-sky-400/10 transition-colors"
+            className="p-1.5 rounded-lg text-muted-foreground/60 hover:text-primary hover:bg-primary/10 transition-colors"
           >
             {isRead ? <Circle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
           </button>
@@ -252,7 +252,7 @@ export default function Escalations() {
             <button
               onClick={(e) => { e.stopPropagation(); unhide(String(esc.id)); }}
               title="Restore from archive"
-              className="p-1.5 rounded-lg text-emerald-400/50 hover:text-emerald-400 hover:bg-emerald-400/10 transition-colors"
+              className="p-1.5 rounded-lg text-muted-foreground/60 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
             >
               <ArchiveRestore className="w-4 h-4" />
             </button>
@@ -260,7 +260,7 @@ export default function Escalations() {
             <button
               onClick={(e) => { e.stopPropagation(); hide(String(esc.id)); }}
               title="Archive this escalation"
-              className="p-1.5 rounded-lg text-slate-400/50 hover:text-slate-300 hover:bg-white/5 transition-colors"
+              className="p-1.5 rounded-lg text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-colors"
             >
               <Archive className="w-4 h-4" />
             </button>
@@ -269,7 +269,7 @@ export default function Escalations() {
             <button
               onClick={(e) => { e.stopPropagation(); onDelete(String(esc.id)); }}
               title="Delete escalation"
-              className="p-1.5 rounded-lg text-rose-400/50 hover:text-rose-400 hover:bg-rose-400/10 transition-colors"
+              className="p-1.5 rounded-lg text-muted-foreground/60 hover:text-rose-600 hover:bg-rose-50 transition-colors"
             >
               <Trash2 className="w-4 h-4" />
             </button>
@@ -288,21 +288,21 @@ export default function Escalations() {
           <div className="relative w-full max-w-2xl rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
             <div className={cn(
               "flex items-center justify-between px-5 py-3.5 border-b border-border",
-              selected && isSemi(selected.notification_type) ? "bg-slate-500/10" : "bg-rose-500/10"
+              selected && isSemi(selected.notification_type) ? "bg-muted/60" : "bg-rose-50"
             )}>
               <div className="flex items-center gap-2.5">
                 {selected && isSemi(selected.notification_type) ? (
                   <>
-                    <Phone className="w-4 h-4 text-slate-400" />
+                    <Phone className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm font-semibold text-foreground">Semi Escalation Reply</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">Semi</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-muted text-muted-foreground border border-border">Semi</span>
                     <span className="text-xs text-muted-foreground">— The AI will reformat and send to the customer.</span>
                   </>
                 ) : (
                   <>
-                    <Mail className="w-4 h-4 text-rose-400" />
+                    <Mail className="w-4 h-4 text-rose-500" />
                     <span className="text-sm font-semibold text-foreground">Full Escalation Email</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Full</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-100 text-rose-600 border border-rose-200">Full</span>
                     <span className="text-xs text-muted-foreground">— opens in {emailSettings.client === "gmail" ? "Gmail" : "your mail app"}</span>
                   </>
                 )}
@@ -382,7 +382,7 @@ export default function Escalations() {
                       } catch {}
                     }}
                     disabled={escalationReply.isPending || !compose?.body.trim()}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors ml-auto"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors ml-auto"
                   >
                     <Send className="w-3.5 h-3.5" />
                     {escalationReply.isPending ? "Sending…" : "Send AI Reply"}
@@ -430,8 +430,8 @@ export default function Escalations() {
               <p className="text-muted-foreground text-sm">Conversations that need your immediate attention.</p>
             </div>
             {unreadCount > 0 && (
-              <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/15 text-sky-400 text-xs font-bold border border-sky-500/25">
-                <Circle className="w-2 h-2 fill-sky-400" />
+              <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/25">
+                <Circle className="w-2 h-2 fill-primary" />
                 {unreadCount} unread
               </span>
             )}
