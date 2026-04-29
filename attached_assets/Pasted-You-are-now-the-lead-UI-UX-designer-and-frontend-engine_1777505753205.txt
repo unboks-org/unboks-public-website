@@ -1,0 +1,475 @@
+You are now the lead UI/UX designer and frontend engineer for Unboks.
+
+This is not a patch task.
+This is a full premium dashboard redesign.
+
+I am giving you design ownership.
+
+Goal:
+Redesign the Unboks dashboard so it feels like a premium Apple/Google-style inbox product:
+- simple
+- calm
+- useful
+- spacious
+- professional
+- expensive-looking
+- client-facing
+- production-ready
+
+The current dashboard technically works, but visually it feels cheap, flat, cramped, and unfinished. I want a dashboard that looks like it belongs to a serious AI business communication platform.
+
+Design philosophy:
+Less is more, but the “less” must feel billion-dollar.
+
+Think:
+- Apple clarity
+- Google Inbox / Gmail usability
+- Linear / Notion polish
+- premium SaaS spacing
+- soft surfaces
+- strong typography
+- zero clutter
+- every element intentional
+
+Do not copy any brand exactly.
+Use them as quality references.
+
+Do not change:
+- backend logic
+- routes
+- authentication
+- inbox functionality
+- escalation functionality
+- channels functionality
+- settings functionality
+- API calls
+- data models
+
+You may change:
+- layout structure
+- dashboard shell styling
+- spacing
+- typography
+- colors
+- component hierarchy
+- navigation styling
+- inbox toolbar design
+- search/header design
+- empty states
+- page surfaces
+- component styling
+- CSS variables/tokens
+- reusable UI components
+
+Core brand:
+Unboks.org is the brand source.
+
+Use:
+- white / soft off-white background
+- dark navy primary text
+- muted blue-gray secondary text
+- Unboks blue accent
+- soft blue selected states
+- subtle shadows
+- rounded cards
+- clean logo usage
+- calm professional AI-business feeling
+
+Do not use:
+- dark admin panel styling
+- cheap bubbly buttons
+- random colorful icons
+- gold active states
+- harsh borders
+- raw Tailwind default look
+- cramped nav
+- placeholder logos
+- WTYJ branding
+- BlueMarlin branding in user-facing UI
+- overdesigned gradients
+- childish pills
+- neon effects
+
+Important:
+If an existing component is visually bad, do not preserve it. Redesign it cleanly.
+If the current layout is fighting the design, refactor the dashboard shell.
+Do not keep bad UI just because it already exists.
+
+Brand system:
+Create a clean Unboks dashboard design system using tokens/classes.
+
+Suggested palette:
+- App background: #F7F9FC
+- Surface: #FFFFFF
+- Surface soft: #F3F6FA
+- Border: #E5EAF0
+- Text primary: #0F172A
+- Text secondary: #64748B
+- Text muted: #94A3B8
+- Accent blue: #1677F2
+- Accent soft: #EAF3FF
+- Success: muted green, not neon
+- Warning/error: muted, only where needed
+
+Typography:
+Use the same font feel as the Unboks.org website.
+If Manrope is available, use Manrope across the dashboard.
+Otherwise use Inter or a clean modern sans-serif.
+
+Typography rules:
+- Sidebar labels: 14px, medium
+- Header title: 18px, semibold
+- Body text: 14px
+- Small muted labels: 12–13px
+- Strong line height
+- No cheap oversized bold text
+- No tiny unreadable labels
+
+Dashboard layout:
+Build a premium app shell:
+
+1. Sidebar
+2. Header
+3. Main content
+
+The dashboard should feel like a real product, not a webpage shoved into a sidebar.
+
+App shell:
+- height: 100vh
+- background: #F7F9FC
+- display flex
+- overflow hidden
+- no dark mode for now
+- no old localStorage theme forcing dark mode
+- no beach image/background bleeding behind dashboard
+
+Sidebar:
+- width: 264px
+- background: rgba(255,255,255,0.92)
+- border-right: 1px solid #E5EAF0
+- padding: 24px 16px
+- display flex column
+- logo area at top with proper breathing room
+- real Unboks logo, clean and readable
+- logo width around 150–165px
+- if tagline under logo is too small, hide the tagline in dashboard
+- nav begins after 28px gap
+
+Sidebar nav:
+- nav item height: 44px
+- border-radius: 14px
+- padding: 0 14px
+- display flex
+- align-items center
+- gap: 12px
+- icon size 18px
+- label font 14px medium
+- inactive color #64748B
+- hover background #F5F8FC
+- active background #EAF3FF
+- active text/icon #1677F2
+- active state should look soft and expensive, not like a block button
+- no full harsh blue bars
+- no gold
+
+Header:
+- height: 76px
+- background: rgba(255,255,255,0.86)
+- backdrop-filter: blur(16px) if supported
+- border-bottom: 1px solid #E5EAF0
+- padding: 0 32px
+- display flex
+- align-items center
+- justify-between
+- left: page title with subtle icon
+- right: search, date, notification, sign out
+- all perfectly aligned
+- sign out must not touch right edge
+- header should feel calm and premium
+
+Search:
+Make the search field beautiful and correct.
+
+- width: clamp(280px, 28vw, 380px)
+- height: 42px
+- border-radius: 999px
+- background: #F3F6FA
+- border: 1px solid #E1E8F0
+- icon absolute left 16px
+- input padding-left 44px
+- placeholder starts clearly after icon
+- no overlap
+- focus: white background, blue ring, subtle shadow
+- placeholder #94A3B8
+- text #0F172A
+
+Main content:
+- flex: 1
+- display flex column
+- min-width 0
+- overflow hidden
+- background #F7F9FC
+
+Inbox page:
+Do not make the inbox look like an empty huge white box with random filters.
+
+Redesign it as a premium inbox workspace.
+
+Structure:
+1. Header row already above.
+2. Toolbar row.
+3. Inbox workspace.
+
+Toolbar:
+- height: 64px
+- padding: 0 32px
+- background: #FFFFFF
+- border-bottom: 1px solid #E5EAF0
+- display flex
+- align-items center
+- gap 16px
+
+Toolbar left:
+- select checkbox, clean and aligned
+- channel filter control
+
+Replace current channel chips.
+The current pill buttons are ugly.
+
+Use a premium segmented control:
+- one rounded container
+- background #F3F6FA
+- border #E1E8F0
+- padding 4px
+- display inline-flex
+- border-radius 16px
+- gap 2px
+
+Segments:
+- All
+- WhatsApp
+- X
+- Instagram
+- TikTok
+- Facebook
+
+Each segment:
+- height 32px
+- padding 0 12px
+- border-radius 12px
+- background transparent
+- color #64748B
+- font 13px medium
+- icon size 14px
+- gap 7px
+- no strong brand colors
+- no old Twitter bird
+- no double icons
+
+Active segment:
+- background #FFFFFF
+- color #0F172A or #1677F2
+- subtle shadow: 0 1px 3px rgba(15,23,42,0.08)
+- no loud blue pill
+- no cheap border
+
+Inbox workspace:
+Instead of a plain oversized card, create a refined workspace.
+
+- padding: 28px 32px 32px
+- background #F7F9FC
+
+Inbox surface:
+- background #FFFFFF
+- border 1px solid #E5EAF0
+- border-radius 28px
+- min-height calc(100vh - 76px - 64px - 64px)
+- box-shadow 0 18px 50px rgba(15,23,42,0.045)
+- overflow hidden
+- position relative
+
+Empty state:
+Make it elegant.
+
+Center it inside the inbox surface:
+- icon circle 72px
+- icon circle background #EAF3FF
+- icon #1677F2
+- title: “No conversations yet”
+- subtitle: “New messages will appear here.”
+- title 16px semibold
+- subtitle 14px muted
+- vertical spacing polished
+- optional very subtle decorative background glow, but keep it minimal
+
+When messages exist:
+Prepare list styling:
+- row height 76px
+- padding 0 20px
+- subtle border-bottom
+- hover #F8FAFC
+- unread title semibold
+- channel badge subtle
+- timestamp right
+- no clutter
+
+Escalations page:
+Use same app shell.
+Use clean cards/list.
+Priority badges should be subtle.
+No loud red unless critical.
+Make it feel like a queue of things needing attention.
+
+Channels page:
+Use same visual system.
+Premium settings list:
+- white card
+- rounded 24px
+- rows with icons, title, description, status
+- muted platform icons
+- no rainbow colors
+- no long unnecessary text blocks
+- status badges calm
+
+Settings page:
+Use same visual system.
+Premium grouped settings:
+- white card
+- rounded 24px
+- rows 72px
+- neutral icons
+- one blue accent
+- no rainbow icons
+- no colorful category blocks
+- clean accordion behavior
+
+Buttons:
+Use website-style buttons.
+Primary:
+- black or Unboks website primary if used
+- rounded pill or 12px radius depending context
+- height 40px
+- strong but minimal
+
+Secondary:
+- white
+- border #E1E8F0
+- muted text
+- hover light gray
+
+Do not use default browser-looking buttons.
+
+Icons:
+Use consistent icon style.
+- stroke width consistent
+- muted by default
+- blue only for active/important
+- no social media rainbow unless truly needed
+- no Twitter bird; X only
+
+Spacing:
+This is critical.
+Make everything align to a grid:
+- sidebar internal padding consistent
+- header left aligns with page content
+- toolbar aligns with inbox surface
+- card padding consistent
+- no elements touching edges
+- no cramped groups
+- no random tiny gaps
+- no huge pointless blank areas without structure
+
+Production polish:
+- Use transition-colors for hover states
+- focus-visible rings for accessibility
+- cursor states correct
+- no layout jumps
+- no overflow bugs
+- no text/icon collisions
+- no broken search icon
+- sign out properly spaced
+
+Dark mode:
+Disable dashboard dark mode for now.
+Production dashboard should be light only.
+Remove or ignore old localStorage keys:
+- bluemarlin_theme
+Do not apply .dark to dashboard root.
+Do not render theme toggle.
+
+Brand cleanup:
+Search user-facing UI for:
+- WTYJ
+- WeTakeYourJob
+- BlueMarlin
+- bluemarlin
+- old placeholder branding
+Remove from user-facing UI.
+Do not break internal API names if they are required.
+
+Files likely involved:
+- src/dashboard/components/layout/AppLayout.tsx
+- src/dashboard/pages/Messages.tsx
+- src/dashboard/components/PlatformFilterBar.tsx
+- src/dashboard/pages/Channels.tsx
+- src/dashboard/pages/Settings.tsx
+- src/dashboard/pages/Escalations.tsx
+- src/dashboard/lib/theme.ts
+- src/index.css
+- dashboard ui components if needed
+
+Implementation approach:
+1. Audit current dashboard components.
+2. Create or clean shared dashboard design tokens/classes.
+3. Refactor AppLayout first.
+4. Fix sidebar and header.
+5. Replace channel filters with segmented control.
+6. Polish inbox surface and empty state.
+7. Apply same style to Channels, Settings, Escalations.
+8. Remove old dark/theme behavior.
+9. Verify all routes still work.
+
+Do not stop after minor tweaks.
+This needs to visibly look like a new premium dashboard.
+
+Acceptance criteria:
+1. Dashboard looks like Unboks.org brand.
+2. It feels premium, calm, Apple/Google-style.
+3. Sidebar is polished and spacious.
+4. Header is balanced.
+5. Search is beautiful and not broken.
+6. Channel filters are no longer cheap pills.
+7. Inbox surface looks refined.
+8. Empty state looks intentional.
+9. Channels page matches same style.
+10. Settings page matches same style.
+11. Escalations page matches same style.
+12. No dark admin style remains.
+13. No old branding remains in UI.
+14. No spacing issues.
+15. No icon/text collisions.
+16. No elements touching viewport edges.
+17. Works on desktop and mobile.
+18. Screenshot looks good enough for a paying client demo.
+
+Final self-check:
+Open these pages:
+- /dashboard/inbox
+- /dashboard/escalations
+- /dashboard/channels
+- /dashboard/settings
+
+Compare them to public Unboks.org.
+
+Ask:
+“Would this dashboard make a client trust Unboks with their business messages?”
+
+If no, keep polishing.
+
+Final response:
+Report:
+- files changed
+- design system decisions
+- dark mode removal confirmation
+- old branding removed
+- any remaining risks

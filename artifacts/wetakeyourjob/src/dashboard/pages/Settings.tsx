@@ -67,17 +67,15 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
         className={cn(
           "w-full flex items-center gap-4 px-5 py-[18px] text-left transition-colors",
           open
-            ? "bg-primary/[0.04] dark:bg-primary/[0.07]"
-            : "bg-card hover:bg-muted/40 dark:hover:bg-white/[0.03]"
+            ? "bg-[#EAF3FF]/40"
+            : "bg-white hover:bg-[#F9FAFB]"
         )}
       >
         <div className={cn(
           "w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 transition-all",
-          open
-            ? "bg-primary/10 dark:bg-primary/15"
-            : "bg-muted dark:bg-white/[0.06]"
+          open ? "bg-[#EAF3FF]" : "bg-[#F5F7FA]"
         )}>
-          <Icon className={cn("w-[18px] h-[18px] transition-colors", open ? "text-primary" : "text-muted-foreground")} />
+          <Icon className={cn("w-[18px] h-[18px] transition-colors", open ? "text-primary" : "text-[#64748B]")} />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-[15px] font-semibold text-foreground">{title}</h3>
@@ -85,9 +83,7 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
         </div>
         <div className={cn(
           "w-7 h-7 rounded-full flex items-center justify-center transition-all shrink-0",
-          open
-            ? "bg-primary/10 dark:bg-primary/15"
-            : "bg-muted dark:bg-white/[0.06]"
+          open ? "bg-[#EAF3FF]" : "bg-[#F5F7FA]"
         )}>
           {open
             ? <ChevronUp className="w-4 h-4 text-primary" />
@@ -101,7 +97,7 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-t border-border overflow-hidden bg-muted/20 dark:bg-black/10"
+            className="border-t border-[#F0F4F8] overflow-hidden bg-[#F9FAFC]"
           >
             <div className="p-5">{children}</div>
           </motion.div>
@@ -169,11 +165,11 @@ export default function Settings() {
         <ArrowLeft className="w-4 h-4" /> Back
       </button>
       <div>
-        <h1 className="text-3xl font-display font-bold text-foreground mb-1 flex items-center gap-3">
-          <SettingsIcon className="w-7 h-7 text-primary" />
+        <h1 className="text-[22px] font-semibold text-[#0F172A] mb-1.5 flex items-center gap-3">
+          <SettingsIcon className="w-6 h-6 text-[#94A3B8]" />
           Settings
         </h1>
-        <p className="text-muted-foreground text-[15px]">Manage your account, AI knowledge, team, and integrations.</p>
+        <p className="text-[14px] text-[#64748B]">Manage your account, AI knowledge, team, and integrations.</p>
       </div>
 
       {/* ── Business Info ─────────────────────────────────────────────────── */}
@@ -331,9 +327,9 @@ export default function Settings() {
       <div className="rounded-2xl border border-border/60 overflow-hidden">
         <button
           onClick={() => setAdvancedOpen((o) => !o)}
-          className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-muted/20 transition-colors"
+          className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-[#F9FAFB] transition-colors"
         >
-          <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#F5F7FA] flex items-center justify-center shrink-0">
             {advancedOpen
               ? <ChevronDown className="w-4 h-4 text-muted-foreground" />
               : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
@@ -472,11 +468,11 @@ export default function Settings() {
                 {/* Analytics shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/settings/analytics")}
-                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-muted/40 dark:hover:bg-white/[0.03] transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-[#F9FAFB] transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-9 h-9 rounded-[10px] bg-muted dark:bg-white/[0.06] flex items-center justify-center shrink-0">
-                      <BarChart3 className="w-[18px] h-[18px] text-muted-foreground" />
+                    <div className="w-9 h-9 rounded-[10px] bg-[#F5F7FA] flex items-center justify-center shrink-0">
+                      <BarChart3 className="w-[18px] h-[18px] text-[#64748B]" />
                     </div>
                     <div className="text-left">
                       <p className="text-[15px] font-semibold text-foreground">Analytics</p>
@@ -489,11 +485,11 @@ export default function Settings() {
                 {/* Brand Training shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/training")}
-                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-muted/40 dark:hover:bg-white/[0.03] transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-[#F9FAFB] transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-9 h-9 rounded-[10px] bg-muted dark:bg-white/[0.06] flex items-center justify-center shrink-0">
-                      <BrainCircuit className="w-[18px] h-[18px] text-muted-foreground" />
+                    <div className="w-9 h-9 rounded-[10px] bg-[#F5F7FA] flex items-center justify-center shrink-0">
+                      <BrainCircuit className="w-[18px] h-[18px] text-[#64748B]" />
                     </div>
                     <div className="text-left">
                       <p className="text-[15px] font-semibold text-foreground">Brand Training</p>

@@ -105,7 +105,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div
-      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-7 h-[76px] shrink-0 bg-card border-b border-border gap-4"
+      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-7 h-[76px] shrink-0 bg-white/95 backdrop-blur-[12px] border-b border-[#E5EAF0] gap-4"
     >
       <div className="flex items-center gap-3 shrink-0">
         <Icon className="w-5 h-5 text-[#94A3B8]" />
@@ -273,7 +273,7 @@ export function AppLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <aside className="hidden md:block w-[260px] glass-panel shrink-0 z-20">
+      <aside className="hidden md:block w-[264px] glass-panel shrink-0 z-20">
         <SidebarContent hideActions />
       </aside>
 

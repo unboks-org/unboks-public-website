@@ -420,14 +420,14 @@ export default function Escalations() {
         <>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-display font-bold text-foreground mb-1 flex items-center gap-3">
-                <AlertTriangle className="w-7 h-7 text-amber-500" />
+              <h1 className="text-[22px] font-semibold text-[#0F172A] mb-1 flex items-center gap-3">
+                <AlertTriangle className="w-5 h-5 text-[#94A3B8]" />
                 Escalations
                 {pendingCount > 0 && (
-                  <span className="text-sm font-semibold bg-amber-500/15 text-amber-500 px-2.5 py-0.5 rounded-full">{pendingCount}</span>
+                  <span className="text-[13px] font-semibold bg-[#FFF7ED] text-amber-600 px-2.5 py-0.5 rounded-full border border-amber-200/60">{pendingCount}</span>
                 )}
               </h1>
-              <p className="text-muted-foreground text-sm">Conversations that need your immediate attention.</p>
+              <p className="text-[14px] text-[#64748B]">Conversations that need your immediate attention.</p>
             </div>
             {unreadCount > 0 && (
               <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/25">
@@ -437,9 +437,9 @@ export default function Escalations() {
             )}
           </div>
 
-          <PlatformFilterBar className="mb-1" />
+          <div className="mb-1"><PlatformFilterBar /></div>
 
-          <div className="flex items-center gap-1 bg-card border border-border rounded-xl p-1 shrink-0 w-fit">
+          <div className="inline-flex items-center gap-0.5 p-1 rounded-[14px] border border-[#E2E8F0] bg-[#F5F7FA] shrink-0">
             {FILTERS.map((f) => {
               const count = tabCount(f);
               const active = activeFilter === f;
@@ -449,19 +449,21 @@ export default function Escalations() {
                   key={f}
                   onClick={() => setActiveFilter(f)}
                   className={cn(
-                    "flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
-                    active ? "bg-primary/15 text-primary" : "text-foreground/60 hover:text-foreground hover:bg-muted"
+                    "flex items-center gap-1.5 h-8 px-3 rounded-[10px] text-[13px] font-medium transition-all duration-150 shrink-0 border",
+                    active
+                      ? "bg-white text-[#0F172A] shadow-[0_1px_3px_rgba(15,23,42,0.08)] border-[rgba(226,232,240,0.9)]"
+                      : "bg-transparent text-[#64748B] border-transparent hover:bg-white/70 hover:text-[#0F172A]"
                   )}
                 >
                   {f}
                   {count > 0 && (
                     <span className={cn(
-                      "text-[11px] font-bold tabular-nums min-w-[18px] h-[18px] flex items-center justify-center rounded-full px-1.5 ring-1",
+                      "text-[11px] font-bold tabular-nums min-w-[18px] h-[18px] flex items-center justify-center rounded-full px-1",
                       active
                         ? isPending
-                          ? "bg-amber-500 text-white ring-amber-600/40"
-                          : "bg-primary text-white ring-primary/40"
-                        : "bg-foreground/15 text-foreground ring-foreground/20"
+                          ? "bg-amber-100 text-amber-600"
+                          : "bg-[#EAF3FF] text-[#1677F2]"
+                        : "bg-[#E5EAF0] text-[#64748B]"
                     )}>
                       {count}
                     </span>
@@ -489,10 +491,15 @@ export default function Escalations() {
                 )}
               </>
             ) : (
-              <div className="rounded-2xl border border-border bg-card px-5 py-10 text-center">
-                <Shield className="w-8 h-8 text-foreground/20 mx-auto mb-3" />
-                <p className="text-sm font-medium text-foreground/50">
+              <div className="rounded-[24px] border border-[#E5EAF0] bg-white px-5 py-14 text-center shadow-[0_4px_24px_rgba(15,23,42,0.04)]">
+                <div className="w-14 h-14 rounded-full bg-[#EEF5FF] flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-6 h-6 text-[#1677F2]" />
+                </div>
+                <p className="text-[16px] font-semibold text-[#0F172A] mb-1">
                   {allEscalations.length === 0 ? "No escalations" : "No escalations match this filter"}
+                </p>
+                <p className="text-[14px] text-[#64748B]">
+                  {allEscalations.length === 0 ? "Escalated conversations will appear here." : "Try a different filter."}
                 </p>
               </div>
             )}

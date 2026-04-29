@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle, Clock, Phone, Mail, Instagram, Facebook, Music2, AlertCircle } from "lucide-react";
+import { CheckCircle2, Clock, Phone, Mail, Instagram, Facebook, Music2, AlertCircle } from "lucide-react";
 import { XBrandIcon } from "@dashboard/components/ui/x-brand-icon";
 import { cn } from "@dashboard/lib/utils";
 
@@ -59,59 +59,58 @@ const CHANNELS: ChannelCard[] = [
 
 function StatusBadge({ status }: { status: ChannelStatus }) {
   if (status === "connected") return (
-    <span className="flex items-center gap-1.5 text-[13px] font-medium text-emerald-600 dark:text-emerald-400">
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 shrink-0" />
+    <span className="flex items-center gap-1.5 text-[13px] font-medium text-emerald-600">
+      <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
       Connected
     </span>
   );
   if (status === "needs_attention") return (
-    <span className="flex items-center gap-1.5 text-[13px] font-medium text-amber-500 dark:text-amber-400">
+    <span className="flex items-center gap-1.5 text-[13px] font-medium text-amber-500">
       <AlertCircle className="w-3.5 h-3.5" />
       Needs attention
     </span>
   );
   if (status === "coming_soon") return (
-    <span className="flex items-center gap-1.5 text-[13px] font-medium text-muted-foreground/50">
+    <span className="flex items-center gap-1.5 text-[13px] font-medium text-[#94A3B8]">
       <Clock className="w-3.5 h-3.5" />
       Coming soon
     </span>
   );
   return (
-    <span className="text-[13px] font-medium text-muted-foreground/50">
-      Not connected
-    </span>
+    <span className="text-[13px] font-medium text-[#94A3B8]">Not connected</span>
   );
 }
 
 export default function Channels() {
   return (
-    <div className="max-w-[900px] pb-16">
+    <div className="max-w-[840px] pb-16">
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-foreground mb-1.5">Channels</h1>
-        <p className="text-[15px] text-muted-foreground">
+        <h1 className="text-[22px] font-semibold text-[#0F172A] mb-1.5">Channels</h1>
+        <p className="text-[14px] text-[#64748B]">
           Manage the channels connected to your Unboks inbox.
         </p>
       </div>
 
-      <div className="space-y-2.5">
-        {CHANNELS.map((ch) => {
+      <div className="bg-white rounded-[24px] border border-[#E5EAF0] shadow-[0_4px_24px_rgba(15,23,42,0.04)] overflow-hidden">
+        {CHANNELS.map((ch, idx) => {
+          const isLast = idx === CHANNELS.length - 1;
           const isMuted = ch.status === "coming_soon";
           return (
             <div
               key={ch.id}
               className={cn(
-                "flex items-center gap-4 px-5 py-4 rounded-2xl border transition-all",
-                "border-border bg-card",
-                isMuted && "opacity-55"
+                "flex items-center gap-4 px-6 min-h-[72px] transition-colors",
+                !isLast && "border-b border-[#F0F4F8]",
+                isMuted ? "opacity-50" : "hover:bg-[#FAFBFC]"
               )}
             >
-              <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 bg-muted dark:bg-white/[0.06]">
-                <ch.icon className="w-[18px] h-[18px] text-muted-foreground" />
+              <div className="w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 bg-[#F5F7FA]">
+                <ch.icon className="w-5 h-5 text-[#64748B]" />
               </div>
 
               <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-semibold text-foreground leading-tight">{ch.label}</p>
-                <p className="text-[13px] text-muted-foreground mt-0.5">{ch.description}</p>
+                <p className="text-[15px] font-semibold text-[#0F172A] leading-tight">{ch.label}</p>
+                <p className="text-[13px] text-[#64748B] mt-0.5">{ch.description}</p>
               </div>
 
               <div className="shrink-0">
