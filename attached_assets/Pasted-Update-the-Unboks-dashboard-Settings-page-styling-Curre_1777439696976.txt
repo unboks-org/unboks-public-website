@@ -1,0 +1,127 @@
+Update the Unboks dashboard Settings page styling.
+
+Current problem:
+The Settings page in dark mode is too colorful and looks cheap. Every row has a different strong color, which creates a noisy “rainbow admin panel” effect. It does not feel premium, calm, or enterprise.
+
+Goal:
+Make the Settings page visually consistent with the premium Unboks dashboard style:
+- calm
+- clean
+- enterprise
+- useful
+- mostly neutral
+- one primary accent color
+- not overly colorful
+
+Do not change:
+- backend logic
+- settings functionality
+- accordion behavior
+- routing
+- saved settings
+- form behavior
+
+Only change:
+- styling
+- spacing
+- colors
+- visual hierarchy
+- row/card presentation
+
+Dark mode requirements:
+1. Remove the rainbow effect.
+2. Do not give every setting category a different strong color.
+3. Use one main accent color: Unboks blue.
+4. Use muted neutral icon containers.
+5. Icons may have a very subtle tint, but not bright category colors.
+6. Row backgrounds should be dark navy/charcoal surfaces.
+7. Borders should be subtle.
+8. Active/open states should use soft Unboks blue, not random colors.
+9. Chevron buttons should be neutral or soft blue.
+10. Text should be clean and readable:
+   - title: off-white
+   - description: muted gray
+   - disabled/status text: muted gray
+11. No neon green, pink, yellow, purple category blocks.
+12. No thick colored left strips.
+
+Recommended dark mode style:
+- page background: #0B111C or current premium dark navy
+- card/row background: #111827 or slightly lighter
+- border: rgba(255,255,255,0.08)
+- hover: rgba(255,255,255,0.04)
+- active/open: rgba(22,119,242,0.10)
+- icon container: rgba(255,255,255,0.06)
+- icon color: #93B7FF or Unboks blue
+- title: #F8FAFC
+- subtitle: #94A3B8
+- chevron background: rgba(255,255,255,0.06)
+- chevron active: soft blue
+
+Light mode requirements:
+- white/off-white page
+- white cards
+- soft gray borders
+- Unboks blue accent only
+- no loud category colors
+
+Page layout:
+- Add proper padding: 28px desktop.
+- Content max-width: 900px.
+- Back link aligned and subtle.
+- Title row clean:
+  - Settings icon
+  - Settings title
+  - subtitle below
+- Rows should not touch the sidebar.
+- Rows should have breathing room.
+- Row height should be around 68–76px.
+- Row border-radius: 14–16px.
+- Gap between rows: 10px or use a single grouped card with separators.
+- Make it feel like premium SaaS settings, similar to Stripe/Linear/Notion quality.
+
+Settings rows:
+Keep these items but restyle them:
+- Business Info
+- Source of Truth
+- Rules
+- Team Members
+- Notifications
+- Language
+- Email Integration
+- Advanced
+
+For all rows:
+- left icon inside muted neutral rounded square/circle
+- title and description aligned cleanly
+- chevron on right
+- no multi-color category backgrounds
+- no loud colored circles
+- no cheap admin-dashboard look
+
+Advanced:
+Keep Advanced visually more muted than normal settings, but not broken.
+If it is collapsed, it should still align with the other rows.
+
+Expected result:
+The Settings page should feel like a serious production dashboard. It should not look like a colorful developer UI.
+
+Acceptance criteria:
+1. Rainbow colors removed.
+2. One premium accent color used consistently.
+3. Rows are aligned and spaced properly.
+4. Page looks consistent with the rest of Unboks dashboard.
+5. Dark mode looks calm and professional.
+6. Light mode remains clean.
+7. No functionality is broken.
+8. Accordion behavior still works.
+9. No text/icon collisions.
+10. Screenshot looks acceptable for a paying client.
+
+Self-check:
+Open Settings in dark mode and ask:
+- Does this look like enterprise SaaS?
+- Is it calm and premium?
+- Are colors controlled?
+- Would a client trust this?
+If no, keep polishing.

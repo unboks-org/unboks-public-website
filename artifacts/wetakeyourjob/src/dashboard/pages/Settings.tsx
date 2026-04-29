@@ -49,52 +49,49 @@ function parseConfig(raw: string): ConfigSection[] {
 }
 
 // ─── Accordion Section ────────────────────────────────────────────────────────
-function AccordionSection({ title, subtitle, icon: Icon, iconColor, iconBg, closedIconBg, accentBorder, headerOpenBg, closedBg, contentBg, defaultOpen = false, children }: {
+function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, children }: {
   title: string;
   subtitle?: string;
   icon: React.ElementType;
-  iconColor: string;
-  iconBg: string;
-  closedIconBg: string;
-  accentBorder: string;
-  headerOpenBg: string;
-  closedBg: string;
-  contentBg: string;
   defaultOpen?: boolean;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className={cn(
-      "rounded-2xl overflow-hidden transition-all duration-200",
-      open
-        ? cn("border-l-4 border-t border-r border-b border-border/70", accentBorder, "shadow-lg")
-        : cn("border-l-4 border-t border-r border-b border-border/70", accentBorder, "shadow-sm", closedBg)
+      "rounded-2xl overflow-hidden border border-border transition-all duration-200",
+      open ? "shadow-sm" : ""
     )}>
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "w-full flex items-center gap-4 p-5 text-left transition-colors",
-          open ? headerOpenBg : "hover:bg-black/5 dark:hover:bg-white/5"
+          "w-full flex items-center gap-4 px-5 py-[18px] text-left transition-colors",
+          open
+            ? "bg-primary/[0.04] dark:bg-primary/[0.07]"
+            : "bg-card hover:bg-muted/40 dark:hover:bg-white/[0.03]"
         )}
       >
         <div className={cn(
-          "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all",
-          open ? iconBg : closedIconBg
+          "w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 transition-all",
+          open
+            ? "bg-primary/10 dark:bg-primary/15"
+            : "bg-muted dark:bg-white/[0.06]"
         )}>
-          <Icon className={cn("w-5 h-5", iconColor)} />
+          <Icon className={cn("w-[18px] h-[18px] transition-colors", open ? "text-primary" : "text-muted-foreground")} />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-base font-semibold text-foreground">{title}</h3>
-          {subtitle && <p className="text-sm mt-0.5 truncate text-muted-foreground">{subtitle}</p>}
+          <h3 className="text-[15px] font-semibold text-foreground">{title}</h3>
+          {subtitle && <p className="text-[13px] mt-0.5 truncate text-muted-foreground">{subtitle}</p>}
         </div>
         <div className={cn(
           "w-7 h-7 rounded-full flex items-center justify-center transition-all shrink-0",
-          open ? iconBg : closedIconBg
+          open
+            ? "bg-primary/10 dark:bg-primary/15"
+            : "bg-muted dark:bg-white/[0.06]"
         )}>
           {open
-            ? <ChevronUp className={cn("w-4 h-4", iconColor)} />
-            : <ChevronDown className={cn("w-4 h-4", iconColor)} />}
+            ? <ChevronUp className="w-4 h-4 text-primary" />
+            : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
         </div>
       </button>
       <AnimatePresence>
@@ -104,7 +101,7 @@ function AccordionSection({ title, subtitle, icon: Icon, iconColor, iconBg, clos
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className={cn("border-t border-border/70 overflow-hidden", contentBg)}
+            className="border-t border-border overflow-hidden bg-muted/20 dark:bg-black/10"
           >
             <div className="p-5">{children}</div>
           </motion.div>
@@ -184,13 +181,6 @@ export default function Settings() {
         title="Business Info"
         subtitle="Name, contact details, and opening hours"
         icon={Building2}
-        iconColor="text-indigo-700 dark:text-indigo-300"
-        iconBg="bg-indigo-200 dark:bg-indigo-500/25"
-        closedIconBg="bg-indigo-100 dark:bg-indigo-500/15"
-        accentBorder="border-l-indigo-500"
-        headerOpenBg="bg-indigo-50 dark:bg-indigo-950/60"
-        closedBg="bg-indigo-50/60 dark:bg-card"
-        contentBg="bg-indigo-50/80 dark:bg-indigo-950/30"
       >
         <ComingSoon label="Business profile editor" />
       </AccordionSection>
@@ -200,13 +190,6 @@ export default function Settings() {
         title="Source of Truth"
         subtitle="Documents and quick updates the AI can draw from"
         icon={FileText}
-        iconColor="text-teal-700 dark:text-teal-300"
-        iconBg="bg-teal-200 dark:bg-teal-500/25"
-        closedIconBg="bg-teal-100 dark:bg-teal-500/15"
-        accentBorder="border-l-teal-500"
-        headerOpenBg="bg-teal-50 dark:bg-teal-950/60"
-        closedBg="bg-teal-50/60 dark:bg-card"
-        contentBg="bg-teal-50/80 dark:bg-teal-950/30"
       >
         <div className="space-y-4">
           <p className="text-[15px] text-muted-foreground leading-relaxed">
@@ -215,13 +198,13 @@ export default function Settings() {
           <div className="flex flex-wrap gap-3">
             <button
               disabled
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dashed border-teal-500/40 text-teal-600 dark:text-teal-400 text-sm font-semibold opacity-50 cursor-not-allowed"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dashed border-border text-muted-foreground text-sm font-medium opacity-50 cursor-not-allowed"
             >
               <Upload className="w-4 h-4" /> Upload document
             </button>
             <button
               disabled
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dashed border-teal-500/40 text-teal-600 dark:text-teal-400 text-sm font-semibold opacity-50 cursor-not-allowed"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-dashed border-border text-muted-foreground text-sm font-medium opacity-50 cursor-not-allowed"
             >
               <Plus className="w-4 h-4" /> Add quick update
             </button>
@@ -235,13 +218,6 @@ export default function Settings() {
         title="Rules"
         subtitle="What the AI must always do or never do"
         icon={Lock}
-        iconColor="text-amber-700 dark:text-amber-300"
-        iconBg="bg-amber-200 dark:bg-amber-500/25"
-        closedIconBg="bg-amber-100 dark:bg-amber-500/15"
-        accentBorder="border-l-amber-500"
-        headerOpenBg="bg-amber-50 dark:bg-amber-950/60"
-        closedBg="bg-amber-50/60 dark:bg-card"
-        contentBg="bg-amber-50/80 dark:bg-amber-950/30"
       >
         <ComingSoon label="Rule editor" />
       </AccordionSection>
@@ -251,13 +227,6 @@ export default function Settings() {
         title="Team Members"
         subtitle="Who has access to this dashboard"
         icon={Users}
-        iconColor="text-blue-700 dark:text-blue-300"
-        iconBg="bg-blue-200 dark:bg-blue-500/25"
-        closedIconBg="bg-blue-100 dark:bg-blue-500/15"
-        accentBorder="border-l-blue-500"
-        headerOpenBg="bg-blue-50 dark:bg-blue-950/60"
-        closedBg="bg-blue-50/60 dark:bg-card"
-        contentBg="bg-blue-50/80 dark:bg-blue-950/30"
       >
         <ComingSoon label="Team member management" />
       </AccordionSection>
@@ -267,13 +236,6 @@ export default function Settings() {
         title="Notifications"
         subtitle="How and when you receive alerts"
         icon={Bell}
-        iconColor="text-rose-700 dark:text-rose-300"
-        iconBg="bg-rose-200 dark:bg-rose-500/25"
-        closedIconBg="bg-rose-100 dark:bg-rose-500/15"
-        accentBorder="border-l-rose-500"
-        headerOpenBg="bg-rose-50 dark:bg-rose-950/60"
-        closedBg="bg-rose-50/60 dark:bg-card"
-        contentBg="bg-rose-50/80 dark:bg-rose-950/30"
       >
         <ComingSoon label="Notification preferences" />
       </AccordionSection>
@@ -283,13 +245,6 @@ export default function Settings() {
         title="Language"
         subtitle="Dashboard and AI response language"
         icon={Globe}
-        iconColor="text-green-700 dark:text-green-300"
-        iconBg="bg-green-200 dark:bg-green-500/25"
-        closedIconBg="bg-green-100 dark:bg-green-500/15"
-        accentBorder="border-l-green-500"
-        headerOpenBg="bg-green-50 dark:bg-green-950/60"
-        closedBg="bg-green-50/60 dark:bg-card"
-        contentBg="bg-green-50/80 dark:bg-green-950/30"
       >
         <ComingSoon label="Language settings" />
       </AccordionSection>
@@ -299,13 +254,6 @@ export default function Settings() {
         title="Email Integration"
         subtitle={emailSettings.enabled ? `Active — ${emailSettings.client === "gmail" ? "Gmail" : "Default mail app"}` : "Disabled"}
         icon={Mail}
-        iconColor="text-rose-700 dark:text-rose-300"
-        iconBg="bg-rose-200 dark:bg-rose-500/25"
-        closedIconBg="bg-rose-100 dark:bg-rose-500/15"
-        accentBorder="border-l-rose-500"
-        headerOpenBg="bg-rose-50 dark:bg-rose-950/60"
-        closedBg="bg-rose-50/60 dark:bg-card"
-        contentBg="bg-rose-50/80 dark:bg-rose-950/30"
       >
         <div className="space-y-5">
           <p className="text-[15px] text-muted-foreground leading-relaxed">
@@ -322,7 +270,7 @@ export default function Settings() {
               onClick={() => saveEmailSettings({ ...emailSettings, enabled: !emailSettings.enabled })}
               className={cn(
                 "relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none",
-                emailSettings.enabled ? "bg-sky-600" : "bg-muted-foreground/30"
+                emailSettings.enabled ? "bg-primary" : "bg-muted-foreground/30"
               )}
             >
               <span className={cn(
@@ -342,25 +290,25 @@ export default function Settings() {
                   className={cn(
                     "flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left",
                     emailSettings.client === "gmail"
-                      ? "border-sky-500 bg-sky-500/10"
+                      ? "border-primary bg-primary/10"
                       : "border-border bg-muted/30 hover:border-border/80"
                   )}
                 >
-                  <div className="w-9 h-9 rounded-lg bg-red-500/10 flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4 text-red-400" />
+                  <div className="w-9 h-9 rounded-lg bg-muted dark:bg-white/[0.06] flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-muted-foreground" />
                   </div>
                   <div>
                     <p className="text-[15px] font-semibold text-foreground">Gmail</p>
                     <p className="text-sm text-muted-foreground">Opens in browser</p>
                   </div>
-                  {emailSettings.client === "gmail" && <CheckCircle2 className="w-4 h-4 text-sky-400 ml-auto" />}
+                  {emailSettings.client === "gmail" && <CheckCircle2 className="w-4 h-4 text-primary ml-auto" />}
                 </button>
                 <button
                   onClick={() => saveEmailSettings({ ...emailSettings, client: "mailto" })}
                   className={cn(
                     "flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left",
                     emailSettings.client === "mailto"
-                      ? "border-sky-500 bg-sky-500/10"
+                      ? "border-primary bg-primary/10"
                       : "border-border bg-muted/30 hover:border-border/80"
                   )}
                 >
@@ -371,7 +319,7 @@ export default function Settings() {
                     <p className="text-[15px] font-semibold text-foreground">Default App</p>
                     <p className="text-sm text-muted-foreground">Outlook, Apple Mail…</p>
                   </div>
-                  {emailSettings.client === "mailto" && <CheckCircle2 className="w-4 h-4 text-sky-400 ml-auto" />}
+                  {emailSettings.client === "mailto" && <CheckCircle2 className="w-4 h-4 text-primary ml-auto" />}
                 </button>
               </div>
             </div>
@@ -524,15 +472,15 @@ export default function Settings() {
                 {/* Analytics shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/settings/analytics")}
-                  className="w-full flex items-center justify-between p-4 rounded-2xl border-l-4 border-l-violet-500 border-t border-r border-b border-border/70 bg-violet-50/60 dark:bg-violet-950/20 hover:bg-violet-50 dark:hover:bg-violet-950/30 shadow-sm transition-all"
+                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-muted/40 dark:hover:bg-white/[0.03] transition-colors"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-500/20 flex items-center justify-center shrink-0">
-                      <BarChart3 className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+                  <div className="flex items-center gap-4">
+                    <div className="w-9 h-9 rounded-[10px] bg-muted dark:bg-white/[0.06] flex items-center justify-center shrink-0">
+                      <BarChart3 className="w-[18px] h-[18px] text-muted-foreground" />
                     </div>
                     <div className="text-left">
                       <p className="text-[15px] font-semibold text-foreground">Analytics</p>
-                      <p className="text-sm text-muted-foreground">Inbox volume, platform stats, and activity trends</p>
+                      <p className="text-[13px] text-muted-foreground mt-0.5">Inbox volume, platform stats, and activity trends</p>
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
@@ -541,15 +489,15 @@ export default function Settings() {
                 {/* Brand Training shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/training")}
-                  className="w-full flex items-center justify-between p-4 rounded-2xl border-l-4 border-l-teal-500 border-t border-r border-b border-border/70 bg-teal-50/60 dark:bg-teal-950/20 hover:bg-teal-50 dark:hover:bg-teal-950/30 shadow-sm transition-all"
+                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-muted/40 dark:hover:bg-white/[0.03] transition-colors"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center shrink-0">
-                      <BrainCircuit className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                  <div className="flex items-center gap-4">
+                    <div className="w-9 h-9 rounded-[10px] bg-muted dark:bg-white/[0.06] flex items-center justify-center shrink-0">
+                      <BrainCircuit className="w-[18px] h-[18px] text-muted-foreground" />
                     </div>
                     <div className="text-left">
                       <p className="text-[15px] font-semibold text-foreground">Brand Training</p>
-                      <p className="text-sm text-muted-foreground">Examples, voice rules, and visual guidelines</p>
+                      <p className="text-[13px] text-muted-foreground mt-0.5">Examples, voice rules, and visual guidelines</p>
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
@@ -560,13 +508,6 @@ export default function Settings() {
                   title="Assets & Connections"
                   subtitle="Google Drive, photo library"
                   icon={FolderOpen}
-                  iconColor="text-blue-700 dark:text-blue-300"
-                  iconBg="bg-blue-200 dark:bg-blue-500/25"
-                  closedIconBg="bg-blue-100 dark:bg-blue-500/15"
-                  accentBorder="border-l-blue-500"
-                  headerOpenBg="bg-blue-50 dark:bg-blue-950/60"
-                  closedBg="bg-blue-50/60 dark:bg-card"
-                  contentBg="bg-blue-50/80 dark:bg-blue-950/30"
                 >
                   <div className="space-y-4">
                     {/* Google Drive */}
@@ -673,13 +614,6 @@ export default function Settings() {
                   title="Schedule & Automation"
                   subtitle={`${(scheduleSlots ?? []).length} weekly slot${(scheduleSlots ?? []).length !== 1 ? "s" : ""}`}
                   icon={CalendarDays}
-                  iconColor="text-indigo-700 dark:text-indigo-300"
-                  iconBg="bg-indigo-200 dark:bg-indigo-500/25"
-                  closedIconBg="bg-indigo-100 dark:bg-indigo-500/15"
-                  accentBorder="border-l-indigo-500"
-                  headerOpenBg="bg-indigo-50 dark:bg-indigo-950/60"
-                  closedBg="bg-indigo-50/60 dark:bg-card"
-                  contentBg="bg-indigo-50/80 dark:bg-indigo-950/30"
                 >
                   <div className="space-y-4">
                     <p className="text-[15px] text-muted-foreground leading-relaxed">
@@ -757,13 +691,6 @@ export default function Settings() {
                   title="Capacity & Availability"
                   subtitle="Real-time trip occupancy"
                   icon={Ship}
-                  iconColor="text-amber-700 dark:text-amber-300"
-                  iconBg="bg-amber-200 dark:bg-amber-500/25"
-                  closedIconBg="bg-amber-100 dark:bg-amber-500/15"
-                  accentBorder="border-l-amber-500"
-                  headerOpenBg="bg-amber-50 dark:bg-amber-950/60"
-                  closedBg="bg-amber-50/60 dark:bg-card"
-                  contentBg="bg-amber-50/80 dark:bg-amber-950/30"
                 >
                   <div className="space-y-3">
                     <p className="text-[15px] text-muted-foreground leading-relaxed">
@@ -784,19 +711,12 @@ export default function Settings() {
                   title="Developer"
                   subtitle="Dry-run mode and experimental settings"
                   icon={Wrench}
-                  iconColor="text-slate-700 dark:text-slate-300"
-                  iconBg="bg-slate-200 dark:bg-slate-500/25"
-                  closedIconBg="bg-slate-100 dark:bg-slate-500/15"
-                  accentBorder="border-l-slate-500"
-                  headerOpenBg="bg-slate-50 dark:bg-slate-900/60"
-                  closedBg="bg-slate-50/60 dark:bg-card"
-                  contentBg="bg-slate-50/80 dark:bg-slate-900/30"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-4 rounded-xl bg-muted/40 border border-border">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
-                          <Zap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                        <div className="w-9 h-9 rounded-lg bg-muted dark:bg-white/[0.06] flex items-center justify-center shrink-0">
+                          <Zap className="w-4 h-4 text-muted-foreground" />
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-foreground">Publishing Mode</p>
@@ -827,13 +747,6 @@ export default function Settings() {
                   title="Advanced View"
                   subtitle="System context, raw configuration"
                   icon={Code}
-                  iconColor="text-purple-700 dark:text-purple-300"
-                  iconBg="bg-purple-200 dark:bg-purple-500/25"
-                  closedIconBg="bg-purple-100 dark:bg-purple-500/15"
-                  accentBorder="border-l-purple-500"
-                  headerOpenBg="bg-purple-50 dark:bg-purple-950/60"
-                  closedBg="bg-purple-50/60 dark:bg-card"
-                  contentBg="bg-purple-50/80 dark:bg-purple-950/30"
                 >
                   <div className="space-y-4">
                     <p className="text-sm text-muted-foreground">Technical configuration injected into the system. Read-only.</p>

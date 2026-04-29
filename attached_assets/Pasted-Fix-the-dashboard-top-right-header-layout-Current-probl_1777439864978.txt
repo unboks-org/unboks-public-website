@@ -1,0 +1,94 @@
+Fix the dashboard top-right header layout.
+
+Current problem:
+The search input text/icon overlap or look merged. The right-side header items are too cramped and pushed too far right. “Sign out” is too close to the viewport edge and the spacing between date, icons, and sign out is not clean.
+
+Do not change:
+- backend logic
+- routes
+- auth logic
+- search functionality
+- notification functionality
+- sign-out functionality
+
+Only fix:
+- top header layout
+- search input spacing
+- right-side alignment
+- padding
+- responsive behavior
+
+Requirements:
+
+1. Header container
+- Add proper right padding: 24px desktop minimum.
+- Header content must never touch the right edge.
+- Use display flex.
+- Use align-items: center.
+- Use gap consistently.
+- Prevent overflow.
+
+2. Search input
+- Search field width: 300–340px desktop.
+- Height: 40px.
+- Border-radius: 999px.
+- Use proper internal padding:
+  - left padding must account for the search icon.
+  - if there is a search icon inside, set padding-left around 40px.
+  - text must not overlap the icon.
+- Search icon position:
+  - absolute left: 14px
+  - vertically centered
+  - pointer-events: none
+  - muted color
+- Placeholder text must start clearly after the icon.
+- No text/icon collision.
+- Use box-sizing: border-box.
+
+3. Right-side header actions
+Create a dedicated wrapper:
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+Inside it:
+- date text
+- theme/sun icon
+- notification icon
+- sign out button/link
+
+4. Sign out
+- Give “Sign out” enough spacing from the notification icon.
+- Do not let it touch the right edge.
+- Keep it visually aligned with the icons.
+- Use padding or gap, not random margin hacks.
+- If it is a button, make it height 36–40px and align center.
+
+5. Responsive behavior
+- On narrower widths, reduce search width with clamp:
+  width: clamp(220px, 28vw, 340px)
+- If there is not enough room, the search can shrink, but the right-side actions must remain visible.
+- Do not allow the search field to overlap the date/icons/sign out.
+
+6. Visual quality
+- Search should look like a premium pill input.
+- Date and icons should be evenly spaced.
+- Everything should be vertically centered.
+- No merged text.
+- No cramped right edge.
+
+Acceptance criteria:
+1. Search icon and placeholder no longer overlap.
+2. Placeholder starts with clear spacing.
+3. Search field is aligned and visually clean.
+4. Date, icons, and sign out have consistent spacing.
+5. Sign out is not pushed into the right edge.
+6. Header still works in light and dark mode.
+7. No functionality breaks.
+
+Self-check:
+Open the dashboard and inspect the top-right header.
+Confirm there is no overlap, no edge collision, and no cramped spacing.

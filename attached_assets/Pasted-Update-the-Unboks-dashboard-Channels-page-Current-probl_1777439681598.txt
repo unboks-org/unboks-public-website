@@ -1,0 +1,103 @@
+Update the Unboks dashboard Channels page.
+
+Current problem:
+In dark mode the Channels page looks too colorful and not premium. The channel list has too many strong accent colors, and there is too much explanatory text. It should feel cleaner, calmer, and more enterprise.
+
+Do not change:
+- backend logic
+- routing
+- channel connection status logic
+- functional behavior
+- sidebar/navigation structure
+
+Only change:
+- text content on this Channels page
+- visual styling of the channel cards/list
+- color intensity and spacing
+
+Text removal:
+Delete this full text block completely:
+
+“Unboks connects and manages your channels. If a channel needs to be reconnected or a new one added, contact your Unboks account manager or send a message via WhatsApp to schedule a quick call.”
+
+Also delete this full bottom block completely:
+
+“Need to connect or fix a channel?
+Channel connections are set up by Unboks — we handle Meta Business verification, WhatsApp Business API, and inbox routing on your behalf. You don't need to configure anything yourself.”
+
+Also remove the “Contact Unboks on WhatsApp” button from this page.
+
+Keep only a short clean page intro:
+Title:
+Channels
+
+Subtitle:
+Manage the channels connected to your Unboks inbox.
+
+Dark mode visual changes:
+1. Make the channel list calmer and more premium.
+2. Reduce strong platform colors.
+3. Do not use large bright colored strips on the left side of each channel row.
+4. Platform icons can keep a subtle hint of their brand color, but reduce saturation and brightness.
+5. Use mostly dark navy/charcoal surfaces with subtle borders.
+6. Use one main accent color: Unboks blue.
+7. Connected status should use a subtle green, not bright neon.
+8. Not connected / coming soon should be muted gray.
+9. Avoid rainbow effect from WhatsApp green, email blue, Instagram pink, Facebook blue, etc.
+10. Rows should look like premium SaaS settings rows, not social-media badges.
+
+Recommended dark mode row style:
+- background: slightly lighter than page background
+- border: subtle rgba white border
+- border-radius: 14px
+- padding: 14px 16px
+- gap between rows: 10px
+- icon container: 36px square, rounded 10px
+- icon container background: muted dark surface
+- icon color: muted/unified, with only slight platform accent
+- title: white/off-white
+- description: muted gray
+- status badge on right:
+  - Connected: soft green text + small dot/check
+  - Not connected: muted gray
+  - Coming soon: muted gray
+
+Light mode:
+Keep it clean and consistent with the Unboks.org brand:
+- white cards
+- soft borders
+- muted platform colors
+- no loud rainbow effect
+
+Layout:
+- Add proper page padding: 28px desktop.
+- Content max width around 900px.
+- Align title, subtitle, and list cleanly.
+- Do not let the list touch the sidebar.
+- Do not let text stretch edge to edge.
+
+Expected final Channels page:
+- Header: Channels
+- Subtitle: Manage the channels connected to your Unboks inbox.
+- Clean list of channels:
+  - WhatsApp — Receiving and responding to messages — Connected
+  - Email — Inbound email handling — Not connected
+  - Instagram — Instagram Direct Messages — Not connected
+  - Facebook — Facebook Messenger — Not connected
+  - X / Twitter — X Direct Messages — Coming soon
+  - TikTok — TikTok Direct Messages — Coming soon
+- No long explanatory info box.
+- No bottom help box.
+- No WhatsApp contact button.
+- Dark mode looks premium, calm, and enterprise.
+- No excessive colors.
+
+Self-check:
+Open Channels in dark mode.
+Confirm:
+1. The two long text blocks are gone.
+2. The WhatsApp contact button is gone.
+3. The page looks less colorful.
+4. Platform icons are subtle, not loud.
+5. The design feels premium and consistent with Unboks.
+6. No layout or routing broke.

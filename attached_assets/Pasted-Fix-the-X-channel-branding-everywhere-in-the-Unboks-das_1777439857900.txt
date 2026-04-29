@@ -1,0 +1,66 @@
+Fix the X channel branding everywhere in the Unboks dashboard.
+
+Current problem:
+The dashboard still shows the old Twitter bird icon next to X. This is wrong. The channel is X, not Twitter. Remove the bird completely.
+
+Do not change:
+- backend logic
+- channel routing
+- channel keys/IDs unless absolutely needed
+- message functionality
+- filters functionality
+
+Required changes:
+1. Search the entire dashboard codebase for:
+   - Twitter
+   - twitter
+   - bird
+   - TwitterIcon
+   - FaTwitter
+   - twitter icon imports
+   - old Twitter SVGs/assets
+   - any icon mapped to X that uses the bird
+
+2. Replace every Twitter bird icon with the official X-style icon already available in the project icon library if present.
+
+3. If using lucide-react, use a clean “X” text/icon fallback:
+   - black/dark circle with white X in light mode if needed
+   - muted neutral X icon in dark mode
+   - no bird
+
+4. Channel label rules:
+   - In filter chips, show: X
+   - In Channels settings/list, show: X
+   - Optional description can say: X Direct Messages
+   - Do not show “Twitter” unless it is inside a technical/internal comment.
+   - If current label is “X / Twitter”, change visible UI text to “X”.
+
+5. Remove/replace old Twitter bird from:
+   - inbox channel filter chips
+   - channels page
+   - settings page if present
+   - conversation rows
+   - channel badges
+   - any seed/demo data UI labels
+   - any mobile layout/channel list
+
+6. Visual style:
+   - X icon must match the premium Unboks dashboard style.
+   - No loud black blob if the rest of the UI is muted.
+   - In dark mode, use subtle neutral styling.
+   - In light mode, use clean black/white or muted neutral styling.
+
+Acceptance criteria:
+1. No Twitter bird icon appears anywhere in the dashboard.
+2. Visible channel label is X, not Twitter.
+3. “X / Twitter” is not shown in user-facing UI.
+4. X chip looks aligned and premium.
+5. No functionality breaks.
+6. Filters still work.
+7. Channel status still works.
+
+Self-check:
+Run a code search for Twitter/FaTwitter/TwitterIcon/bird.
+Confirm no user-facing Twitter bird remains.
+Open Inbox filters and Channels page.
+Confirm X displays correctly with no bird.
