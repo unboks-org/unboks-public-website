@@ -910,8 +910,8 @@ export default function Messages() {
           </>
         ) : (
           /* ── NORMAL MODE: platform filter chips ── */
-          <div className="flex-1 h-full overflow-x-auto scrollbar-none flex items-center">
-            <PlatformFilterBar className="h-full" />
+          <div className="flex-1 overflow-x-auto scrollbar-none flex items-center">
+            <PlatformFilterBar />
           </div>
         )}
       </div>

@@ -12,19 +12,23 @@ const ICONS: Record<PlatformKey, React.ElementType> = {
   facebook: Facebook,
 };
 
-export function PlatformFilterBar({ className }: { className?: string }) {
+const segmentBase =
+  "flex items-center h-8 px-3 rounded-[10px] text-[13px] font-medium transition-all duration-150 shrink-0 select-none";
+
+const segmentActive =
+  "bg-white text-[#0F172A] shadow-[0_1px_3px_rgba(15,23,42,0.10)] border border-[rgba(226,232,240,0.9)]";
+
+const segmentInactive =
+  "bg-transparent text-[#64748B] border border-transparent hover:bg-white/70 hover:text-[#0F172A]";
+
+export function PlatformFilterBar() {
   const { selected, toggle, clear, isAll } = usePlatformFilter();
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className="inline-flex items-center gap-0.5 p-1 rounded-[14px] border border-[#E2E8F0] bg-[#F5F7FA]">
       <button
         onClick={clear}
-        className={cn(
-          "flex items-center h-[36px] px-[13px] rounded-full text-[14px] font-medium transition-all duration-100 shrink-0 border",
-          isAll
-            ? "bg-[#EAF3FF] text-[#1677F2] border-[rgba(22,119,242,0.20)]"
-            : "bg-[#F5F7FA] text-[#64748B] border-[#E2E8F0] hover:bg-[#EEF2F7] hover:text-[#0F172A]"
-        )}
+        className={cn(segmentBase, isAll ? segmentActive : segmentInactive)}
       >
         All
       </button>
@@ -36,14 +40,9 @@ export function PlatformFilterBar({ className }: { className?: string }) {
           <button
             key={p.key}
             onClick={() => toggle(p.key)}
-            className={cn(
-              "flex items-center gap-[7px] h-[36px] px-[13px] rounded-full text-[14px] font-medium transition-all duration-100 shrink-0 border",
-              active
-                ? "bg-[#EAF3FF] text-[#1677F2] border-[rgba(22,119,242,0.20)]"
-                : "bg-[#F5F7FA] text-[#64748B] border-[#E2E8F0] hover:bg-[#EEF2F7] hover:text-[#0F172A]"
-            )}
+            className={cn(segmentBase, "gap-[7px]", active ? segmentActive : segmentInactive)}
           >
-            <Icon className="w-[15px] h-[15px] shrink-0" />
+            <Icon className="w-[14px] h-[14px] shrink-0" />
             {p.key !== "x" && <span>{p.label}</span>}
           </button>
         );

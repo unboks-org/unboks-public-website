@@ -1,0 +1,122 @@
+Redesign the Inbox channel filter row. The current channel filters look like cheap rounded buttons. Replace them with a premium inbox-style segmented filter bar.
+
+Current problem:
+The filter buttons for All, WhatsApp, X, Instagram, TikTok, and Facebook look cheap, childish, and too bubbly. The icons and text are cramped. The selected state looks like a random blue pill. This does not match a premium Unboks dashboard.
+
+Goal:
+Create a clean, professional channel filter design that feels like Gmail / Linear / premium SaaS.
+
+Do not change:
+- backend logic
+- filter functionality
+- selected filter state
+- routes
+- message data
+- checkbox functionality
+
+Only change:
+- visual styling
+- spacing
+- layout of the filter row
+- channel filter component styling
+
+Preferred design:
+Use a horizontal segmented filter bar, not individual bubbly buttons.
+
+Layout:
+- The select checkbox stays on the far left.
+- After the checkbox, render a clean filter group.
+- Filter group should look like one subtle rounded container.
+- Inside the group, each channel is a segment.
+- No loud pill buttons.
+- No floating random capsules.
+- No excessive borders around every item.
+
+Filter group style:
+- background: #F3F6FA or #F5F7FA
+- border: 1px solid #E2E8F0
+- border-radius: 14px
+- padding: 4px
+- display: inline-flex
+- align-items: center
+- gap: 2px
+
+Each segment:
+- height: 32px
+- padding: 0 12px
+- border-radius: 10px
+- font-size: 13px or 14px
+- font-weight: 500
+- color: #64748B
+- display flex
+- align-items center
+- gap: 7px
+- border: none
+- background transparent
+- transition: background, color, box-shadow
+
+Active segment:
+- background: #FFFFFF
+- color: #0F172A or #1677F2
+- box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08)
+- border: 1px solid rgba(226, 232, 240, 0.9) if needed
+- should feel selected but not loud
+
+Inactive segment:
+- background: transparent
+- color: #64748B
+- hover background: rgba(255,255,255,0.65)
+- hover color: #0F172A
+
+Icons:
+- icon size: 14px
+- use muted color by default
+- do not use strong brand colors here
+- X should show only X, no Twitter bird
+- icon and text must not touch
+- no double icons
+- no icon crowding
+
+Optional cleaner alternative:
+If the segmented bar is too wide, use text tabs instead:
+- All
+- WhatsApp
+- X
+- Instagram
+- TikTok
+- Facebook
+with a subtle underline for active state.
+But first implement the segmented filter bar because it fits the dashboard better.
+
+Toolbar spacing:
+- toolbar height: 60–64px
+- padding-left/right: 28px
+- gap between checkbox and filter group: 12px
+- align vertically center
+- no filter item should look taller than the row
+- no elements should feel cramped
+
+Mobile:
+- filter group can scroll horizontally
+- no wrapping into ugly multi-line layout
+- use overflow-x-auto with hidden scrollbar if needed
+
+Acceptance criteria:
+1. Channel filters no longer look like bubbly buttons.
+2. Filters look like one premium segmented control.
+3. Active state is subtle and professional.
+4. Icons are muted and aligned.
+5. X has no Twitter bird.
+6. Spacing is clean.
+7. Filter functionality still works.
+8. Looks consistent with Unboks.org premium branding.
+9. Desktop and mobile do not overflow badly.
+
+Self-check:
+Open the Inbox page and inspect the filter row.
+Ask:
+- Does this look like premium SaaS?
+- Would this belong in Gmail/Linear/Notion-quality UI?
+- Are the icons and labels clean?
+- Is the active state subtle?
+If no, keep refining.
