@@ -830,7 +830,7 @@ export default function Messages() {
 
       {/* ── Toolbar — swaps between normal and selection mode, same height/position ── */}
       <div
-        className="flex items-center shrink-0 h-[50px] border-b border-border px-2 gap-1"
+        className="flex items-center shrink-0 h-[52px] border-b border-border/60 dark:border-border/30 px-3 gap-1"
       >
         {/* master checkbox — always present in both modes */}
         <div className="flex items-center shrink-0">
@@ -913,13 +913,13 @@ export default function Messages() {
               <PlatformFilterBar className="h-full" />
             </div>
 
-            <div className="relative shrink-0 ml-1">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-foreground/30 pointer-events-none" />
+            <div className="relative shrink-0 ml-2">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-foreground/30 pointer-events-none" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search…"
-                className="w-48 pl-8 pr-3 py-1.5 rounded-md border border-border/40 bg-white/[0.04] text-sm text-foreground placeholder:text-foreground/35 focus:outline-none focus:border-primary/40 focus:bg-white/[0.06] transition-all"
+                placeholder="Search conversations…"
+                className="w-52 pl-9 pr-4 py-1.5 rounded-full border border-border/40 bg-white/[0.05] text-[13px] text-foreground placeholder:text-foreground/35 focus:outline-none focus:border-primary/30 focus:bg-white/[0.07] transition-all"
               />
             </div>
           </>
@@ -976,15 +976,24 @@ export default function Messages() {
             ))}
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center h-48 gap-2">
-            <MessageCircle className="w-7 h-7 text-foreground/20" />
-            <p className="text-base text-foreground/50">
-              {(conversations?.length ?? 0) === 0
-                ? "No conversations yet"
-                : escalationsMode
-                ? "No escalated conversations"
-                : "No conversations match this filter"}
-            </p>
+          <div className="flex flex-col items-center justify-center flex-1 gap-3 py-20">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+              <MessageCircle className="w-6 h-6 text-foreground/20" />
+            </div>
+            <div className="text-center">
+              <p className="text-[15px] font-medium text-foreground/50">
+                {(conversations?.length ?? 0) === 0
+                  ? "No conversations yet"
+                  : escalationsMode
+                  ? "No escalated conversations"
+                  : "No conversations match this filter"}
+              </p>
+              <p className="text-[13px] text-foreground/30 mt-1">
+                {(conversations?.length ?? 0) === 0
+                  ? "New messages will appear here."
+                  : "Try a different filter or search term."}
+              </p>
+            </div>
           </div>
         )}
 

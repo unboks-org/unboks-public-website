@@ -15,20 +15,17 @@ export function PlatformFilterBar({ className }: { className?: string }) {
   const { selected, toggle, clear, isAll } = usePlatformFilter();
 
   return (
-    <div className={cn("flex items-center", className)}>
+    <div className={cn("flex items-center gap-1.5 px-1", className)}>
       <button
         onClick={clear}
         className={cn(
-          "relative flex items-center h-full px-3 text-[15px] transition-colors duration-100 shrink-0",
+          "flex items-center h-7 px-3 rounded-full text-[13px] font-medium transition-colors duration-100 shrink-0",
           isAll
-            ? "text-foreground font-medium"
-            : "text-foreground/80 dark:text-foreground/65 hover:text-foreground/95 dark:hover:text-foreground/90"
+            ? "bg-white/[0.11] text-foreground"
+            : "text-foreground/55 hover:text-foreground/85 hover:bg-white/[0.06]"
         )}
       >
         All
-        {isAll && (
-          <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/90 rounded-t-full" />
-        )}
       </button>
 
       {PLATFORMS.map((p) => {
@@ -39,17 +36,14 @@ export function PlatformFilterBar({ className }: { className?: string }) {
             key={p.key}
             onClick={() => toggle(p.key)}
             className={cn(
-              "relative flex items-center gap-1.5 h-full px-3 text-[15px] transition-colors duration-100 shrink-0",
+              "flex items-center gap-1.5 h-7 px-3 rounded-full text-[13px] font-medium transition-colors duration-100 shrink-0",
               active
-                ? "text-foreground font-medium"
-                : "text-foreground/80 dark:text-foreground/65 hover:text-foreground/95 dark:hover:text-foreground/90"
+                ? "bg-white/[0.11] text-foreground"
+                : "text-foreground/55 hover:text-foreground/85 hover:bg-white/[0.06]"
             )}
           >
-            <Icon className="w-3.5 h-3.5 shrink-0" />
+            <Icon className="w-3 h-3 shrink-0" />
             <span>{p.label}</span>
-            {active && (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/90 rounded-t-full" />
-            )}
           </button>
         );
       })}

@@ -104,35 +104,35 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div
-      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-6 h-12 shrink-0 backdrop-blur-2xl"
+      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-8 h-16 shrink-0 backdrop-blur-2xl"
       style={{
         background: "var(--surface-overlay)",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}
     >
-      <div className="flex items-center gap-2">
-        <Icon className="w-4 h-4 text-muted-foreground/55" />
-        <span className="text-[15px] font-medium text-foreground/90 tracking-tight">{match.label}</span>
+      <div className="flex items-center gap-2.5">
+        <Icon className="w-[18px] h-[18px] text-muted-foreground/50" />
+        <span className="text-[16px] font-semibold text-foreground tracking-tight">{match.label}</span>
       </div>
 
-      <div className="flex items-center gap-1">
-        <span className="text-muted-foreground/50 text-sm font-medium tabular-nums mr-2">{dateStr}</span>
+      <div className="flex items-center gap-0.5">
+        <span className="text-muted-foreground/45 text-[13px] font-medium tabular-nums mr-3">{dateStr}</span>
 
         <button
           onClick={toggle}
-          className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/[0.07] transition-all duration-150"
+          className="p-2 rounded-lg text-muted-foreground/60 hover:text-foreground hover:bg-white/[0.07] transition-all duration-150"
           title={theme === "dark" ? "Light mode" : "Dark mode"}
         >
-          {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+          {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
         </button>
 
         <NotificationBell />
 
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/[0.07] transition-all duration-150 text-sm font-medium ml-1"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted-foreground/60 hover:text-foreground hover:bg-white/[0.07] transition-all duration-150 text-[13px] font-medium ml-1"
         >
-          <LogOut className="w-3.5 h-3.5" />
+          <LogOut className="w-[15px] h-[15px]" />
           Sign out
         </button>
       </div>
@@ -201,26 +201,31 @@ export function AppLayout() {
           setMobileOpen(false);
           window.dispatchEvent(new Event("bluemarlin:nav:messages"));
         }}
-        className={cn(
-          "block px-5 pt-7 pb-5 border-b border-white/[0.08] group transition-colors",
-          isHome ? "bg-primary/[0.06]" : "hover:bg-white/[0.03]"
-        )}
+        className="flex items-center h-[72px] px-4 border-b border-white/[0.07] shrink-0"
       >
-        <div className="select-none flex items-center justify-between">
-          <div>
-            <p className="text-base font-bold tracking-tight leading-none text-gradient-ocean">
-              {PRODUCT_NAME}
-            </p>
-            <p className="text-[11px] font-bold tracking-[0.24em] text-primary/60 uppercase mt-2">
-              Dashboard
-            </p>
+        <div className="select-none flex items-center justify-between w-full">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-white text-sm"
+              style={{ background: "linear-gradient(135deg, #e96b3a 0%, #c0392b 100%)" }}
+            >
+              U
+            </div>
+            <div>
+              <p className="text-[15px] font-semibold tracking-tight leading-none text-foreground">
+                {PRODUCT_NAME}
+              </p>
+              <p className="text-[11px] text-muted-foreground/60 mt-[3px]">
+                Dashboard
+              </p>
+            </div>
           </div>
           {unreadCount > 0 && (
             <span
-              className="text-xs font-bold text-primary px-2 py-0.5 rounded-full tabular-nums"
+              className="text-[11px] font-bold text-white px-2 py-0.5 rounded-full tabular-nums"
               style={{
-                background: "rgba(225,206,157,0.12)",
-                boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.25)",
+                background: "rgba(225,206,157,0.18)",
+                boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.30)",
               }}
             >
               {unreadCount}
@@ -229,7 +234,7 @@ export function AppLayout() {
         </div>
       </Link>
 
-      <nav className="flex-1 px-3 pt-3 space-y-0.5 overflow-y-auto scrollbar-none">
+      <nav className="flex-1 px-3 pt-4 space-y-0.5 overflow-y-auto scrollbar-none">
         {NAV_ITEMS.map((item) => {
           const active = item.isActive;
           return (
@@ -244,31 +249,28 @@ export function AppLayout() {
                   layoutId="sidebar-pill"
                   className="absolute inset-0 rounded-xl"
                   style={{
-                    background: "rgba(225,206,157,0.10)",
-                    boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.22), inset 0 1px 0 rgba(255,255,255,0.06)",
+                    background: "rgba(225,206,157,0.09)",
+                    boxShadow: "inset 0 0 0 1px rgba(225,206,157,0.18)",
                   }}
                   transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
                 />
               )}
               <div
                 className={cn(
-                  "relative flex items-center gap-3 px-3 py-3 rounded-xl transition-colors duration-100 group",
+                  "relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-100 group",
                   active
                     ? "text-foreground"
-                    : "text-foreground/80 hover:text-foreground hover:bg-black/[0.05] dark:hover:bg-white/[0.07]"
+                    : "text-foreground/65 hover:text-foreground hover:bg-white/[0.06]"
                 )}
               >
-                <div className="relative flex-shrink-0">
-                  <item.icon
-                    className={cn(
-                      "w-[18px] h-[18px] transition-all duration-200",
-                      active ? "text-primary" : "group-hover:text-foreground"
-                    )}
-                    style={active ? { filter: "drop-shadow(0 0 6px rgba(225,206,157,0.70))" } : undefined}
-                  />
-                </div>
+                <item.icon
+                  className={cn(
+                    "w-[18px] h-[18px] shrink-0 transition-colors duration-150",
+                    active ? "text-primary" : "group-hover:text-foreground/90"
+                  )}
+                />
                 <span className={cn(
-                  "text-base flex-1 tracking-tight",
+                  "text-[14px] flex-1 tracking-tight",
                   active ? "font-semibold" : "font-medium"
                 )}>
                   {item.label}
@@ -302,7 +304,7 @@ export function AppLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <aside className="hidden md:block w-52 glass-panel shrink-0 z-20">
+      <aside className="hidden md:block w-60 glass-panel shrink-0 z-20">
         <SidebarContent hideActions />
       </aside>
 

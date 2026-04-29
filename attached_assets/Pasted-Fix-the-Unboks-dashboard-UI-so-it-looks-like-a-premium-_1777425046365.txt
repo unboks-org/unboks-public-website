@@ -1,0 +1,151 @@
+Fix the Unboks dashboard UI so it looks like a premium Google Inbox / Gmail-style product, not a raw admin panel.
+
+Current problem:
+The current dashboard looks cheap and unfinished. The sidebar is cramped, the logo area is wrong, the top bar alignment is messy, the channel filters are jammed together, the search input is badly placed, and the empty state looks like a placeholder. This does not look like Google Inbox.
+
+Goal:
+Create a clean, premium, Google Inbox-inspired inbox dashboard for Unboks.
+
+Important:
+Do not change backend logic.
+Do not change routing.
+Do not remove existing functionality.
+Do not rebuild the app from scratch.
+Focus only on layout, spacing, visual hierarchy, branding, and inbox UX.
+
+Branding:
+1. Replace the current top-left text logo area with the actual Unboks logo.
+2. The logo must sit cleanly in the sidebar header.
+3. Use the available Unboks logo asset if it exists in the project.
+4. If multiple logo assets exist, choose the clean horizontal logo suitable for dark sidebar use.
+5. If no logo asset exists, create a clean text fallback:
+   - “Unboks” in white
+   - “Dashboard” smaller underneath in muted gold/gray
+   but first search the assets folder for a real logo.
+
+Sidebar:
+1. Width should be around 240px on desktop.
+2. Use proper padding: 16px left/right.
+3. Logo area height around 72px.
+4. Navigation items should be clean rows:
+   - icon left
+   - label
+   - active state
+5. Active item should feel premium:
+   - subtle gold/blue accent
+   - soft background
+   - rounded corners
+   - not harsh yellow borders
+6. Sidebar nav spacing must be consistent.
+7. Labels must align vertically with icons.
+8. Remove cramped / misaligned visuals.
+
+Main layout:
+1. Main content must have clear structure:
+   - top header
+   - toolbar/filter row
+   - message list area
+2. Use consistent spacing:
+   - 24px horizontal padding on desktop
+   - 16px on smaller screens
+3. Align all elements to a clean grid.
+4. Nothing should touch the edges.
+5. Use subtle borders, not heavy lines.
+
+Top header:
+1. Header height around 64px.
+2. Left side: current page title “Inbox” with icon.
+3. Right side: date/time, notifications, sign out.
+4. Make spacing clean and balanced.
+5. Do not let icons/text collide.
+6. Use muted text color for secondary items.
+
+Search:
+1. Search should be a proper Google-style search field.
+2. Place it in the top toolbar/header area, aligned right or centered depending on available space.
+3. It should have:
+   - rounded pill shape
+   - search icon
+   - placeholder
+   - good padding
+   - clear focus state
+4. It must not be squeezed against the right edge.
+
+Channel filter row:
+1. Make channel filters look like clean Gmail category chips/tabs.
+2. Do not jam icons directly into text.
+3. Each channel should be a pill or tab:
+   - All
+   - WhatsApp
+   - X
+   - Instagram
+   - TikTok
+   - Facebook
+4. Use consistent gap between chips.
+5. Active filter should be obvious but subtle.
+6. Include a checkbox/select-all control only if it is functional and aligned.
+7. If select-all is currently not meaningful, keep it but align it properly.
+
+Inbox list:
+1. The empty state should look intentional and premium.
+2. Center it properly inside the message list area.
+3. Use:
+   - clean icon
+   - “No conversations yet”
+   - small supportive text like “New messages will appear here.”
+4. Do not let it float awkwardly too high or too low.
+5. When conversations exist, rows should resemble Gmail/Inbox:
+   - sender/channel
+   - message preview
+   - status/escalation badge
+   - time
+   - hover state
+   - unread state
+   - selected state
+
+Visual style:
+1. Keep dark mode, but make it polished.
+2. Use a deep navy/charcoal background, not flat black.
+3. Use cards/rows with slightly lighter surface colors.
+4. Use subtle borders.
+5. Use proper contrast for readability.
+6. Use accent color sparingly: blue/gold only where meaningful.
+7. No cheap glowing effects.
+8. No cramped typography.
+9. Use premium SaaS spacing.
+
+Google Inbox inspiration:
+The UI should feel like:
+- Gmail/Google Inbox structure
+- clean sidebar
+- clear toolbar
+- strong search
+- calm message list
+- readable rows
+- simple empty state
+- no clutter
+
+Acceptance criteria:
+1. Top-left logo area shows the Unboks logo cleanly.
+2. Sidebar looks aligned, spaced, and premium.
+3. Inbox header is vertically centered and properly padded.
+4. Channel filters are clean pills/tabs with proper spacing.
+5. Search field is properly sized and aligned.
+6. Empty state is centered and intentional.
+7. No text/icon collisions.
+8. No elements touching screen edges.
+9. UI looks like a real inbox product, not a developer dashboard.
+10. Desktop screenshot should immediately feel more like Google Inbox/Gmail.
+
+Self-check:
+Before finishing, compare the current UI against the target:
+- Does the sidebar look premium?
+- Is the logo correct?
+- Are all nav items aligned?
+- Is the top header balanced?
+- Are filters readable?
+- Is search clean?
+- Is the empty state centered?
+- Does this look like an inbox product?
+
+Do not mark complete until the UI visibly improves.
