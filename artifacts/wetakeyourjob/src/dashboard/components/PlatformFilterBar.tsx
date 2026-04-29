@@ -44,7 +44,7 @@ export function PlatformFilterBar({ className }: { className?: string }) {
             )}
           >
             <Icon className="w-3.5 h-3.5 shrink-0" />
-            <span>{p.label}</span>
+            {p.key !== "x" && <span>{p.label}</span>}
           </button>
         );
       })}

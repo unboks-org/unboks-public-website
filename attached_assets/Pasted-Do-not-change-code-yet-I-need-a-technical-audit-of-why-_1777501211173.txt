@@ -1,0 +1,118 @@
+Do not change code yet.
+
+I need a technical audit of why my dashboard UI keeps ignoring or resisting the design prompts.
+
+Goal:
+Find what existing code, CSS, components, theme settings, layout structure, hardcoded styles, dark-mode classes, asset paths, or design-system constraints are preventing the dashboard from matching the Unboks.org website branding.
+
+Context:
+The Unboks.org website has the correct brand direction:
+- light premium SaaS style
+- white/off-white background
+- dark navy text
+- soft blue accents
+- rounded cards
+- calm spacing
+- clean dashboard/inbox feel
+
+But the dashboard keeps appearing as:
+- dark admin-panel style
+- cramped sidebar
+- tiny/wrong logo
+- raw filter text
+- overly colorful channel/settings icons
+- poor spacing
+- cheap developer UI
+- inconsistent with the public site
+
+I want you to inspect the code and report exactly what is blocking the requested redesign.
+
+Audit only. Do not edit files.
+
+Please inspect and report:
+
+1. App structure
+- Which files/components render the dashboard shell?
+- Which files/components render the sidebar?
+- Which files/components render the top header?
+- Which files/components render the inbox toolbar/channel filters?
+- Which files/components render the Channels page?
+- Which files/components render the Settings page?
+
+2. Styling system
+- Is styling done with Tailwind classes, CSS files, inline styles, CSS modules, shadcn components, or a custom theme?
+- Which global CSS files affect the dashboard?
+- Are there hardcoded dark backgrounds or dark-mode classes?
+- Are there layout classes forcing the dashboard to stay dark?
+- Are there global styles overriding my requested light Unboks.org design?
+
+3. Theme / dark mode
+- Is the dashboard forced into dark mode?
+- Is there a theme provider?
+- Is there a `dark` class on html/body/root/app?
+- Are dashboard components using `dark:` Tailwind classes?
+- Are there CSS variables for background, foreground, card, border, primary, accent, etc.?
+- Where are those variables defined?
+- What would need to change to make the dashboard use the same light brand as Unboks.org?
+
+4. Logo / assets
+- Where is the dashboard logo currently loaded from?
+- Why is it tiny?
+- Is it using the correct Unboks logo asset?
+- List all Unboks/WTYJ/logo assets found in the project with file paths.
+- Identify the correct logo file used by the public Unboks.org website.
+- Explain what file/path the dashboard should use instead.
+
+5. Layout constraints
+- What widths, paddings, heights, flex/grid rules, max-widths, or overflow settings are causing cramped layout?
+- What is causing the sidebar to look too narrow/cramped?
+- What is causing header/search/sign-out spacing issues?
+- What is causing channel filters to appear like raw text instead of premium chips?
+- What is causing content to start too close to the sidebar?
+
+6. Component reuse
+- Does the dashboard reuse any components from the public site?
+- If not, why not?
+- Are website components and dashboard components completely separate?
+- Could the dashboard import shared brand tokens, logo, colors, button styles, or card styles from the public site?
+
+7. Hardcoded colors
+- List hardcoded colors/classes used in dashboard components.
+- Identify all places using black/dark navy admin-panel backgrounds.
+- Identify all places using gold active states.
+- Identify all places using colorful channel/settings icon styles.
+- Identify all places using old WTYJ branding or placeholder branding.
+
+8. State of current implementation
+- Is there old WTYJ dashboard code still driving the layout?
+- Are there multiple dashboard versions/routes/components causing confusion?
+- Are my prompts updating the wrong component or route?
+- Is there a preview route and production route mismatch?
+- Are there duplicate components for Inbox/Channels/Settings?
+- Are there stale files not being used?
+
+9. Exact blocker summary
+Give me a blunt summary:
+- What are the top 5 reasons the dashboard still looks wrong?
+- Which files are responsible?
+- Which code patterns are causing it?
+- What must be refactored instead of patched?
+
+10. Recommended fix plan
+Do not implement it yet.
+Give me a clear step-by-step plan to make the dashboard match Unboks.org branding:
+- files to edit
+- components to refactor
+- CSS/theme variables to change
+- logo path to use
+- dashboard shell changes needed
+- risks
+- acceptance criteria
+
+Output format:
+Use clear headings.
+Include exact file paths.
+Quote the relevant class names or code snippets where useful.
+Be brutally honest.
+Do not say “everything is fine” unless the code proves it.
+Do not make changes yet.
