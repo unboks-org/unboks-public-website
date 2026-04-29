@@ -11,6 +11,7 @@ import {
   Moon,
   Inbox,
   Wifi,
+  Search,
 } from "lucide-react";
 import unboksLogo from "@assets/image_1777435198078.png";
 import { useState, useRef, useEffect } from "react";
@@ -80,15 +81,24 @@ function NotificationBell() {
 
 function TopBar({ onLogout }: { onLogout: () => void }) {
   const location = useLocation();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { theme, toggle } = useTheme();
 
-  const isEscalationsView = location.pathname === "/dashboard" && searchParams.get("view") === "escalations";
+  const isInboxPage = location.pathname === "/dashboard" || location.pathname === "/dashboard/";
+  const isEscalationsView = isInboxPage && searchParams.get("view") === "escalations";
   const baseMatch = PAGE_LABELS[location.pathname] ?? PAGE_LABELS["/dashboard"];
   const match = isEscalationsView
     ? { label: "Escalations", icon: AlertTriangle }
     : baseMatch;
   const Icon = match.icon;
+
+  const searchQ = isInboxPage ? (searchParams.get("q") ?? "") : "";
+
+  const handleSearch = (value: string) => {
+    const next = new URLSearchParams(searchParams);
+    if (value) next.set("q", value); else next.delete("q");
+    setSearchParams(next, { replace: true });
+  };
 
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-US", {
@@ -99,19 +109,31 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div
-      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-8 h-[72px] shrink-0 bg-background/90 backdrop-blur-xl border-b border-border/60"
+      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-7 h-[80px] shrink-0 bg-card border-b border-border gap-4"
     >
-      <div className="flex items-center gap-2.5">
-        <Icon className="w-[18px] h-[18px] text-muted-foreground/50" />
-        <span className="text-[16px] font-semibold text-foreground tracking-tight">{match.label}</span>
+      <div className="flex items-center gap-3 shrink-0">
+        <Icon className="w-5 h-5 text-muted-foreground/60" />
+        <span className="text-[17px] font-semibold text-foreground">{match.label}</span>
       </div>
 
-      <div className="flex items-center gap-0.5">
-        <span className="text-muted-foreground/45 text-[13px] font-medium tabular-nums mr-3">{dateStr}</span>
+      <div className="flex items-center gap-2 ml-auto">
+        {isInboxPage && (
+          <div className="relative">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50 pointer-events-none" />
+            <input
+              value={searchQ}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search conversations…"
+              className="w-[300px] h-10 pl-10 pr-4 rounded-full bg-muted border border-border text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 transition-all"
+            />
+          </div>
+        )}
+
+        <span className="text-muted-foreground/50 text-[13px] font-medium tabular-nums ml-1">{dateStr}</span>
 
         <button
           onClick={toggle}
-          className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-all duration-150"
+          className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-150"
           title={theme === "dark" ? "Light mode" : "Dark mode"}
         >
           {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -121,7 +143,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-all duration-150 text-[13px] font-medium ml-1"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-150 text-[13px] font-medium"
         >
           <LogOut className="w-[15px] h-[15px]" />
           Sign out
@@ -192,19 +214,19 @@ export function AppLayout() {
           setMobileOpen(false);
           window.dispatchEvent(new Event("bluemarlin:nav:messages"));
         }}
-        className="flex items-center h-[72px] px-5 border-b border-border/60 shrink-0"
+        className="flex items-center h-[80px] px-5 border-b border-border shrink-0"
       >
         <div className="select-none flex items-center justify-between w-full">
-          <img src={unboksLogo} alt="Unboks" className="h-7 w-auto object-contain" />
+          <img src={unboksLogo} alt="Unboks" className="w-[148px] h-auto object-contain" />
           {unreadCount > 0 && (
-            <span className="text-[11px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full tabular-nums">
+            <span className="text-[11px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full tabular-nums border border-primary/15">
               {unreadCount}
             </span>
           )}
         </div>
       </Link>
 
-      <nav className="flex-1 px-3 pt-4 space-y-0.5 overflow-y-auto scrollbar-none">
+      <nav className="flex-1 px-3 pt-5 space-y-1 overflow-y-auto scrollbar-none">
         {NAV_ITEMS.map((item) => {
           const active = item.isActive;
           return (
@@ -223,21 +245,21 @@ export function AppLayout() {
               )}
               <div
                 className={cn(
-                  "relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-100 group",
+                  "relative flex items-center gap-[10px] px-3 min-h-[44px] rounded-xl transition-colors duration-100 group",
                   active
-                    ? "text-primary"
-                    : "text-foreground/60 hover:text-foreground hover:bg-muted/70"
+                    ? "text-primary bg-primary/[0.08]"
+                    : "text-foreground/65 hover:text-foreground hover:bg-muted"
                 )}
               >
                 <item.icon
                   className={cn(
                     "w-[18px] h-[18px] shrink-0 transition-colors duration-150",
-                    active ? "text-primary" : "text-foreground/40 group-hover:text-foreground/70"
+                    active ? "text-primary" : "text-foreground/45 group-hover:text-foreground/75"
                   )}
                 />
                 <span className={cn(
-                  "text-[14px] flex-1 tracking-tight",
-                  active ? "font-semibold" : "font-medium"
+                  "text-[14px] flex-1",
+                  active ? "font-semibold text-primary" : "font-medium"
                 )}>
                   {item.label}
                 </span>

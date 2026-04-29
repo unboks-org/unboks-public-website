@@ -62,7 +62,7 @@ export default function Login() {
           </motion.div>
           <p
             className="text-[10px] tracking-[0.28em] uppercase font-semibold"
-            style={{ color: isDark ? "rgba(255,255,255,0.35)" : "hsl(142 40% 40%)" }}
+            style={{ color: isDark ? "rgba(255,255,255,0.35)" : "hsl(214 89% 50%)" }}
           >
             Operator Console
           </p>
@@ -81,7 +81,7 @@ export default function Login() {
               <div className="relative">
                 <Building2
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-                  style={{ color: isDark ? "rgba(37,211,102,0.50)" : "hsl(142 60% 45% / 0.55)" }}
+                  style={{ color: isDark ? "rgba(22,119,242,0.50)" : "hsl(214 89% 52% / 0.55)" }}
                 />
                 <input
                   type="text"
@@ -128,14 +128,14 @@ export default function Login() {
               style={{
                 borderRadius: "9999px",
                 background: canSubmit
-                  ? "#25D366"
-                  : isDark ? "rgba(37,211,102,0.12)" : "hsl(142 30% 90%)",
+                  ? "#1677F2"
+                  : isDark ? "rgba(22,119,242,0.12)" : "hsl(214 89% 95%)",
                 color: canSubmit
                   ? "#FFFFFF"
-                  : isDark ? "rgba(255,255,255,0.28)" : "hsl(142 20% 65%)",
+                  : isDark ? "rgba(255,255,255,0.28)" : "hsl(214 50% 70%)",
                 cursor: canSubmit ? "pointer" : "not-allowed",
                 boxShadow: canSubmit
-                  ? "rgba(37, 211, 102, 0.35) 0px 4px 20px 0px"
+                  ? "rgba(22, 119, 242, 0.30) 0px 4px 20px 0px"
                   : "none",
               }}
             >

@@ -1,0 +1,304 @@
+You are working inside the existing Unboks project.
+
+This is a production UI task, not a dev/prototype UI task.
+
+Current problem:
+The Unboks website now has a clean, premium, light, professional SaaS brand. The dashboard does not match it. The dashboard still looks like a cheap dark developer admin panel. The sidebar is cramped, the logo is tiny, the spacing is bad, the toolbar/filter row is messy, the search is poorly placed, the empty state feels unfinished, and the whole UI does not look production-ready.
+
+Goal:
+Redesign the dashboard UI so it visually matches the Unboks.org website brand and feels like a premium billion-dollar SaaS inbox product.
+
+This must look production-ready.
+
+Do not change:
+- backend logic
+- API calls
+- routing
+- authentication logic
+- data models
+- Zernio integration placeholders
+- existing functional behavior
+
+Only change:
+- dashboard layout
+- styling
+- spacing
+- visual hierarchy
+- branding
+- component structure if needed for UI cleanliness
+
+Brand direction:
+Match the public Unboks.org website exactly in spirit:
+- light background
+- white cards
+- dark navy text
+- blue accents
+- soft gray secondary text
+- rounded corners
+- clean spacing
+- premium SaaS look
+- calm, professional, minimal
+- useful inbox-first product UI
+
+Do NOT use:
+- dark developer admin theme
+- black background
+- tiny cramped sidebar
+- cheap gold active states
+- harsh borders
+- raw text filters
+- random icon spacing
+- placeholder orange logos
+- WTYJ branding
+- terminal/admin-panel styling
+
+Production requirement:
+The dashboard should look like something a paying client can use today.
+Think: Gmail / Google Inbox + Linear / Notion-level polish + Unboks.org visual branding.
+
+Main layout:
+Create a clean app shell:
+
+1. Left sidebar
+2. Top header
+3. Inbox toolbar
+4. Main content/list area
+
+Overall page:
+- background: #F7F9FC or similar soft off-white
+- full viewport height
+- no beach image background bleeding behind the dashboard
+- no dark full-screen shell
+- no random scroll artifacts
+- no visible dev/prototype styling
+- all content aligned to a grid
+
+Sidebar:
+- width: 260px desktop
+- background: white or very light off-white
+- border-right: 1px solid subtle gray
+- padding: 20px 16px
+- logo area height: 80px
+- use the real Unboks logo from the project assets
+- logo must be clearly visible and correctly sized
+- do not use a tiny logo
+- do not use orange placeholder U
+- do not use text-only fallback unless no logo asset exists
+- logo should be around 140–170px wide depending on asset ratio
+- below logo, navigation must have proper spacing
+
+Sidebar nav:
+- nav item height: 44px
+- border-radius: 12px
+- icon size: 18px
+- gap between icon and label: 10px
+- font-size: 14–15px
+- inactive color: dark gray/navy
+- active item:
+  - soft blue background
+  - blue text/icon
+  - maybe subtle left blue accent
+  - no gold border
+  - no dark selected row
+- hover state: subtle blue/gray background
+- navigation must feel like a real SaaS dashboard
+
+Top header:
+- height: 72px
+- background: white
+- border-bottom: 1px solid subtle gray
+- padding: 0 28px
+- display flex
+- align items center
+- justify between
+- left side: page title with icon, e.g. Inbox
+- right side: search, date/time, notifications, sign out
+- all vertically centered
+- nothing cramped
+- no text touching edges
+
+Search:
+- premium search input
+- width: 320px on desktop
+- height: 40px
+- rounded pill
+- background: #F3F5F8
+- search icon inside
+- placeholder: “Search conversations…”
+- focus ring: soft blue
+- align cleanly with top header
+- do not place it floating in the middle of nowhere
+
+Inbox toolbar / filter row:
+- separate row under top header
+- background: white
+- height: 60px
+- padding: 0 28px
+- border-bottom: subtle gray
+- left: select checkbox
+- then channel filters as clean chips
+
+Channel chips:
+- All
+- WhatsApp
+- X
+- Instagram
+- TikTok
+- Facebook
+
+Each chip:
+- height: 34px
+- padding: 0 12px
+- border-radius: 999px
+- background: #F3F5F8
+- border: 1px solid #E5E7EB
+- icon and label separated properly
+- no raw icons jammed into text
+- active chip:
+  - blue text
+  - soft blue background
+  - subtle blue border
+- chips may horizontally scroll on small screens
+- no wrapping chaos
+
+Main inbox area:
+- background: #F7F9FC
+- padding: 28px
+- height: remaining viewport
+- overflow: auto
+
+Inbox container:
+- white card
+- border: 1px solid #E5E7EB
+- border-radius: 24px
+- min-height: calc(100vh - header - toolbar - padding)
+- soft shadow, very subtle
+- this is where conversations appear
+
+Empty state:
+- centered vertically and horizontally inside the white inbox card
+- icon in a soft blue circular background
+- title: “No conversations yet”
+- subtitle: “New messages will appear here.”
+- spacing clean
+- must feel intentional and premium
+- not like a raw placeholder
+
+Conversation rows:
+Even if there are no conversations yet, prepare the list style for production:
+- row height: 72–84px
+- white background
+- subtle bottom border
+- hover background: #F8FAFC
+- unread state: slightly stronger text
+- channel badge
+- sender/customer name
+- message preview
+- escalation badge if relevant
+- timestamp on right
+- selected checkbox on left
+- clicking row opens detail pane or existing behavior
+Do not implement fake functionality if not present, but make the styling ready.
+
+Right/detail pane:
+If the current app has or later needs a conversation detail pane:
+- keep design consistent
+- white surface
+- clean border
+- rounded corners
+- no dark admin panel
+- no cramped text
+
+Typography:
+Use website-like typography:
+- headings: dark navy / near-black
+- body: #475569 or similar
+- muted: #64748B
+- accent: Unboks blue
+- no low-contrast gray on black
+- no tiny unreadable labels
+- line-height comfortable
+
+Colors:
+Use a simple Unboks palette:
+- background: #F7F9FC
+- surface: #FFFFFF
+- border: #E5E7EB
+- text primary: #0F172A
+- text secondary: #64748B
+- accent blue: #1677F2 or matching website blue
+- accent soft blue: #EAF3FF
+- avoid gold except if the public website uses it heavily, which it does not
+
+Logo:
+Critical:
+Search project assets/public folder for Unboks logo files.
+Use the same logo style shown on the public Unboks.org website.
+Do not render the logo tiny.
+Do not stretch it.
+Do not crop it.
+Do not use old WTYJ assets.
+Do not use placeholder orange U.
+If the dashboard currently points to the wrong logo path, fix the import/path.
+If needed, move the logo asset to public/assets/unboks-logo.png and reference it consistently.
+
+Dashboard mode:
+This must be the production dashboard design.
+Do not show dev styling.
+Do not show debug borders.
+Do not show placeholder layout.
+Do not let website background imagery bleed into the dashboard app.
+The dashboard should be a standalone product UI.
+
+Responsive:
+Desktop:
+- sidebar visible
+- full app shell
+- search visible
+- channel chips clean
+
+Tablet:
+- sidebar can reduce or collapse if existing behavior supports it
+- no horizontal overflow
+
+Mobile:
+- sidebar should collapse into drawer or bottom navigation if already supported
+- top header compact
+- chips horizontally scroll
+- inbox card still clean
+- no cropped content
+
+Acceptance criteria:
+1. Dashboard uses light Unboks.org brand styling.
+2. Dashboard no longer looks like a dark admin/developer panel.
+3. Real Unboks logo appears large enough and clean in sidebar.
+4. Sidebar spacing and nav are premium and aligned.
+5. Header is clean, balanced, and production-ready.
+6. Search is correctly placed and styled.
+7. Channel filters are proper chips, not raw text.
+8. Main inbox area is a clean white rounded card.
+9. Empty state is centered and polished.
+10. No beach/background image appears behind the dashboard.
+11. No orange placeholder logo remains.
+12. No WTYJ branding remains.
+13. No text/icon collisions.
+14. No elements touch screen edges.
+15. UI visually matches the public Unboks.org website.
+16. Screenshot should look acceptable for a paying client demo.
+
+Self-check before finishing:
+Open the public website page and the dashboard side by side.
+
+Ask:
+- Do these look like the same brand?
+- Would a paying client trust this dashboard?
+- Is this clearly an inbox product?
+- Is the logo correct and visible?
+- Is the layout spacious and clean?
+- Are the filters usable?
+- Does it look production-ready?
+
+If the answer is no, keep improving.
+
+Do not stop after changing colors.
+This requires a full visual polish pass of the dashboard shell.

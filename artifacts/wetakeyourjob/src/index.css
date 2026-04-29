@@ -50,39 +50,40 @@
 }
 
 :root {
-  /* Unboks.org brand: #25D366 green primary, white bg, #0F0F0E near-black text */
-  --background: 0 0% 100%;
-  --foreground: 60 6% 5%;
+  /* Unboks.org dashboard brand palette */
+  /* background: #F7F9FC  foreground: #0F172A  primary: #1677F2 */
+  --background: 215 44% 98%;
+  --foreground: 222 47% 11%;
 
   --card: 0 0% 100%;
-  --card-foreground: 60 6% 5%;
-  --card-border: 142 12% 90%;
+  --card-foreground: 222 47% 11%;
+  --card-border: 220 13% 91%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 60 6% 5%;
-  --popover-border: 142 12% 88%;
+  --popover-foreground: 222 47% 11%;
+  --popover-border: 220 13% 91%;
 
-  --primary: 142 70% 49%;
+  --primary: 214 89% 52%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 215 25% 95%;
+  --secondary: 216 27% 96%;
   --secondary-foreground: 215 25% 37%;
 
-  --muted: 142 12% 96%;
-  --muted-foreground: 215 20% 45%;
+  --muted: 216 27% 96%;
+  --muted-foreground: 215 16% 47%;
 
-  --accent: 142 70% 49%;
-  --accent-foreground: 0 0% 100%;
+  --accent: 214 100% 96%;
+  --accent-foreground: 214 89% 40%;
 
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 215 16% 88%;
+  --border: 220 13% 91%;
   --input: 0 0% 100%;
-  --ring: 142 70% 49%;
-  --radius: 0.5rem;
+  --ring: 214 89% 52%;
+  --radius: 0.75rem;
 
-  --surface-overlay: rgba(255, 255, 255, 0.92);
+  --surface-overlay: rgba(255, 255, 255, 0.95);
   --surface-panel: #FFFFFF;
 }
 

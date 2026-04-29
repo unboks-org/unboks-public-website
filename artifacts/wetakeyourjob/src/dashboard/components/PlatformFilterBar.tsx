@@ -15,14 +15,14 @@ export function PlatformFilterBar({ className }: { className?: string }) {
   const { selected, toggle, clear, isAll } = usePlatformFilter();
 
   return (
-    <div className={cn("flex items-center gap-1.5 px-1", className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       <button
         onClick={clear}
         className={cn(
-          "flex items-center h-7 px-3 rounded-full text-[13px] font-medium transition-colors duration-100 shrink-0",
+          "flex items-center h-[34px] px-3.5 rounded-full text-[13px] font-medium transition-all duration-100 shrink-0 border",
           isAll
-            ? "bg-white/[0.11] text-foreground"
-            : "text-foreground/55 hover:text-foreground/85 hover:bg-white/[0.06]"
+            ? "bg-primary/10 text-primary border-primary/25"
+            : "bg-muted text-muted-foreground border-border hover:bg-muted/80 hover:text-foreground"
         )}
       >
         All
@@ -36,13 +36,13 @@ export function PlatformFilterBar({ className }: { className?: string }) {
             key={p.key}
             onClick={() => toggle(p.key)}
             className={cn(
-              "flex items-center gap-1.5 h-7 px-3 rounded-full text-[13px] font-medium transition-colors duration-100 shrink-0",
+              "flex items-center gap-1.5 h-[34px] px-3.5 rounded-full text-[13px] font-medium transition-all duration-100 shrink-0 border",
               active
-                ? "bg-white/[0.11] text-foreground"
-                : "text-foreground/55 hover:text-foreground/85 hover:bg-white/[0.06]"
+                ? "bg-primary/10 text-primary border-primary/25"
+                : "bg-muted text-muted-foreground border-border hover:bg-muted/80 hover:text-foreground"
             )}
           >
-            <Icon className="w-3 h-3 shrink-0" />
+            <Icon className="w-3.5 h-3.5 shrink-0" />
             <span>{p.label}</span>
           </button>
         );
