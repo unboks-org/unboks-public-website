@@ -1,0 +1,744 @@
+You are working inside the existing Unboks dashboard.
+
+CRITICAL INSTRUCTION:
+Rebuild the Unboks dashboard UI to copy the Gmail inbox layout pattern as closely as possible.
+
+This is not inspiration.
+This is not a “premium SaaS card dashboard.”
+This is not another rounded-card redesign.
+
+The target is:
+
+PREMIUM GOOGLE / GMAIL INBOX UI
+with Unboks branding and Unboks channels.
+
+The result must look like a real operational inbox, not like a generic admin dashboard.
+
+REFERENCE:
+Use the attached Gmail screenshot as the layout blueprint.
+
+Copy:
+- overall structure
+- sidebar rhythm
+- top header/search placement
+- toolbar structure
+- category tab structure
+- flat message list structure
+- row density
+- spacing
+- alignment
+- typography hierarchy
+- light UI style
+- operational inbox feel
+
+Do NOT copy:
+- Gmail logo
+- Google trademarks
+- exact Google branding
+- exact Gmail category names unless replacing them with Unboks channels
+
+Use Unboks branding:
+- Unboks logo
+- Unboks blue
+- Unboks channel names
+- Unboks dashboard labels
+
+==================================================
+NON-NEGOTIABLE DESIGN RULES
+==================================================
+
+1. NO giant rounded inbox card.
+2. NO bubbly pills for channels.
+3. NO segmented control.
+4. NO dark mode.
+5. NO dark admin panel.
+6. NO gold active states.
+7. NO rainbow UI.
+8. NO childish soft SaaS buttons.
+9. NO big empty white blob.
+10. NO random spacing.
+11. NO old WTYJ branding.
+12. NO BlueMarlin branding in user-facing UI.
+13. NO Twitter bird.
+14. X must be X only.
+15. The dashboard must be a flat Gmail-style inbox.
+
+If any of the current UI conflicts with this, replace it.
+
+==================================================
+DO NOT CHANGE FUNCTIONALITY
+==================================================
+
+Do not change:
+- backend logic
+- routes
+- authentication
+- API calls
+- data models
+- Zernio/channel logic
+- escalation logic
+- existing message functionality
+- existing settings functionality
+- existing channel connection logic
+
+Only change:
+- layout
+- CSS/classes
+- component structure for UI
+- visual hierarchy
+- typography
+- spacing
+- colors
+- dashboard shell
+- inbox list presentation
+- toolbar/filter presentation
+
+==================================================
+GLOBAL APP SHELL
+==================================================
+
+The app must use a Gmail-like shell:
+
+- full viewport height
+- white/light-gray UI
+- left sidebar fixed
+- main area flex column
+- header at top
+- toolbar below header
+- category/channel tabs below or integrated into list header
+- flat message list filling remaining height
+
+Required shell:
+
+body/dashboard root:
+- height: 100vh
+- overflow: hidden
+- background: #FFFFFF or #F8FAFC
+- font: use same as public Unboks.org if available, otherwise Inter/system
+- no background images
+- no dark class
+- no dark mode
+
+Layout:
+- display: flex
+- sidebar fixed width
+- main content flex: 1
+- main content min-width: 0
+- main content overflow: hidden
+
+==================================================
+DARK MODE REMOVAL
+==================================================
+
+Production dashboard must be light-mode only.
+
+Required:
+- Stop reading old localStorage key: bluemarlin_theme
+- Remove old key on dashboard load if necessary:
+  localStorage.removeItem('bluemarlin_theme')
+- Do not apply .dark to dashboard root
+- Remove theme toggle from header
+- Ignore browser/system dark preference
+- Dashboard must always open in light mode
+
+Acceptance:
+Open dashboard in a browser that previously had dark mode saved.
+It must still open light.
+
+==================================================
+SIDEBAR — COPY GMAIL RHYTHM
+==================================================
+
+Replace the current sidebar styling with Gmail-style navigation.
+
+Sidebar dimensions:
+- width: 240px to 256px desktop
+- background: #FFFFFF
+- border-right: 1px solid #E5E7EB
+- height: 100vh
+- flex-shrink: 0
+- padding-top: 12px
+- overflow hidden
+
+Top logo area:
+- height: 56px to 64px
+- display flex
+- align-items center
+- padding: 0 16px
+- use real Unboks logo
+- logo width: 130px to 150px
+- logo must not be tiny
+- logo must not be stretched
+- logo must not be cropped
+- if tagline is unreadable at sidebar size, hide tagline
+
+Do not use:
+- orange U placeholder
+- text fallback if real logo exists
+- WTYJ logo
+
+Sidebar nav:
+- margin-top: 8px
+- padding-right: 12px
+- each item height: 32px to 36px
+- display flex
+- align-items center
+- gap: 12px
+- padding-left: 18px
+- padding-right: 12px
+- border-radius: 0 18px 18px 0
+- font-size: 14px
+- font-weight: 500
+
+Active nav:
+- background: #E8F0FE or #EAF3FF
+- color: #1677F2
+- icon color: #1677F2
+- no full-width giant rounded block
+- no card look
+- no harsh blue block
+
+Inactive nav:
+- color: #5F6368
+- icon color: #6B7280
+- hover background: #F1F3F4
+- hover color: #202124
+
+Nav items:
+- Inbox
+- Escalations
+- Channels
+- Settings
+
+Optional count:
+If count exists, place it right-aligned like Gmail.
+Do not invent fake counts.
+
+==================================================
+TOP HEADER — COPY GMAIL SEARCH BAR LAYOUT
+==================================================
+
+Top header must behave like Gmail’s top bar.
+
+Header:
+- height: 64px
+- background: #FFFFFF
+- border-bottom: 1px solid #E5E7EB
+- display: flex
+- align-items: center
+- padding: 0 20px
+- gap: 16px
+- flex-shrink: 0
+
+Header left:
+- page title area optional/compact
+- if showing title, use:
+  - icon 20px
+  - title 16px semibold
+  - dark text #202124
+- do not make title oversized
+
+Search:
+Gmail-style search is mandatory.
+
+Search container:
+- position: relative
+- width: min(620px, 48vw)
+- max-width: 620px
+- min-width: 320px
+- height: 46px
+- margin-left: 16px if needed
+- flex-shrink: 1
+
+Search input:
+- width: 100%
+- height: 46px
+- background: #F1F3F4 or #F3F6FA
+- border: none or 1px solid transparent
+- border-radius: 8px
+- color: #202124
+- font-size: 14px
+- padding-left: 48px
+- padding-right: 44px
+- outline: none
+- box-sizing: border-box
+
+Search icon:
+- position absolute
+- left: 16px
+- top: 50%
+- transform translateY(-50%)
+- width: 18px
+- height: 18px
+- color: #5F6368
+- pointer-events: none
+
+Placeholder:
+- color: #6B7280
+- must start after the icon
+- absolutely no overlap with icon
+
+Focus state:
+- background: #FFFFFF
+- box-shadow: 0 1px 6px rgba(32,33,36,0.28)
+- border: 1px solid #DADCE0 if needed
+
+Header right:
+- margin-left: auto
+- display flex
+- align-items center
+- gap: 14px
+- padding-right: 16px
+- flex-shrink: 0
+
+Right items:
+- date text muted, 13px
+- notification icon 18px
+- sign out link/button
+- sign out must not touch right edge
+- sign out height 36px
+- sign out padding 0 10px
+- sign out color #5F6368
+- hover color #202124
+- hover background #F1F3F4
+- border-radius 6px
+
+==================================================
+MAIL TOOLBAR — COPY GMAIL TOOLBAR
+==================================================
+
+Create a Gmail-style toolbar directly above the message list.
+
+Toolbar:
+- height: 48px
+- background: #FFFFFF
+- border-bottom: 1px solid #E5E7EB
+- display flex
+- align-items center
+- padding: 0 20px
+- gap: 16px
+- flex-shrink: 0
+
+Left controls:
+- select checkbox
+- small dropdown arrow if existing
+- refresh icon if existing
+- more icon if existing
+
+Control style:
+- icons 18px
+- color #5F6368
+- button size 32px
+- border-radius 50%
+- hover background #F1F3F4
+
+Right controls:
+If message count exists, place it right aligned:
+- “1–50 of X”
+- muted text 12–13px
+- previous/next arrows if functionality exists
+
+Do not invent fake counts.
+
+==================================================
+CHANNEL TABS — COPY GMAIL CATEGORY TABS
+==================================================
+
+The current buttons/chips must be removed.
+
+Replace with Gmail-style flat category tabs.
+
+This is mandatory.
+
+Tabs row:
+- height: 48px
+- background: #FFFFFF
+- border-bottom: 1px solid #E5E7EB
+- display flex
+- align-items stretch
+- padding-left: 20px
+- flex-shrink: 0
+
+Each tab:
+- height: 48px
+- min-width: 120px if enough room
+- padding: 0 18px
+- display flex
+- align-items center
+- gap: 8px
+- position relative
+- color: #5F6368
+- font-size: 13px
+- font-weight: 600
+- background transparent
+- border none
+- border-radius 0
+- cursor pointer
+
+Active tab:
+- color: #1677F2
+- background: transparent
+- font-weight: 600
+
+Active underline:
+- position absolute
+- bottom: 0
+- left: 0
+- right: 0
+- height: 3px
+- background: #1677F2
+- border-radius: 3px 3px 0 0
+
+Inactive hover:
+- background: #F8FAFC
+- color: #202124
+
+Tabs:
+- All
+- WhatsApp
+- Email
+- Instagram
+- Facebook
+- X
+- TikTok
+- Messenger if present
+
+Icons:
+- 16px max
+- muted gray by default
+- active icon blue
+- no strong brand colors
+- no Twitter bird
+- no pills
+- no rounded chips
+- no borders around individual tabs
+
+Mobile:
+- tabs horizontally scroll
+- no wrapping
+- hide scrollbar if desired
+
+==================================================
+MESSAGE LIST — COPY GMAIL ROWS
+==================================================
+
+Remove the giant rounded white card.
+
+Inbox content must be a flat Gmail-style list.
+
+Message list container:
+- background: #FFFFFF
+- flex: 1
+- overflow: auto
+- width: 100%
+- no border-radius
+- no big card
+- no outer margin card
+- no box shadow card
+
+Rows:
+- height: 44px to 52px
+- display grid or flex
+- align-items center
+- padding: 0 20px
+- border-bottom: 1px solid #EEF0F2
+- background #FFFFFF
+- color #202124
+- font-size 14px
+
+Row hover:
+- background #F5F7FA
+- box-shadow very subtle if needed, like Gmail
+
+Selected row:
+- background #E8F0FE or #EAF3FF
+
+Unread row:
+- sender and subject font-weight 600
+- preview normal/muted
+
+Read row:
+- sender normal weight
+- preview muted
+
+Row layout:
+Left:
+- checkbox
+- optional star if exists
+- optional importance/action icon if exists
+- channel icon/badge
+
+Middle:
+- customer/sender name
+- subject/status
+- preview text
+- truncate with ellipsis
+- no multi-line row unless needed
+
+Right:
+- timestamp/date
+- escalation badge if relevant
+- quick actions on hover if already implemented
+
+Suggested grid columns:
+- 40px checkbox/actions
+- 180px sender
+- 1fr preview
+- 100px timestamp/status
+
+If current data is empty, still implement list structure.
+
+==================================================
+EMPTY STATE — GMAIL STYLE, MINIMAL
+==================================================
+
+If there are no conversations:
+Show minimal empty state inside the flat message list area.
+
+Rules:
+- no rounded card
+- no big decorative circle
+- no huge SaaS blank state
+- no giant centered blob
+
+Position:
+- centered horizontally
+- around 35% from top of list area
+
+Content:
+- small line icon, 32px
+- title: No conversations yet
+- subtitle: New messages will appear here.
+
+Style:
+- title 14px / 500
+- subtitle 13px muted
+- icon muted blue-gray
+- keep it quiet and functional
+
+==================================================
+ESCALATIONS PAGE
+==================================================
+
+Apply same Gmail/list logic.
+
+Escalations should be a queue, not cards.
+
+Structure:
+- same sidebar/header
+- toolbar if useful
+- flat list rows
+- columns:
+  - checkbox/status
+  - customer/channel
+  - escalation reason/preview
+  - priority badge
+  - time
+- row hover
+- row selected
+- detail behavior unchanged if existing
+
+Empty state:
+- minimal Gmail-style empty list state
+
+==================================================
+CHANNELS PAGE
+==================================================
+
+Channels page should look like Google settings/list, not colorful cards.
+
+Structure:
+- same app shell
+- content white flat area
+- title “Channels”
+- subtitle short
+- list/table rows
+
+Rows:
+- height 56–64px
+- icon muted
+- channel name
+- description
+- status right
+- bottom divider
+- no rainbow colors
+- no colorful strips
+- no giant rounded cards
+- no long explanatory text blocks
+
+Status:
+- Connected: muted green text/check
+- Not connected: muted gray
+- Coming soon: muted gray
+
+==================================================
+SETTINGS PAGE
+==================================================
+
+Settings should look like Google settings.
+
+Structure:
+- title
+- subtitle
+- grouped list rows
+- no colorful icons
+- no rainbow accordion
+- no giant cards
+
+Rows:
+- 56–64px
+- icon muted gray/blue
+- title
+- description
+- chevron/toggle right
+- subtle divider
+- hover #F8FAFC
+
+Active/open:
+- subtle #F8FAFC
+- no colorful category backgrounds
+
+==================================================
+TYPOGRAPHY
+==================================================
+
+Use Google-like density with Unboks brand polish.
+
+Font:
+- If public Unboks.org uses Manrope, use Manrope.
+- Otherwise use Inter/system.
+- Do not use weird decorative fonts in dashboard.
+
+Sizes:
+- nav: 14px
+- toolbar: 13px
+- tabs: 13px semibold
+- rows: 14px
+- muted preview: 13px
+- page title: 16–18px semibold
+
+Line-height:
+- compact and readable
+- no oversized marketing typography in dashboard
+
+==================================================
+BRAND / CONTENT CLEANUP
+==================================================
+
+Search user-facing UI and remove:
+- WTYJ
+- WeTakeYourJob
+- BlueMarlin
+- bluemarlin
+- old placeholder logo
+- orange U logo
+- Twitter bird
+
+Do not break internal variable names if they are required.
+Only remove from visible UI.
+
+Use:
+- Unboks
+- Unboks.org logo
+- Inbox
+- Escalations
+- Channels
+- Settings
+
+==================================================
+FILES LIKELY INVOLVED
+==================================================
+
+Inspect and update as needed:
+
+- src/dashboard/components/layout/AppLayout.tsx
+- src/dashboard/pages/Messages.tsx
+- src/dashboard/components/PlatformFilterBar.tsx
+- src/dashboard/pages/Escalations.tsx
+- src/dashboard/pages/Channels.tsx
+- src/dashboard/pages/Settings.tsx
+- src/dashboard/lib/theme.ts
+- src/index.css
+
+If current components are too hard to patch, create cleaner subcomponents:
+- DashboardShell
+- GmailSidebar
+- GmailHeader
+- GmailToolbar
+- ChannelTabs
+- ConversationList
+
+But do not break routes or logic.
+
+==================================================
+IMPLEMENTATION ORDER
+==================================================
+
+Do this in order:
+
+1. Disable dashboard dark mode.
+2. Fix app shell.
+3. Rebuild sidebar to Gmail rhythm.
+4. Rebuild top header/search.
+5. Rebuild toolbar row.
+6. Replace filter buttons with Gmail category tabs.
+7. Replace rounded inbox card with flat list.
+8. Style empty state minimally.
+9. Apply same visual pattern to Escalations.
+10. Apply same visual pattern to Channels.
+11. Apply same visual pattern to Settings.
+12. Search/remove old user-facing branding.
+13. Test all dashboard routes.
+
+==================================================
+ACCEPTANCE CRITERIA
+==================================================
+
+The final screenshot must meet all of these:
+
+1. It looks structurally like Gmail inbox.
+2. Sidebar rhythm matches Gmail: compact rows, light active state.
+3. Search bar matches Gmail-style size, placement, and shape.
+4. Toolbar row exists and is compact.
+5. Channel filters are flat tabs with underline.
+6. There are no pill buttons for channels.
+7. There is no giant rounded inbox card.
+8. Message area is flat and full-width.
+9. Empty state is minimal.
+10. Sign out is not touching the edge.
+11. Search icon does not overlap text.
+12. No dark mode appears.
+13. No old branding appears.
+14. X uses X only, no bird.
+15. The interface feels operational and useful.
+16. It is clean enough for a paying client demo.
+
+==================================================
+SELF-CHECK
+==================================================
+
+Open the Gmail screenshot and the Unboks dashboard side by side.
+
+Check these exact items:
+
+- Is sidebar density similar?
+- Is search placement similar?
+- Is toolbar height similar?
+- Are channel tabs flat like Gmail categories?
+- Is the inbox area a flat list like Gmail?
+- Did you remove the rounded card?
+- Did you remove the channel pills?
+- Is Unboks branding present but not overpowering?
+- Does it look like a real inbox product?
+
+If the answer is no, continue editing.
+
+Do not finish with “it feels inspired.”
+It must structurally copy the Gmail inbox pattern while using Unboks branding.
+
+Final response must include:
+- files changed
+- dark mode removal confirmation
+- what Gmail structures were copied
+- what Unboks branding was applied
+- any remaining limitations

@@ -199,141 +199,106 @@ function ConversationRow({
   const isEscalated = conv.status === "escalated";
   const isRead = readSet.has(conv.phone);
 
-  const initials = senderText(conv).charAt(0).toUpperCase();
-
   return (
     <div
       className={cn(
-        "relative flex items-center min-h-[72px] border-b cursor-pointer select-none transition-colors duration-75",
-        "border-border",
+        "group relative flex items-center h-[52px] border-b cursor-pointer select-none transition-colors duration-75",
+        "border-[#E2E4E7]",
         isSelected
-          ? "bg-primary/[0.06]"
-          : isRead
-          ? "hover:bg-muted/60"
-          : "bg-primary/[0.03] hover:bg-primary/[0.05]",
-        isHidden && "opacity-50"
+          ? "bg-[#EAF3FF]"
+          : "bg-white hover:bg-[#F5F7FA] hover:shadow-[inset_1px_0_0_#dadce0,inset_-1px_0_0_#dadce0]",
+        isHidden && "opacity-40"
       )}
       onClick={() => onOpen(conv.phone)}
     >
-      {/* checkbox column */}
-      <div className="flex items-center justify-center w-12 h-full shrink-0">
-        <GmailCheckbox
-          checked={isSelected}
-          onChange={(v) => onSelect(conv.phone, v)}
-        />
+      {/* Checkbox */}
+      <div className="flex items-center justify-center w-[52px] h-full shrink-0">
+        <GmailCheckbox checked={isSelected} onChange={(v) => onSelect(conv.phone, v)} />
       </div>
 
-      {/* avatar + unread indicator */}
-      <div className="relative shrink-0 mr-3">
-        <div className={cn(
-          "w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-semibold",
-          isRead ? "bg-muted text-muted-foreground" : "bg-primary/15 text-primary"
+      {/* Channel icon */}
+      <div className="flex items-center justify-center w-5 h-full shrink-0 mr-3 text-[#9AA0A6]">
+        <ChannelIcon channel={conv.channel} />
+      </div>
+
+      {/* Sender name — fixed width */}
+      <div className="w-[164px] shrink-0 mr-4 overflow-hidden flex items-center gap-1.5">
+        <span className={cn(
+          "text-[14px] truncate",
+          isRead ? "font-normal text-[#202124]" : "font-semibold text-[#202124]"
         )}>
-          {initials}
-        </div>
+          {senderText(conv)}
+        </span>
         {!isRead && !isHidden && (
-          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-primary border-2 border-white" />
+          <span className="w-2 h-2 rounded-full bg-[#1677F2] shrink-0" />
         )}
       </div>
 
-      {/* sender + snippet */}
-      <div className="flex-1 min-w-0 pr-3">
-        <div className="flex items-center gap-2 mb-0.5">
-          <span className={cn(
-            "text-[14px] truncate",
-            isRead ? "font-medium text-foreground/80" : "font-semibold text-foreground"
-          )}>
-            {senderText(conv)}
-          </span>
-          <span className="shrink-0 inline-block text-[10px] font-medium px-1.5 py-px rounded-full bg-muted text-muted-foreground border border-border">
-            {channelBadgeLabel(conv.channel)}
-          </span>
+      {/* Preview */}
+      <div className="flex-1 min-w-0 overflow-hidden mr-4">
+        <p className="text-[14px] truncate">
           {isEscalated && (
             <span className={cn(
-              "shrink-0 inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-px rounded-full border",
+              "inline-flex items-center gap-0.5 text-[11px] font-semibold mr-2 px-1.5 py-px rounded align-middle",
               escalationType && isSemi(escalationType)
-                ? "bg-blue-50 text-blue-600 border-blue-200"
-                : "bg-rose-50 text-rose-600 border-rose-200"
+                ? "bg-sky-100 text-sky-700"
+                : "bg-rose-100 text-rose-700"
             )}>
-              <AlertTriangle className="w-2.5 h-2.5" />
-              {escalationType
-                ? isSemi(escalationType) ? "Semi" : "Full"
-                : "Escalated"}
+              <AlertTriangle className="w-2.5 h-2.5 inline" />
+              {escalationType ? (isSemi(escalationType) ? "Semi" : "Full") : "Escalated"}
             </span>
           )}
-        </div>
-        <p className={cn(
-          "text-[13px] truncate",
-          isRead ? "text-muted-foreground" : "text-foreground/70"
-        )}>
           {conv.last_message_role === "assistant" && (
-            <span className="text-primary/60 mr-1 font-medium">AI ·</span>
+            <span className="text-[#1677F2]/70 mr-1 font-medium">AI ·</span>
           )}
-          {conv.last_message}
+          <span className={cn(isRead ? "text-[#5F6368]" : "text-[#202124]/80")}>
+            {conv.last_message}
+          </span>
         </p>
       </div>
 
-      {/* right zone — date + actions */}
+      {/* Date + action buttons */}
       <div
-        className="shrink-0 flex items-center gap-0.5 pr-3"
+        className="shrink-0 flex items-center justify-end pr-4"
+        style={{ minWidth: 120 }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Actions — appear on row hover */}
+        <div className="opacity-0 group-hover:opacity-100 flex items-center gap-0.5 mr-2 transition-opacity duration-75">
+          <button onClick={() => onOpen(conv.phone)} title="Reply"
+            className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#E9EEF6] transition-colors">
+            <MessageCircle className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={() => isRead ? onMarkUnread(conv.phone) : onMarkRead(conv.phone)}
+            title={isRead ? "Mark unread" : "Mark read"}
+            className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#E9EEF6] transition-colors">
+            {isRead ? <Circle className="w-3.5 h-3.5" /> : <CheckCircle className="w-3.5 h-3.5" />}
+          </button>
+          {isHidden ? (
+            <button onClick={() => onUnhide(conv.phone)} title="Restore"
+              className="p-1.5 rounded-full text-[#5F6368] hover:text-emerald-600 hover:bg-emerald-50 transition-colors">
+              <ArchiveRestore className="w-3.5 h-3.5" />
+            </button>
+          ) : (
+            <button onClick={() => onHide(conv.phone)} title="Archive"
+              className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#E9EEF6] transition-colors">
+              <Archive className="w-3.5 h-3.5" />
+            </button>
+          )}
+          {isHidden && onDelete && (
+            <button onClick={() => onDelete(conv.phone)} title="Delete"
+              className="p-1.5 rounded-full text-[#5F6368] hover:text-rose-600 hover:bg-rose-50 transition-colors">
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+        {/* Date — hidden when actions visible */}
         <span className={cn(
-          "text-[12px] tabular-nums mr-2",
-          isRead ? "text-muted-foreground/70" : "font-medium text-foreground/80"
+          "text-[12px] tabular-nums group-hover:invisible",
+          isRead ? "text-[#5F6368]" : "font-semibold text-[#202124]"
         )}>
           {gmailDate(conv.last_message_at)}
         </span>
-
-        {/* Reply */}
-        <button
-          onClick={() => onOpen(conv.phone)}
-          title="Reply"
-          className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-primary hover:bg-primary/10 transition-colors"
-        >
-          <MessageCircle className="w-3.5 h-3.5" />
-        </button>
-
-        {/* Mark read / unread */}
-        <button
-          onClick={() => isRead ? onMarkUnread(conv.phone) : onMarkRead(conv.phone)}
-          title={isRead ? "Mark as unread" : "Mark as read"}
-          className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-foreground hover:bg-muted transition-colors"
-        >
-          {isRead
-            ? <Circle className="w-3.5 h-3.5" />
-            : <CheckCircle className="w-3.5 h-3.5 text-primary/60" />}
-        </button>
-
-        {/* Archive / Restore */}
-        {isHidden ? (
-          <button
-            onClick={() => onUnhide(conv.phone)}
-            title="Restore from archive"
-            className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
-          >
-            <ArchiveRestore className="w-3.5 h-3.5" />
-          </button>
-        ) : (
-          <button
-            onClick={() => onHide(conv.phone)}
-            title="Archive"
-            className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-foreground hover:bg-muted transition-colors"
-          >
-            <Archive className="w-3.5 h-3.5" />
-          </button>
-        )}
-
-        {/* Delete — archived rows only */}
-        {isHidden && onDelete && (
-          <button
-            onClick={() => onDelete(conv.phone)}
-            title="Delete permanently"
-            className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-rose-600 hover:bg-rose-50 transition-colors"
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-          </button>
-        )}
       </div>
     </div>
   );
@@ -456,7 +421,7 @@ export default function Messages() {
 
   const clearSelection = () => setSelectedSet(new Set());
 
-  const selectionToolbarBtn = "p-1.5 rounded-lg text-foreground/55 hover:text-foreground hover:bg-muted transition-colors";
+  const selectionToolbarBtn = "p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors";
 
   /* ─── DETAIL VIEW ──────────────────────────────────────────────────────── */
   if (view === "detail" && detail) {
@@ -830,31 +795,27 @@ export default function Messages() {
 
   /* ─── LIST VIEW ────────────────────────────────────────────────────────── */
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-background">
+    <div className="flex flex-col h-full overflow-hidden">
 
-      {/* ── Toolbar row — white bar, full width, border-bottom ── */}
-      <div className="flex items-center shrink-0 h-[64px] bg-card border-b border-border px-7 gap-3">
-        {/* master checkbox */}
+      {/* ── Toolbar row (48px) ── */}
+      <div className="flex items-center shrink-0 h-[48px] bg-white border-b border-[#E5E7EB] px-5 gap-2">
         <div className="flex items-center shrink-0 gap-0.5">
-          <div className="flex items-center justify-center w-9">
+          <div className="flex items-center justify-center w-8">
             <GmailCheckbox
               checked={allSelected}
               indeterminate={someSelected && !allSelected}
               onChange={toggleMasterSelect}
             />
           </div>
-          <ChevronDown className="w-[10px] h-[10px] text-muted-foreground/50 shrink-0" />
+          <ChevronDown className="w-[10px] h-[10px] text-[#5F6368]/60 shrink-0" />
         </div>
 
         {someSelected ? (
-          /* ── SELECTION MODE ── */
           <>
-            <span className="text-[13px] font-medium text-foreground/70 mr-1 shrink-0 tabular-nums">
+            <span className="text-[13px] font-medium text-[#5F6368] mr-1 shrink-0 tabular-nums">
               {selectedSet.size} selected
             </span>
-
-            <div className="h-4 w-px bg-border mx-1 shrink-0" />
-
+            <div className="h-4 w-px bg-[#E5E7EB] mx-1 shrink-0" />
             <button onClick={bulkArchive} title="Archive" className={selectionToolbarBtn}>
               <Archive className="w-[16px] h-[16px]" />
             </button>
@@ -864,7 +825,6 @@ export default function Messages() {
             <button onClick={bulkMarkUnread} title="Mark as unread" className={selectionToolbarBtn}>
               <Circle className="w-[16px] h-[16px]" />
             </button>
-
             {(() => {
               if (selectedSet.size !== 1) return null;
               const singlePhone = [...selectedSet][0];
@@ -872,14 +832,11 @@ export default function Messages() {
               if (!singleConv || singleConv.channel !== "email") return null;
               return (
                 <>
-                  <div className="h-4 w-px bg-border mx-1 shrink-0" />
+                  <div className="h-4 w-px bg-[#E5E7EB] mx-1 shrink-0" />
                   <button
-                    onClick={() => {
-                      const to = singlePhone.includes("@") ? singlePhone : "";
-                      openEmailCompose(emailSettings, to, `Re: ${singleConv.customer_name}`, "");
-                    }}
+                    onClick={() => { const to = singlePhone.includes("@") ? singlePhone : ""; openEmailCompose(emailSettings, to, `Re: ${singleConv.customer_name}`, ""); }}
                     title="Reply to email"
-                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-foreground/60 hover:text-foreground hover:bg-muted transition-colors text-[13px] font-medium"
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors text-[13px] font-medium"
                   >
                     <Mail className="w-[16px] h-[16px]" />
                     <span className="hidden sm:inline">Reply</span>
@@ -887,70 +844,118 @@ export default function Messages() {
                 </>
               );
             })()}
-
-            <div className="h-4 w-px bg-border mx-1 shrink-0" />
-
-            <button
-              onClick={bulkDelete}
-              title="Delete"
-              className="p-1.5 rounded-lg text-rose-400/50 hover:text-rose-600 hover:bg-rose-50 transition-colors"
-            >
+            <div className="h-4 w-px bg-[#E5E7EB] mx-1 shrink-0" />
+            <button onClick={bulkDelete} title="Delete"
+              className="p-1.5 rounded-full text-[#5F6368]/60 hover:text-rose-600 hover:bg-rose-50 transition-colors">
               <Trash2 className="w-[16px] h-[16px]" />
             </button>
-
             <div className="flex-1" />
-
-            <button
-              onClick={clearSelection}
-              title="Clear selection"
-              className={selectionToolbarBtn}
-            >
+            <button onClick={clearSelection} title="Clear selection"
+              className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors">
               <X className="w-[16px] h-[16px]" />
             </button>
           </>
         ) : (
-          /* ── NORMAL MODE: platform filter chips ── */
-          <div className="flex-1 overflow-x-auto scrollbar-none flex items-center">
-            <PlatformFilterBar />
-          </div>
+          <>
+            <div className="flex-1" />
+            {filtered.length > 0 && (
+              <span className="text-[12px] text-[#5F6368] tabular-nums shrink-0">
+                1–{filtered.length} of {filtered.length}
+              </span>
+            )}
+          </>
         )}
       </div>
 
-      {/* ── Main content area: padded, with white rounded card ── */}
-      <div className="flex-1 overflow-hidden p-7">
-        <div className="bg-card rounded-3xl border border-[#E6EAF0] shadow-[0_12px_40px_rgba(15,23,42,0.04)] h-full flex flex-col overflow-hidden">
+      {/* ── Channel / platform tabs (48px) ── */}
+      <div className="flex items-stretch shrink-0 h-[48px] bg-white border-b border-[#E5E7EB] overflow-x-auto scrollbar-none pl-5">
+        <PlatformFilterBar />
+      </div>
 
-          {/* Unread count header */}
-          {unreadCount > 0 && (
-            <div className="flex items-center gap-2 px-6 py-2.5 border-b border-border bg-primary/[0.02] shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-              <span className="text-[12px] font-medium text-muted-foreground">
-                {unreadCount} unread
-              </span>
-            </div>
-          )}
-
-          {/* List */}
-          <div className="flex-1 overflow-y-auto">
-            {isLoading ? (
-              <div className="divide-y divide-border">
-                {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-                  <div key={i} className="flex items-center min-h-[72px] px-6 gap-4">
-                    <Skeleton className="w-9 h-9 rounded-full shrink-0" />
-                    <div className="flex-1 space-y-2">
-                      <Skeleton className="w-40 h-3 rounded" />
-                      <Skeleton className="w-72 h-3 rounded" />
-                    </div>
-                    <Skeleton className="w-12 h-3 rounded" />
-                  </div>
-                ))}
+      {/* ── Flat message list ── */}
+      <div className="flex-1 overflow-y-auto bg-white">
+        {isLoading ? (
+          <div>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <div key={i} className="flex items-center h-[52px] px-5 gap-3 border-b border-[#E2E4E7]">
+                <Skeleton className="w-4 h-4 rounded shrink-0" />
+                <Skeleton className="w-5 h-5 rounded-full shrink-0" />
+                <Skeleton className="w-[140px] h-3 rounded shrink-0" />
+                <Skeleton className="flex-1 h-3 rounded" />
+                <Skeleton className="w-[60px] h-3 rounded shrink-0" />
               </div>
-            ) : filtered.length > 0 ? (
+            ))}
+          </div>
+        ) : filtered.length > 0 ? (
+          <>
+            {filtered.map((conv) => (
+              <ConversationRow
+                key={conv.phone}
+                conv={conv}
+                isSelected={selectedSet.has(conv.phone)}
+                readSet={readSet}
+                escalationType={conv.status === "escalated"
+                  ? (escalations ?? []).find((e) =>
+                      e.customer_id === conv.phone ||
+                      e.customer_phone === conv.phone ||
+                      e.customer_contact === conv.phone ||
+                      (conv.customer_name && e.customer_name === conv.customer_name)
+                    )?.notification_type
+                  : undefined}
+                onOpen={openConversation}
+                onHide={hide}
+                onUnhide={unhide}
+                onMarkRead={markRead}
+                onMarkUnread={markUnread}
+                onSelect={handleRowSelect}
+                onDelete={handleDelete}
+              />
+            ))}
+          </>
+        ) : (
+          <div className="flex flex-col items-center" style={{ paddingTop: "10%" }}>
+            <MessageCircle className="w-8 h-8 text-[#9AA0A6] mb-3" />
+            <p className="text-[14px] font-medium text-[#202124]">
+              {(conversations?.length ?? 0) === 0
+                ? "No conversations yet"
+                : escalationsMode
+                ? "No escalated conversations"
+                : "No conversations match this filter"}
+            </p>
+            <p className="text-[13px] text-[#5F6368] mt-1">
+              {(conversations?.length ?? 0) === 0
+                ? "New messages will appear here."
+                : "Try a different filter or search term."}
+            </p>
+          </div>
+        )}
+
+        {/* ── Archived section ── */}
+        {hiddenCount > 0 && (
+          <div className="border-t border-[#E5E7EB]">
+            <button
+              onClick={() => setShowHidden((s) => !s)}
+              className="flex items-center gap-2 px-5 py-3 text-[13px] text-[#5F6368] hover:text-[#202124] hover:bg-[#F5F7FA] transition-colors w-full"
+            >
+              <Archive className="w-3.5 h-3.5" />
+              {showHidden ? "Hide" : "Show"} {hiddenCount} archived
+              <ChevronDown className={cn("w-3 h-3 ml-auto transition-transform", showHidden && "rotate-180")} />
+            </button>
+            {showHidden && (
               <>
-                {filtered.map((conv) => (
+                <div className="flex items-center justify-end px-5 py-2 border-b border-[#E5E7EB] bg-[#F8FAFC]">
+                  <button
+                    onClick={() => { unhideAll(); setShowHidden(false); }}
+                    className="text-[12px] font-medium text-[#1677F2] hover:text-[#0B57D0] transition-colors"
+                  >
+                    Restore all
+                  </button>
+                </div>
+                {hiddenFiltered.map((conv) => (
                   <ConversationRow
                     key={conv.phone}
                     conv={conv}
+                    isHidden
                     isSelected={selectedSet.has(conv.phone)}
                     readSet={readSet}
                     escalationType={conv.status === "escalated"
@@ -971,77 +976,9 @@ export default function Messages() {
                   />
                 ))}
               </>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full gap-0 py-24">
-                <div className="w-16 h-16 rounded-full bg-[#EEF5FF] flex items-center justify-center mb-4">
-                  <MessageCircle className="w-7 h-7 text-[#1677F2]" />
-                </div>
-                <p className="text-[16px] font-semibold text-[#0F172A] mb-1.5">
-                  {(conversations?.length ?? 0) === 0
-                    ? "No conversations yet"
-                    : escalationsMode
-                    ? "No escalated conversations"
-                    : "No conversations match this filter"}
-                </p>
-                <p className="text-[14px] text-[#64748B]">
-                  {(conversations?.length ?? 0) === 0
-                    ? "New messages will appear here."
-                    : "Try a different filter or search term."}
-                </p>
-              </div>
-            )}
-
-            {/* ── Archived section ── */}
-            {hiddenCount > 0 && (
-              <div className="border-t border-border">
-                <button
-                  onClick={() => setShowHidden((s) => !s)}
-                  className="flex items-center gap-2 px-6 py-3 text-[13px] text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors w-full"
-                >
-                  <Archive className="w-3.5 h-3.5" />
-                  {showHidden ? "Hide" : "Show"} {hiddenCount} archived
-                  <ChevronDown className={cn("w-3 h-3 ml-auto transition-transform", showHidden && "rotate-180")} />
-                </button>
-                {showHidden && (
-                  <>
-                    <div className="flex items-center justify-end px-6 py-2 border-b border-border bg-muted/30">
-                      <button
-                        onClick={() => { unhideAll(); setShowHidden(false); }}
-                        className="text-[12px] font-medium text-primary hover:text-primary/80 transition-colors"
-                      >
-                        Restore all
-                      </button>
-                    </div>
-                    {hiddenFiltered.map((conv) => (
-                      <ConversationRow
-                        key={conv.phone}
-                        conv={conv}
-                        isHidden
-                        isSelected={selectedSet.has(conv.phone)}
-                        readSet={readSet}
-                        escalationType={conv.status === "escalated"
-                          ? (escalations ?? []).find((e) =>
-                              e.customer_id === conv.phone ||
-                              e.customer_phone === conv.phone ||
-                              e.customer_contact === conv.phone ||
-                              (conv.customer_name && e.customer_name === conv.customer_name)
-                            )?.notification_type
-                          : undefined}
-                        onOpen={openConversation}
-                        onHide={hide}
-                        onUnhide={unhide}
-                        onMarkRead={markRead}
-                        onMarkUnread={markUnread}
-                        onSelect={handleRowSelect}
-                        onDelete={handleDelete}
-                      />
-                    ))}
-                  </>
-                )}
-              </div>
             )}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

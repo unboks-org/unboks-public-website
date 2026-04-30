@@ -12,23 +12,27 @@ const ICONS: Record<PlatformKey, React.ElementType> = {
   facebook: Facebook,
 };
 
-const segmentBase =
-  "flex items-center h-8 px-3 rounded-[10px] text-[13px] font-medium transition-all duration-150 shrink-0 select-none";
-
-const segmentActive =
-  "bg-white text-[#0F172A] shadow-[0_1px_3px_rgba(15,23,42,0.10)] border border-[rgba(226,232,240,0.9)]";
-
-const segmentInactive =
-  "bg-transparent text-[#64748B] border border-transparent hover:bg-white/70 hover:text-[#0F172A]";
+const LABELS: Record<PlatformKey, string> = {
+  whatsapp: "WhatsApp",
+  x: "X",
+  instagram: "Instagram",
+  tiktok: "TikTok",
+  facebook: "Facebook",
+};
 
 export function PlatformFilterBar() {
   const { selected, toggle, clear, isAll } = usePlatformFilter();
 
   return (
-    <div className="inline-flex items-center gap-0.5 p-1 rounded-[14px] border border-[#E2E8F0] bg-[#F5F7FA]">
+    <div className="flex items-stretch h-full overflow-x-auto scrollbar-none">
       <button
         onClick={clear}
-        className={cn(segmentBase, isAll ? segmentActive : segmentInactive)}
+        className={cn(
+          "relative flex items-center h-full px-[18px] text-[13px] font-semibold shrink-0 whitespace-nowrap transition-colors border-b-[3px]",
+          isAll
+            ? "text-[#1677F2] border-[#1677F2]"
+            : "text-[#5F6368] border-transparent hover:text-[#202124] hover:bg-[#F8FAFC]"
+        )}
       >
         All
       </button>
@@ -40,10 +44,15 @@ export function PlatformFilterBar() {
           <button
             key={p.key}
             onClick={() => toggle(p.key)}
-            className={cn(segmentBase, "gap-[7px]", active ? segmentActive : segmentInactive)}
+            className={cn(
+              "relative flex items-center gap-2 h-full px-[18px] text-[13px] font-semibold shrink-0 whitespace-nowrap transition-colors border-b-[3px]",
+              active
+                ? "text-[#1677F2] border-[#1677F2]"
+                : "text-[#5F6368] border-transparent hover:text-[#202124] hover:bg-[#F8FAFC]"
+            )}
           >
-            <Icon className="w-[14px] h-[14px] shrink-0" />
-            {p.key !== "x" && <span>{p.label}</span>}
+            <Icon className={cn("w-[15px] h-[15px] shrink-0", active ? "text-[#1677F2]" : "text-[#9AA0A6]")} />
+            <span>{LABELS[p.key]}</span>
           </button>
         );
       })}

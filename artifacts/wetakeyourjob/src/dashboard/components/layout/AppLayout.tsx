@@ -105,34 +105,32 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div
-      className="sticky top-0 z-20 hidden md:flex items-center justify-between px-7 h-[76px] shrink-0 bg-white/95 backdrop-blur-[12px] border-b border-[#E5EAF0] gap-4"
+      className="sticky top-0 z-20 hidden md:flex items-center gap-4 px-5 h-[64px] shrink-0 bg-white border-b border-[#E5E7EB]"
     >
-      <div className="flex items-center gap-3 shrink-0">
-        <Icon className="w-5 h-5 text-[#94A3B8]" />
-        <span className="text-[18px] font-semibold text-[#0F172A]">{match.label}</span>
-      </div>
+      {isInboxPage ? (
+        <div className="relative flex items-center flex-1 max-w-[640px]">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#5F6368] pointer-events-none z-10" />
+          <input
+            value={searchQ}
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search in conversations"
+            style={{ paddingLeft: '48px' }}
+            className="w-full h-[46px] pr-4 rounded-3xl bg-[#F1F3F4] border border-transparent text-[14px] text-[#202124] placeholder:text-[#6B7280] focus:outline-none focus:bg-white focus:shadow-[0_1px_6px_rgba(32,33,36,0.28)] focus:border-[#DADCE0] transition-all"
+          />
+        </div>
+      ) : (
+        <div className="flex items-center gap-2">
+          <Icon className="w-[18px] h-[18px] text-[#5F6368]" />
+          <span className="text-[16px] font-semibold text-[#202124]">{match.label}</span>
+        </div>
+      )}
 
-      <div className="flex items-center gap-3 ml-auto pr-1">
-        {isInboxPage && (
-          <div className="relative flex items-center" style={{ width: 'clamp(260px, 26vw, 360px)' }}>
-            <Search className="absolute left-[15px] top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8] pointer-events-none z-10" />
-            <input
-              value={searchQ}
-              onChange={(e) => handleSearch(e.target.value)}
-              placeholder="Search conversations…"
-              style={{ paddingLeft: '42px' }}
-              className="w-full h-[42px] pr-4 rounded-full bg-[#F5F7FA] border border-[#E2E8F0] text-[14px] text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
-            />
-          </div>
-        )}
-
-        <span className="text-[#94A3B8] text-[13px] font-medium tabular-nums shrink-0">{dateStr}</span>
-
+      <div className="flex items-center gap-2 ml-auto">
+        <span className="text-[#5F6368] text-[13px] tabular-nums shrink-0 hidden lg:block">{dateStr}</span>
         <NotificationBell />
-
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 h-[36px] px-3 rounded-[10px] text-[#64748B] hover:text-[#0F172A] hover:bg-[#F5F7FA] transition-all duration-150 text-[13px] font-medium shrink-0"
+          className="flex items-center gap-1.5 h-[36px] px-3 rounded-md text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors text-[13px] font-medium shrink-0"
         >
           <LogOut className="w-[15px] h-[15px]" />
           Sign out
@@ -202,10 +200,10 @@ export function AppLayout() {
           setMobileOpen(false);
           window.dispatchEvent(new Event("bluemarlin:nav:messages"));
         }}
-        className="flex items-center h-[96px] px-6 border-b border-border shrink-0"
+        className="flex items-center h-[56px] px-4 border-b border-[#E5E7EB] shrink-0"
       >
         <div className="select-none flex items-center justify-between w-full">
-          <img src={unboksLogo} alt="Unboks" className="w-[148px] h-auto object-contain" />
+          <img src={unboksLogo} alt="Unboks" className="w-[120px] h-auto object-contain" />
           {unreadCount > 0 && (
             <span className="text-[11px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full tabular-nums border border-primary/15">
               {unreadCount}
@@ -214,7 +212,7 @@ export function AppLayout() {
         </div>
       </Link>
 
-      <nav className="flex-1 px-[14px] pt-4 flex flex-col gap-[6px] overflow-y-auto scrollbar-none">
+      <nav className="flex-1 pr-4 pt-2 flex flex-col gap-[2px] overflow-y-auto scrollbar-none">
         {NAV_ITEMS.map((item) => {
           const active = item.isActive;
           return (
@@ -227,27 +225,27 @@ export function AppLayout() {
               {active && (
                 <motion.div
                   layoutId="sidebar-pill"
-                  className="absolute inset-0 rounded-[14px] bg-[#EAF3FF] border border-[rgba(22,119,242,0.10)]"
+                  className="absolute inset-0 rounded-r-[20px] bg-[#D3E3FD]"
                   transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
                 />
               )}
               <div
                 className={cn(
-                  "relative flex items-center gap-3 px-[14px] min-h-[44px] rounded-[14px] transition-colors duration-100 group",
+                  "relative flex items-center gap-3 pl-[18px] pr-3 h-[36px] rounded-r-[20px] transition-colors duration-100 group",
                   active
-                    ? "text-[#1677F2]"
-                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-[#F5F8FC]"
+                    ? "text-[#0B57D0]"
+                    : "text-[#444746] hover:text-[#202124] hover:bg-[#F1F3F4]"
                 )}
               >
                 <item.icon
                   className={cn(
                     "w-[18px] h-[18px] shrink-0 transition-colors duration-150",
-                    active ? "text-[#1677F2]" : "text-[#94A3B8] group-hover:text-[#64748B]"
+                    active ? "text-[#0B57D0]" : "text-[#5F6368] group-hover:text-[#202124]"
                   )}
                 />
                 <span className={cn(
                   "text-[14px] flex-1 font-medium",
-                  active ? "text-[#1677F2]" : ""
+                  active ? "font-semibold text-[#0B57D0]" : ""
                 )}>
                   {item.label}
                 </span>
@@ -273,7 +271,7 @@ export function AppLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <aside className="hidden md:block w-[264px] glass-panel shrink-0 z-20">
+      <aside className="hidden md:block w-[256px] glass-panel shrink-0 z-20">
         <SidebarContent hideActions />
       </aside>
 
