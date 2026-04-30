@@ -214,11 +214,37 @@ a, button, input, textarea {
   }
 
   #dashboard-root {
-    @apply font-sans antialiased text-foreground min-h-screen;
-    @apply selection:bg-primary/15 selection:text-primary;
-    background-color: #FFFFFF;
-    letter-spacing: -0.01em;
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    /* GitHub design tokens — scoped to dashboard only */
+    --background: 210 17% 98%;
+    --foreground: 214 14% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 214 14% 16%;
+    --card-border: 211 22% 85%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 14% 16%;
+    --popover-border: 211 22% 85%;
+    --primary: 212 95% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 17% 96%;
+    --secondary-foreground: 214 14% 16%;
+    --muted: 210 17% 96%;
+    --muted-foreground: 213 11% 40%;
+    --accent: 212 95% 96%;
+    --accent-foreground: 212 95% 35%;
+    --destructive: 356 72% 47%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 211 22% 85%;
+    --input: 0 0% 100%;
+    --ring: 212 95% 45%;
+
+    @apply antialiased;
+    background-color: #f6f8fa;
+    color: #24292f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0;
+    min-height: 100vh;
   }
 
   #dashboard-root h1,
@@ -227,17 +253,10 @@ a, button, input, textarea {
   #dashboard-root h4,
   #dashboard-root h5,
   #dashboard-root h6 {
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    @apply font-semibold tracking-tight;
-    letter-spacing: -0.01em;
-    color: hsl(var(--foreground));
-  }
-
-  .dark #dashboard-root {
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -5%, rgba(225,206,157,0.06) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 40% at -8% 55%, rgba(20,28,46,0.80) 0%, transparent 55%),
-      radial-gradient(ellipse 40% 35% at 108% 75%, rgba(20,28,46,0.60) 0%, transparent 50%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    color: #24292f;
+    letter-spacing: 0;
   }
 }
 

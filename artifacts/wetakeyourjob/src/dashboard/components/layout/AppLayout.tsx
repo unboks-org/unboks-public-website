@@ -1,24 +1,15 @@
 import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "@dashboard/components/auth/useAuthContext";
 import {
-  AlertTriangle,
-  Settings,
-  LogOut,
-  Menu,
-  Bell,
-  Inbox,
-  Wifi,
-  Search,
+  AlertTriangle, Settings, LogOut, Menu, Inbox, Wifi, Search, BookOpen,
 } from "lucide-react";
 import unboksLogo from "@assets/image_1777435198078.png";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@dashboard/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@dashboard/components/ui/sheet";
 import { cn } from "@dashboard/lib/utils";
-import { motion } from "framer-motion";
 import { useConversations } from "@dashboard/hooks/use-client-api";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
-import { PRODUCT_NAME } from "@dashboard/lib/tenant";
 
 const HIDDEN_KEY = "unboks_hidden_conversations";
 function getHiddenSet(): Set<string> {
@@ -28,66 +19,11 @@ function getHiddenSet(): Set<string> {
   } catch { return new Set(); }
 }
 
-const PAGE_LABELS: Record<string, { label: string; icon: React.ElementType }> = {
-  "/dashboard": { label: "Inbox", icon: Inbox },
-  "/dashboard/escalations": { label: "Escalations", icon: AlertTriangle },
-  "/dashboard/channels": { label: "Channels", icon: Wifi },
-  "/dashboard/settings": { label: "Settings", icon: Settings },
-  "/dashboard/settings/analytics": { label: "Analytics", icon: Settings },
-};
-
-function NotificationBell() {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    if (open) document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [open]);
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-all duration-150"
-        title="Notifications"
-      >
-        <Bell className="w-4 h-4" />
-      </button>
-
-      {open && (
-        <div
-          className="absolute right-0 top-full mt-2 w-72 rounded-2xl z-50 overflow-hidden bg-popover border border-border shadow-xl"
-        >
-          <div className="px-4 py-3 border-b border-border/60 flex items-center justify-between">
-            <span className="text-[15px] font-semibold text-foreground">Notifications</span>
-            <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/55">Clear</span>
-          </div>
-          <div className="px-4 py-8 text-center">
-            <Bell className="w-5 h-5 text-muted-foreground/20 mx-auto mb-2" />
-            <p className="text-sm text-muted-foreground/60">No new notifications</p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 function TopBar({ onLogout }: { onLogout: () => void }) {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const isInboxPage = location.pathname === "/dashboard" || location.pathname === "/dashboard/";
-  const isEscalationsView = isInboxPage && searchParams.get("view") === "escalations";
-  const baseMatch = PAGE_LABELS[location.pathname] ?? PAGE_LABELS["/dashboard"];
-  const match = isEscalationsView
-    ? { label: "Escalations", icon: AlertTriangle }
-    : baseMatch;
-  const Icon = match.icon;
-
   const searchQ = isInboxPage ? (searchParams.get("q") ?? "") : "";
 
   const handleSearch = (value: string) => {
@@ -98,51 +34,37 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
 
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
+    weekday: "short", month: "short", day: "numeric",
   });
 
   return (
-    <div
-      className="sticky top-0 z-20 hidden md:flex items-center gap-4 px-5 h-[64px] shrink-0 bg-white border-b border-[#E5E7EB]"
-    >
-      {isInboxPage ? (
-        <div className="relative flex items-center flex-1 max-w-[640px]">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#5F6368] pointer-events-none z-10" />
+    <header className="hidden md:flex items-center gap-3 px-4 h-[64px] shrink-0 bg-white border-b border-[#d0d7de]">
+      {isInboxPage && (
+        <div className="relative flex items-center flex-1 max-w-[480px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#6e7781] pointer-events-none z-10" />
           <input
             value={searchQ}
             onChange={(e) => handleSearch(e.target.value)}
-            placeholder="Search in conversations"
-            style={{ paddingLeft: '48px' }}
-            className="w-full h-[46px] pr-4 rounded-[8px] bg-[#F1F3F4] border border-transparent text-[14px] text-[#202124] placeholder:text-[#6B7280] focus:outline-none focus:bg-white focus:shadow-[0_1px_6px_rgba(32,33,36,0.28)] focus:border-[#DADCE0] transition-all"
+            placeholder="Search conversations…"
+            style={{ paddingLeft: '34px' }}
+            className="w-full h-[32px] pr-3 rounded-md bg-white border border-[#d0d7de] text-[14px] text-[#24292f] placeholder:text-[#6e7781] focus:outline-none focus:border-[#0969da] focus:ring-2 focus:ring-[#0969da]/20 transition-all"
           />
-        </div>
-      ) : (
-        <div className="flex items-center gap-2">
-          <Icon className="w-[18px] h-[18px] text-[#5F6368]" />
-          <span className="text-[16px] font-semibold text-[#202124]">{match.label}</span>
         </div>
       )}
 
       <div className="flex items-center gap-2 ml-auto">
-        <span className="text-[#5F6368] text-[13px] tabular-nums shrink-0 hidden lg:block">{dateStr}</span>
-        <NotificationBell />
+        <span className="text-[#6e7781] text-[12px] tabular-nums shrink-0 hidden lg:block">{dateStr}</span>
         <button
           onClick={onLogout}
-          className="flex items-center gap-1.5 h-[36px] px-3 rounded-md text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors text-[13px] font-medium shrink-0"
+          className="flex items-center gap-1.5 h-[30px] px-3 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#f3f4f6] transition-colors text-[13px] border border-[#d0d7de]"
         >
-          <LogOut className="w-[15px] h-[15px]" />
+          <LogOut className="w-[13px] h-[13px]" />
           Sign out
         </button>
       </div>
-    </div>
+    </header>
   );
 }
-
-// DryRunBanner: intentionally not shown in the main Unboks customer nav.
-// It is preserved here for legacy BlueMarlin clients who use social publishing.
-// TODO: render conditionally when tenant has social publishing enabled.
 
 export function AppLayout() {
   const { logout } = useAuthContext();
@@ -152,6 +74,7 @@ export function AppLayout() {
 
   const isEscalationsView = location.pathname === "/dashboard" && searchParams.get("view") === "escalations";
   const isHome = (location.pathname === "/dashboard" || location.pathname === "/dashboard/") && !isEscalationsView;
+  const isBookings = location.pathname === "/dashboard/bookings";
 
   const NAV_ITEMS = [
     {
@@ -169,6 +92,13 @@ export function AppLayout() {
       isActive: isEscalationsView,
     },
     {
+      path: "/dashboard/bookings",
+      search: "",
+      label: "Bookings",
+      icon: BookOpen,
+      isActive: isBookings,
+    },
+    {
       path: "/dashboard/channels",
       search: "",
       label: "Channels",
@@ -184,35 +114,26 @@ export function AppLayout() {
     },
   ];
 
-  const isSettingsActive = location.pathname === "/dashboard/settings" || location.pathname.startsWith("/dashboard/settings/");
-
   const { data: conversations } = useConversations();
   const { readSet } = useReadStatus();
   const unreadCount = (conversations ?? []).filter(
     (c) => !readSet.has(c.phone) && !getHiddenSet().has(c.phone)
   ).length;
 
-  const SidebarContent = ({ hideActions = false }: { hideActions?: boolean }) => (
-    <div className="flex flex-col h-full">
+  const SidebarContent = () => (
+    <div className="flex flex-col h-full bg-[#f6f8fa]">
       <Link
         to="/dashboard"
         onClick={() => {
           setMobileOpen(false);
           window.dispatchEvent(new Event("unboks:nav:messages"));
         }}
-        className="flex items-center h-[56px] px-4 border-b border-[#E5E7EB] shrink-0"
+        className="flex items-center h-[64px] px-4 border-b border-[#d0d7de] shrink-0"
       >
-        <div className="select-none flex items-center justify-between w-full">
-          <img src={unboksLogo} alt="Unboks" className="w-[120px] h-auto object-contain" />
-          {unreadCount > 0 && (
-            <span className="text-[11px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full tabular-nums border border-primary/15">
-              {unreadCount}
-            </span>
-          )}
-        </div>
+        <img src={unboksLogo} alt="Unboks" className="w-[110px] h-auto object-contain" />
       </Link>
 
-      <nav className="flex-1 pr-4 pt-2 flex flex-col gap-[2px] overflow-y-auto scrollbar-none">
+      <nav className="flex-1 p-2 flex flex-col gap-0.5 overflow-y-auto">
         {NAV_ITEMS.map((item) => {
           const active = item.isActive;
           return (
@@ -220,92 +141,74 @@ export function AppLayout() {
               key={item.label}
               to={active && item.search ? item.path : item.path + item.search}
               onClick={() => setMobileOpen(false)}
-              className="relative block"
-            >
-              {active && (
-                <motion.div
-                  layoutId="sidebar-pill"
-                  className="absolute inset-0 rounded-r-[20px] bg-[#D3E3FD]"
-                  transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
-                />
+              className={cn(
+                "flex items-center gap-2 px-2 py-[6px] rounded-md text-[14px] transition-colors select-none",
+                active
+                  ? "bg-[#dde1e7] text-[#24292f] font-semibold"
+                  : "text-[#24292f] hover:bg-[#d0d7de]/50 font-normal"
               )}
-              <div
+            >
+              <item.icon
                 className={cn(
-                  "relative flex items-center gap-3 pl-[18px] pr-3 h-[36px] rounded-r-[20px] transition-colors duration-100 group",
-                  active
-                    ? "text-[#0B57D0]"
-                    : "text-[#444746] hover:text-[#202124] hover:bg-[#F1F3F4]"
+                  "w-[16px] h-[16px] shrink-0",
+                  active ? "text-[#24292f]" : "text-[#57606a]"
                 )}
-              >
-                <item.icon
-                  className={cn(
-                    "w-[18px] h-[18px] shrink-0 transition-colors duration-150",
-                    active ? "text-[#0B57D0]" : "text-[#5F6368] group-hover:text-[#202124]"
-                  )}
-                />
-                <span className={cn(
-                  "text-[14px] flex-1 font-medium",
-                  active ? "font-semibold text-[#0B57D0]" : ""
-                )}>
-                  {item.label}
+              />
+              <span className="flex-1 truncate">{item.label}</span>
+              {item.label === "Inbox" && unreadCount > 0 && (
+                <span className="text-[11px] font-semibold text-[#57606a] bg-[#d0d7de] px-[6px] py-[1px] rounded-full tabular-nums min-w-[20px] text-center leading-5">
+                  {unreadCount}
                 </span>
-              </div>
+              )}
             </Link>
           );
         })}
       </nav>
 
-      {!hideActions && (
-        <div className="pb-2 pt-2 border-t border-[#E5E7EB]">
-          <button
-            onClick={() => logout()}
-            className="relative flex items-center gap-3 pl-[18px] pr-3 h-[36px] w-full rounded-r-[20px] text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors duration-100 text-[14px]"
-          >
-            <LogOut className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
-            <span className="font-medium">Sign out</span>
-          </button>
-        </div>
-      )}
+      <div className="p-2 border-t border-[#d0d7de]">
+        <button
+          onClick={() => logout()}
+          className="flex items-center gap-2 px-2 py-[6px] w-full rounded-md text-[14px] text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors"
+        >
+          <LogOut className="w-[16px] h-[16px] text-[#57606a] shrink-0" />
+          <span>Sign out</span>
+        </button>
+      </div>
     </div>
   );
 
+  const isInbox = location.pathname === "/dashboard" || location.pathname === "/dashboard/";
+
   return (
-    <div className="flex h-screen overflow-hidden">
-      <aside className="hidden md:block w-[256px] bg-white border-r border-[#E5E7EB] shrink-0 z-20">
-        <SidebarContent hideActions />
+    <div className="flex h-screen overflow-hidden bg-[#f6f8fa]">
+      <aside className="hidden md:block w-[280px] bg-[#f6f8fa] border-r border-[#d0d7de] shrink-0">
+        <SidebarContent />
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <TopBar onLogout={logout} />
 
-        <header
-          className="md:hidden flex items-center justify-between px-4 py-3 bg-background/90 backdrop-blur-xl border-b border-border/60"
-        >
-          <div className="flex items-center gap-2 select-none">
-            <img src={unboksLogo} alt="Unboks" className="h-6 w-auto object-contain" />
-          </div>
-          <div className="flex items-center gap-1">
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground">
-                  <Menu className="w-5 h-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="p-0 w-[260px] bg-background border-border/50">
-                <SidebarContent />
-              </SheetContent>
-            </Sheet>
-          </div>
+        <header className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-[#d0d7de]">
+          <img src={unboksLogo} alt="Unboks" className="h-6 w-auto object-contain" />
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-[#57606a]">
+                <Menu className="w-4 h-4" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="p-0 w-[280px] bg-[#f6f8fa] border-r border-[#d0d7de]">
+              <SidebarContent />
+            </SheetContent>
+          </Sheet>
         </header>
 
-        {/* inbox is full-bleed; other pages get a flat white scrollable area */}
-        {(location.pathname === "/dashboard" || location.pathname === "/dashboard/") ? (
-          <div className="flex-1 overflow-hidden flex flex-col min-h-0">
+        {isInbox ? (
+          <div className="flex-1 overflow-hidden flex flex-col min-h-0 bg-white">
             <Outlet />
           </div>
         ) : (
-          <main className="flex-1 overflow-y-auto bg-white">
-            <div className="px-8 py-6">
+          <main className="flex-1 overflow-y-auto bg-[#f6f8fa]">
+            <div className="px-6 py-6 max-w-5xl">
               <Outlet />
             </div>
           </main>

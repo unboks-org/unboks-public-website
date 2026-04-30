@@ -1,0 +1,506 @@
+MISSION: TOTAL DASHBOARD VISUAL RESET TO GITHUB-STYLE UI
+
+This task is NOT a minor redesign.
+This task is a full dashboard visual replacement.
+
+You must remove the current dashboard visual design completely and replace it with a GitHub.com-inspired product UI.
+
+SCOPE LOCK
+
+Only modify dashboard UI files used by:
+
+/dashboard/*
+
+Do NOT modify:
+- public marketing website
+- homepage
+- landing page CSS
+- auth backend
+- API routes
+- database/schema
+- server logic
+- integrations
+- data fetching logic unless required to preserve existing UI behavior
+
+The dashboard must keep the same product functionality but the visual layer must be replaced.
+
+REFERENCE STYLE
+
+Use GitHub.com’s interface as the visual reference.
+
+The dashboard should feel like:
+- GitHub repository page
+- GitHub dashboard home
+- GitHub issues list
+- GitHub settings pages
+
+Target look:
+- light
+- clean
+- compact
+- practical
+- enterprise SaaS
+- bordered panels
+- grey sidebar
+- white content cards
+- simple rows
+- readable text
+- minimal color
+- no decoration for decoration’s sake
+
+ABSOLUTE DESIGN BAN LIST
+
+Remove all dashboard styling that creates any of the following:
+
+- glassmorphism
+- dark cyber UI
+- neon styling
+- blurred translucent panels
+- heavy gradients
+- purple/blue glowing backgrounds
+- oversized marketing cards
+- giant rounded “premium” cards
+- animated hero sections
+- flashy AI-style visuals
+- shadows as the main design language
+- colorful decorative tiles
+- unnecessary charts on default screens
+- huge empty spacing
+- landing-page style sections inside dashboard
+- hover-only critical controls
+- duplicated visual labels
+- inconsistent card systems
+- old custom theme remnants
+- visual effects that do not exist in GitHub’s UI
+
+If any of the above exists in dashboard files, delete it or neutralize it.
+
+This includes old dashboard CSS classes even if they are not obviously visible.
+Do not leave unused old design code sitting around if it belongs only to the dashboard.
+
+IMPORTANT:
+Do not “add GitHub styling on top” of the old dashboard.
+Do not layer new CSS over old CSS.
+Do not preserve the old dashboard design system.
+Replace it.
+
+MANDATORY FIRST STEP: DESIGN AUDIT
+
+Before changing code, inspect the dashboard implementation and produce a short internal plan.
+
+Find all dashboard-related files:
+- dashboard shell/layout
+- dashboard header
+- dashboard sidebar/nav
+- dashboard pages
+- dashboard CSS files
+- dashboard Tailwind classes
+- dashboard component styles
+- any shared components used only by dashboard
+
+Identify old design sources:
+- old CSS files
+- old class names
+- old gradients
+- old glass effects
+- old dark theme rules
+- old cards
+- old layout wrappers
+- old nav styles
+
+Then remove or replace them.
+
+Do not continue until you know exactly where the current dashboard design is coming from.
+
+MANDATORY DELETION / NEUTRALIZATION RULE
+
+For every dashboard file you touch, ask:
+
+“Does this file still contain old dashboard visual design?”
+
+If yes:
+- remove it
+- rename/refactor it
+- replace it with GitHub-style structure
+- or isolate it away from /dashboard/*
+
+Do not leave old classes like:
+- glass
+- glow
+- gradient
+- cyber
+- premium-card
+- hero
+- dark-panel
+- ai-card
+- fancy-card
+- floating
+- animated
+- backdrop-blur
+- shadow-xl
+- shadow-2xl
+- bg-gradient
+- text-gradient
+- neon
+- futuristic
+
+If they appear in /dashboard/* and are visual-only, remove them.
+
+VISUAL DESIGN SYSTEM TO IMPLEMENT
+
+Create one clean dashboard design system.
+
+Use these primitives:
+
+Page background:
+#f6f8fa
+
+Main panel background:
+#ffffff
+
+Header background:
+#f6f8fa or #ffffff
+
+Sidebar background:
+#f6f8fa
+
+Border:
+#d0d7de
+
+Muted border:
+#d8dee4
+
+Primary text:
+#24292f
+
+Secondary text:
+#57606a
+
+Muted text:
+#6e7781
+
+GitHub blue:
+#0969da
+
+GitHub green:
+#1f883d
+
+Danger:
+#cf222e
+
+Warning:
+#9a6700
+
+Use system font:
+-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif
+
+Typography:
+- body: 14px
+- metadata: 12px
+- page title: 24px
+- section title: 16px
+- line height: 1.45
+
+Borders:
+- 1px solid #d0d7de
+- radius 6px or 8px
+- no giant 24px rounded cards
+
+Shadows:
+- avoid by default
+- if needed, only very subtle GitHub-like shadow
+- no dramatic shadows
+
+Spacing:
+- compact
+- practical
+- no giant empty hero spacing
+
+GLOBAL DASHBOARD STRUCTURE
+
+Implement this structure for /dashboard/*:
+
+DashboardShell
+- DashboardHeader
+- DashboardSidebar
+- DashboardMain
+
+Header:
+- fixed/sticky top if already supported, otherwise normal top bar
+- height around 64px
+- border-bottom: 1px solid #d0d7de
+- light background
+- left: menu icon + product/client label
+- center/right: search input
+- far right: compact icon buttons/profile avatar
+
+Sidebar:
+- width 280px to 310px desktop
+- background #f6f8fa
+- border-right #d0d7de
+- nav rows compact
+- active item subtle, GitHub-like
+- no decorative icons/cards
+
+Main:
+- background #ffffff or #f6f8fa
+- content inside practical max-width
+- GitHub-style bordered list/panels
+
+MAIN NAVIGATION MUST BE ONLY:
+
+1. Inbox
+2. Escalations
+3. Bookings / Orders
+4. Channels
+5. Settings
+
+Do not add:
+- Analytics as main nav
+- Social as main nav
+- Create as main nav
+- AI tools as main nav
+- Knowledge Base as main nav
+- Advanced as main nav
+- Overview as main nav unless it is only an alias/redirect to Inbox
+
+If old routes still exist, they may remain for compatibility, but they must not appear in the main sidebar.
+
+PAGE-SPECIFIC REQUIREMENTS
+
+INBOX PAGE
+
+The Inbox must look like a GitHub Issues list.
+
+Required:
+- top filter/search row
+- channel filter chips/dropdowns if already present
+- bordered list container
+- rows with checkbox, source, customer, preview, status, time
+- row click opens detail pane or detail view
+- no overlapping text
+- no duplicated “WhatsApp / WhatsApp” confusion
+
+Column meaning:
+- Source = WhatsApp, Instagram, Facebook, Email, etc.
+- Customer = person/account name
+- Preview = message summary
+- Status = unread/escalated/open/closed if needed
+- Time = last message time
+
+Important actions:
+- Mark as Read visible
+- Archive visible
+- Reply visible
+- Not hover-only
+
+ESCALATIONS PAGE
+
+Use same GitHub-style list pattern.
+
+Required row data:
+- source
+- customer
+- escalation type: Soft or Hard
+- short reason/summary
+- time
+- status
+
+Soft escalation:
+- human replies to AI/operator, AI continues customer response
+
+Hard escalation:
+- human directly takes over customer conversation
+
+The row must explain why it needs attention.
+
+BOOKINGS / ORDERS PAGE
+
+No useless stats wall.
+
+Use GitHub-style practical list.
+
+Required:
+- small filter/summary bar at top
+- if a metric/filter is clicked, main list changes to exactly those items
+- clicking “Booked Today: 3” must show exactly 3 booking rows, not a dashboard overview
+- booking rows show:
+  - customer
+  - trip/service/product
+  - date/time
+  - party size / guests
+  - status
+- clicking a row opens details:
+  - customer name
+  - contact
+  - trip/service
+  - date/time
+  - number of people
+  - notes
+  - original message if available
+
+Do not show random analytics unless useful and clickable.
+
+CHANNELS PAGE
+
+GitHub settings/list style.
+
+Each channel row:
+- platform
+- connected account
+- status
+- last sync
+- action button
+
+No large colorful tiles.
+
+SETTINGS PAGE
+
+GitHub settings page style.
+
+Use simple bordered sections.
+
+Settings may include:
+- Account/client settings
+- Source of Truth / Knowledge files
+- Business rules
+- Escalation rules
+- Team/users if already present
+- Advanced settings collapsed or clearly separated
+
+Source of Truth must live under Settings, not main nav.
+
+Advanced AI/prompt controls must not be visible in normal daily dashboard view.
+
+ROUTE RULES
+
+Keep existing routes working.
+
+But dashboard default should be Inbox:
+
+/dashboard -> Inbox
+
+/dashboard/escalations -> Escalations
+
+/dashboard/bookings -> Bookings / Orders
+
+/dashboard/channels -> Channels
+
+/dashboard/settings -> Settings
+
+Old dashboard routes can redirect or remain hidden, but they must not visually pollute the sidebar.
+
+RESPONSIVE RULES
+
+Desktop:
+- header + sidebar + main
+- GitHub-like
+
+Tablet:
+- sidebar collapses or compresses
+
+Mobile:
+- sidebar becomes drawer
+- list rows stay readable
+- no horizontal overflow
+- no overlapping columns
+- detail view may stack under list or open as full screen
+- action buttons remain visible
+
+TECHNICAL IMPLEMENTATION RULES
+
+Do not change backend.
+Do not change database.
+Do not change API contract.
+Do not change auth behavior.
+Do not remove working functionality.
+Do not break routes.
+
+Allowed:
+- Replace dashboard CSS
+- Delete dashboard-only CSS
+- Refactor dashboard components
+- Replace visual components
+- Simplify dashboard nav
+- Hide old dashboard-only screens from nav
+- Create reusable GitHub-style dashboard components
+
+Preferred reusable components:
+- DashboardShell
+- DashboardHeader
+- DashboardSidebar
+- DashboardMain
+- DashboardPanel
+- DashboardList
+- DashboardListRow
+- DashboardToolbar
+- DashboardBadge
+- DashboardButton
+- DashboardEmptyState
+- DashboardDetailPane
+
+CSS REQUIREMENT
+
+There must be one clear dashboard visual source of truth.
+
+Either:
+- dashboard.css
+or
+- dashboard-specific component classes
+or
+- Tailwind utilities with dashboard wrapper
+
+But not a messy mix of old competing styles.
+
+If old dashboard CSS exists and conflicts:
+- remove it
+- replace it
+- stop importing it
+- or scope it away from /dashboard/*
+
+MANDATORY SELF-CHECK BEFORE FINAL RESPONSE
+
+Before final response, verify:
+
+1. Search dashboard files for old banned styling terms:
+   - gradient
+   - glass
+   - glow
+   - neon
+   - backdrop-blur
+   - cyber
+   - premium
+   - hero
+   - shadow-2xl
+   - shadow-xl
+   - bg-gradient
+   - text-gradient
+   - futuristic
+
+2. If any remain under dashboard files, explain why they are necessary.
+   If not necessary, remove them.
+
+3. Verify public website still looks untouched.
+
+4. Verify dashboard routes:
+   - /dashboard
+   - /dashboard/escalations
+   - /dashboard/bookings
+   - /dashboard/channels
+   - /dashboard/settings
+
+5. Verify build passes.
+
+FINAL RESPONSE FORMAT REQUIRED
+
+Return exactly:
+
+A. Dashboard files changed
+B. Dashboard old styling removed/replaced
+C. Banned style search result
+D. Routes tested
+E. Build result
+F. Any remaining risks
+
+Do not say “done” unless build passes.
+Do not claim old styling was removed unless you searched for it.

@@ -194,11 +194,11 @@ function ConversationRow({
   return (
     <div
       className={cn(
-        "group relative flex items-center h-[52px] border-b cursor-pointer select-none transition-colors duration-75",
-        "border-[#E2E4E7]",
+        "group relative flex items-center h-[48px] border-b cursor-pointer select-none transition-colors duration-75",
+        "border-[#d0d7de]",
         isSelected
-          ? "bg-[#EAF3FF]"
-          : "bg-white hover:bg-[#F5F7FA] hover:shadow-[inset_1px_0_0_#dadce0,inset_-1px_0_0_#dadce0]",
+          ? "bg-[#ddf4ff]"
+          : "bg-white hover:bg-[#f6f8fa]",
         isHidden && "opacity-40"
       )}
       onClick={() => onOpen(conv.phone)}
@@ -209,7 +209,7 @@ function ConversationRow({
       </div>
 
       {/* Channel icon */}
-      <div className="flex items-center justify-center w-5 h-full shrink-0 mr-3 text-[#9AA0A6]">
+      <div className="flex items-center justify-center w-5 h-full shrink-0 mr-3 text-[#6e7781]">
         <ChannelIcon channel={conv.channel} />
       </div>
 
@@ -217,12 +217,12 @@ function ConversationRow({
       <div className="w-[164px] shrink-0 mr-4 overflow-hidden flex items-center gap-1.5">
         <span className={cn(
           "text-[14px] truncate",
-          isRead ? "font-normal text-[#202124]" : "font-semibold text-[#202124]"
+          isRead ? "font-normal text-[#57606a]" : "font-semibold text-[#24292f]"
         )}>
           {senderText(conv)}
         </span>
         {!isRead && !isHidden && (
-          <span className="w-2 h-2 rounded-full bg-[#1677F2] shrink-0" />
+          <span className="w-[7px] h-[7px] rounded-full bg-[#0969da] shrink-0" />
         )}
       </div>
 
@@ -233,17 +233,17 @@ function ConversationRow({
             <span className={cn(
               "inline-flex items-center gap-0.5 text-[11px] font-semibold mr-2 px-1.5 py-px rounded align-middle",
               escalationType && isSemi(escalationType)
-                ? "bg-sky-100 text-sky-700"
-                : "bg-rose-100 text-rose-700"
+                ? "bg-[#ddf4ff] text-[#0550ae]"
+                : "bg-[#ffebe9] text-[#cf222e]"
             )}>
               <AlertTriangle className="w-2.5 h-2.5 inline" />
               {escalationType ? (isSemi(escalationType) ? "Semi" : "Full") : "Escalated"}
             </span>
           )}
           {conv.last_message_role === "assistant" && (
-            <span className="text-[#1677F2]/70 mr-1 font-medium">AI ·</span>
+            <span className="text-[#0969da]/70 mr-1 font-medium">AI ·</span>
           )}
-          <span className={cn(isRead ? "text-[#5F6368]" : "text-[#202124]/80")}>
+          <span className={cn(isRead ? "text-[#57606a]" : "text-[#24292f]")}>
             {conv.last_message}
           </span>
         </p>
@@ -258,28 +258,28 @@ function ConversationRow({
         {/* Actions — appear on row hover */}
         <div className="opacity-0 group-hover:opacity-100 flex items-center gap-0.5 mr-2 transition-opacity duration-75">
           <button onClick={() => onOpen(conv.phone)} title="Reply"
-            className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#E9EEF6] transition-colors">
+            className="p-1.5 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors">
             <MessageCircle className="w-3.5 h-3.5" />
           </button>
           <button onClick={() => isRead ? onMarkUnread(conv.phone) : onMarkRead(conv.phone)}
             title={isRead ? "Mark unread" : "Mark read"}
-            className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#E9EEF6] transition-colors">
+            className="p-1.5 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors">
             {isRead ? <Circle className="w-3.5 h-3.5" /> : <CheckCircle className="w-3.5 h-3.5" />}
           </button>
           {isHidden ? (
             <button onClick={() => onUnhide(conv.phone)} title="Restore"
-              className="p-1.5 rounded-full text-[#5F6368] hover:text-emerald-600 hover:bg-emerald-50 transition-colors">
+              className="p-1.5 rounded-md text-[#57606a] hover:text-[#1f883d] hover:bg-[#dafbe1] transition-colors">
               <ArchiveRestore className="w-3.5 h-3.5" />
             </button>
           ) : (
             <button onClick={() => onHide(conv.phone)} title="Archive"
-              className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#E9EEF6] transition-colors">
+              className="p-1.5 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors">
               <Archive className="w-3.5 h-3.5" />
             </button>
           )}
           {isHidden && onDelete && (
             <button onClick={() => onDelete(conv.phone)} title="Delete"
-              className="p-1.5 rounded-full text-[#5F6368] hover:text-rose-600 hover:bg-rose-50 transition-colors">
+              className="p-1.5 rounded-md text-[#57606a] hover:text-[#cf222e] hover:bg-[#ffebe9] transition-colors">
               <Trash2 className="w-3.5 h-3.5" />
             </button>
           )}
@@ -287,7 +287,7 @@ function ConversationRow({
         {/* Date — hidden when actions visible */}
         <span className={cn(
           "text-[12px] tabular-nums group-hover:invisible",
-          isRead ? "text-[#5F6368]" : "font-semibold text-[#202124]"
+          isRead ? "text-[#6e7781]" : "font-semibold text-[#24292f]"
         )}>
           {gmailDate(conv.last_message_at)}
         </span>
@@ -413,7 +413,7 @@ export default function Messages() {
 
   const clearSelection = () => setSelectedSet(new Set());
 
-  const selectionToolbarBtn = "p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors";
+  const selectionToolbarBtn = "p-1.5 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors";
 
   /* ─── DETAIL VIEW ──────────────────────────────────────────────────────── */
   if (view === "detail" && detail) {
@@ -441,11 +441,11 @@ export default function Messages() {
         {/* ── Floating Escalation Compose Modal ── */}
         {compose && matchedEsc && (
           <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4">
-            <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setCompose(null)} />
-            <div className="relative w-full max-w-2xl rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+            <div className="absolute inset-0 bg-[#24292f]/40" onClick={() => setCompose(null)} />
+            <div className="relative w-full max-w-2xl rounded-md border border-[#d0d7de] bg-white overflow-hidden">
               <div className={cn(
-                "flex items-center justify-between px-5 py-3.5 border-b border-border",
-                isSemi(matchedEsc.notification_type) ? "bg-slate-500/10" : "bg-rose-500/10"
+                "flex items-center justify-between px-5 py-3.5 border-b border-[#d0d7de]",
+                isSemi(matchedEsc.notification_type) ? "bg-[#ddf4ff]" : "bg-[#ffebe9]"
               )}>
                 <div className="flex items-center gap-2.5">
                   {isSemi(matchedEsc.notification_type) ? (
@@ -726,13 +726,13 @@ export default function Messages() {
               })() : (
                 <div key={idx} className={cn("flex", msg.role === "user" ? "justify-start" : "justify-end")}>
                   <div className={cn(
-                    "max-w-[75%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed",
+                    "max-w-[75%] rounded-md px-3.5 py-2.5 text-[14px] leading-relaxed border",
                     msg.role === "user"
-                      ? "bg-muted/60 border border-border text-foreground"
-                      : "bg-primary/15 border border-primary/20 text-foreground"
+                      ? "bg-[#f6f8fa] border-[#d0d7de] text-[#24292f]"
+                      : "bg-[#ddf4ff] border-[#54aeff]/30 text-[#0550ae]"
                   )}>
                     <p className="whitespace-pre-wrap">{msg.text}</p>
-                    <p className="text-[11px] text-muted-foreground/60 mt-1.5">
+                    <p className="text-[11px] text-[#6e7781] mt-1.5">
                       {format(new Date(msg.created_at), "MMM d, h:mm a")}
                     </p>
                   </div>
@@ -790,7 +790,7 @@ export default function Messages() {
     <div className="flex flex-col h-full overflow-hidden">
 
       {/* ── Toolbar row (48px) ── */}
-      <div className="flex items-center shrink-0 h-[48px] bg-white border-b border-[#E5E7EB] px-5 gap-2">
+      <div className="flex items-center shrink-0 h-[48px] bg-white border-b border-[#d0d7de] px-5 gap-2">
         <div className="flex items-center shrink-0 gap-0.5">
           <div className="flex items-center justify-center w-8">
             <GmailCheckbox
@@ -799,15 +799,15 @@ export default function Messages() {
               onChange={toggleMasterSelect}
             />
           </div>
-          <ChevronDown className="w-[10px] h-[10px] text-[#5F6368]/60 shrink-0" />
+          <ChevronDown className="w-[10px] h-[10px] text-[#6e7781] shrink-0" />
         </div>
 
         {someSelected ? (
           <>
-            <span className="text-[13px] font-medium text-[#5F6368] mr-1 shrink-0 tabular-nums">
+            <span className="text-[13px] font-medium text-[#57606a] mr-1 shrink-0 tabular-nums">
               {selectedSet.size} selected
             </span>
-            <div className="h-4 w-px bg-[#E5E7EB] mx-1 shrink-0" />
+            <div className="h-4 w-px bg-[#d0d7de] mx-1 shrink-0" />
             <button onClick={bulkArchive} title="Archive" className={selectionToolbarBtn}>
               <Archive className="w-[16px] h-[16px]" />
             </button>
@@ -824,11 +824,11 @@ export default function Messages() {
               if (!singleConv || singleConv.channel !== "email") return null;
               return (
                 <>
-                  <div className="h-4 w-px bg-[#E5E7EB] mx-1 shrink-0" />
+                  <div className="h-4 w-px bg-[#d0d7de] mx-1 shrink-0" />
                   <button
                     onClick={() => { const to = singlePhone.includes("@") ? singlePhone : ""; openEmailCompose(emailSettings, to, `Re: ${singleConv.customer_name}`, ""); }}
                     title="Reply to email"
-                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors text-[13px] font-medium"
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors text-[13px] font-medium"
                   >
                     <Mail className="w-[16px] h-[16px]" />
                     <span className="hidden sm:inline">Reply</span>
@@ -836,14 +836,14 @@ export default function Messages() {
                 </>
               );
             })()}
-            <div className="h-4 w-px bg-[#E5E7EB] mx-1 shrink-0" />
+            <div className="h-4 w-px bg-[#d0d7de] mx-1 shrink-0" />
             <button onClick={bulkDelete} title="Delete"
-              className="p-1.5 rounded-full text-[#5F6368]/60 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+              className="p-1.5 rounded-md text-[#57606a] hover:text-[#cf222e] hover:bg-[#ffebe9] transition-colors">
               <Trash2 className="w-[16px] h-[16px]" />
             </button>
             <div className="flex-1" />
             <button onClick={clearSelection} title="Clear selection"
-              className="p-1.5 rounded-full text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors">
+              className="p-1.5 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors">
               <X className="w-[16px] h-[16px]" />
             </button>
           </>
@@ -851,7 +851,7 @@ export default function Messages() {
           <>
             <div className="flex-1" />
             {filtered.length > 0 && (
-              <span className="text-[12px] text-[#5F6368] tabular-nums shrink-0">
+              <span className="text-[12px] text-[#57606a] tabular-nums shrink-0">
                 1–{filtered.length} of {filtered.length}
               </span>
             )}
@@ -860,7 +860,7 @@ export default function Messages() {
       </div>
 
       {/* ── Channel / platform tabs (48px) ── */}
-      <div className="flex items-stretch shrink-0 h-[48px] bg-white border-b border-[#E5E7EB] overflow-x-auto scrollbar-none pl-5">
+      <div className="flex items-stretch shrink-0 h-[48px] bg-white border-b border-[#d0d7de] overflow-x-auto scrollbar-none pl-5">
         <PlatformFilterBar />
       </div>
 
@@ -869,7 +869,7 @@ export default function Messages() {
         {isLoading ? (
           <div>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div key={i} className="flex items-center h-[52px] px-5 gap-3 border-b border-[#E2E4E7]">
+              <div key={i} className="flex items-center h-[48px] px-5 gap-3 border-b border-[#d0d7de]">
                 <Skeleton className="w-4 h-4 rounded shrink-0" />
                 <Skeleton className="w-5 h-5 rounded-full shrink-0" />
                 <Skeleton className="w-[140px] h-3 rounded shrink-0" />
@@ -906,15 +906,15 @@ export default function Messages() {
           </>
         ) : (
           <div className="flex flex-col items-center" style={{ paddingTop: "10%" }}>
-            <MessageCircle className="w-8 h-8 text-[#9AA0A6] mb-3" />
-            <p className="text-[14px] font-medium text-[#202124]">
+            <MessageCircle className="w-8 h-8 text-[#6e7781] mb-3" />
+            <p className="text-[14px] font-medium text-[#24292f]">
               {(conversations?.length ?? 0) === 0
                 ? "No conversations yet"
                 : escalationsMode
                 ? "No escalated conversations"
                 : "No conversations match this filter"}
             </p>
-            <p className="text-[13px] text-[#5F6368] mt-1">
+            <p className="text-[13px] text-[#57606a] mt-1">
               {(conversations?.length ?? 0) === 0
                 ? "New messages will appear here."
                 : "Try a different filter or search term."}
@@ -924,10 +924,10 @@ export default function Messages() {
 
         {/* ── Archived section ── */}
         {hiddenCount > 0 && (
-          <div className="border-t border-[#E5E7EB]">
+          <div className="border-t border-[#d0d7de]">
             <button
               onClick={() => setShowHidden((s) => !s)}
-              className="flex items-center gap-2 px-5 py-3 text-[13px] text-[#5F6368] hover:text-[#202124] hover:bg-[#F5F7FA] transition-colors w-full"
+              className="flex items-center gap-2 px-5 py-3 text-[13px] text-[#57606a] hover:text-[#24292f] hover:bg-[#f6f8fa] transition-colors w-full"
             >
               <Archive className="w-3.5 h-3.5" />
               {showHidden ? "Hide" : "Show"} {hiddenCount} archived
@@ -935,10 +935,10 @@ export default function Messages() {
             </button>
             {showHidden && (
               <>
-                <div className="flex items-center justify-end px-5 py-2 border-b border-[#E5E7EB] bg-[#F8FAFC]">
+                <div className="flex items-center justify-end px-5 py-2 border-b border-[#d0d7de] bg-[#f6f8fa]">
                   <button
                     onClick={() => { unhideAll(); setShowHidden(false); }}
-                    className="text-[12px] font-medium text-[#1677F2] hover:text-[#0B57D0] transition-colors"
+                    className="text-[12px] font-medium text-[#0969da] hover:text-[#0550ae] transition-colors"
                   >
                     Restore all
                   </button>

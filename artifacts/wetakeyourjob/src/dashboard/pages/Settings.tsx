@@ -61,16 +61,16 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] transition-colors",
-          open ? "bg-[#F8FAFC]" : "bg-white hover:bg-[#F8FAFC]"
+          "w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#d0d7de] transition-colors",
+          open ? "bg-[#f6f8fa]" : "bg-white hover:bg-[#f6f8fa]"
         )}
       >
-        <Icon className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+        <Icon className="w-[18px] h-[18px] text-[#57606a] shrink-0" />
         <div className="flex-1 min-w-0 flex items-baseline gap-2 overflow-hidden">
-          <span className="text-[14px] font-medium text-[#202124] shrink-0">{title}</span>
-          {subtitle && <span className="text-[13px] text-[#5F6368] truncate">{subtitle}</span>}
+          <span className="text-[14px] font-medium text-[#24292f] shrink-0">{title}</span>
+          {subtitle && <span className="text-[13px] text-[#57606a] truncate">{subtitle}</span>}
         </div>
-        <ChevronDown className={cn("w-4 h-4 text-[#5F6368] shrink-0 transition-transform duration-200", open && "rotate-180")} />
+        <ChevronDown className={cn("w-4 h-4 text-[#57606a] shrink-0 transition-transform duration-200", open && "rotate-180")} />
       </button>
       <AnimatePresence>
         {open && (
@@ -79,7 +79,7 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden border-b border-[#E5E7EB] bg-[#F8FAFC]"
+            className="overflow-hidden border-b border-[#d0d7de] bg-[#f6f8fa]"
           >
             <div className="px-5 py-4">{children}</div>
           </motion.div>
@@ -92,7 +92,7 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
 // ─── Placeholder coming-soon notice ──────────────────────────────────────────
 function ComingSoon({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-2 py-2 text-[13px] text-[#5F6368]">
+    <div className="flex items-center gap-2 py-2 text-[13px] text-[#57606a]">
       <Clock className="w-[14px] h-[14px] shrink-0" />
       <span>{label} — coming soon. Contact Unboks to configure this.</span>
     </div>
@@ -143,11 +143,11 @@ export default function Settings() {
   return (
     <div className="max-w-3xl pb-16">
       <div className="mb-5">
-        <h1 className="text-[18px] font-semibold text-[#202124] mb-1">Settings</h1>
-        <p className="text-[13px] text-[#5F6368]">Manage your account, AI knowledge, team, and integrations.</p>
+        <h1 className="text-[18px] font-semibold text-[#24292f] mb-1">Settings</h1>
+        <p className="text-[13px] text-[#57606a]">Manage your account, AI knowledge, team, and integrations.</p>
       </div>
 
-      <div className="bg-white border-t border-[#E5E7EB]">
+      <div className="bg-white border border-[#d0d7de] rounded-md overflow-hidden">
 
       {/* ── Business Info ─────────────────────────────────────────────────── */}
       <AccordionSection
@@ -305,16 +305,16 @@ export default function Settings() {
         <button
           onClick={() => setAdvancedOpen((o) => !o)}
           className={cn(
-            "w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] transition-colors",
-            advancedOpen ? "bg-[#F8FAFC]" : "bg-white hover:bg-[#F8FAFC]"
+            "w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#d0d7de] transition-colors",
+            advancedOpen ? "bg-[#f6f8fa]" : "bg-white hover:bg-[#f6f8fa]"
           )}
         >
-          <Wrench className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+          <Wrench className="w-[18px] h-[18px] text-[#57606a] shrink-0" />
           <div className="flex-1 min-w-0 flex items-baseline gap-2 overflow-hidden">
-            <span className="text-[14px] font-medium text-[#202124] shrink-0">Advanced</span>
-            <span className="text-[13px] text-[#5F6368] truncate">System configuration, social publishing, and developer tools</span>
+            <span className="text-[14px] font-medium text-[#24292f] shrink-0">Advanced</span>
+            <span className="text-[13px] text-[#57606a] truncate">System configuration, social publishing, and developer tools</span>
           </div>
-          <ChevronDown className={cn("w-4 h-4 text-[#5F6368] shrink-0 transition-transform duration-200", advancedOpen && "rotate-180")} />
+          <ChevronDown className={cn("w-4 h-4 text-[#57606a] shrink-0 transition-transform duration-200", advancedOpen && "rotate-180")} />
         </button>
 
         <AnimatePresence>
@@ -324,25 +324,25 @@ export default function Settings() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="overflow-hidden border-b border-[#E5E7EB] bg-[#F8FAFC]"
+              className="overflow-hidden border-b border-[#d0d7de] bg-[#f6f8fa]"
             >
               <div className="py-2 space-y-0">
 
                 {/* Sidebar Modules */}
-                <div className="border-b border-[#E5E7EB]">
+                <div className="border-b border-[#d0d7de]">
                   <button
                     onClick={() => setModulesOpen((o) => !o)}
                     className={cn(
                       "w-full px-5 h-[56px] flex items-center gap-4 text-left transition-colors",
-                      modulesOpen ? "bg-[#EEF2F7]" : "hover:bg-[#EEF2F7]"
+                      modulesOpen ? "bg-[#f6f8fa]" : "hover:bg-[#f6f8fa]"
                     )}
                   >
-                    <LayoutDashboard className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+                    <LayoutDashboard className="w-[18px] h-[18px] text-[#57606a] shrink-0" />
                     <div className="flex-1 min-w-0 flex items-baseline gap-2">
-                      <span className="text-[14px] font-medium text-[#202124] shrink-0">Sidebar Modules</span>
-                      <span className="text-[13px] text-[#5F6368]">Choose which sections appear in the navigation</span>
+                      <span className="text-[14px] font-medium text-[#24292f] shrink-0">Sidebar Modules</span>
+                      <span className="text-[13px] text-[#57606a]">Choose which sections appear in the navigation</span>
                     </div>
-                    <ChevronDown className={cn("w-4 h-4 text-[#5F6368] shrink-0 transition-transform duration-200", modulesOpen && "rotate-180")} />
+                    <ChevronDown className={cn("w-4 h-4 text-[#57606a] shrink-0 transition-transform duration-200", modulesOpen && "rotate-180")} />
                   </button>
 
                   <AnimatePresence>
@@ -442,27 +442,27 @@ export default function Settings() {
                 {/* Analytics shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/settings/analytics")}
-                  className="w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] hover:bg-[#EEF2F7] transition-colors"
+                  className="w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#d0d7de] hover:bg-[#f6f8fa] transition-colors"
                 >
-                  <BarChart3 className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+                  <BarChart3 className="w-[18px] h-[18px] text-[#57606a] shrink-0" />
                   <div className="flex-1 min-w-0 flex items-baseline gap-2">
-                    <span className="text-[14px] font-medium text-[#202124] shrink-0">Analytics</span>
-                    <span className="text-[13px] text-[#5F6368]">Inbox volume, platform stats, and activity trends</span>
+                    <span className="text-[14px] font-medium text-[#24292f] shrink-0">Analytics</span>
+                    <span className="text-[13px] text-[#57606a]">Inbox volume, platform stats, and activity trends</span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-[#5F6368] shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-[#57606a] shrink-0" />
                 </button>
 
                 {/* Brand Training shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/training")}
-                  className="w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] hover:bg-[#EEF2F7] transition-colors"
+                  className="w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#d0d7de] hover:bg-[#f6f8fa] transition-colors"
                 >
-                  <BrainCircuit className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+                  <BrainCircuit className="w-[18px] h-[18px] text-[#57606a] shrink-0" />
                   <div className="flex-1 min-w-0 flex items-baseline gap-2">
-                    <span className="text-[14px] font-medium text-[#202124] shrink-0">Brand Training</span>
-                    <span className="text-[13px] text-[#5F6368]">Examples, voice rules, and visual guidelines</span>
+                    <span className="text-[14px] font-medium text-[#24292f] shrink-0">Brand Training</span>
+                    <span className="text-[13px] text-[#57606a]">Examples, voice rules, and visual guidelines</span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-[#5F6368] shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-[#57606a] shrink-0" />
                 </button>
 
                 {/* Assets & Connections */}
