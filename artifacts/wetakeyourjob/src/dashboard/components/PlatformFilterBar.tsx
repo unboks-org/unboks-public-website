@@ -28,7 +28,7 @@ export function PlatformFilterBar() {
       <button
         onClick={clear}
         className={cn(
-          "relative flex items-center h-full px-[24px] text-[13px] font-semibold shrink-0 whitespace-nowrap transition-colors border-b-[3px]",
+          "relative flex items-center h-full px-[32px] text-[13px] font-semibold shrink-0 whitespace-nowrap transition-colors border-b-[3px]",
           isAll
             ? "text-[#1677F2] border-[#1677F2]"
             : "text-[#5F6368] border-transparent hover:text-[#202124] hover:bg-[#F8FAFC]"
@@ -45,7 +45,7 @@ export function PlatformFilterBar() {
             key={p.key}
             onClick={() => toggle(p.key)}
             className={cn(
-              "relative flex items-center gap-2 h-full px-[24px] text-[13px] font-semibold shrink-0 whitespace-nowrap transition-colors border-b-[3px]",
+              "relative flex items-center gap-2 h-full px-[32px] text-[13px] font-semibold shrink-0 whitespace-nowrap transition-colors border-b-[3px]",
               active
                 ? "text-[#1677F2] border-[#1677F2]"
                 : "text-[#5F6368] border-transparent hover:text-[#202124] hover:bg-[#F8FAFC]"
