@@ -159,14 +159,10 @@ export default function Create() {
                     key={p}
                     onClick={() => togglePlatform(p)}
                     className={cn(
-                      "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all border",
+                      "flex items-center gap-2 px-4 py-2 text-[13px] font-medium transition-colors border",
                       active
-                        ? p === "instagram"
-                          ? "bg-gradient-to-r from-fuchsia-500/15 to-rose-500/15 border-fuchsia-500/30 text-fuchsia-400"
-                          : p === "twitter"
-                          ? "bg-neutral-400/15 border-neutral-400/30 text-neutral-300"
-                          : "bg-blue-500/15 border-blue-500/30 text-blue-400"
-                        : "bg-muted/30 border-border text-muted-foreground/50 hover:text-muted-foreground"
+                        ? "bg-[#ddf4ff] border-[#0969da] text-[#0969da]"
+                        : "bg-white border-[#d0d7de] text-[#57606a] hover:bg-[#f6f8fa]"
                     )}
                   >
                     <Icon className="w-4 h-4" />

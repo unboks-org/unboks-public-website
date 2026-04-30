@@ -1,0 +1,247 @@
+DIRECT ORDER.
+
+PURGE DASHBOARD DESIGN ONLY.
+
+This is NOT a rebuild.
+This is NOT a feature removal task.
+This is NOT a backend task.
+This is NOT a redesign.
+
+The goal is to remove dashboard branding and visual styling so we can start over visually, while keeping every dashboard feature alive.
+
+TARGET:
+Only authenticated dashboard UI at /dashboard and child dashboard routes.
+
+DO NOT TOUCH:
+- public homepage
+- public customer website
+- marketing pages
+- homepage CSS
+- public website assets
+- public website routes
+- backend logic
+- API logic
+- auth logic
+- database logic
+- feature logic
+- state management logic
+- data fetching logic
+- route names
+- existing dashboard functionality
+
+CRITICAL RULE:
+Do not delete functional code.
+
+Functional code means:
+- routes
+- page components
+- forms
+- buttons
+- click handlers
+- filters
+- search logic
+- message list logic
+- conversation detail logic
+- booking logic
+- escalation logic
+- channel connection logic
+- settings logic
+- API calls
+- hooks
+- data models
+- mock/demo data used for functionality
+- state variables
+- reducers
+- context providers
+- auth guards
+- navigation logic
+
+You may only delete or neutralize:
+- dashboard-only CSS
+- dashboard-only visual wrappers
+- dashboard-only branding
+- dashboard-only decorative assets
+- unused dashboard-only style components
+- failed dashboard redesign files
+- unused dashboard-only theme files
+
+ORDER 1 — INSPECT BEFORE DELETING
+Before deleting anything:
+1. Locate all dashboard files.
+2. Separate files into two groups:
+
+GROUP A — FUNCTIONAL FILES:
+Keep these. Do not delete them.
+
+GROUP B — VISUAL-ONLY FILES:
+These may be deleted or neutralized if dashboard-only.
+
+If unsure whether a file is functional, KEEP IT and strip only its styling.
+
+ORDER 2 — REMOVE DASHBOARD BRANDING
+Inside dashboard only, remove:
+- big logos
+- logo art
+- taglines
+- marketing copy
+- brand marks
+- brand colors
+- decorative icons
+- illustrations
+- branded empty states
+
+Replace dashboard branding with plain text only:
+
+Dashboard
+
+No tagline.
+No logo art.
+No brand treatment.
+
+ORDER 3 — REMOVE DASHBOARD STYLE CRAP
+Inside dashboard only, remove:
+- gradients
+- shadows
+- glassmorphism
+- fancy cards
+- custom theme colors
+- animations
+- decorative transitions
+- decorative backgrounds
+- premium styling
+- colored accents
+- oversized logo/header styling
+- old redesign styling
+
+ORDER 4 — DO NOT BREAK FEATURES
+After stripping style, the following must still work:
+- login
+- sign out
+- sidebar navigation
+- inbox route
+- escalations route
+- bookings route
+- channels route
+- settings route
+- search input
+- channel filters
+- conversation selection if available
+- booking selection if available
+- escalation selection if available
+- existing action buttons
+- existing forms
+- existing API calls
+
+Do not remove buttons just because they look ugly.
+Keep the button. Strip the styling.
+
+Do not remove filters.
+Keep the filters. Strip the styling.
+
+Do not remove cards/rows if they carry data.
+Keep the data structure. Strip the decoration.
+
+ORDER 5 — NEUTRAL SKELETON ONLY
+Allowed visual styling:
+- white or #f8f9fb background
+- neutral gray borders
+- black/dark gray text
+- system font
+- simple flex/grid layout
+- minimal spacing
+- active nav can be plain light gray
+- default rectangular inputs/buttons
+
+Forbidden dashboard styling:
+- brand blue
+- gradients
+- shadows
+- glass
+- fancy cards
+- animated effects
+- decorative icons
+- large logo
+- tagline
+- premium UI
+- colorful accents
+- rounded pill visual system
+
+ORDER 6 — EMPTY STATES
+Replace decorative dashboard empty states with plain text only:
+
+No conversations yet
+New messages will appear here.
+
+No icon.
+No illustration.
+No card.
+No decoration.
+
+ORDER 7 — FILE DELETION RULE
+Delete a file only if all are true:
+1. It is dashboard-only.
+2. It is visual-only.
+3. It is not required for routing, state, data, actions, forms, filters, or API calls.
+4. Removing it does not break build.
+
+If not 100% sure, do not delete the file.
+Instead:
+- remove its decorative classes
+- remove its brand imports
+- keep its functional JSX/TS logic
+
+ORDER 8 — PRESERVE DASHBOARD ROUTES
+These routes must still exist and render:
+- /dashboard
+- /dashboard/escalations
+- /dashboard/bookings
+- /dashboard/channels
+- /dashboard/settings
+- any existing nested dashboard settings route
+
+ORDER 9 — VERIFY
+Before stopping:
+
+1. Run a search for dashboard imports of:
+   - homepage.css
+   - brand
+   - theme
+   - gradient
+   - shadow
+   - glass
+   - logo
+   - hero
+   - marketing
+
+2. Remove dashboard dependency on those only if not functional.
+
+3. Run build.
+
+4. Open /dashboard.
+
+5. Confirm dashboard is visually bare and neutral.
+
+6. Confirm all dashboard routes still render.
+
+7. Confirm public homepage is unchanged.
+
+FINAL OUTPUT REQUIRED:
+Report only this:
+
+- functional code preserved: yes/no
+- dashboard files deleted:
+- dashboard files neutralized:
+- style/branding imports removed:
+- dashboard routes verified:
+- public website untouched: yes/no
+- build status: pass/fail
+
+FAIL CONDITIONS:
+- If any dashboard feature is removed, you failed.
+- If any dashboard route breaks, you failed.
+- If login/auth breaks, you failed.
+- If public website changes, you failed.
+- If dashboard still looks branded or designed, you failed.
+
+Strip only the visual crap.
+Keep the product alive.

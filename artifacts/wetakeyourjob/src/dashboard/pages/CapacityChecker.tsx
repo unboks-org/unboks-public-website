@@ -116,7 +116,7 @@ export default function CapacityChecker() {
         </div>
       </div>
 
-      <div className="glass-card rounded-2xl border-border overflow-hidden">
+      <div className="border border-[#d0d7de] bg-white overflow-hidden">
         {/* ── Controls row 1: Days + Group By ─── */}
         <div className="p-4 border-b border-border bg-muted/50 flex flex-wrap gap-4 justify-between items-center">
           <div className="flex items-center gap-2 bg-card p-1 rounded-lg border border-border">

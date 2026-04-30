@@ -46,7 +46,7 @@ function PhotoThumb({ photo, onClick }: { photo: Photo; onClick: () => void }) {
           <ImageIcon className="w-8 h-8 text-muted-foreground/30" />
         </div>
       )}
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute inset-x-0 bottom-0 bg-[#24292f]/80 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
         <p className="text-xs text-white truncate">{photo.original_filename}</p>
         {photo.service_key && (
           <p className="text-[10px] text-white/60">{photo.service_key}</p>
@@ -218,7 +218,7 @@ export default function AssetLibrary() {
       ) : error ? (
         <ErrorState error={error} onRetry={refetch} title="Could not load photos" />
       ) : !photos?.length ? (
-        <div className="flex flex-col items-center justify-center py-20 rounded-2xl border border-border bg-card">
+        <div className="flex flex-col items-center justify-center py-20 border border-[#d0d7de] bg-white">
           <FolderOpen className="w-16 h-16 text-muted-foreground/20 mb-4" />
           <h3 className="text-xl font-medium text-foreground/80">No photos yet</h3>
           <p className="text-muted-foreground mt-2 max-w-md text-center">

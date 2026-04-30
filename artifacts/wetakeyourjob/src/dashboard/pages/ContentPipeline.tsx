@@ -239,10 +239,10 @@ export default function ContentPipeline() {
                   key={label}
                   onClick={() => setStatusFilter(filter)}
                   className={cn(
-                    "glass-card rounded-xl px-4 py-3 flex items-center gap-3 text-left transition-all",
+                    "border px-4 py-3 flex items-center gap-3 text-left transition-colors bg-white",
                     active
-                      ? "border-primary/50 ring-1 ring-primary/30 bg-primary/5"
-                      : "border-border hover:border-primary/30 hover:bg-muted/30 cursor-pointer"
+                      ? "border-[#0969da] bg-[#ddf4ff]"
+                      : "border-[#d0d7de] hover:bg-[#f6f8fa] cursor-pointer"
                   )}
                 >
                   <span className={`w-2 h-2 rounded-full shrink-0 ${dot}`} />
@@ -256,7 +256,7 @@ export default function ContentPipeline() {
             <button
               onClick={() => setGenerateConfirmOpen(true)}
               disabled={generate.isPending}
-              className="rounded-xl px-4 py-3 flex items-center gap-3 text-left transition-all bg-sky-600 hover:bg-sky-500 border border-sky-500 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-sky-900/40"
+              className="px-4 py-3 flex items-center gap-3 text-left transition-colors bg-[#0969da] hover:bg-[#0757ba] border border-[#0969da] text-white cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {generate.isPending
                 ? <Loader2 className="w-3.5 h-3.5 shrink-0 text-white animate-spin" />
@@ -270,7 +270,7 @@ export default function ContentPipeline() {
             </button>
           </div>
 
-          <div className="glass-card rounded-2xl flex-1 flex flex-col overflow-hidden border-white/5">
+          <div className="border border-[#d0d7de] bg-white flex-1 flex flex-col overflow-hidden">
             <div className="p-4 border-b border-border flex flex-col gap-3 bg-muted/50">
               <div className="flex flex-wrap gap-4 items-center justify-between">
                 <div className="overflow-x-auto scrollbar-none">
@@ -448,7 +448,7 @@ export default function ContentPipeline() {
                 href={selectedDraft.instagram_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-600 to-rose-500 text-white text-sm font-semibold shadow-sm hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 px-4 py-2 border border-[#d0d7de] bg-white text-[#0969da] text-[13px] font-medium hover:bg-[#f6f8fa] transition-colors"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 View on Instagram
@@ -516,7 +516,7 @@ export default function ContentPipeline() {
                   <>
                     <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10 text-sm text-foreground/70 italic">"{selectedDraft.visual_suggestion}"</div>
                     {generateGraphics.isPending && (
-                      <div className="flex items-center gap-2 text-xs text-sky-400 animate-pulse">
+                      <div className="flex items-center gap-2 text-[12px] text-[#57606a]">
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                         Regenerating image based on new direction…
                       </div>
@@ -562,14 +562,10 @@ export default function ContentPipeline() {
                         updatePlatforms.mutate({ id: selectedDraft.id, platforms: next });
                       }}
                       className={cn(
-                        "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all border",
+                        "flex items-center gap-2 px-4 py-2 text-[13px] font-medium transition-colors border",
                         isActive
-                          ? platform === "instagram"
-                            ? "bg-gradient-to-r from-fuchsia-500/15 to-rose-500/15 border-fuchsia-500/30 text-fuchsia-400"
-                            : platform === "twitter"
-                            ? "bg-neutral-400/15 border-neutral-400/30 text-neutral-300"
-                            : "bg-blue-500/15 border-blue-500/30 text-blue-400"
-                          : "bg-muted/30 border-border text-muted-foreground/50 hover:text-muted-foreground hover:border-border",
+                          ? "bg-[#ddf4ff] border-[#0969da] text-[#0969da]"
+                          : "bg-white border-[#d0d7de] text-[#57606a] hover:bg-[#f6f8fa]",
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -620,7 +616,7 @@ export default function ContentPipeline() {
 
             {!isEditing && selectedDraft.status === 'approved' && (
               <>
-                <Button onClick={() => { publish.mutate(selectedDraft.id); backToList(); }} disabled={publish.isPending || (selectedDraft.platforms ?? []).length === 0} className="flex-[2] bg-blue-500 text-foreground hover:bg-blue-400 shadow-lg shadow-blue-500/20"><Send className="w-4 h-4 mr-2" />{publish.isPending ? "Publishing..." : "Publish Now"}</Button>
+                <Button onClick={() => { publish.mutate(selectedDraft.id); backToList(); }} disabled={publish.isPending || (selectedDraft.platforms ?? []).length === 0} className="flex-[2] bg-[#0969da] text-white hover:bg-[#0757ba] border-0"><Send className="w-4 h-4 mr-2" />{publish.isPending ? "Publishing..." : "Publish Now"}</Button>
                 <Button onClick={() => setScheduleOpen(true)} variant="outline" className="shrink-0 border-border text-foreground hover:bg-muted text-sm px-4"><CalendarDays className="w-3.5 h-3.5 mr-1.5" />Schedule</Button>
               </>
             )}

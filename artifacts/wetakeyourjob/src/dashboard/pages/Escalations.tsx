@@ -284,8 +284,8 @@ export default function Escalations() {
       {/* Floating email compose modal */}
       {compose && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4">
-          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setCompose(null)} />
-          <div className="relative w-full max-w-2xl rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+          <div className="absolute inset-0 bg-[#24292f]/40" onClick={() => setCompose(null)} />
+          <div className="relative w-full max-w-2xl border border-[#d0d7de] bg-white overflow-hidden">
             <div className={cn(
               "flex items-center justify-between px-5 py-3.5 border-b border-border",
               selected && isSemi(selected.notification_type) ? "bg-muted/60" : "bg-rose-50"
@@ -475,7 +475,7 @@ export default function Escalations() {
 
           <div className="space-y-3 flex-1 overflow-auto">
             {isLoading ? (
-              <div className="space-y-3">{[1, 2, 3].map((i) => <Skeleton key={i} className="h-24 rounded-2xl" />)}</div>
+              <div className="space-y-3">{[1, 2, 3].map((i) => <Skeleton key={i} className="h-24" />)}</div>
             ) : filtered.length > 0 ? (
               <>
                 {(listExpanded ? filtered : filtered.slice(0, 3)).map((esc) => <EscalationRow key={esc.id} esc={esc} />)}

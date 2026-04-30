@@ -2,9 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@dashboard/hooks/use-client-api";
 import { Navigate, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { getClient, setClient, type Client } from "@dashboard/lib/api";
-import unboksLogo from "@assets/image_1777435198078.png";
 
 interface LocationState {
   from?: string;
@@ -40,26 +38,20 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-[400px]"
-      >
-        {/* Logo */}
+      <div className="w-full max-w-[400px]">
+        {/* Header */}
         <div className="flex flex-col items-center mb-10 select-none">
-          <img src={unboksLogo} alt="Unboks" className="h-10 w-auto object-contain mb-2" />
-          <p className="text-[10px] tracking-[0.28em] uppercase font-semibold text-[#1677F2]">
+          <p className="text-[14px] font-semibold text-[#24292f]">Unboks</p>
+          <p className="text-[11px] tracking-[0.22em] uppercase text-[#57606a] mt-0.5">
             Operator Console
           </p>
         </div>
 
-        {/* Form card */}
-        <div className="border border-[#DADCE0] bg-white px-8 py-8">
+        {/* Form */}
+        <div className="border border-[#d0d7de] bg-white px-8 py-8">
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Workspace */}
             <div className="space-y-1.5">
-              <label className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#5F6368]">
+              <label className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#57606a]">
                 Workspace
               </label>
               <input
@@ -67,13 +59,12 @@ export default function Login() {
                 value={selectedClient}
                 onChange={(e) => setSelectedClient(e.target.value.toLowerCase().trim())}
                 placeholder="e.g. bluemarlin"
-                className="w-full h-[44px] px-3 border border-[#DADCE0] bg-white text-[14px] text-[#202124] placeholder:text-[#9AA0A6] focus:outline-none focus:border-[#1677F2] focus:ring-1 focus:ring-[#1677F2] transition-colors"
+                className="w-full h-[44px] px-3 border border-[#d0d7de] bg-white text-[14px] text-[#24292f] placeholder:text-[#6e7781] focus:outline-none focus:border-[#0969da] focus:ring-1 focus:ring-[#0969da] transition-colors"
               />
             </div>
 
-            {/* Access Key */}
             <div className="space-y-1.5">
-              <label className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#5F6368]">
+              <label className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#57606a]">
                 Access Key
               </label>
               <input
@@ -82,18 +73,18 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter access key"
                 autoFocus
-                className="w-full h-[44px] px-3 border border-[#DADCE0] bg-white text-[14px] text-[#202124] placeholder:text-[#9AA0A6] focus:outline-none focus:border-[#1677F2] focus:ring-1 focus:ring-[#1677F2] transition-colors"
+                className="w-full h-[44px] px-3 border border-[#d0d7de] bg-white text-[14px] text-[#24292f] placeholder:text-[#6e7781] focus:outline-none focus:border-[#0969da] focus:ring-1 focus:ring-[#0969da] transition-colors"
               />
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={!canSubmit}
-              className="w-full h-[44px] flex items-center justify-center gap-2 text-[14px] font-medium transition-colors"
+              className="w-full h-[44px] flex items-center justify-center gap-2 text-[14px] font-medium border transition-colors"
               style={{
-                background: canSubmit ? "#1677F2" : "#E8EAED",
-                color: canSubmit ? "#FFFFFF" : "#9AA0A6",
+                background: canSubmit ? "#0969da" : "#f6f8fa",
+                color: canSubmit ? "#ffffff" : "#6e7781",
+                borderColor: canSubmit ? "#0969da" : "#d0d7de",
                 cursor: canSubmit ? "pointer" : "not-allowed",
               }}
             >
@@ -107,23 +98,18 @@ export default function Login() {
               )}
             </button>
 
-            {/* Error */}
             {login.isError && (
-              <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-[13px] text-center py-2 text-rose-600 bg-rose-50 border border-rose-100"
-              >
+              <p className="text-[13px] text-center py-2 text-[#cf222e] bg-[#ffebe9] border border-[#ffcecb]">
                 {getLoginErrorText(login.error)}
-              </motion.p>
+              </p>
             )}
           </form>
         </div>
 
-        <p className="text-[10px] text-center mt-5 tracking-[0.2em] uppercase text-[#9AA0A6]">
+        <p className="text-[11px] text-center mt-5 tracking-[0.2em] uppercase text-[#6e7781]">
           Secure · Authorized Personnel Only
         </p>
-      </motion.div>
+      </div>
     </div>
   );
 }

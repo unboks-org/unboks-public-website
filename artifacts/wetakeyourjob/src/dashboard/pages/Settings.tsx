@@ -20,7 +20,6 @@ import { useFeatureToggles } from "@dashboard/lib/feature-toggles";
 import { useBookingsLabel } from "@dashboard/hooks/use-bookings-label";
 import { cn } from "@dashboard/lib/utils";
 import { format } from "date-fns";
-import { motion, AnimatePresence } from "framer-motion";
 
 // ─── Config parser (kept for Advanced View) ───────────────────────────────────
 interface ConfigSection { title: string; content: string; icon: typeof Info; color: string; }
@@ -72,19 +71,11 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
         </div>
         <ChevronDown className={cn("w-4 h-4 text-[#57606a] shrink-0 transition-transform duration-200", open && "rotate-180")} />
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden border-b border-[#d0d7de] bg-[#f6f8fa]"
-          >
-            <div className="px-5 py-4">{children}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div className="border-b border-[#d0d7de] bg-[#f6f8fa]">
+          <div className="px-5 py-4">{children}</div>
+        </div>
+      )}
     </div>
   );
 }
@@ -317,16 +308,9 @@ export default function Settings() {
           <ChevronDown className={cn("w-4 h-4 text-[#57606a] shrink-0 transition-transform duration-200", advancedOpen && "rotate-180")} />
         </button>
 
-        <AnimatePresence>
-          {advancedOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden border-b border-[#d0d7de] bg-[#f6f8fa]"
-            >
-              <div className="py-2 space-y-0">
+        {advancedOpen && (
+          <div className="border-b border-[#d0d7de] bg-[#f6f8fa]">
+            <div className="py-2 space-y-0">
 
                 {/* Sidebar Modules */}
                 <div className="border-b border-[#d0d7de]">
@@ -345,15 +329,9 @@ export default function Settings() {
                     <ChevronDown className={cn("w-4 h-4 text-[#57606a] shrink-0 transition-transform duration-200", modulesOpen && "rotate-180")} />
                   </button>
 
-                  <AnimatePresence>
                     {modulesOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="border-t border-border overflow-hidden"
-                      >
+                      <div className="border-t border-[#d0d7de]">
+
                         {/* Social Media toggle */}
                         <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
                           <div className="flex items-center gap-3">
@@ -434,9 +412,8 @@ export default function Settings() {
                             </button>
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     )}
-                  </AnimatePresence>
                 </div>
 
                 {/* Analytics shortcut */}
@@ -766,11 +743,9 @@ export default function Settings() {
                 </AccordionSection>
 
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
-      </div>
-
+        </div>
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ function UrgentBar({ drafts, onOpen, loading }: {
   const [expanded, setExpanded] = useState(false);
 
   if (loading) return (
-    <div className="glass-card rounded-2xl p-4">
+    <div className="border border-[#d0d7de] bg-white p-4">
       <Skeleton className="h-4 w-44" />
     </div>
   );
@@ -48,40 +48,39 @@ function UrgentBar({ drafts, onOpen, loading }: {
   if (drafts.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-amber-500/20 overflow-hidden"
-      style={{ background: "rgba(245,158,11,0.04)", backdropFilter: "blur(20px)" }}>
+    <div className="border border-[#d0d7de] bg-white overflow-hidden">
       <button
         onClick={() => setExpanded((e) => !e)}
-        className="w-full flex items-center gap-3 px-5 py-3.5 text-left hover:bg-amber-500/[0.04] transition-colors"
+        className="w-full flex items-center gap-3 px-5 py-3.5 text-left hover:bg-[#f6f8fa] transition-colors"
       >
-        <AlertCircle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-        <span className="flex-1 text-xs font-semibold text-amber-400/90 tracking-tight">
+        <AlertCircle className="w-3.5 h-3.5 text-[#9a6700] shrink-0" />
+        <span className="flex-1 text-[13px] font-medium text-[#24292f]">
           {drafts.length} post{drafts.length !== 1 ? "s" : ""} pending approval
         </span>
         {expanded
-          ? <ChevronUp className="w-3.5 h-3.5 text-amber-500/40 shrink-0" />
-          : <ChevronDown className="w-3.5 h-3.5 text-amber-500/40 shrink-0" />}
+          ? <ChevronUp className="w-3.5 h-3.5 text-[#57606a] shrink-0" />
+          : <ChevronDown className="w-3.5 h-3.5 text-[#57606a] shrink-0" />}
       </button>
 
       {expanded && (
-        <div className="border-t border-amber-500/10 divide-y divide-amber-500/[0.07]">
+        <div className="border-t border-[#d0d7de] divide-y divide-[#d0d7de]">
           {drafts.map((draft) => (
             <div key={draft.id} className="flex items-center gap-4 px-5 py-3">
               <button
                 onClick={() => onOpen(draft)}
-                className="flex items-center gap-3 flex-1 min-w-0 text-left group"
+                className="flex items-center gap-3 flex-1 min-w-0 text-left"
               >
                 <ClassBadge contentClass={draft.content_class} />
-                <p className="flex-1 text-sm text-foreground/60 line-clamp-1 min-w-0 group-hover:text-foreground/90 transition-colors">
+                <p className="flex-1 text-[13px] text-[#57606a] line-clamp-1 min-w-0 hover:text-[#24292f] transition-colors">
                   {draft.instagram_caption}
                 </p>
               </button>
-              <span className="text-xs text-muted-foreground/40 shrink-0 tabular-nums hidden sm:block">
+              <span className="text-[12px] text-[#6e7781] shrink-0 tabular-nums hidden sm:block">
                 {draft.created_at ? formatDistanceToNow(new Date(draft.created_at), { addSuffix: true }) : ""}
               </span>
               <button
                 onClick={() => onOpen(draft)}
-                className="h-7 px-3 text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-colors shrink-0"
+                className="h-7 px-3 text-[12px] font-medium border border-[#d0d7de] bg-white text-[#24292f] hover:bg-[#f6f8fa] rounded-md transition-colors shrink-0"
               >
                 Review
               </button>
@@ -99,7 +98,6 @@ function SummaryCard({
   title,
   value,
   summary,
-  iconColor,
   alertBorder,
   stats,
   onClick,
@@ -116,54 +114,31 @@ function SummaryCard({
   return (
     <div
       className={cn(
-        "glass-card rounded-2xl cursor-pointer select-none overflow-hidden group relative",
-        "transition-all duration-300 ease-out",
-        "hover:-translate-y-1",
-        alertBorder && "ring-1 ring-primary/20"
+        "border bg-white cursor-pointer select-none overflow-hidden hover:bg-[#f6f8fa] transition-colors",
+        alertBorder ? "border-[#0969da]" : "border-[#d0d7de]"
       )}
       onClick={onClick}
     >
-      {/* Hover glow */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-        style={{
-          background: alertBorder
-            ? "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(22,119,242,0.04) 0%, transparent 70%)"
-            : "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(22,119,242,0.02) 0%, transparent 70%)",
-        }}
-      />
-
-      <div className="relative p-5 flex flex-col gap-4">
-        {/* Header row */}
+      <div className="p-4 flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <div
-            className={cn("w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-muted/80 shadow-sm", iconColor)}
-          >
-            <Icon className="w-4 h-4" />
+          <div className="flex items-center gap-2">
+            <Icon className="w-4 h-4 text-[#57606a]" />
+            <span className="text-[12px] font-semibold text-[#57606a] uppercase tracking-wide">{title}</span>
           </div>
-          <ArrowRight className="w-3.5 h-3.5 text-foreground/0 group-hover:text-foreground/30 transition-all duration-200 group-hover:translate-x-0.5" />
+          <ArrowRight className="w-3.5 h-3.5 text-[#6e7781]" />
         </div>
 
-        {/* Content */}
-        <div className="space-y-1">
-          <p className="text-[10px] font-extrabold uppercase tracking-[0.20em] text-foreground/50">
-            {title}
-          </p>
-          <p className="text-5xl font-black leading-none tabular-nums text-foreground" style={{ letterSpacing: "-0.03em" }}>
-            {value}
-          </p>
-          <p className="text-[13px] font-medium text-foreground/70 pt-0.5">{summary}</p>
+        <div>
+          <p className="text-4xl font-bold tabular-nums text-[#24292f]">{value}</p>
+          <p className="text-[13px] text-[#57606a] mt-1">{summary}</p>
         </div>
 
-        {/* Stats footer */}
         {stats && stats.length > 0 && (
-          <div className="pt-3.5 mt-1 border-t border-border/60 grid grid-cols-3 divide-x divide-border/50">
+          <div className="pt-3 border-t border-[#d0d7de] grid grid-cols-3 divide-x divide-[#d0d7de]">
             {stats.map(({ label, value: v }) => (
-              <div key={label} className="flex flex-col items-center gap-2 first:pl-0 last:pr-0 py-0.5">
-                <p className="text-[9px] font-extrabold uppercase tracking-[0.20em] text-foreground/40 leading-none">
-                  {label}
-                </p>
-                <p className="text-[17px] font-bold text-foreground tabular-nums leading-none">{v}</p>
+              <div key={label} className="flex flex-col items-center gap-1 py-0.5">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-[#6e7781]">{label}</p>
+                <p className="text-[15px] font-bold text-[#24292f] tabular-nums">{v}</p>
               </div>
             ))}
           </div>
@@ -209,7 +184,7 @@ export default function Overview() {
         : unreadConvs > 0
           ? `${unreadConvs} unread`
           : totalConvs > 0 ? "All read" : "Inbox clear",
-      iconColor: "text-sky-400",
+      iconColor: "",
       alertBorder: unreadConvs > 0,
       route: "/dashboard/messages",
       stats: [
@@ -228,7 +203,7 @@ export default function Overview() {
         : status?.pending
           ? `${status.pending} pending review`
           : "All posts up to date",
-      iconColor: "text-violet-400",
+      iconColor: "",
       alertBorder: false,
       route: "/dashboard/social",
       stats: [
@@ -249,7 +224,7 @@ export default function Overview() {
           : (escalations?.length ?? 0) > 0
             ? `All resolved`
             : "All clear",
-      iconColor: "text-rose-400",
+      iconColor: "",
       alertBorder: openEsc > 0,
       route: "/dashboard/escalations",
       stats: [
@@ -264,7 +239,7 @@ export default function Overview() {
       title: "Settings",
       value: learningsCount,
       summary: `${learningsCount} brand rule${learningsCount !== 1 ? "s" : ""} active`,
-      iconColor: "text-slate-400",
+      iconColor: "",
       alertBorder: false,
       route: "/dashboard/settings",
       stats: [
@@ -278,14 +253,12 @@ export default function Overview() {
   return (
     <div className="space-y-5 pb-16">
 
-      {/* Urgent bar */}
       <UrgentBar
         drafts={allPending ?? []}
         onOpen={(d) => navigate(`/dashboard/social?draft=${d.id}`)}
         loading={pendingLoading}
       />
 
-      {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {cards.map(({ key, icon, title, value, summary, iconColor, alertBorder, route, stats }) => (
           <SummaryCard
@@ -314,37 +287,35 @@ export default function Overview() {
         );
 
         const renderRow = (post: typeof recent[0]) => (
-          <div key={post.id} className="flex items-center gap-3.5 px-5 py-3.5 group hover:bg-muted/50 transition-colors">
-            <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 ring-1 ring-emerald-500/15">
-              <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-            </div>
+          <div key={post.id} className="flex items-center gap-3.5 px-5 py-3.5 hover:bg-[#f6f8fa] transition-colors border-b border-[#d0d7de] last:border-b-0">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#1f883d] shrink-0" />
             <div className="flex-1 min-w-0">
-              <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-[0.18em] mb-0.5">
+              <p className="text-[11px] font-semibold text-[#6e7781] uppercase tracking-wide mb-0.5">
                 Post published
               </p>
-              <p className="text-sm text-foreground/70 line-clamp-1 group-hover:text-foreground/90 transition-colors">{post.instagram_caption}</p>
+              <p className="text-[13px] text-[#57606a] line-clamp-1 hover:text-[#24292f] transition-colors">{post.instagram_caption}</p>
             </div>
-            <span className="text-xs text-muted-foreground/35 tabular-nums shrink-0">
+            <span className="text-[12px] text-[#6e7781] tabular-nums shrink-0">
               {post.published_at ? formatDistanceToNow(new Date(post.published_at), { addSuffix: true }) : ""}
             </span>
           </div>
         );
 
         return (
-          <div className="glass-card rounded-2xl overflow-hidden">
-            <div className="flex items-center px-5 py-4 gap-3 border-b border-border">
-              <h2 className="text-sm font-semibold text-foreground/80 flex-1 tracking-tight">Recent Activity</h2>
+          <div className="border border-[#d0d7de] bg-white overflow-hidden">
+            <div className="flex items-center px-5 py-3.5 gap-3 border-b border-[#d0d7de]">
+              <h2 className="text-[13px] font-semibold text-[#24292f] flex-1">Recent Activity</h2>
               <button
                 onClick={() => refetchActivity()}
-                className="p-1.5 rounded-lg text-muted-foreground/40 hover:text-muted-foreground hover:bg-muted/70 transition-colors"
+                className="p-1.5 rounded-md text-[#57606a] hover:text-[#24292f] hover:bg-[#d0d7de]/50 transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
               </button>
             </div>
-            <div className="divide-y divide-border/50">
+            <div>
               {recent.length === 0 && archived.length === 0 ? (
-                <div className="px-5 py-12 text-center">
-                  <p className="text-sm text-muted-foreground/40">No recent activity.</p>
+                <div className="px-5 py-10 text-center">
+                  <p className="text-[13px] text-[#57606a]">No recent activity.</p>
                 </div>
               ) : (
                 <>
@@ -354,7 +325,7 @@ export default function Overview() {
                       {recent.length > 5 && (
                         <button
                           onClick={() => setActivityExpanded((e) => !e)}
-                          className="w-full flex items-center justify-center gap-2 px-5 py-2.5 text-xs text-muted-foreground/40 hover:text-muted-foreground hover:bg-muted/50 transition-colors"
+                          className="w-full flex items-center justify-center gap-2 px-5 py-2.5 text-[12px] text-[#57606a] hover:text-[#24292f] hover:bg-[#f6f8fa] transition-colors border-t border-[#d0d7de]"
                         >
                           {activityExpanded
                             ? <><ChevronUp className="w-3.5 h-3.5" /> Show less</>
@@ -367,7 +338,7 @@ export default function Overview() {
                     <>
                       <button
                         onClick={() => setArchiveExpanded((e) => !e)}
-                        className="w-full flex items-center gap-2 px-5 py-2.5 text-xs text-muted-foreground/35 hover:text-muted-foreground/60 hover:bg-muted/50 transition-colors"
+                        className="w-full flex items-center gap-2 px-5 py-2.5 text-[12px] text-[#57606a] hover:text-[#24292f] hover:bg-[#f6f8fa] transition-colors border-t border-[#d0d7de]"
                       >
                         {archiveExpanded
                           ? <ChevronUp className="w-3.5 h-3.5" />

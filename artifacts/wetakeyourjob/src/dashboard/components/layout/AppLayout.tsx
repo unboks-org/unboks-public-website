@@ -3,7 +3,6 @@ import { useAuthContext } from "@dashboard/components/auth/useAuthContext";
 import {
   AlertTriangle, Settings, LogOut, Menu, Inbox, Wifi, Search, BookOpen,
 } from "lucide-react";
-import unboksLogo from "@assets/image_1777435198078.png";
 import { useState } from "react";
 import { Button } from "@dashboard/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@dashboard/components/ui/sheet";
@@ -130,7 +129,7 @@ export function AppLayout() {
         }}
         className="flex items-center h-[64px] px-4 border-b border-[#d0d7de] shrink-0"
       >
-        <img src={unboksLogo} alt="Unboks" className="w-[110px] h-auto object-contain" />
+        <span className="text-[15px] font-semibold text-[#24292f]">Dashboard</span>
       </Link>
 
       <nav className="flex-1 p-2 flex flex-col gap-0.5 overflow-y-auto">
@@ -189,7 +188,7 @@ export function AppLayout() {
         <TopBar onLogout={logout} />
 
         <header className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-[#d0d7de]">
-          <img src={unboksLogo} alt="Unboks" className="h-6 w-auto object-contain" />
+          <span className="text-[15px] font-semibold text-[#24292f]">Dashboard</span>
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="h-8 w-8 text-[#57606a]">
