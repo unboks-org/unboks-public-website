@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useAvailability } from "@dashboard/hooks/use-bluemarlin";
+import { useAvailability } from "@dashboard/hooks/use-client-api";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@dashboard/components/ui/table";
 import { Skeleton } from "@dashboard/components/ui/skeleton";
 import { ErrorState } from "@dashboard/components/ui/error-state";

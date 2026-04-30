@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useGoBack } from "@dashboard/hooks/use-go-back";
-import { useDrafts, useDraft, useDraftMutations, useStatus, useAvailablePlatforms } from "@dashboard/hooks/use-bluemarlin";
+import { useDrafts, useDraft, useDraftMutations, useStatus, useAvailablePlatforms } from "@dashboard/hooks/use-client-api";
 import { Draft, DraftStatus, ContentClass } from "@dashboard/lib/api";
 import { AuthImage } from "@dashboard/components/ui/auth-image";
 import { Button } from "@dashboard/components/ui/button";

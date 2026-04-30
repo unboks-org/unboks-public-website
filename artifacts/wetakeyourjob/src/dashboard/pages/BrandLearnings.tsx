@@ -1,4 +1,4 @@
-import { useLearnings, useLearningMutations } from "@dashboard/hooks/use-bluemarlin";
+import { useLearnings, useLearningMutations } from "@dashboard/hooks/use-client-api";
 import { Button } from "@dashboard/components/ui/button";
 import { Skeleton } from "@dashboard/components/ui/skeleton";
 import { Card } from "@dashboard/components/ui/card";

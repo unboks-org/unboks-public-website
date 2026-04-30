@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "@dashboard/hooks/use-bluemarlin";
+import { useAuth } from "@dashboard/hooks/use-client-api";
 import { Navigate, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";

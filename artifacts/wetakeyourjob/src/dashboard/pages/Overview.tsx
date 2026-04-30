@@ -1,4 +1,4 @@
-import { useStatus, useDrafts, useConversations, useEscalations } from "@dashboard/hooks/use-bluemarlin";
+import { useStatus, useDrafts, useConversations, useEscalations } from "@dashboard/hooks/use-client-api";
 import { useReadStatus, useHiddenSet } from "@dashboard/hooks/use-read-status";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";

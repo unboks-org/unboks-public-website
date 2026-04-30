@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo } from "react";
-import { usePhotos, usePhotoStats, usePhotoMutations, useGoogleDriveStatus, useGoogleDriveFolders, useGoogleDriveMutations } from "@dashboard/hooks/use-bluemarlin";
+import { usePhotos, usePhotoStats, usePhotoMutations, useGoogleDriveStatus, useGoogleDriveFolders, useGoogleDriveMutations } from "@dashboard/hooks/use-client-api";
 import { Photo } from "@dashboard/lib/api";
 import { api } from "@dashboard/lib/api";
 import { useQuery } from "@tanstack/react-query";

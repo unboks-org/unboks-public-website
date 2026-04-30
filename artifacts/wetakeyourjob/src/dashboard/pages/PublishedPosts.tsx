@@ -1,4 +1,4 @@
-import { useDrafts, useDraftMutations } from "@dashboard/hooks/use-bluemarlin";
+import { useDrafts, useDraftMutations } from "@dashboard/hooks/use-client-api";
 import { AuthImage } from "@dashboard/components/ui/auth-image";
 import { Button } from "@dashboard/components/ui/button";
 import { Skeleton } from "@dashboard/components/ui/skeleton";

@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
-import { useAvailability } from "@dashboard/hooks/use-bluemarlin";
+import { useAvailability } from "@dashboard/hooks/use-client-api";
 import { useBookingsLabel } from "@dashboard/hooks/use-bookings-label";
 import { format, parseISO } from "date-fns";
 import {

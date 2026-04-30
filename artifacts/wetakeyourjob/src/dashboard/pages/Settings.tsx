@@ -1,7 +1,7 @@
 import {
   useConfig, useGoogleDriveStatus, useGoogleDriveMutations, useGoogleDriveFolders,
   useScheduleSlots, useUpcomingSchedule, useScheduleSlotMutations, useDryRun,
-} from "@dashboard/hooks/use-bluemarlin";
+} from "@dashboard/hooks/use-client-api";
 import { api } from "@dashboard/lib/api";
 import { Skeleton } from "@dashboard/components/ui/skeleton";
 import { Button } from "@dashboard/components/ui/button";

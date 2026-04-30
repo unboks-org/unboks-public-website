@@ -1,4 +1,4 @@
-import { useConversations, useEscalations, useStatus } from "@dashboard/hooks/use-bluemarlin";
+import { useConversations, useEscalations, useStatus } from "@dashboard/hooks/use-client-api";
 import { useHiddenSet } from "@dashboard/hooks/use-read-status";
 import { PLATFORMS, channelToPlatformKey } from "@dashboard/lib/channel-map";
 import { cn } from "@dashboard/lib/utils";

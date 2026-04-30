@@ -16,7 +16,7 @@ import { Button } from "@dashboard/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@dashboard/components/ui/sheet";
 import { cn } from "@dashboard/lib/utils";
 import { motion } from "framer-motion";
-import { useConversations } from "@dashboard/hooks/use-bluemarlin";
+import { useConversations } from "@dashboard/hooks/use-client-api";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
 import { PRODUCT_NAME } from "@dashboard/lib/tenant";
 

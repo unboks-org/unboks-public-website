@@ -3,7 +3,7 @@ import { useGoBack } from "@dashboard/hooks/use-go-back";
 import {
   useTrainingExamples, useTrainingMutations,
   useBrandProfile, useBrandProfileMutations, useAnalyzeVisual,
-} from "@dashboard/hooks/use-bluemarlin";
+} from "@dashboard/hooks/use-client-api";
 import { Button } from "@dashboard/components/ui/button";
 import { Skeleton } from "@dashboard/components/ui/skeleton";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@dashboard/components/ui/dialog";

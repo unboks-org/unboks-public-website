@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGoBack } from "@dashboard/hooks/use-go-back";
-import { useConversations, useConversation, useDeleteConversation, useEscalations, useSuggestReply, useEscalationReply } from "@dashboard/hooks/use-bluemarlin";
+import { useConversations, useConversation, useDeleteConversation, useEscalations, useSuggestReply, useEscalationReply } from "@dashboard/hooks/use-client-api";
 import { useEmailSettings, openEmailCompose } from "@dashboard/hooks/use-email-settings";
 import { Conversation } from "@dashboard/lib/api";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";

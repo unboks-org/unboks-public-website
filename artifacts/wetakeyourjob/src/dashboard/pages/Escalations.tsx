@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useGoBack } from "@dashboard/hooks/use-go-back";
-import { useEscalations, useEscalationMutations, useSuggestReply, useEscalationReply, useCustomerByIdentifier, useDeleteEscalation } from "@dashboard/hooks/use-bluemarlin";
+import { useEscalations, useEscalationMutations, useSuggestReply, useEscalationReply, useCustomerByIdentifier, useDeleteEscalation } from "@dashboard/hooks/use-client-api";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
 import { useEmailSettings, openEmailCompose } from "@dashboard/hooks/use-email-settings";
 import { usePlatformFilter } from "@dashboard/hooks/use-platform-filter";

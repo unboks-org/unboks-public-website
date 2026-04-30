@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoBack } from "@dashboard/hooks/use-go-back";
-import { useCreateManualDraft, useAvailablePlatforms } from "@dashboard/hooks/use-bluemarlin";
+import { useCreateManualDraft, useAvailablePlatforms } from "@dashboard/hooks/use-client-api";
 import { Button } from "@dashboard/components/ui/button";
 import { Textarea } from "@dashboard/components/ui/textarea";
 import { Input } from "@dashboard/components/ui/input";
