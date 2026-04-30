@@ -1,0 +1,263 @@
+DO NOT CHANGE CODE.
+
+I need a forensic audit.
+
+Problem:
+I have repeatedly asked Replit to redesign the Unboks dashboard to match the Gmail-style inbox screenshot and the Unboks.org branding. I gave screenshots and detailed prompts. The result is still wrong: it keeps producing cheap pills, rounded card layouts, poor spacing, weak fonts, and does not structurally copy the Gmail inbox pattern.
+
+I need to know WHY the prompts are not being followed.
+
+This is not a redesign task.
+This is not a fix task.
+This is an investigation.
+
+Goal:
+Find the exact technical reasons why the dashboard is not changing as requested.
+
+Audit the codebase and answer clearly.
+
+Questions to answer:
+
+1. Which dashboard route am I actually seeing?
+- What route renders the screenshot I am viewing?
+- Which React component renders that route?
+- Is it /dashboard/inbox, /dashboard/messages, or something else?
+- Are there multiple dashboard routes that look similar?
+- Could Replit be editing one component while the preview shows another?
+
+2. Which files control the visible dashboard layout?
+List exact files for:
+- app shell
+- sidebar
+- top header
+- search bar
+- inbox toolbar
+- channel filter row
+- inbox content/list area
+- empty state
+- channels page
+- settings page
+- escalations page
+
+3. Are there duplicate components?
+Search for duplicate or old versions of:
+- AppLayout
+- DashboardShell
+- Sidebar
+- TopBar
+- Messages
+- Inbox
+- PlatformFilterBar
+- Channels
+- Settings
+- Escalations
+- demo dashboard components
+- old WTYJ components
+- old BlueMarlin components
+
+Tell me:
+- which ones are actually used
+- which ones are stale/dead
+- whether prompts may have been editing unused files
+
+4. Is CSS overriding the prompt changes?
+Inspect:
+- src/index.css
+- dashboard CSS
+- Tailwind classes
+- custom utility classes
+- global body styles
+- .glass-panel
+- .glass-card
+- dark mode classes
+- CSS variables
+- component-level className strings
+
+Find any styles that force:
+- rounded cards
+- pill buttons
+- dark/admin styling
+- old spacing
+- old sidebar layout
+- old channel chips
+- old dashboard shell
+
+Quote the exact classes or CSS rules.
+
+5. Why are channel filters still appearing as pills/buttons?
+Find the exact component and code responsible.
+Show the current code/classes that render:
+- All
+- WhatsApp
+- X
+- Instagram
+- TikTok
+- Facebook
+
+Answer:
+- Is the filter bar hardcoded as buttons?
+- Is it using a Button component?
+- Is it using shadcn button styles?
+- Is another CSS class forcing rounded-pill styling?
+- What exact file and class names need to be changed to make Gmail-style tabs?
+
+6. Why is the inbox still not Gmail-style?
+Find what prevents:
+- flat message list
+- Gmail toolbar
+- flat category tabs
+- compact row density
+- no rounded cards
+
+Answer:
+- Is the inbox wrapped in a card component?
+- Is there a fixed rounded container?
+- Is the list component missing and only empty state exists?
+- Are there no message rows because data is empty?
+- What exact code creates the current huge empty area?
+
+7. Why does the sidebar still look wrong?
+Find exact code controlling:
+- sidebar width
+- logo size
+- nav item height
+- nav item border radius
+- active state
+- padding
+- spacing
+
+Answer:
+- Which classes make it look cheap?
+- Are nav items using button/card classes?
+- Is the logo area too small or wrong?
+- Is sidebar layout copied from old admin panel code?
+
+8. Why does the header/search still look wrong?
+Find exact code controlling:
+- search wrapper
+- search icon position
+- input padding
+- width
+- header right actions
+- sign out spacing
+
+Answer:
+- Why did the magnifier overlap the placeholder?
+- Is the search input using wrong padding?
+- Is header layout too constrained?
+- Is sign out pushed to edge by flex/grid?
+
+9. Are old theme or localStorage values still interfering?
+Check:
+- theme provider
+- dark mode
+- localStorage keys
+- bluemarlin_theme
+- unboks_theme
+- .dark class
+
+Answer:
+- Is dark mode fully disabled?
+- Could old localStorage still change appearance?
+- Is dashboard light-only now?
+- Where is this controlled?
+
+10. Is Replit preserving the old design because prompts say “do not change functionality”?
+Look at the current component structure and answer:
+- Would a real Gmail-style redesign require component refactoring?
+- Are prompts only changing Tailwind classes but not restructuring the DOM?
+- Is the current DOM unsuitable for Gmail-style layout?
+- What component needs to be rewritten, not patched?
+
+11. Is the project too mixed/legacy?
+Search user-facing and code references for:
+- WTYJ
+- WeTakeYourJob
+- BlueMarlin
+- bluemarlin
+- old dashboard
+- demo
+- mockup
+- glass
+- dark
+- gold
+- channel chips
+- pills
+
+Answer:
+- Which of these still affect the production dashboard?
+- Which are harmless internal names?
+- Which are visual/style leftovers that should be removed?
+
+12. Build/cache/deployment check
+Answer:
+- Are changes being applied to the running preview?
+- Is there a build cache issue?
+- Are there multiple Replit apps or routes?
+- Is the browser showing stale CSS?
+- Is the deployment different from development preview?
+- What commands prove the current rendered files are the edited files?
+
+13. Blunt diagnosis
+Give me the top 5 reasons the dashboard is not following the prompts.
+
+Be brutally honest.
+Do not say “everything is fine” if the screenshot proves it is not.
+
+For each reason, include:
+- exact file
+- exact component
+- exact code/class causing it
+- what must change
+
+14. Should we refactor or rebuild?
+Based on the audit, answer clearly:
+
+Option A:
+Keep current dashboard and refactor specific files.
+
+Option B:
+Delete/rebuild dashboard UI shell only, while keeping backend/API/routes.
+
+Option C:
+Start a new dashboard app from scratch.
+
+Recommend one option and explain why.
+
+15. If refactor is possible, give a surgical plan.
+Do not implement it yet.
+
+Plan must include:
+- files to edit
+- files to delete/ignore
+- components to rewrite
+- CSS/classes to remove
+- exact order of work
+- acceptance criteria
+
+16. If rebuild is better, give a rebuild plan.
+Do not implement it yet.
+
+Plan must preserve:
+- auth
+- routes
+- API calls
+- Zernio/channel logic
+- data models
+
+But replace:
+- dashboard shell
+- sidebar
+- header
+- inbox page
+- toolbar
+- channel tabs
+- settings/channels/escalations visual structure
+
+Output format:
+Use clear headings.
+Use exact file paths.
+Quote relevant code/class snippets.
+Do not edit files.
+Do not fix anything.
+Only audit and explain why previous prompts failed.
