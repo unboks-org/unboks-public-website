@@ -109,7 +109,7 @@ export default function HomePage() {
               </div>
             )}
           </div>
-          <a href="/dashboard/login" className="btn-ghost">{tx.nav_login}</a>
+          <a href="/login" className="btn-ghost">{tx.nav_login}</a>
           <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.nav_cta}</a>
         </div>
       </nav>

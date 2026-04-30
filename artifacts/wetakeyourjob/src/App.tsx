@@ -28,6 +28,7 @@ import Channels from '@dashboard/pages/Channels';
 
 import DemoApp from './demo/bluemarlin/DemoApp';
 import HomePage from './HomePage';
+import AdminApp from './admin/AdminApp';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +42,18 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+function LoginShell() {
+  return (
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Login />
+        </AuthProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+}
 
 function ScrollToTop() {
   const location = useLocation();
@@ -75,8 +88,6 @@ function DashboardShell() {
             <AuthProvider>
               <PlatformFilterProvider>
                 <Routes>
-                  <Route path="login" element={<Login />} />
-
                   <Route element={<ProtectedRoute />}>
                     <Route element={<AppLayout />}>
                       <Route index element={<Messages />} />
@@ -117,9 +128,11 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginShell />} />
         <Route path="/dashboard/*" element={<DashboardShell />} />
+        <Route path="/admin/*" element={<AdminApp />} />
         <Route path="/demo/bluemarlin/*" element={<DemoApp />} />
-        <Route path="*" element={<Navigate to="/dashboard/login" replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </>
   );

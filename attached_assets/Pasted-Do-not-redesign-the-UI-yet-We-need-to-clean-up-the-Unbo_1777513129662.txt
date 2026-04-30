@@ -1,0 +1,102 @@
+Do not redesign the UI yet.
+
+We need to clean up the Unboks app structure so future dashboard and admin work lands in the correct place.
+
+Context:
+This Replit project contains three separate product surfaces:
+1. Public Unboks website at /
+2. Customer dashboard at /dashboard
+3. Internal Unboks admin dashboard, which does not exist yet but must be added
+
+There is also a Blue Marlin demo site at /demo/bluemarlin.
+
+Goal:
+Create clear route and folder separation between:
+- public website
+- customer dashboard
+- internal admin dashboard
+- client demo sites
+
+Do not change backend logic.
+Do not change API behavior.
+Do not break current customer dashboard.
+Do not break public website.
+Do not break Blue Marlin demo.
+
+Required route structure:
+- / → public Unboks website
+- /login → customer login
+- /dashboard → customer inbox/dashboard
+- /dashboard/escalations → customer escalations
+- /dashboard/channels → customer channels
+- /dashboard/settings → customer settings
+- /admin → internal Unboks admin dashboard placeholder
+- /admin/clients → internal client list placeholder
+- /admin/clients/new → internal new client intake placeholder
+- /demo/bluemarlin/* → keep existing Blue Marlin demo site
+
+Required folder structure:
+Create clear folders if needed:
+- src/public-site/
+- src/customer-dashboard/
+- src/admin/
+- src/demo/
+- src/shared/
+
+Do not move everything if risky. Start by creating the new admin folder and route cleanly, and document what should move later.
+
+Admin dashboard v1:
+Create a simple internal admin placeholder, not a full product yet.
+
+The /admin page should show:
+- Unboks Internal Admin
+- Clients
+- Intake
+- Channels Setup
+- Monitoring
+- Settings
+
+It should be visually separate from the customer dashboard.
+It should not use the Gmail-style inbox layout.
+It should be a simple clean admin shell.
+
+Customer dashboard:
+Keep /dashboard as the customer-facing dashboard.
+This is where the Gmail-style inbox will live later.
+Do not add internal admin features to /dashboard.
+
+Login:
+Move customer login from /dashboard/login to /login.
+Keep /dashboard/login redirecting to /login for compatibility.
+
+BlueMarlin leakage:
+Do not rename all files yet if risky, but identify and safely rename only low-risk user-facing/localStorage keys where possible:
+- bluemarlin_theme should not control the product
+- user-facing BlueMarlin labels must not appear in Unboks dashboard
+- keep internal client ID "bluemarlin" only where it is actually selecting that client
+
+If renaming use-bluemarlin.ts is safe:
+Rename it to use-client-api.ts or use-dashboard-api.ts.
+Update imports.
+If not safe, leave it and report why.
+
+Acceptance criteria:
+1. / still works as public website.
+2. /login works as customer login.
+3. /dashboard still works.
+4. /dashboard/login redirects to /login.
+5. /admin exists and shows a simple internal Unboks admin placeholder.
+6. /demo/bluemarlin still works.
+7. No customer dashboard page contains internal admin controls.
+8. No admin page is mixed into customer dashboard.
+9. Routes are clear and documented.
+10. No backend/API functionality is broken.
+
+Final response:
+Report:
+- routes added/changed
+- files created
+- files moved if any
+- imports updated
+- what BlueMarlin naming remains and why
+- what should be done next

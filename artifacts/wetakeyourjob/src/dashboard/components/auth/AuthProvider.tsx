@@ -32,13 +32,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(() => {
     clearAuth();
-    navigate("/dashboard/login", { replace: true });
+    navigate("/login", { replace: true });
   }, [clearAuth, navigate]);
 
   useEffect(() => {
     setOnUnauthorized(() => {
       clearAuth();
-      navigate("/dashboard/login", { replace: true });
+      navigate("/login", { replace: true });
     });
   }, [clearAuth, navigate]);
 
