@@ -256,12 +256,12 @@ export function AppLayout() {
       </nav>
 
       {!hideActions && (
-        <div className="px-3 pb-4 pt-2 border-t border-border/50">
+        <div className="pb-2 pt-2 border-t border-[#E5E7EB]">
           <button
             onClick={() => logout()}
-            className="flex items-center gap-3 px-[14px] py-2.5 rounded-[14px] text-[#64748B] hover:text-destructive hover:bg-destructive/[0.07] transition-colors w-full text-[14px]"
+            className="relative flex items-center gap-3 pl-[18px] pr-3 h-[36px] w-full rounded-r-[20px] text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] transition-colors duration-100 text-[14px]"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
             <span className="font-medium">Sign out</span>
           </button>
         </div>

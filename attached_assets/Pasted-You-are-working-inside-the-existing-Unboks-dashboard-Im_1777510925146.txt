@@ -1,0 +1,279 @@
+You are working inside the existing Unboks dashboard.
+
+Implement the forensic audit fix plan exactly.
+
+This is not a redesign prompt.
+This is a surgical correction based on the audit findings.
+
+Goal:
+Remove the global code patterns that keep making the dashboard look like a rounded SaaS card UI, and force the dashboard toward a flat premium Gmail-style inbox UI.
+
+Do not change:
+- backend logic
+- routes
+- authentication
+- API calls
+- Zernio/channel logic
+- data models
+- message functionality
+- settings functionality
+- channel connection logic
+
+Only change:
+- dashboard styling tokens
+- dashboard font
+- sidebar bottom sign-out styling
+- dead unused code
+- Channels page visual structure
+- Settings page visual structure
+
+==================================================
+1. Fix global radius token
+==================================================
+
+File:
+src/index.css
+
+Find:
+--radius: 0.75rem;
+
+Change to:
+--radius: 0rem;
+
+Reason:
+The audit found that --radius: 0.75rem infects shadcn Button/Card/Sheet/Dialog/etc. and keeps creating rounded/pill/card UI even when prompts ask for Gmail-style flat UI.
+
+Expected result:
+Default shadcn components no longer automatically look like rounded SaaS pills/cards.
+
+Important:
+If a component genuinely needs radius, apply it explicitly in that component. Do not rely on the global token.
+
+==================================================
+2. Fix dashboard font
+==================================================
+
+File:
+src/index.css
+
+Find the #dashboard-root font override:
+font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+Change to:
+font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+Reason:
+The audit found Manrope makes the dashboard look like a startup landing page. Gmail-style operational inbox UI needs a more functional, neutral font.
+
+Expected result:
+Dashboard text becomes tighter, cleaner, more Gmail-like and operational.
+
+==================================================
+3. Sidebar bottom sign-out styling
+==================================================
+
+File:
+src/dashboard/components/layout/AppLayout.tsx
+
+Find the bottom sign-out/sidebar button around the audit-reported lines ~261–267.
+
+Current issue:
+It still uses:
+rounded-[14px]
+text-[#64748B]
+old button-style spacing
+
+Update it to match Gmail-style sidebar nav rhythm:
+- height around 36px
+- rounded-r-[20px]
+- no full rounded pill
+- pl-[18px]
+- pr-[12px]
+- text-[#5F6368]
+- hover:bg-[#F1F3F4]
+- hover:text-[#202124]
+- icon muted
+- align with other sidebar nav rows
+
+Expected result:
+The bottom sign-out/action button no longer looks like a separate rounded SaaS button.
+
+==================================================
+4. Remove dead unused function
+==================================================
+
+File:
+src/dashboard/pages/Messages.tsx
+
+Remove the dead channelBadgeLabel function if it is truly unused.
+
+Audit says:
+Lines ~172–178 define channelBadgeLabel but it is no longer called after the last refactor.
+
+Expected result:
+Cleaner code. No dead dashboard channel-label logic.
+
+Do not remove if it is actually referenced after your current code search.
+
+==================================================
+5. Flatten Channels page
+==================================================
+
+File:
+src/dashboard/pages/Channels.tsx
+
+Goal:
+Make Channels page follow Gmail/Google settings-style flat list structure.
+
+Current problem:
+Channels still uses card-style visual structure.
+
+Required visual:
+- no floating glass/card layout
+- no giant rounded containers
+- no colorful strips
+- no rainbow icons
+- no big SaaS cards
+- use flat white page/list structure
+- subtle dividers between rows
+- compact operational density
+
+Structure:
+- Page background: #FFFFFF or dashboard white
+- Header/title area:
+  - title: Channels
+  - subtitle: Manage the channels connected to your Unboks inbox.
+- Under that, render a flat list/table:
+  - row height 56–64px
+  - border-bottom: 1px solid #E5E7EB
+  - icon left, muted
+  - channel name
+  - description
+  - status right
+- No wrapping card with shadow.
+- No rounded-xl/rounded-2xl/rounded-3xl containers.
+- No glass-card or glass-panel.
+
+Status style:
+- Connected: muted green text/check
+- Not connected: muted gray
+- Coming soon: muted gray
+- no loud colors
+
+Expected row examples:
+WhatsApp — Receiving and responding to messages — Connected
+Email — Inbound email handling — Not connected
+Instagram — Instagram Direct Messages — Not connected
+Facebook — Facebook Messenger — Not connected
+X — X Direct Messages — Coming soon
+TikTok — TikTok Direct Messages — Coming soon
+
+Acceptance:
+Channels page looks like a Google settings/list page, not a card dashboard.
+
+==================================================
+6. Flatten Settings page
+==================================================
+
+File:
+src/dashboard/pages/Settings.tsx
+
+Goal:
+Make Settings page follow Google settings-style flat list structure.
+
+Current problem:
+Settings still uses card/accordion section styling and rounded containers.
+
+Required visual:
+- no colorful icons
+- no rainbow category blocks
+- no large rounded cards
+- no shadowed accordion cards
+- use flat rows with dividers
+- compact and clean
+
+Structure:
+- Page background: #FFFFFF or dashboard white
+- Header:
+  - title: Settings
+  - subtitle: Manage your account, AI knowledge, team, and integrations.
+- Settings list:
+  - flat rows
+  - row height 56–64px
+  - border-bottom #E5E7EB
+  - muted icon left
+  - title
+  - description
+  - chevron/toggle right
+- Open/active row:
+  - subtle #F8FAFC background only
+  - no color blocks
+  - no rounded card effect
+
+Rows:
+- Business Info
+- Source of Truth
+- Rules
+- Team Members
+- Notifications
+- Language
+- Email Integration
+- Advanced
+
+Acceptance:
+Settings page looks like a clean Google settings page, not a colorful SaaS card dashboard.
+
+==================================================
+7. Preserve Gmail-style Inbox fixes
+==================================================
+
+Do not undo the current Gmail-style improvements in:
+- Messages.tsx
+- PlatformFilterBar.tsx
+- AppLayout.tsx
+
+Preserve:
+- flat inbox list
+- separate toolbar row
+- separate channel tab row
+- channel tabs with underline
+- no rounded inbox card
+- light-only dashboard
+- X only, no Twitter bird
+
+==================================================
+8. Final QA
+==================================================
+
+After changes, verify:
+
+Dashboard:
+- /dashboard
+- /dashboard/channels
+- /dashboard/settings
+- /dashboard?view=escalations if applicable
+
+Acceptance criteria:
+1. Global radius token is 0rem.
+2. Dashboard font is Inter/system, not Manrope.
+3. Inbox remains flat Gmail-style.
+4. No giant rounded inbox card.
+5. Channel tabs remain flat underline tabs.
+6. Channels page is flat list/table style.
+7. Settings page is flat list/settings style.
+8. No dark mode.
+9. No gold active states.
+10. No rainbow UI.
+11. No old WTYJ/BlueMarlin branding in user-facing UI.
+12. Search icon does not overlap placeholder.
+13. Sign out/header items are correctly spaced.
+14. Sidebar has Gmail-style right-rounded active nav, not giant rounded buttons.
+15. Result looks like a premium Google/Gmail-style operational inbox.
+
+Final response:
+Report:
+- exact files changed
+- confirmation of radius token change
+- confirmation of font change
+- confirmation that Channels and Settings were flattened
+- any remaining limitations

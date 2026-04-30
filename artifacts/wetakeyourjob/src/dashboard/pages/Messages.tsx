@@ -169,14 +169,6 @@ function senderText(conv: Conversation): string {
   return "Unknown customer";
 }
 
-function channelBadgeLabel(channel?: string): string {
-  if (channel === "instagram_dm") return "Instagram";
-  if (channel === "facebook_dm") return "Facebook";
-  if (channel === "twitter_dm") return "X";
-  if (channel === "email") return "Email";
-  return "WhatsApp";
-}
-
 interface RowProps {
   conv: Conversation;
   isHidden?: boolean;

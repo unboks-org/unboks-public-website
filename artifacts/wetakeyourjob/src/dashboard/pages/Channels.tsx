@@ -84,33 +84,29 @@ function StatusBadge({ status }: { status: ChannelStatus }) {
 export default function Channels() {
   return (
     <div className="max-w-[840px] pb-16">
-      <div className="mb-8">
-        <h1 className="text-[22px] font-semibold text-[#0F172A] mb-1.5">Channels</h1>
-        <p className="text-[14px] text-[#64748B]">
+      <div className="mb-6">
+        <h1 className="text-[18px] font-semibold text-[#202124] mb-1">Channels</h1>
+        <p className="text-[13px] text-[#5F6368]">
           Manage the channels connected to your Unboks inbox.
         </p>
       </div>
 
-      <div className="bg-white rounded-[24px] border border-[#E5EAF0] shadow-[0_4px_24px_rgba(15,23,42,0.04)] overflow-hidden">
-        {CHANNELS.map((ch, idx) => {
-          const isLast = idx === CHANNELS.length - 1;
+      <div className="bg-white border-t border-[#E5E7EB]">
+        {CHANNELS.map((ch) => {
           const isMuted = ch.status === "coming_soon";
           return (
             <div
               key={ch.id}
               className={cn(
-                "flex items-center gap-4 px-6 min-h-[72px] transition-colors",
-                !isLast && "border-b border-[#F0F4F8]",
-                isMuted ? "opacity-50" : "hover:bg-[#FAFBFC]"
+                "flex items-center gap-4 px-4 h-[60px] border-b border-[#E5E7EB] transition-colors",
+                isMuted ? "opacity-45" : "hover:bg-[#F8FAFC]"
               )}
             >
-              <div className="w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 bg-[#F5F7FA]">
-                <ch.icon className="w-5 h-5 text-[#64748B]" />
-              </div>
+              <ch.icon className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
 
               <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-semibold text-[#0F172A] leading-tight">{ch.label}</p>
-                <p className="text-[13px] text-[#64748B] mt-0.5">{ch.description}</p>
+                <span className="text-[14px] font-medium text-[#202124]">{ch.label}</span>
+                <span className="text-[13px] text-[#5F6368] ml-3">{ch.description}</span>
               </div>
 
               <div className="shrink-0">

@@ -48,7 +48,7 @@ function parseConfig(raw: string): ConfigSection[] {
   return sections;
 }
 
-// ─── Accordion Section ────────────────────────────────────────────────────────
+// ─── Accordion Section (flat Google-settings style) ───────────────────────────
 function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, children }: {
   title: string;
   subtitle?: string;
@@ -58,37 +58,20 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className={cn(
-      "rounded-2xl overflow-hidden border border-border transition-all duration-200",
-      open ? "shadow-sm" : ""
-    )}>
+    <div>
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "w-full flex items-center gap-4 px-5 py-[18px] text-left transition-colors",
-          open
-            ? "bg-[#EAF3FF]/40"
-            : "bg-white hover:bg-[#F9FAFB]"
+          "w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] transition-colors",
+          open ? "bg-[#F8FAFC]" : "bg-white hover:bg-[#F8FAFC]"
         )}
       >
-        <div className={cn(
-          "w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 transition-all",
-          open ? "bg-[#EAF3FF]" : "bg-[#F5F7FA]"
-        )}>
-          <Icon className={cn("w-[18px] h-[18px] transition-colors", open ? "text-primary" : "text-[#64748B]")} />
+        <Icon className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+        <div className="flex-1 min-w-0 flex items-baseline gap-2 overflow-hidden">
+          <span className="text-[14px] font-medium text-[#202124] shrink-0">{title}</span>
+          {subtitle && <span className="text-[13px] text-[#5F6368] truncate">{subtitle}</span>}
         </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-[15px] font-semibold text-foreground">{title}</h3>
-          {subtitle && <p className="text-[13px] mt-0.5 truncate text-muted-foreground">{subtitle}</p>}
-        </div>
-        <div className={cn(
-          "w-7 h-7 rounded-full flex items-center justify-center transition-all shrink-0",
-          open ? "bg-[#EAF3FF]" : "bg-[#F5F7FA]"
-        )}>
-          {open
-            ? <ChevronUp className="w-4 h-4 text-primary" />
-            : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
-        </div>
+        <ChevronDown className={cn("w-4 h-4 text-[#5F6368] shrink-0 transition-transform duration-200", open && "rotate-180")} />
       </button>
       <AnimatePresence>
         {open && (
@@ -97,9 +80,9 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-t border-[#F0F4F8] overflow-hidden bg-[#F9FAFC]"
+            className="overflow-hidden border-b border-[#E5E7EB] bg-[#F8FAFC]"
           >
-            <div className="p-5">{children}</div>
+            <div className="px-5 py-4">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -110,9 +93,9 @@ function AccordionSection({ title, subtitle, icon: Icon, defaultOpen = false, ch
 // ─── Placeholder coming-soon notice ──────────────────────────────────────────
 function ComingSoon({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 border border-border/60">
-      <Clock className="w-4 h-4 text-muted-foreground/50 shrink-0" />
-      <p className="text-sm text-muted-foreground">{label} — coming soon. Contact Unboks to configure this.</p>
+    <div className="flex items-center gap-2 py-2 text-[13px] text-[#5F6368]">
+      <Clock className="w-[14px] h-[14px] shrink-0" />
+      <span>{label} — coming soon. Contact Unboks to configure this.</span>
     </div>
   );
 }
@@ -160,17 +143,16 @@ export default function Settings() {
   const { label: bookingsLabel, save: saveBookingsLabel } = useBookingsLabel();
 
   return (
-    <div className="space-y-4 max-w-3xl pb-16">
-      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-foreground/65 hover:text-foreground transition-colors">
+    <div className="max-w-3xl pb-16">
+      <button onClick={goBack} className="flex items-center gap-1.5 text-[13px] text-[#5F6368] hover:text-[#202124] transition-colors mb-4">
         <ArrowLeft className="w-4 h-4" /> Back
       </button>
-      <div>
-        <h1 className="text-[22px] font-semibold text-[#0F172A] mb-1.5 flex items-center gap-3">
-          <SettingsIcon className="w-6 h-6 text-[#94A3B8]" />
-          Settings
-        </h1>
-        <p className="text-[14px] text-[#64748B]">Manage your account, AI knowledge, team, and integrations.</p>
+      <div className="mb-5">
+        <h1 className="text-[18px] font-semibold text-[#202124] mb-1">Settings</h1>
+        <p className="text-[13px] text-[#5F6368]">Manage your account, AI knowledge, team, and integrations.</p>
       </div>
+
+      <div className="bg-white border-t border-[#E5E7EB]">
 
       {/* ── Business Info ─────────────────────────────────────────────────── */}
       <AccordionSection
@@ -324,20 +306,20 @@ export default function Settings() {
       </AccordionSection>
 
       {/* ── Advanced (legacy sections) ────────────────────────────────────── */}
-      <div className="rounded-2xl border border-border/60 overflow-hidden">
+      <div>
         <button
           onClick={() => setAdvancedOpen((o) => !o)}
-          className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-[#F9FAFB] transition-colors"
+          className={cn(
+            "w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] transition-colors",
+            advancedOpen ? "bg-[#F8FAFC]" : "bg-white hover:bg-[#F8FAFC]"
+          )}
         >
-          <div className="w-8 h-8 rounded-lg bg-[#F5F7FA] flex items-center justify-center shrink-0">
-            {advancedOpen
-              ? <ChevronDown className="w-4 h-4 text-muted-foreground" />
-              : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
+          <Wrench className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+          <div className="flex-1 min-w-0 flex items-baseline gap-2 overflow-hidden">
+            <span className="text-[14px] font-medium text-[#202124] shrink-0">Advanced</span>
+            <span className="text-[13px] text-[#5F6368] truncate">System configuration, social publishing, and developer tools</span>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-foreground">Advanced</p>
-            <p className="text-sm text-muted-foreground mt-0.5">System configuration, social publishing, and developer tools</p>
-          </div>
+          <ChevronDown className={cn("w-4 h-4 text-[#5F6368] shrink-0 transition-transform duration-200", advancedOpen && "rotate-180")} />
         </button>
 
         <AnimatePresence>
@@ -347,28 +329,25 @@ export default function Settings() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="border-t border-border/60 overflow-hidden"
+              className="overflow-hidden border-b border-[#E5E7EB] bg-[#F8FAFC]"
             >
-              <div className="p-4 space-y-4">
+              <div className="py-2 space-y-0">
 
                 {/* Sidebar Modules */}
-                <div className="rounded-2xl border border-border bg-card overflow-hidden">
+                <div className="border-b border-[#E5E7EB]">
                   <button
                     onClick={() => setModulesOpen((o) => !o)}
-                    className="w-full px-5 py-4 flex items-center gap-3 text-left hover:bg-muted/20 transition-colors"
+                    className={cn(
+                      "w-full px-5 h-[56px] flex items-center gap-4 text-left transition-colors",
+                      modulesOpen ? "bg-[#EEF2F7]" : "hover:bg-[#EEF2F7]"
+                    )}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <LayoutDashboard className="w-4 h-4 text-primary" />
+                    <LayoutDashboard className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+                    <div className="flex-1 min-w-0 flex items-baseline gap-2">
+                      <span className="text-[14px] font-medium text-[#202124] shrink-0">Sidebar Modules</span>
+                      <span className="text-[13px] text-[#5F6368]">Choose which sections appear in the navigation</span>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-foreground">Sidebar Modules</p>
-                      <p className="text-sm text-muted-foreground mt-0.5">Choose which sections appear in the navigation</p>
-                    </div>
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center bg-primary/10 shrink-0">
-                      {modulesOpen
-                        ? <ChevronUp className="w-4 h-4 text-primary" />
-                        : <ChevronDown className="w-4 h-4 text-primary" />}
-                    </div>
+                    <ChevronDown className={cn("w-4 h-4 text-[#5F6368] shrink-0 transition-transform duration-200", modulesOpen && "rotate-180")} />
                   </button>
 
                   <AnimatePresence>
@@ -468,35 +447,27 @@ export default function Settings() {
                 {/* Analytics shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/settings/analytics")}
-                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-[#F9FAFB] transition-colors"
+                  className="w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] hover:bg-[#EEF2F7] transition-colors"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-9 h-9 rounded-[10px] bg-[#F5F7FA] flex items-center justify-center shrink-0">
-                      <BarChart3 className="w-[18px] h-[18px] text-[#64748B]" />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-[15px] font-semibold text-foreground">Analytics</p>
-                      <p className="text-[13px] text-muted-foreground mt-0.5">Inbox volume, platform stats, and activity trends</p>
-                    </div>
+                  <BarChart3 className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+                  <div className="flex-1 min-w-0 flex items-baseline gap-2">
+                    <span className="text-[14px] font-medium text-[#202124] shrink-0">Analytics</span>
+                    <span className="text-[13px] text-[#5F6368]">Inbox volume, platform stats, and activity trends</span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <ArrowRight className="w-4 h-4 text-[#5F6368] shrink-0" />
                 </button>
 
                 {/* Brand Training shortcut */}
                 <button
                   onClick={() => navigate("/dashboard/training")}
-                  className="w-full flex items-center justify-between px-5 py-[18px] rounded-2xl border border-border bg-card hover:bg-[#F9FAFB] transition-colors"
+                  className="w-full flex items-center gap-4 px-5 h-[56px] text-left border-b border-[#E5E7EB] hover:bg-[#EEF2F7] transition-colors"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-9 h-9 rounded-[10px] bg-[#F5F7FA] flex items-center justify-center shrink-0">
-                      <BrainCircuit className="w-[18px] h-[18px] text-[#64748B]" />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-[15px] font-semibold text-foreground">Brand Training</p>
-                      <p className="text-[13px] text-muted-foreground mt-0.5">Examples, voice rules, and visual guidelines</p>
-                    </div>
+                  <BrainCircuit className="w-[18px] h-[18px] text-[#5F6368] shrink-0" />
+                  <div className="flex-1 min-w-0 flex items-baseline gap-2">
+                    <span className="text-[14px] font-medium text-[#202124] shrink-0">Brand Training</span>
+                    <span className="text-[13px] text-[#5F6368]">Examples, voice rules, and visual guidelines</span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <ArrowRight className="w-4 h-4 text-[#5F6368] shrink-0" />
                 </button>
 
                 {/* Assets & Connections */}
@@ -803,6 +774,8 @@ export default function Settings() {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+
       </div>
     </div>
   );
