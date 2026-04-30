@@ -1,0 +1,697 @@
+TASK: Rebuild the CUSTOMER DASHBOARD inbox UI to copy Gmail inbox structure.
+
+IMPORTANT CONTEXT:
+This project has multiple surfaces. Do not confuse them.
+
+DO NOT TOUCH:
+- Public website at /
+- Login page at /login
+- Internal admin at /admin
+- Blue Marlin demo at /demo/bluemarlin
+- Backend/API logic
+- Authentication logic
+- Zernio/channel logic
+- Data models
+
+ONLY TOUCH:
+The customer dashboard UI at /dashboard and its customer dashboard subpages.
+
+The customer dashboard is the product clients use every day:
+- Inbox
+- Escalations
+- Channels
+- Settings
+- Bookings if present
+
+==================================================
+MAIN INSTRUCTION
+==================================================
+
+Copy the Gmail inbox layout pattern for the customer dashboard.
+
+This does NOT mean “make it inspired by Gmail.”
+This means structurally copy Gmail’s inbox UI:
+
+- left sidebar
+- top header/search bar
+- mail toolbar row
+- flat category/channel tabs
+- flat full-width message list
+- compact rows
+- subtle dividers
+- white background
+- minimal empty state
+- no rounded dashboard cards
+- no bubbly filter buttons
+- no dark admin panel
+
+Replace Gmail branding with Unboks branding.
+
+Use:
+- Unboks logo
+- Unboks blue accent
+- Unboks channels
+- Unboks labels
+
+Do not use Gmail branding, Gmail logo, or Google-owned marks.
+
+==================================================
+CURRENT PROBLEM
+==================================================
+
+Previous prompts failed because the existing customer dashboard keeps preserving old design patterns:
+- rounded SaaS cards
+- pill buttons
+- shadcn rounded Button/Card defaults
+- Manrope startup-style font
+- old dashboard shell structure
+- old filter component styling
+- old card wrappers
+- dark/admin design remnants
+
+This time, do not patch the old design.
+
+If existing UI structure blocks Gmail-style layout, rewrite the JSX/CSS for the customer dashboard UI.
+
+==================================================
+REQUIRED FILE SCOPE
+==================================================
+
+Customer dashboard files likely involved:
+
+- src/dashboard/components/layout/AppLayout.tsx
+- src/dashboard/pages/Messages.tsx
+- src/dashboard/components/PlatformFilterBar.tsx
+- src/dashboard/pages/Channels.tsx
+- src/dashboard/pages/Settings.tsx
+- src/dashboard/pages/BookingsPage.tsx if visually needed
+- src/dashboard/lib/theme.ts
+- src/index.css only for dashboard-specific theme/font/radius cleanup
+
+Do NOT edit:
+- src/HomePage.tsx
+- src/homepage.css
+- src/admin/*
+- src/demo/bluemarlin/*
+unless strictly required to prevent breakage, which should not be necessary.
+
+==================================================
+NON-NEGOTIABLE RULES
+==================================================
+
+1. The customer dashboard must be light-mode only.
+2. No dark dashboard style.
+3. No giant rounded inbox card.
+4. No bubbly channel pills.
+5. No segmented pill control.
+6. No glass-card.
+7. No glass-panel.
+8. No colorful rainbow settings/channels UI.
+9. No gold active states.
+10. No old WTYJ branding.
+11. No BlueMarlin branding in customer dashboard UI.
+12. No Twitter bird. X must be X only.
+13. No beach/background image behind dashboard.
+14. No rounded SaaS-card layout for the inbox.
+15. No “premium card dashboard” style.
+16. The inbox must be a flat Gmail-style operational interface.
+
+==================================================
+GLOBAL DASHBOARD STYLE
+==================================================
+
+The customer dashboard should use Gmail-like operational styling with Unboks branding.
+
+Use:
+- background: #FFFFFF
+- sidebar: #FFFFFF
+- header: #FFFFFF
+- toolbar: #FFFFFF
+- list: #FFFFFF
+- border/dividers: #E5E7EB or #DADCE0
+- hover: #F5F7FA or #F1F3F4
+- selected/active tint: #EAF3FF or #E8F0FE
+- active accent: Unboks blue #1677F2
+- primary text: #202124 or #0F172A
+- secondary text: #5F6368 or #64748B
+- muted text: #94A3B8
+
+Font:
+- Use Inter/system for the dashboard.
+- Do not force Manrope in the customer dashboard.
+- If #dashboard-root currently forces Manrope, change it to Inter/system.
+- Use functional Gmail-like density, not marketing-page typography.
+
+Radius:
+- Do not let global shadcn radius create rounded buttons/cards.
+- If src/index.css has --radius: 0.75rem affecting dashboard, change dashboard usage so it does not create rounded pills/cards.
+- Prefer explicit small radius only where Gmail uses it:
+  - search box: 8px
+  - sidebar active row right side: 18–20px
+  - small icon buttons: circular only if Gmail-like
+- No large rounded containers.
+
+==================================================
+CUSTOMER DASHBOARD SHELL
+==================================================
+
+Create/modify the customer dashboard app shell to match Gmail.
+
+Layout:
+- full viewport height
+- display flex
+- left sidebar fixed width
+- main area flex column
+- overflow hidden
+
+Dashboard root:
+- height: 100vh
+- background: #FFFFFF
+- font-family: Inter/system
+- no .dark class
+- no dark theme reading from localStorage
+
+Remove/ignore:
+- old localStorage key bluemarlin_theme
+- old localStorage key unboks_theme for dark mode
+- browser/system dark preference
+- theme toggle in header
+
+==================================================
+LEFT SIDEBAR — GMAIL STRUCTURE
+==================================================
+
+Sidebar must copy Gmail rhythm.
+
+Dimensions:
+- width: 240px to 256px
+- height: 100vh
+- background: #FFFFFF
+- border-right: 1px solid #E5E7EB
+- flex-shrink: 0
+- padding-top: 12px
+- overflow hidden
+
+Logo area:
+- height: 56px to 64px
+- padding: 0 16px
+- display flex
+- align-items center
+- use real Unboks logo
+- logo width: 130px to 150px
+- logo readable
+- no orange placeholder U
+- no WTYJ logo
+- if tagline is too tiny, hide tagline in dashboard sidebar
+
+Navigation:
+- margin-top: 8px
+- padding-right: 12px
+- rows like Gmail
+- not cards
+- not big buttons
+
+Nav item:
+- height: 32px to 36px
+- display flex
+- align-items center
+- gap: 12px
+- padding-left: 18px
+- padding-right: 12px
+- border-radius: 0 18px 18px 0
+- font-size: 14px
+- font-weight: 500
+- color: #5F6368
+
+Active nav item:
+- background: #E8F0FE or #EAF3FF
+- color: #1677F2
+- icon color: #1677F2
+- no full rounded pill
+- no bordered card
+- no blue block
+
+Inactive hover:
+- background: #F1F3F4
+- color: #202124
+
+Customer dashboard nav:
+- Inbox
+- Escalations
+- Channels
+- Settings
+- Bookings if already present
+
+Do not add admin nav items here.
+
+==================================================
+TOP HEADER — GMAIL SEARCH BAR
+==================================================
+
+Header must copy Gmail top bar.
+
+Header:
+- height: 64px
+- background: #FFFFFF
+- border-bottom: 1px solid #E5E7EB
+- display flex
+- align-items center
+- padding: 0 20px
+- gap: 16px
+- flex-shrink: 0
+
+Left:
+- compact page title only if needed
+- title 16px / 600
+- icon 20px
+- no big dashboard heading
+
+Search:
+The search field must be Gmail-style.
+
+Search container:
+- position relative
+- width: min(620px, 48vw)
+- max-width: 620px
+- min-width: 320px
+- height: 46px
+- flex-shrink: 1
+
+Search input:
+- width: 100%
+- height: 46px
+- background: #F1F3F4
+- border: none
+- border-radius: 8px
+- color: #202124
+- font-size: 14px
+- padding-left: 48px
+- padding-right: 44px
+- box-sizing: border-box
+- outline: none
+
+Search icon:
+- position absolute
+- left: 16px
+- top: 50%
+- transform: translateY(-50%)
+- width: 18px
+- height: 18px
+- color: #5F6368
+- pointer-events: none
+
+Placeholder:
+- “Search conversations…”
+- color: #6B7280
+- must not overlap search icon
+
+Focus:
+- background #FFFFFF
+- box-shadow: 0 1px 6px rgba(32,33,36,0.28)
+- optional subtle border #DADCE0
+
+Right actions:
+- margin-left auto
+- display flex
+- align-items center
+- gap 14px
+- padding-right 16px
+- date muted 13px
+- icons 18px muted
+- sign out not touching right edge
+- sign out height 36px
+- sign out padding 0 10px
+- sign out hover background #F1F3F4
+- no cramped spacing
+
+==================================================
+MAIL TOOLBAR ROW
+==================================================
+
+Create a Gmail-style toolbar row above the tabs/list.
+
+Toolbar:
+- height: 48px
+- background: #FFFFFF
+- border-bottom: 1px solid #E5E7EB
+- display flex
+- align-items center
+- padding: 0 20px
+- gap: 12px
+- flex-shrink: 0
+
+Left controls:
+- select checkbox
+- small dropdown if already exists
+- refresh icon if already exists
+- more icon if already exists
+
+Controls:
+- icon size 18px
+- color #5F6368
+- button size 32px
+- hover background #F1F3F4
+- border-radius 50% only for icon buttons
+
+Do not invent fake functionality.
+If refresh/more actions do not exist, render only the checkbox and existing controls.
+
+==================================================
+CHANNEL TABS — COPY GMAIL CATEGORY TABS
+==================================================
+
+Remove current channel pills/buttons/segmented controls.
+
+Implement Gmail-style flat tabs.
+
+Tabs row:
+- height: 48px
+- background: #FFFFFF
+- border-bottom: 1px solid #E5E7EB
+- display flex
+- align-items stretch
+- padding-left: 20px
+- flex-shrink: 0
+- overflow-x auto on small screens
+
+Tabs:
+- All
+- WhatsApp
+- Email
+- Instagram
+- Facebook
+- X
+- TikTok
+- Messenger if existing/supported
+
+Each tab:
+- height: 48px
+- min-width: 110px to 140px where space allows
+- padding: 0 18px
+- display flex
+- align-items center
+- gap 8px
+- position relative
+- color #5F6368
+- font-size 13px
+- font-weight 600
+- background transparent
+- border none
+- border-radius 0
+- cursor pointer
+
+Active tab:
+- color #1677F2
+- background transparent
+- font-weight 600
+
+Active underline:
+- position absolute
+- bottom 0
+- left 0
+- right 0
+- height 3px
+- background #1677F2
+- border-radius 3px 3px 0 0
+
+Inactive hover:
+- background #F8FAFC
+- color #202124
+
+Icons:
+- 16px max
+- muted gray by default
+- active blue
+- no strong platform colors
+- no Twitter bird
+- no double icons
+- no pills
+- no borders around tabs
+
+==================================================
+INBOX MESSAGE LIST
+==================================================
+
+Remove any huge card wrapper around the inbox.
+
+Message list container:
+- background #FFFFFF
+- flex 1
+- overflow auto
+- width 100%
+- no border-radius
+- no box shadow
+- no card margin
+- no p-7 wrapper
+- no rounded-3xl wrapper
+- no bg-card wrapper
+
+Rows:
+- height 44px to 52px
+- display grid/flex
+- align-items center
+- padding 0 20px
+- border-bottom 1px solid #EEF0F2
+- background #FFFFFF
+- color #202124
+- font-size 14px
+- white-space nowrap
+
+Row hover:
+- background #F5F7FA
+
+Selected row:
+- background #E8F0FE or #EAF3FF
+
+Unread:
+- sender and subject font-weight 600
+
+Read:
+- normal weight
+
+Suggested row layout:
+- checkbox/actions column: 40px
+- sender/customer column: 180px
+- preview/content: 1fr
+- timestamp/status: 100px
+
+Content:
+- customer/conversation name
+- channel
+- latest message preview
+- escalation status if applicable
+- timestamp
+
+Text must truncate with ellipsis, Gmail-style.
+
+==================================================
+EMPTY STATE
+==================================================
+
+When there are no conversations, show a minimal Gmail-style empty state inside the flat list area.
+
+No giant card.
+No large decorative circle.
+No SaaS illustration.
+
+Position:
+- centered horizontally
+- around 35% from top of list area
+
+Content:
+- small line icon 32px
+- title: No conversations yet
+- subtitle: New messages will appear here.
+
+Style:
+- title 14px / 500
+- subtitle 13px muted
+- icon muted blue-gray
+- quiet and functional
+
+==================================================
+ESCALATIONS PAGE
+==================================================
+
+Escalations is part of the customer dashboard.
+
+Use the same Gmail-style shell.
+
+Do not create cards.
+
+Use a flat queue/list:
+- row height 48–56px
+- checkbox/status left
+- customer/channel
+- escalation reason/preview
+- priority/status badge
+- timestamp
+- subtle dividers
+- hover background
+
+Empty state minimal.
+
+==================================================
+CHANNELS PAGE
+==================================================
+
+Channels must use Google settings/list style, not cards.
+
+Structure:
+- same customer dashboard shell
+- white background
+- title area compact
+- flat list rows
+- subtle dividers
+
+Rows:
+- height 56–64px
+- icon left muted
+- channel name
+- description
+- status right
+- border-bottom #E5E7EB
+- no colorful strips
+- no rainbow icons
+- no cards
+- no shadows
+- no large radius
+
+Status:
+- Connected: muted green
+- Not connected: muted gray
+- Coming soon: muted gray
+
+==================================================
+SETTINGS PAGE
+==================================================
+
+Settings must use Google settings/list style.
+
+Structure:
+- same shell
+- title compact
+- grouped flat rows
+- no colorful accordions
+- no cards
+- no shadows
+- no rainbow icons
+
+Rows:
+- height 56–64px
+- icon muted
+- title
+- description
+- chevron/toggle right
+- border-bottom #E5E7EB
+- hover #F8FAFC
+
+Open state:
+- subtle #F8FAFC only
+- no colorful block
+- no rounded card
+
+==================================================
+BOOKINGS PAGE
+==================================================
+
+If /dashboard/bookings exists, do not redesign deeply unless easy.
+But make sure it does not break the Gmail-style shell.
+It may keep existing content, but remove obvious dark/card conflicts if present.
+
+==================================================
+BRAND CLEANUP
+==================================================
+
+In customer dashboard UI, remove visible:
+- WTYJ
+- WeTakeYourJob
+- BlueMarlin
+- bluemarlin
+- old demo labels
+- orange U placeholder
+- Twitter bird
+
+Internal variable/file names may remain if changing them risks breakage.
+
+Visible customer dashboard must say:
+- Unboks
+- Inbox
+- Escalations
+- Channels
+- Settings
+
+==================================================
+IMPLEMENTATION APPROACH
+==================================================
+
+If old components make this difficult, create clean new customer dashboard UI components, for example:
+
+- GmailLikeDashboardShell
+- GmailLikeSidebar
+- GmailLikeTopBar
+- GmailLikeToolbar
+- GmailLikeChannelTabs
+- GmailLikeMessageList
+
+Then render those from /dashboard.
+
+Do not preserve bad visual components just because they exist.
+
+If a shadcn component causes unwanted rounded/pill/card styling, replace it with plain HTML buttons/divs styled explicitly.
+
+==================================================
+ACCEPTANCE CHECKLIST
+==================================================
+
+After implementation, /dashboard must satisfy:
+
+1. Looks structurally like Gmail inbox.
+2. Sidebar is compact Gmail-style.
+3. Search bar is large Gmail-style rectangular search.
+4. Toolbar row exists.
+5. Channel tabs are flat with underline.
+6. No channel pills/buttons.
+7. No segmented pill control.
+8. No giant rounded inbox card.
+9. Message list area is flat and full-width.
+10. Empty state is minimal.
+11. Light mode only.
+12. No dark/admin styling.
+13. No WTYJ/BlueMarlin visible branding.
+14. No Twitter bird.
+15. Search icon does not overlap text.
+16. Sign out has right padding and clean spacing.
+17. Channels page is flat list style.
+18. Settings page is flat list style.
+19. Escalations page is flat list style.
+20. Public website, /admin, and /demo/bluemarlin are not changed.
+
+==================================================
+FINAL SELF-CHECK
+==================================================
+
+Open the Gmail screenshot and /dashboard side by side.
+
+Compare:
+
+- left sidebar width and rhythm
+- search bar size and position
+- toolbar row
+- flat category tabs
+- flat message list
+- row density
+- lack of rounded cards
+- no bubbly buttons
+
+If the dashboard still looks like a SaaS card dashboard or “inspired by Gmail,” it is not done.
+
+It must structurally copy the Gmail inbox layout pattern with Unboks branding.
+
+Final response must include:
+- files changed
+- whether old card wrapper was removed
+- whether channel pills were removed
+- whether flat tabs were implemented
+- whether dark mode is disabled
+- whether public site/admin/demo were untouched

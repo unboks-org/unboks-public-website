@@ -88,6 +88,8 @@ function DashboardShell() {
             <AuthProvider>
               <PlatformFilterProvider>
                 <Routes>
+                  <Route path="login" element={<Navigate to="/login" replace />} />
+
                   <Route element={<ProtectedRoute />}>
                     <Route element={<AppLayout />}>
                       <Route index element={<Messages />} />

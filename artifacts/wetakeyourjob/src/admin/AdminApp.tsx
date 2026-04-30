@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Routes, Route, Navigate, NavLink, useNavigate } from "react-router-dom";
 import unboksLogo from "@assets/image_1777435198078.png";
-import { Users, Settings, LayoutDashboard, LogOut, ChevronRight, Wifi, BookOpen, BarChart2 } from "lucide-react";
+import { Users, Settings, LogOut, ChevronRight, Wifi, Activity, ClipboardList } from "lucide-react";
 
 const ADMIN_PASS_KEY = "unboks_admin_token";
 const ADMIN_SECRET = "unboks2025";
 
 const CLIENTS = [
-  { id: "bluemarlin",          name: "Blue Marlin Tours",       country: "Curaçao",  channels: ["WhatsApp", "Instagram"], status: "active" },
-  { id: "adamus",              name: "Adamus",                  country: "—",         channels: ["WhatsApp"],               status: "active" },
-  { id: "consultadespertares", name: "Consulta Despertares",    country: "—",         channels: ["WhatsApp"],               status: "active" },
-  { id: "unboks",              name: "Unboks (internal)",       country: "—",         channels: ["WhatsApp"],               status: "active" },
+  { id: "bluemarlin",          name: "Blue Marlin Tours",    country: "Curaçao", channels: ["WhatsApp", "Instagram"], status: "active" },
+  { id: "adamus",              name: "Adamus",               country: "—",       channels: ["WhatsApp"],              status: "active" },
+  { id: "consultadespertares", name: "Consulta Despertares", country: "—",       channels: ["WhatsApp"],              status: "active" },
+  { id: "unboks",              name: "Unboks (internal)",    country: "—",       channels: ["WhatsApp"],              status: "active" },
 ];
 
 function AdminLogin() {
@@ -50,13 +50,11 @@ function AdminLogin() {
                 autoFocus
                 className="w-full h-[44px] px-3 border border-[#DADCE0] bg-white text-[14px] text-[#202124] placeholder:text-[#9AA0A6] focus:outline-none focus:border-[#DC2626] focus:ring-1 focus:ring-[#DC2626] transition-colors"
               />
-              {error && (
-                <p className="text-[12px] text-red-600">Incorrect password</p>
-              )}
+              {error && <p className="text-[12px] text-red-600">Incorrect password</p>}
             </div>
             <button
               type="submit"
-              className="w-full h-[44px] flex items-center justify-center gap-2 text-[14px] font-medium bg-[#DC2626] text-white transition-colors hover:bg-[#B91C1C]"
+              className="w-full h-[44px] flex items-center justify-center gap-2 text-[14px] font-medium bg-[#DC2626] text-white hover:bg-[#B91C1C] transition-colors"
             >
               Enter Admin
             </button>
@@ -71,12 +69,11 @@ function AdminLogin() {
 }
 
 const NAV = [
-  { to: "/admin",          label: "Overview",       icon: LayoutDashboard, end: true },
-  { to: "/admin/clients",  label: "Clients",        icon: Users           },
-  { to: "/admin/channels", label: "Channels",       icon: Wifi            },
-  { to: "/admin/training", label: "Knowledge Base", icon: BookOpen        },
-  { to: "/admin/reports",  label: "Reports",        icon: BarChart2       },
-  { to: "/admin/settings", label: "Settings",       icon: Settings        },
+  { to: "/admin/clients",  label: "Clients",        icon: Users,         end: false },
+  { to: "/admin/intake",   label: "Intake",          icon: ClipboardList, end: false },
+  { to: "/admin/channels", label: "Channels Setup",  icon: Wifi,          end: false },
+  { to: "/admin/monitor",  label: "Monitoring",      icon: Activity,      end: false },
+  { to: "/admin/settings", label: "Settings",        icon: Settings,      end: false },
 ];
 
 function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -90,21 +87,17 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex">
-      {/* Sidebar */}
       <div className="w-[220px] bg-white border-r border-[#E5E7EB] flex flex-col flex-shrink-0">
-        {/* Logo */}
         <div className="h-[64px] flex items-center px-5 border-b border-[#E5E7EB] gap-3">
           <img src={unboksLogo} alt="Unboks" className="h-6 w-auto" />
           <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#DC2626]">Admin</span>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 py-2">
-          {NAV.map(({ to, label, icon: Icon, end }) => (
+          {NAV.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
-              end={end}
               className={({ isActive }) =>
                 `flex items-center gap-3 h-[40px] px-4 text-[13px] transition-colors ${
                   isActive
@@ -119,7 +112,6 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
 
-        {/* Sign out */}
         <button
           onClick={handleLogout}
           className="flex items-center gap-3 h-[40px] px-4 text-[13px] text-[#5F6368] hover:bg-[#F8F9FA] hover:text-[#202124] transition-colors border-t border-[#E5E7EB]"
@@ -129,7 +121,6 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
         </button>
       </div>
 
-      {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         {children}
       </div>
@@ -137,20 +128,23 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-function AdminOverview() {
+function PageHeader({ title }: { title: string }) {
+  return (
+    <div className="h-[56px] border-b border-[#E5E7EB] bg-white flex items-center px-8 flex-shrink-0">
+      <h1 className="text-[15px] font-semibold text-[#202124]">{title}</h1>
+    </div>
+  );
+}
+
+function AdminHome() {
   return (
     <div>
-      <div className="h-[56px] border-b border-[#E5E7EB] bg-white flex items-center px-8">
-        <h1 className="text-[15px] font-semibold text-[#202124]">Overview</h1>
-      </div>
+      <PageHeader title="Unboks Internal Admin" />
       <div className="p-8">
-        {/* Stats */}
-        <div className="grid grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 gap-4 mb-8">
           {[
             { label: "Active Clients",   value: CLIENTS.length },
             { label: "Total Channels",   value: 6 },
-            { label: "Messages Today",   value: "—" },
-            { label: "Open Escalations", value: "—" },
           ].map((stat) => (
             <div key={stat.label} className="bg-white border border-[#E5E7EB] px-5 py-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9AA0A6] mb-1">{stat.label}</p>
@@ -159,7 +153,6 @@ function AdminOverview() {
           ))}
         </div>
 
-        {/* Client list */}
         <div className="bg-white border border-[#E5E7EB]">
           <div className="h-[44px] border-b border-[#E5E7EB] flex items-center px-5">
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#5F6368]">Clients</span>
@@ -176,7 +169,7 @@ function AdminOverview() {
                     <span key={ch} className="text-[11px] text-[#5F6368] border border-[#E5E7EB] px-2 py-0.5">{ch}</span>
                   ))}
                 </div>
-                <span className="w-2 h-2 bg-green-500 rounded-full" title="Active" />
+                <span className="w-2 h-2 bg-green-500 rounded-full" />
                 <ChevronRight className="w-4 h-4 text-[#D1D5DB] group-hover:text-[#5F6368] transition-colors" />
               </div>
             </div>
@@ -187,15 +180,13 @@ function AdminOverview() {
   );
 }
 
-function ComingSoon({ title }: { title: string }) {
+function Placeholder({ title, description }: { title: string; description: string }) {
   return (
     <div>
-      <div className="h-[56px] border-b border-[#E5E7EB] bg-white flex items-center px-8">
-        <h1 className="text-[15px] font-semibold text-[#202124]">{title}</h1>
-      </div>
+      <PageHeader title={title} />
       <div className="p-8 flex flex-col items-center justify-center min-h-[400px] text-center">
-        <p className="text-[14px] text-[#9AA0A6]">This section is not built yet.</p>
-        <p className="text-[13px] text-[#C4C7CB] mt-1">It will be added in a future session.</p>
+        <p className="text-[14px] text-[#9AA0A6]">{description}</p>
+        <p className="text-[13px] text-[#C4C7CB] mt-1">This section will be built in a future session.</p>
       </div>
     </div>
   );
@@ -204,19 +195,17 @@ function ComingSoon({ title }: { title: string }) {
 export default function AdminApp() {
   const isAuthed = !!localStorage.getItem(ADMIN_PASS_KEY);
 
-  if (!isAuthed) {
-    return <AdminLogin />;
-  }
+  if (!isAuthed) return <AdminLogin />;
 
   return (
     <AdminLayout>
       <Routes>
-        <Route index element={<AdminOverview />} />
-        <Route path="clients"  element={<ComingSoon title="Clients" />} />
-        <Route path="channels" element={<ComingSoon title="Channels" />} />
-        <Route path="training" element={<ComingSoon title="Knowledge Base" />} />
-        <Route path="reports"  element={<ComingSoon title="Reports" />} />
-        <Route path="settings" element={<ComingSoon title="Settings" />} />
+        <Route index element={<AdminHome />} />
+        <Route path="clients"  element={<Placeholder title="Clients" description="Create and manage client accounts." />} />
+        <Route path="intake"   element={<Placeholder title="Intake" description="New client onboarding and setup flow." />} />
+        <Route path="channels" element={<Placeholder title="Channels Setup" description="Configure Meta, WhatsApp, and Zernio channel connections per client." />} />
+        <Route path="monitor"  element={<Placeholder title="Monitoring" description="Live activity and health across all client accounts." />} />
+        <Route path="settings" element={<Placeholder title="Settings" description="Internal admin configuration." />} />
         <Route path="*"        element={<Navigate to="/admin" replace />} />
       </Routes>
     </AdminLayout>

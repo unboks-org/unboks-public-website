@@ -17,8 +17,8 @@ import { cn } from "@dashboard/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 
 const FILTERS = ["All", "Semi", "Full", "Pending", "Resolved"];
-const HIDDEN_KEY = "bluemarlin_hidden_escalations";
-const READ_KEY = "bluemarlin_read_escalations";
+const HIDDEN_KEY = "unboks_hidden_escalations";
+const READ_KEY = "unboks_read_escalations";
 
 function useHiddenEscalations() {
   const load = (): Set<string> => {
@@ -69,8 +69,8 @@ export default function Escalations() {
 
   useEffect(() => {
     const handler = () => { setView("list"); setSelectedId(null); };
-    window.addEventListener("bluemarlin:nav:escalations", handler);
-    return () => window.removeEventListener("bluemarlin:nav:escalations", handler);
+    window.addEventListener("unboks:nav:escalations", handler);
+    return () => window.removeEventListener("unboks:nav:escalations", handler);
   }, []);
 
   const { hidden, hide, unhide, unhideAll } = useHiddenEscalations();

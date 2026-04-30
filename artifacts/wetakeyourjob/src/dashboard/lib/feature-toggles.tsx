@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 
-const STORAGE_KEY = "bluemarlin_features";
+const STORAGE_KEY = "unboks_features";
 
 interface Features {
   showSocial: boolean;

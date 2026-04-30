@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-const EMAIL_KEY = "bluemarlin_email_settings";
+const EMAIL_KEY = "unboks_email_settings";
 
 export interface EmailSettings {
   enabled: boolean;

@@ -20,7 +20,7 @@ import { useConversations } from "@dashboard/hooks/use-client-api";
 import { useReadStatus } from "@dashboard/hooks/use-read-status";
 import { PRODUCT_NAME } from "@dashboard/lib/tenant";
 
-const HIDDEN_KEY = "bluemarlin_hidden_conversations";
+const HIDDEN_KEY = "unboks_hidden_conversations";
 function getHiddenSet(): Set<string> {
   try {
     const raw = localStorage.getItem(HIDDEN_KEY);
@@ -198,7 +198,7 @@ export function AppLayout() {
         to="/dashboard"
         onClick={() => {
           setMobileOpen(false);
-          window.dispatchEvent(new Event("bluemarlin:nav:messages"));
+          window.dispatchEvent(new Event("unboks:nav:messages"));
         }}
         className="flex items-center h-[56px] px-4 border-b border-[#E5E7EB] shrink-0"
       >

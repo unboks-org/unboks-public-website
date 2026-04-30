@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 
-const DEFAULT_KEY = "bluemarlin_read_conversations";
-const EVENT_PREFIX = "bluemarlin:readStatus:";
+const DEFAULT_KEY = "unboks_read_conversations";
+const EVENT_PREFIX = "unboks:readStatus:";
 
-const HIDDEN_KEY = "bluemarlin_hidden_conversations";
-const HIDDEN_EVENT = "bluemarlin:hidden";
+const HIDDEN_KEY = "unboks_hidden_conversations";
+const HIDDEN_EVENT = "unboks:hidden";
 
 function loadHiddenSet(): Set<string> {
   try {

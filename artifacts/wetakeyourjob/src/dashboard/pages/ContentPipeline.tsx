@@ -52,12 +52,12 @@ export default function ContentPipeline() {
 
   // Track which draft IDs have been manually edited
   const [editedIds, setEditedIds] = useState<Set<number>>(() => {
-    try { return new Set(JSON.parse(localStorage.getItem("bluemarlin_edited_ids") ?? "[]")); } catch { return new Set(); }
+    try { return new Set(JSON.parse(localStorage.getItem("unboks_edited_ids") ?? "[]")); } catch { return new Set(); }
   });
   const markEdited = (id: number) => {
     setEditedIds(prev => {
       const next = new Set(prev); next.add(id);
-      localStorage.setItem("bluemarlin_edited_ids", JSON.stringify([...next]));
+      localStorage.setItem("unboks_edited_ids", JSON.stringify([...next]));
       return next;
     });
   };

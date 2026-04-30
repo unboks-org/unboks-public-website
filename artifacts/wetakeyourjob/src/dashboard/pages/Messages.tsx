@@ -18,7 +18,7 @@ import { XBrandIcon } from "@dashboard/components/ui/x-brand-icon";
 import { cn } from "@dashboard/lib/utils";
 import { isToday, isThisYear, format, formatDistanceToNow } from "date-fns";
 
-const HIDDEN_KEY = "bluemarlin_hidden_conversations";
+const HIDDEN_KEY = "unboks_hidden_conversations";
 
 function GmailCheckbox({
   checked,
@@ -73,7 +73,7 @@ function useHiddenConversations() {
     setHidden((prev) => {
       const next = new Set(prev); next.add(phone);
       localStorage.setItem(HIDDEN_KEY, JSON.stringify([...next]));
-      window.dispatchEvent(new Event("bluemarlin:hidden"));
+      window.dispatchEvent(new Event("unboks:hidden"));
       return next;
     });
   }, []);
@@ -82,7 +82,7 @@ function useHiddenConversations() {
     setHidden((prev) => {
       const next = new Set(prev); next.delete(phone);
       localStorage.setItem(HIDDEN_KEY, JSON.stringify([...next]));
-      window.dispatchEvent(new Event("bluemarlin:hidden"));
+      window.dispatchEvent(new Event("unboks:hidden"));
       return next;
     });
   }, []);
@@ -90,7 +90,7 @@ function useHiddenConversations() {
   const unhideAll = useCallback(() => {
     localStorage.removeItem(HIDDEN_KEY);
     setHidden(new Set());
-    window.dispatchEvent(new Event("bluemarlin:hidden"));
+    window.dispatchEvent(new Event("unboks:hidden"));
   }, []);
 
   return { hidden, hide, unhide, unhideAll };
@@ -376,8 +376,8 @@ export default function Messages() {
 
   useEffect(() => {
     const handler = () => { setView("list"); setSelectedPhone(""); };
-    window.addEventListener("bluemarlin:nav:messages", handler);
-    return () => window.removeEventListener("bluemarlin:nav:messages", handler);
+    window.addEventListener("unboks:nav:messages", handler);
+    return () => window.removeEventListener("unboks:nav:messages", handler);
   }, []);
 
   const deleteConv = useDeleteConversation();
