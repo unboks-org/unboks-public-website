@@ -216,7 +216,7 @@ a, button, input, textarea {
   #dashboard-root {
     @apply font-sans antialiased text-foreground min-h-screen;
     @apply selection:bg-primary/15 selection:text-primary;
-    background-color: hsl(var(--background));
+    background-color: #FFFFFF;
     letter-spacing: -0.01em;
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
@@ -227,9 +227,9 @@ a, button, input, textarea {
   #dashboard-root h4,
   #dashboard-root h5,
   #dashboard-root h6 {
-    font-family: var(--font-display);
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     @apply font-semibold tracking-tight;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: hsl(var(--foreground));
   }
 

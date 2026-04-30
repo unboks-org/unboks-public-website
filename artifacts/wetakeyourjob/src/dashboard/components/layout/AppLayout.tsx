@@ -115,7 +115,7 @@ function TopBar({ onLogout }: { onLogout: () => void }) {
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search in conversations"
             style={{ paddingLeft: '48px' }}
-            className="w-full h-[46px] pr-4 rounded-3xl bg-[#F1F3F4] border border-transparent text-[14px] text-[#202124] placeholder:text-[#6B7280] focus:outline-none focus:bg-white focus:shadow-[0_1px_6px_rgba(32,33,36,0.28)] focus:border-[#DADCE0] transition-all"
+            className="w-full h-[46px] pr-4 rounded-[8px] bg-[#F1F3F4] border border-transparent text-[14px] text-[#202124] placeholder:text-[#6B7280] focus:outline-none focus:bg-white focus:shadow-[0_1px_6px_rgba(32,33,36,0.28)] focus:border-[#DADCE0] transition-all"
           />
         </div>
       ) : (
@@ -271,7 +271,7 @@ export function AppLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <aside className="hidden md:block w-[256px] glass-panel shrink-0 z-20">
+      <aside className="hidden md:block w-[256px] bg-white border-r border-[#E5E7EB] shrink-0 z-20">
         <SidebarContent hideActions />
       </aside>
 
@@ -298,14 +298,14 @@ export function AppLayout() {
           </div>
         </header>
 
-        {/* inbox is full-bleed and handles its own scroll; other pages get padded wrapper */}
+        {/* inbox is full-bleed; other pages get a flat white scrollable area */}
         {(location.pathname === "/dashboard" || location.pathname === "/dashboard/") ? (
           <div className="flex-1 overflow-hidden flex flex-col min-h-0">
             <Outlet />
           </div>
         ) : (
-          <main className="flex-1 overflow-y-auto p-5 md:p-8">
-            <div className="max-w-6xl mx-auto">
+          <main className="flex-1 overflow-y-auto bg-white">
+            <div className="px-8 py-6">
               <Outlet />
             </div>
           </main>

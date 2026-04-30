@@ -7,10 +7,9 @@ import { Skeleton } from "@dashboard/components/ui/skeleton";
 import { Button } from "@dashboard/components/ui/button";
 import { ErrorState } from "@dashboard/components/ui/error-state";
 import { useNavigate } from "react-router-dom";
-import { useGoBack } from "@dashboard/hooks/use-go-back";
 import {
   HardDrive, CheckCircle2, XCircle, ChevronDown, ChevronUp,
-  Info, Code, Map, Ship, Sun, Palette, ArrowRight, ArrowLeft, FolderOpen,
+  Info, Code, Map, Ship, Sun, Palette, ArrowRight, FolderOpen,
   Settings as SettingsIcon, CalendarDays, Plus, Clock, X, Mail, BrainCircuit, RefreshCw, Zap, Wrench,
   LayoutDashboard, Share2, PenSquare, BarChart3,
   Building2, FileText, Users, Bell, Globe, Upload, Lock, ChevronRight,
@@ -103,7 +102,6 @@ function ComingSoon({ label }: { label: string }) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Settings() {
   const navigate = useNavigate();
-  const goBack = useGoBack();
   const { data: config, isLoading: configLoading, error: configError, refetch: refetchConfig } = useConfig();
   const { data: driveStatus } = useGoogleDriveStatus();
   const { disconnect: driveDisconnect, setFolder: driveSetFolder, sync: driveSync } = useGoogleDriveMutations();
@@ -144,9 +142,6 @@ export default function Settings() {
 
   return (
     <div className="max-w-3xl pb-16">
-      <button onClick={goBack} className="flex items-center gap-1.5 text-[13px] text-[#5F6368] hover:text-[#202124] transition-colors mb-4">
-        <ArrowLeft className="w-4 h-4" /> Back
-      </button>
       <div className="mb-5">
         <h1 className="text-[18px] font-semibold text-[#202124] mb-1">Settings</h1>
         <p className="text-[13px] text-[#5F6368]">Manage your account, AI knowledge, team, and integrations.</p>
