@@ -1,0 +1,100 @@
+Do not change code yet.
+
+I need you to document the product/app structure inside this Replit project.
+
+Context:
+The Unboks.org Replit project contains three different app surfaces:
+
+1. Public Website
+- This is the customer-facing marketing website.
+- Purpose: explain Unboks and convert visitors.
+- Route should be the public homepage, likely /.
+- Branding: premium Unboks.org marketing brand.
+
+2. Customer Dashboard
+- This is for Unboks customers after they log in.
+- They access it from the Login button on the public website.
+- Purpose: see their one inbox, escalations, channels, settings, knowledge/source of truth, documents, integrations, and automation controls.
+- Each customer/client has their own backend data/profile/config.
+- This dashboard should look like a premium Gmail/Google Inbox-style operational inbox.
+
+3. Internal Unboks Admin Dashboard
+- This is for the Unboks company/team only.
+- Purpose: create customers, manage clients, perform intake, connect channels, edit customer profiles, manage knowledge base, manage Meta/Zernio setup, and monitor client accounts.
+- This is not the same as the customer dashboard.
+- This should have its own route, likely /admin.
+
+Task:
+Audit the existing project and tell me how these three surfaces are currently represented in code.
+
+Do not edit files.
+
+Please report:
+
+1. Current routes
+- What route renders the public website?
+- What route renders login?
+- What route renders customer dashboard?
+- Is there currently an internal admin dashboard?
+- Are any routes mixed or ambiguous?
+
+2. Current files
+List the files/components for:
+- public website
+- login page
+- customer dashboard
+- internal admin dashboard, if it exists
+
+3. Current naming problems
+Find any confusing names such as:
+- BlueMarlin
+- WTYJ
+- demo
+- dashboard used for multiple meanings
+- customer dashboard vs internal admin dashboard mixed together
+- old archive components
+
+4. Recommended route structure
+Recommend the clean final route structure for:
+- public website
+- customer login
+- customer dashboard
+- internal admin dashboard
+- internal customer intake/setup pages
+
+5. Recommended code folder structure
+Recommend a clean folder structure, for example:
+src/public-site/
+src/customer-dashboard/
+src/internal-admin/
+src/shared/
+src/auth/
+src/api/
+
+6. Data separation
+Explain how customer data should be separated:
+- each client/customer has their own profile/config
+- customer dashboard only shows that customer’s data
+- internal admin can see/manage all customers
+- channel connections belong to a customer
+- knowledge base belongs to a customer
+- escalation rules belong to a customer
+
+7. Branding/design separation
+Explain which design style each surface should use:
+- public site: premium marketing brand
+- customer dashboard: Gmail/Inbox-style operational UI
+- internal admin: clean admin/customer management UI
+
+8. Risk assessment
+Tell me if the current code mixes these three surfaces in a way that causes design prompts to fail.
+
+9. Recommended next step
+Should we:
+A. keep current structure and rename/refactor
+B. create clean route/folder separation
+C. split into separate Replit projects later
+
+Output:
+Give a clear audit with exact file paths and route names.
+Do not change code yet.
