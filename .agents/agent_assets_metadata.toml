@@ -77,3 +77,9 @@ id = "fZh3z9uxQWjNxFYSLiLhS"
 uri = "file://dashboard_core.zip"
 type = "unspecified"
 title = "Dashboard Core Code (pages, auth, lib, hooks)"
+
+[[outputs]]
+id = "5xVLPNG7_Btw3RXyT6F2P"
+uri = "file://DASHBOARD_FUNCTIONALITY_EXTRACTION.md"
+type = "text"
+title = "Dashboard Functionality Extraction"

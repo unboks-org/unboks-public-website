@@ -1,0 +1,177 @@
+TASK: Extract ONLY the functional “under-the-hood” dashboard technology from this old mixed project.
+
+CONTEXT:
+This old project contains multiple things mixed together:
+1. Public customer-facing Unboks.org website
+2. Old dashboard UI/design
+3. Dashboard backend/data/auth/API/functionality
+
+I am building a NEW separate dashboard project with a new clean UI already completed.
+I do NOT want to copy the old dashboard design.
+I do NOT want to change the public website.
+I only want to extract the dashboard functionality layer so it can be reused inside the new dashboard project.
+
+ABSOLUTE RULES:
+- DO NOT modify the public Unboks.org website.
+- DO NOT redesign anything.
+- DO NOT copy old dashboard styling, layouts, branding, CSS, UI components, visual shells, sidebar design, colors, animations, or page structure.
+- DO NOT delete working functionality.
+- DO NOT “improve” the product.
+- DO NOT rebuild from scratch.
+- DO NOT make assumptions.
+- This is an extraction/audit task only.
+
+GOAL:
+Create a clean technical extraction package/document that tells me exactly what must be moved into the new dashboard project so the new dashboard keeps its new design but gains the old working functionality.
+
+EXTRACT ONLY:
+1. Authentication logic
+   - login flow
+   - session/token storage
+   - protected routes
+   - logout
+   - user/client identity handling
+
+2. API layer
+   - dashboard API routes
+   - endpoints used by messages, escalations, bookings, channels, settings, analytics
+   - request/response shapes
+   - API client/helper files
+
+3. Data models/types
+   - message/conversation types
+   - escalation types
+   - booking/order types
+   - channel/source types
+   - customer/contact types
+   - settings/source-of-truth types
+
+4. Functional business logic
+   - inbox filtering
+   - platform/channel filtering
+   - escalation status handling
+   - booking list/detail logic
+   - mark read/unread
+   - archive
+   - reply/send message logic if present
+   - source-of-truth upload/management logic if present
+   - notification logic if present
+
+5. Backend/server files required for dashboard functionality
+   - routes
+   - controllers
+   - storage/db files
+   - schema files
+   - auth middleware
+   - environment variables
+   - config files
+
+6. Integration points
+   - WhatsApp/Meta/email/social integrations if present
+   - Zernio references if present
+   - booking/calendar integrations if present
+   - file upload/storage integrations if present
+
+DO NOT EXTRACT:
+- Old dashboard CSS
+- Old dashboard visual components
+- Old dashboard layout shell
+- Old dashboard sidebar/topbar design
+- Marketing website files
+- Homepage files
+- Landing page assets
+- Any visual redesign code
+- Any dead/demo/unused UI code unless it is required for functionality
+
+OUTPUT REQUIRED:
+Create a file called:
+
+DASHBOARD_FUNCTIONALITY_EXTRACTION.md
+
+The file must contain:
+
+SECTION 1 — Executive Summary
+Explain in plain English what the old dashboard functionality consists of.
+
+SECTION 2 — Files To Copy Into New Dashboard Project
+Provide exact file paths.
+For each file, label it:
+- REQUIRED
+- OPTIONAL
+- DO NOT COPY
+
+SECTION 3 — API Contract
+List every dashboard-related API endpoint found.
+For each endpoint include:
+- method
+- path
+- purpose
+- auth required yes/no
+- request body shape
+- response body shape
+- frontend files that use it
+
+SECTION 4 — Auth Flow
+Explain exactly how login works.
+Include:
+- login route
+- token/session storage
+- protected route logic
+- logout logic
+- required environment variables
+
+SECTION 5 — Data Types / Models
+List all relevant interfaces/types/schemas for:
+- messages
+- conversations
+- escalations
+- bookings/orders
+- channels
+- customers
+- settings
+- source of truth
+
+SECTION 6 — Functional Mapping For New Dashboard
+Map old functionality to the new dashboard buttons/pages:
+
+New dashboard Inbox page needs:
+- exact old files/functions/endpoints required
+
+New dashboard Escalations page needs:
+- exact old files/functions/endpoints required
+
+New dashboard Bookings/Orders page needs:
+- exact old files/functions/endpoints required
+
+New dashboard Channels page needs:
+- exact old files/functions/endpoints required
+
+New dashboard Settings page needs:
+- exact old files/functions/endpoints required
+
+New dashboard Analytics page needs:
+- exact old files/functions/endpoints required
+
+SECTION 7 — Environment Variables
+List every env var needed for dashboard functionality.
+Explain what each one does.
+
+SECTION 8 — Migration Instructions
+Give step-by-step instructions for copying the functionality into the new dashboard project.
+Keep the new dashboard UI untouched.
+Only connect buttons/pages to the extracted logic.
+
+SECTION 9 — Risk List
+List anything that may break when moving functionality.
+List missing dependencies.
+List hardcoded paths.
+List old assumptions tied to the old project structure.
+
+SECTION 10 — Final Rule
+Clearly state:
+“The new dashboard project must keep its new design. Only the functional logic, API connections, auth, data models, and backend integrations should be migrated.”
+
+IMPORTANT:
+Do not edit code yet.
+Do not move files yet.
+Only inspect the project and create DASHBOARD_FUNCTIONALITY_EXTRACTION.md.
