@@ -1,0 +1,178 @@
+TASK: Create a full technical handover report for Jr.
+
+CONTEXT:
+Jr will take over the next phase of Unboks.
+He needs to connect the LLM/AI system to all communication channels.
+He needs maximum context about the current codebase, website state, dashboard split, routes, files, dependencies, and what still exists.
+
+DO NOT CHANGE CODE.
+DO NOT DELETE FILES.
+DO NOT INSTALL PACKAGES.
+ONLY INSPECT AND DOCUMENT.
+
+OUTPUT FILE:
+Create:
+
+JR_TECHNICAL_HANDOVER.md
+
+REPORT MUST INCLUDE:
+
+1. Project Overview
+- What this project is
+- What this project is not
+- Whether this is public website, dashboard, backend, demo, or admin
+
+2. Current App Architecture
+- Framework
+- Build tool
+- package manager
+- folder structure
+- entry points
+- routing system
+- deployment type
+
+3. Current Routes
+List every active route:
+- path
+- component/file used
+- purpose
+- public/private
+- whether it should stay
+
+4. Dashboard Split Status
+Confirm whether dashboard files still exist.
+Search for:
+- dashboard
+- login
+- AuthProvider
+- ProtectedRoute
+- useAuth
+- api.wetakeyourjob.com
+- wtyj_token
+- wtyj_client
+- /dashboard
+- /login
+
+For each result:
+- file path
+- line number
+- whether it is active or dead code
+
+5. Public Website State
+Document:
+- homepage file
+- CSS files
+- assets used
+- language/i18n files
+- login button destination
+- external links
+- forms/contact actions if any
+
+6. Admin Panel State
+Document:
+- route
+- files
+- purpose
+- auth/password method if any
+- whether it uses backend/API
+- risks, especially hardcoded secrets
+
+7. Demo State
+Document:
+- route
+- files
+- purpose
+- whether it uses real or mock data
+- whether it has API calls
+- dependencies
+
+8. API / Backend Usage
+Search for:
+- fetch(
+- axios
+- api.
+- import.meta.env
+- process.env
+- VITE_
+- DATABASE_URL
+- SESSION_SECRET
+
+Document:
+- every API call
+- every env var
+- every backend dependency
+- whether this project is static or backend-connected
+
+9. Dependencies
+List package.json dependencies and devDependencies.
+Classify each as:
+- public website required
+- admin required
+- demo required
+- unused / possible removal
+- unknown
+
+10. Assets
+Document:
+- attached_assets usage
+- public assets
+- image imports
+- logo usage
+- whether assets are bundled at build time
+- anything needed when moving workspace
+
+11. Build / Deployment
+Document:
+- build command
+- dev command
+- output folder
+- artifact.toml settings
+- rewrite rules
+- custom domain notes
+- DNS notes if present
+
+12. Current Secrets / Env Requirements
+Document:
+- required secrets
+- optional secrets
+- platform-managed variables
+- whether secrets need to be copied to another workspace
+
+13. LLM / Channel Integration Readiness
+For Jr specifically:
+- what code exists for channels
+- what code does NOT exist
+- whether WhatsApp/email/Instagram/Facebook/Telegram/Messenger integrations exist here
+- where those should live
+- what should not be added to public website
+- what should belong in dashboard/backend
+
+14. Risks / Warnings
+List:
+- hardcoded passwords
+- dead code
+- coupling risks
+- missing assets
+- DNS assumptions
+- deployment risks
+
+15. Final Summary For Jr
+Write a plain-English summary:
+- what this repo currently does
+- what Jr should touch
+- what Jr should not touch
+- where LLM/channel work should happen
+
+REQUIRED VERIFICATION:
+Run:
+- typecheck
+- build
+
+Include results in the report.
+
+FINAL RULE:
+This is an inspection and documentation task only.
+Do not modify app behavior.
+Do not refactor.
+Do not clean up.
+Only create JR_TECHNICAL_HANDOVER.md.

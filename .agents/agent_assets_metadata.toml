@@ -107,3 +107,9 @@ id = "aUR0q4gZIZFbR-IYaCuHd"
 uri = "file://unboks-website-migration.zip"
 type = "unspecified"
 title = "unboks-website-migration.zip"
+
+[[outputs]]
+id = "cyY6jrAW4ODNF_MWOhG5G"
+uri = "file://JR_TECHNICAL_HANDOVER.md"
+type = "text"
+title = "JR_TECHNICAL_HANDOVER.md"
