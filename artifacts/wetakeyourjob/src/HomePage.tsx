@@ -77,7 +77,7 @@ export default function HomePage() {
         <div className="nav-links">
           <a href="#services">{tx.nav_services}</a>
           <a href="#how">{tx.nav_how}</a>
-          <a href="#contact">{tx.nav_contact}</a>
+          <a href="/contact">{tx.nav_contact}</a>
         </div>
         <div className="nav-actions">
           <div className="lang-dropdown" ref={dropRef}>
