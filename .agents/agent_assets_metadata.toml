@@ -95,3 +95,9 @@ id = "M4_kZXLIqh8myhzPwscPJ"
 uri = "file://SPLIT_REPORT.md"
 type = "text"
 title = "SPLIT_REPORT.md"
+
+[[outputs]]
+id = "i4-0g_Xh9VF6t8GNFZfTK"
+uri = "file://MIGRATION_READINESS_REPORT.md"
+type = "text"
+title = "MIGRATION_READINESS_REPORT.md"
