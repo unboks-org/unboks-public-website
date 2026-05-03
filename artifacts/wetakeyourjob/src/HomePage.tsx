@@ -109,7 +109,8 @@ export default function HomePage() {
               </div>
             )}
           </div>
-          <a href="/login" className="btn-ghost">{tx.nav_login}</a>
+          {/* TODO: point this to final dashboard deployment URL if different */}
+          <a href="https://dashboard.unboks.org" className="btn-ghost" target="_blank" rel="noopener noreferrer">{tx.nav_login}</a>
           <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.nav_cta}</a>
         </div>
       </nav>

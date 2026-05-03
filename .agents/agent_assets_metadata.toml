@@ -83,3 +83,15 @@ id = "5xVLPNG7_Btw3RXyT6F2P"
 uri = "file://DASHBOARD_FUNCTIONALITY_EXTRACTION.md"
 type = "text"
 title = "Dashboard Functionality Extraction"
+
+[[outputs]]
+id = "bqZwlGY7wjwG0dEKRH7Rg"
+uri = "file://SPLIT_AUDIT.md"
+type = "text"
+title = "SPLIT_AUDIT.md"
+
+[[outputs]]
+id = "M4_kZXLIqh8myhzPwscPJ"
+uri = "file://SPLIT_REPORT.md"
+type = "text"
+title = "SPLIT_REPORT.md"

@@ -1,0 +1,149 @@
+TASK: Split this mixed project into two clean apps: public website and customer dashboard.
+
+CONTEXT:
+This project currently contains BOTH:
+1. Customer-facing Unboks.org website
+2. Customer dashboard / login / auth / dashboard routes
+
+The dashboard has already moved or will move to a separate standalone Replit project.
+This current project must become ONLY the public customer-facing website.
+
+GOAL:
+Cleanly separate the two products:
+- Project A: Unboks.org public website only
+- Project B: Standalone customer dashboard
+
+THIS TASK IS FOR PROJECT A ONLY.
+
+ABSOLUTE RULES:
+- Do NOT damage the public website.
+- Do NOT change public website design/content.
+- Do NOT delete anything before identifying whether it belongs to website or dashboard.
+- Do NOT keep dashboard code inside Project A.
+- Do NOT keep dead imports/routes.
+- Login button must remain, but link externally to the dashboard project.
+- No dashboard UI should render inside this project anymore.
+
+STEP 1 — AUDIT FIRST:
+Create SPLIT_AUDIT.md listing:
+
+A. Public website files to KEEP
+B. Dashboard files to REMOVE
+C. Shared files used by both
+D. Dependencies used only by dashboard
+E. Routes currently active
+F. Login/dashboard links currently active
+
+Classify every relevant file before deleting.
+
+Dashboard-related includes:
+- login page
+- auth provider
+- protected routes
+- dashboard pages
+- dashboard layout
+- inbox
+- escalations
+- bookings/orders
+- settings
+- analytics
+- channels
+- dashboard API client
+- dashboard hooks
+- dashboard localStorage keys
+- dashboard route definitions
+
+STEP 2 — PRESERVE SHARED UTILITIES:
+If a shared file is used by the public website, keep it.
+Examples:
+- src/lib/utils.ts can stay if public website uses cn()
+- shared UI components can stay only if public website imports them
+- remove dashboard-only functions from shared files if safe
+
+STEP 3 — REMOVE DASHBOARD FROM PROJECT A:
+After audit, delete dashboard-only files and folders.
+
+Remove routes:
+- /login
+- /dashboard
+- /dashboard/*
+- /dashboard/login
+- any protected route wrapper
+
+Remove code references:
+- AuthProvider
+- ProtectedRoute
+- useAuthContext
+- useAuth
+- dashboard API client
+- wtyj_client
+- wtyj_token
+- api.wetakeyourjob.com
+- dashboard/api
+
+STEP 4 — LOGIN LINK BEHAVIOR:
+Keep the public website Login button.
+
+Change it to an external link to the standalone dashboard.
+
+Use:
+https://dashboard.unboks.org
+
+If that domain is not live yet, still use it and add:
+TODO: point this to final dashboard deployment URL if different.
+
+The website should NOT render login itself anymore.
+
+STEP 5 — ROUTER CLEANUP:
+Simplify routing so Project A serves only public website routes.
+
+Keep:
+- /
+- any public marketing/legal/contact routes that already exist
+
+Remove:
+- all dashboard/auth routes
+
+STEP 6 — PACKAGE CLEANUP:
+Remove dashboard-only dependencies only if unused by website:
+- @tanstack/react-query
+- dashboard-only chart libraries
+- dashboard-only form libraries
+- dashboard-only auth/state packages
+
+Do not remove:
+- React
+- Vite
+- Tailwind
+- public website dependencies still in use
+
+STEP 7 — VERIFY:
+Run build/typecheck.
+
+Fix:
+- broken imports
+- dead routes
+- missing references
+- unused dashboard wrappers
+
+ACCEPTANCE:
+- Public website loads correctly at /
+- Public website design is unchanged
+- Login button exists
+- Login button links externally to https://dashboard.unboks.org
+- No dashboard route works inside this project
+- No dashboard login page exists inside this project
+- No dashboard API/auth code remains unless explicitly shared and still needed
+- No TypeScript errors
+- Build passes
+
+OUTPUT:
+Create SPLIT_REPORT.md with:
+1. Files kept for public website
+2. Dashboard files removed
+3. Shared files kept
+4. Routes removed
+5. Routes remaining
+6. Login link destination
+7. Dependencies removed
+8. Build result

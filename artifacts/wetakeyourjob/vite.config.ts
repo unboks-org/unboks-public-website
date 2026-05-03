@@ -34,7 +34,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
-      "@dashboard": path.resolve(import.meta.dirname, "src/dashboard"),
       "@demo": path.resolve(import.meta.dirname, "src/demo/bluemarlin"),
       "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
     },
