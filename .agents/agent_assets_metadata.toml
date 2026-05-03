@@ -101,3 +101,9 @@ id = "i4-0g_Xh9VF6t8GNFZfTK"
 uri = "file://MIGRATION_READINESS_REPORT.md"
 type = "text"
 title = "MIGRATION_READINESS_REPORT.md"
+
+[[outputs]]
+id = "aUR0q4gZIZFbR-IYaCuHd"
+uri = "file://unboks-website-migration.zip"
+type = "unspecified"
+title = "unboks-website-migration.zip"
