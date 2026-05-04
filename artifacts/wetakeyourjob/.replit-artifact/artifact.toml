@@ -15,10 +15,10 @@ paths = [ "/" ]
 localPort = 26169
 
 [services.development]
-run = "pnpm --filter @workspace/wetakeyourjob run dev"
+run = "pnpm --filter @workspace/unboks-public-website run dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/wetakeyourjob", "run", "build" ]
+build = [ "pnpm", "--filter", "@workspace/unboks-public-website", "run", "build" ]
 publicDir = "artifacts/wetakeyourjob/dist/public"
 serve = "static"
 
