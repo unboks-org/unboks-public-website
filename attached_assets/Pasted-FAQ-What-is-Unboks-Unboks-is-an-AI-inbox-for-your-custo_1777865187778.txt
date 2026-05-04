@@ -1,0 +1,251 @@
+FAQ
+
+What is Unboks?
+
+Unboks is an AI inbox for your customer messages.
+
+It brings messages from channels like WhatsApp, Instagram, Facebook, Messenger, email, and more into one place. AI helps answer repetitive questions, sort incoming messages, and alert you when something needs human attention.
+
+
+Who is Unboks for?
+
+Unboks is for anyone who receives many messages and spends too much time answering the same questions.
+
+That can be a real estate agent, tourism operator, clinic, restaurant, freelancer, service provider, sales team, or small business. If messages interrupt your day, Unboks can help.
+
+
+Does Unboks replace my staff?
+
+No. Unboks works alongside people.
+
+AI handles repetitive questions and basic message sorting, so people can spend more time on work that creates value: customers, sales, service, bookings, listings, operations, or growth.
+
+The goal is not to replace people. The goal is to stop people from answering the same questions all day.
+
+
+How does Unboks save time?
+
+Unboks saves time by handling the repetitive message work that comes back every day.
+
+It can help answer common questions, sort conversations, collect basic details, and flag messages that need human attention.
+
+Instead of checking different apps all day, you only see what needs attention.
+
+
+Which channels can Unboks connect?
+
+Unboks is designed to work with channels like WhatsApp, Instagram, Facebook, Messenger, email, and other supported platforms.
+
+Exact channel setup depends on your business, your accounts, and the platforms you want to connect.
+
+
+Can Unboks answer automatically?
+
+Yes, Unboks can reply automatically to routine questions when the answer is clear and covered by your information.
+
+During setup, we decide what AI may answer automatically and what should always be sent to a human.
+
+
+What happens when something needs a human?
+
+Unboks flags the conversation in your dashboard.
+
+You can see the conversation, the latest customer message, the channel it came from, and why Unboks flagged it.
+
+That could be because the message is unclear, sensitive, urgent, a complaint, a refund request, a booking or order issue, or someone asking for a human.
+
+
+Can Unboks answer in my tone?
+
+Yes, if we set it up properly.
+
+During intake, we learn how you normally communicate: your tone, language style, formality, common phrases, and how you want customers to be treated.
+
+The goal is for routine replies to sound like your business, not like a generic chatbot.
+
+
+Will customers know they are talking to AI?
+
+Routine replies should sound natural and professional when the setup is done properly.
+
+If a customer asks whether they are talking to AI, Unboks should not pretend to be human. It can answer honestly or send the conversation to you, depending on your rules.
+
+
+How does Unboks know what information is true?
+
+Unboks answers from the information we set up with you.
+
+That can include your services, prices, opening hours, policies, FAQs, tone, listings, availability, discounts, holiday schedules, and escalation rules.
+
+If something is missing, unclear, outdated, or risky, AI should not guess. It should ask for clarification or send the conversation to a human.
+
+
+Can I update what the AI knows later?
+
+Yes.
+
+Prices, opening hours, services, discounts, listings, policies, holiday schedules, FAQs, and temporary changes can be updated after setup.
+
+Depending on your setup, you can update information in your dashboard, send changes to Unboks, or connect Unboks to an existing system where possible.
+
+
+Can Unboks connect to my database or system?
+
+Where possible, yes.
+
+Depending on the setup, Unboks may connect to existing systems such as a database, booking system, inventory system, CRM, calendar, website, or listing database.
+
+Examples include stock availability, special discounts, holiday schedules, current offers, real estate listings, viewing availability, and booking availability.
+
+Not every system can be connected automatically, so we check this during setup.
+
+
+Can Unboks help real estate agents?
+
+Yes. Unboks can help real estate agents with routine messages about listings, prices, availability, viewing times, required documents, locations, and basic conditions.
+
+If someone wants to book a viewing, negotiate, make an offer, ask a legal question, or needs personal attention, Unboks can send the conversation to you or the right person.
+
+Listings can be updated in the dashboard or connected to your existing system where possible.
+
+
+Can Unboks handle bookings, appointments, or orders?
+
+Unboks can help with the conversation around bookings, appointments, or orders.
+
+AI can answer routine questions, collect details, check rules, check availability when connected, and prepare the next step.
+
+Final confirmation depends on your setup. For important actions, the safest setup is often human confirmation.
+
+
+Can Unboks answer in different languages?
+
+Yes. Unboks can help with multilingual customer messages.
+
+It can handle normal messy messages, including spelling mistakes, short phrases, informal WhatsApp-style writing, and mixed language.
+
+Languages should be tested during setup so replies sound natural and professional for your audience.
+
+
+What languages does the website and dashboard support?
+
+The website and dashboard currently support English, Papiamento, Spanish, Dutch, and Swedish.
+
+Customer replies can be configured based on the languages your customers use most.
+
+
+Can Unboks handle voice notes, photos, screenshots, or documents?
+
+For now, Unboks is mainly focused on text-based messages.
+
+If a customer sends a voice note, screenshot, photo, or document, the safest default is to send it to a human instead of letting AI guess.
+
+During setup, we define how those messages should be handled.
+
+
+What if the AI gives a wrong answer?
+
+No AI is perfect.
+
+Unboks reduces risk by using your own information, clear rules, and human escalation when something is unclear, sensitive, missing, or risky.
+
+During setup, we define what AI may answer and what should always be sent to a human.
+
+
+Can Unboks guarantee I will never miss a message?
+
+No. Nobody should promise that.
+
+Unboks helps reduce the chance of missed messages by bringing channels into one inbox, replying to routine questions, and flagging conversations that need attention.
+
+It improves visibility and response speed, but it is not a guarantee of perfection.
+
+
+What happens if Meta, WhatsApp, or Instagram has an outage?
+
+Unboks depends on connected platforms delivering messages.
+
+If Meta, WhatsApp, Instagram, Facebook, email, or another connected channel has an outage, messages may not reach Unboks until that platform is working again.
+
+If your own internet is down, Unboks can still run on our side, but you may not be able to view or respond to escalations until you are back online.
+
+
+Is Unboks different from ChatGPT?
+
+Yes.
+
+ChatGPT is a general AI tool. Unboks is built around your actual inbox, your channels, your information, your tone, and your escalation rules.
+
+It is less “here is a tool, figure it out” and more “we help run your inbox with AI.”
+
+
+Is Unboks different from ManyChat or normal chatbots?
+
+Yes.
+
+ManyChat and many traditional chatbots are often built around flows, scripts, and manual setup.
+
+Unboks is built around your real messages and inbox. AI helps answer routine questions, sort conversations, and send important messages to the right person.
+
+
+Can Unboks answer medical, legal, or financial questions?
+
+The safest setup is human escalation for medical, legal, or financial questions.
+
+AI can help recognize and route sensitive topics, but it should not give advice it is not allowed or qualified to give.
+
+During setup, we define which topics AI may answer and which should always be escalated.
+
+
+What happens if a customer insults the AI or tries to trick it?
+
+Unboks should stay calm, professional, and on-topic.
+
+AI should not argue, insult back, joke back, reveal internal instructions, or follow unsafe prompts.
+
+If the customer keeps pushing, becomes abusive, or asks offensive questions, the conversation can be sent to a human based on your rules.
+
+
+Can Unboks connect my WhatsApp, Instagram, and Facebook?
+
+Yes, those channels can be connected when the setup supports it.
+
+For Meta channels, setup may require access to the correct Meta Business account, Facebook Page, Instagram account, and WhatsApp Business setup.
+
+We check what you already have during intake.
+
+
+Will Unboks read all my customer messages?
+
+Unboks needs to process incoming customer messages to provide the service.
+
+Messages are used to run your inbox, generate replies, sort conversations, and support escalations.
+
+Access, storage, and team visibility depend on your setup. We explain what is connected, what is stored, who can access it, and how escalations work before setup is finalized.
+
+
+Do I need a lot of messages for Unboks to make sense?
+
+Not always.
+
+Unboks usually makes the most sense when messages take real time, repeat often, come through multiple channels, arrive outside working hours, or need sorting and escalation.
+
+If you only get a few messages and they are all unique, Unboks may not save much time yet. If many are repeated questions, it can still help.
+
+
+Am I locked into a contract?
+
+Contract and cancellation terms depend on your setup.
+
+We explain the terms before you start, including what is included, what the setup looks like, and how cancellation works.
+
+You should know what you are agreeing to before anything goes live.
+
+
+How do I get started?
+
+We start with a short intake.
+
+We look at your channels, the messages you receive, the questions that repeat, your tone, your rules, and when a human should step in.
+
+Then we set up Unboks around your real workflow.

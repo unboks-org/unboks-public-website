@@ -15,6 +15,13 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_contact:    'Kontakto',
     nav_login:      'Drenta',
     nav_cta:        'Kuminsá',
+    nav_faq:        'FAQ',
+
+    faq_tag:        'Preguntanan',
+    faq_h1:         'Preguntanan frekuente.',
+    faq_sub:        'Tur loke bo mester sa tokante Unboks.',
+    faq_cta_text:   '¿Tin mas pregunta? Tuma kontakto direktamente.',
+    faq_cta_btn:    'Tuma kontakto',
 
     contact_tag:         'Haña bo tempu bèk',
     contact_h1:          'Tuma kontakto.',
@@ -80,6 +87,13 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_contact:    'Contact',
     nav_login:      'Log in',
     nav_cta:        'Get started',
+    nav_faq:        'FAQ',
+
+    faq_tag:        'Frequently asked questions',
+    faq_h1:         'FAQ.',
+    faq_sub:        'Everything you need to know about Unboks.',
+    faq_cta_text:   'Still have questions? Get in touch directly.',
+    faq_cta_btn:    'Contact us',
 
     contact_tag:         'Book a discovery call',
     contact_h1:          'Let\'s talk.',
@@ -145,6 +159,13 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_contact:    'Contacto',
     nav_login:      'Iniciar sesión',
     nav_cta:        'Empezar',
+    nav_faq:        'FAQ',
+
+    faq_tag:        'Preguntas frecuentes',
+    faq_h1:         'FAQ.',
+    faq_sub:        'Todo lo que necesitas saber sobre Unboks.',
+    faq_cta_text:   '¿Tienes más preguntas? Contáctanos directamente.',
+    faq_cta_btn:    'Contactar',
 
     contact_tag:         'Reserva una llamada',
     contact_h1:          'Hablemos.',
@@ -210,6 +231,13 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_contact:    'Contact',
     nav_login:      'Inloggen',
     nav_cta:        'Aan de slag',
+    nav_faq:        'FAQ',
+
+    faq_tag:        'Veelgestelde vragen',
+    faq_h1:         'FAQ.',
+    faq_sub:        'Alles wat je moet weten over Unboks.',
+    faq_cta_text:   'Nog vragen? Neem direct contact op.',
+    faq_cta_btn:    'Contact opnemen',
 
     contact_tag:         'Plan een gesprek',
     contact_h1:          'Laten we praten.',
@@ -275,6 +303,13 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_contact:    'Kontakt',
     nav_login:      'Logga in',
     nav_cta:        'Kom igång',
+    nav_faq:        'FAQ',
+
+    faq_tag:        'Vanliga frågor',
+    faq_h1:         'FAQ.',
+    faq_sub:        'Allt du behöver veta om Unboks.',
+    faq_cta_text:   'Har du fler frågor? Hör av dig direkt.',
+    faq_cta_btn:    'Kontakta oss',
 
     contact_tag:         'Boka ett samtal',
     contact_h1:          'Låt oss prata.',

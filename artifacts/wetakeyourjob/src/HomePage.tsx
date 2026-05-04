@@ -77,6 +77,7 @@ export default function HomePage() {
         <div className="nav-links">
           <a href="#services">{tx.nav_services}</a>
           <a href="#how">{tx.nav_how}</a>
+          <a href="/faq">{tx.nav_faq}</a>
           <a href="/contact">{tx.nav_contact}</a>
         </div>
         <div className="nav-actions">

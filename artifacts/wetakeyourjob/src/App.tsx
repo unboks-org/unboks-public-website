@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import DemoApp from './demo/bluemarlin/DemoApp';
 import HomePage from './HomePage';
 import ContactPage from './ContactPage';
+import FAQPage from './FAQPage';
 import AdminApp from './admin/AdminApp';
 
 function ScrollToTop() {
@@ -21,6 +22,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/faq" element={<FAQPage />} />
         <Route path="/admin/*" element={<AdminApp />} />
         <Route path="/demo/bluemarlin/*" element={<DemoApp />} />
         <Route path="*" element={<Navigate to="/" replace />} />
