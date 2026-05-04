@@ -39,7 +39,7 @@ body {
   cursor: pointer; font-family: inherit; transition: all 0.15s;
 }
 .hp-site .lang-trigger:hover { border-color: var(--text); }
-.hp-site .lang-flag { font-size: 18px; line-height: 1; }
+.hp-site .lang-flag { font-size: 20px; line-height: 1; }
 .hp-site .lang-trigger .lang-name { display: none; }
 .hp-site .lang-chevron {
   font-size: 8px; opacity: 0.5; margin-left: 1px;
@@ -78,11 +78,11 @@ body {
 }
 .hp-site .nav-logo { text-decoration: none; display: flex; align-items: center; }
 .hp-site .nav-logo-img {
-  height: auto; max-height: 72px; width: auto; display: block;
+  height: auto; max-height: 79px; width: auto; display: block;
   border-radius: 6px;
 }
 .hp-site .nav-logo-img--wide {
-  height: auto; max-height: 72px; max-width: 260px; border-radius: 0;
+  height: auto; max-height: 79px; max-width: 286px; border-radius: 0;
 }
 
 .hp-site .nav-links { display: flex; gap: 24px; align-items: center; }
@@ -435,7 +435,7 @@ body {
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .hp-site { padding: 0 20px; overflow-x: hidden; max-width: 100%; box-sizing: border-box; }
-  .hp-site .nav-logo-img { height: 120px; }
+  .hp-site .nav-logo-img { height: 132px; }
   .hp-site .nav-links { display: none; }
   .hp-site .nav-actions .btn-primary { display: none; }
 
