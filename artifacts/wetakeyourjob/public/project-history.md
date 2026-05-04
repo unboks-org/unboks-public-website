@@ -45,7 +45,7 @@ The channels row below the hero shows colored SVG icons for WhatsApp, Instagram,
 Each language uses different feature panel images:
 - **Papiamentu**: `smart_automation_papia` + `chica_PAPIA` (local imagery)
 - **Swedish**: Swedish-specific variants
-- **English/Spanish/Dutch**: `wtyj_panel_smart_automation_human_oversight_premium` + `wtyj_panel_faster_replies_clean`
+- **English/Spanish/Dutch**: `unboks_panel_smart_automation_human_oversight_premium` + `unboks_panel_faster_replies_clean`
 
 ### How It Works Steps
 Three numbered steps in a bordered card stack. Padding was reduced from `26px` to `16px` top/bottom after user feedback that there was too much white space between steps.
@@ -94,7 +94,7 @@ Early mobile versions had a horizontal scroll issue caused by the hero illustrat
 ## File Structure
 
 ```
-artifacts/wetakeyourjob/
+artifacts/unboks-public-website/
 ├── src/
 │   ├── i18n.ts          # All copy for all 5 languages
 │   ├── HomePage.tsx     # Main marketing page component

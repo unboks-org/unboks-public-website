@@ -27,7 +27,7 @@ export default function Footer() {
             <SiWhatsapp size={21} className="shrink-0 text-primary" />
             <a href="https://wa.me/15155005577" target="_blank" rel="noopener noreferrer" className="transition hover:text-foreground">Send WhatsApp</a>
           </p>
-          <p className="flex items-center gap-3"><Mail size={21} className="shrink-0 text-primary" /> <a href="mailto:hello@wetakeyourjob.com" className="transition hover:text-foreground">hello@wetakeyourjob.com</a></p>
+          <p className="flex items-center gap-3"><Mail size={21} className="shrink-0 text-primary" /> <a href="mailto:hello@unboks.org" className="transition hover:text-foreground">hello@unboks.org</a></p>
           <p className="flex items-center gap-3"><Clock3 size={21} className="shrink-0 text-primary" /> Mon-Sat 08:00-19:00</p>
           <div className="flex items-center gap-5 pt-3 pl-1">
             <a href="https://www.instagram.com/bluemarlincharters/" target="_blank" rel="noopener noreferrer" className="transition hover:opacity-80" data-testid="link-social-instagram">

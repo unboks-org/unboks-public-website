@@ -1,0 +1,135 @@
+REBRAND CLEANUP TASK.
+
+This project is now 100% Unboks.
+
+Remove all visible and internal references to:
+- WTYJ
+- We Take Your Job
+- wetakeyourjob
+- @workspace/wetakeyourjob
+
+The new brand is:
+Unboks
+Unboks.org
+@workspace/unboks-public-website if package naming is needed
+
+Important:
+Do not change the website design.
+Do not rewrite marketing copy.
+Do not change layout.
+Do not break routes.
+Do not touch dashboard.unboks.org link.
+Do not touch WhatsApp CTA.
+Do not remove assets.
+Do not remove language translations.
+This is a naming/branding cleanup only.
+
+Scope:
+This is the public website Replit project.
+
+Current issue:
+The Replit preview/project still shows “We Take Your Job” and internal package/folder names still reference wetakeyourjob. This must be cleaned before publishing.
+
+Tasks:
+
+1. Search entire repo for these strings:
+- WTYJ
+- wtyj
+- We Take Your Job
+- WeTakeYourJob
+- wetakeyourjob
+- take your job
+- @workspace/wetakeyourjob
+- hello@wetakeyourjob.com
+
+2. Report every occurrence before changing:
+- file path
+- line/context
+- whether it is visible to users or internal only
+
+3. Replace visible brand references:
+- “We Take Your Job” → “Unboks”
+- “WTYJ” → “Unboks”
+- old email hello@wetakeyourjob.com → hello@unboks.org
+
+4. Rename package identity:
+If package.json currently uses:
+@workspace/wetakeyourjob
+
+Change it to:
+@workspace/unboks-public-website
+
+Update every workspace reference, script, filter command, lock/config reference, and artifact config needed so builds still work.
+
+5. Rename app/display names:
+If Replit/Vite/page title/artifact title shows “We Take Your Job”, change it to:
+Unboks.org
+
+Check:
+- package.json
+- artifact.toml
+- vite config
+- index.html
+- manifest files if any
+- meta title/description
+- OpenGraph tags
+- Replit config files if editable
+- README or migration docs
+
+6. Folder rename:
+If safe, rename:
+artifacts/wetakeyourjob
+
+to:
+artifacts/unboks-public-website
+
+Only do this if all workspace config, package filters, artifact config, import paths, and scripts are updated correctly.
+
+If folder rename is too risky, do not rename yet. Instead report why and clean all visible names first.
+
+7. Blue Marlin demo:
+Search demo files too.
+Replace old public-facing WTYJ references with Unboks.
+Example:
+hello@wetakeyourjob.com → hello@unboks.org
+
+Do not redesign or rebuild the demo.
+
+8. Build commands:
+After renaming package, make sure the correct commands work.
+
+Expected new commands if package renamed:
+pnpm --filter @workspace/unboks-public-website run dev
+pnpm --filter @workspace/unboks-public-website run build
+
+If folder stays old but package name changes, still make the package filter use the new package name.
+
+9. Test:
+Run:
+pnpm install
+pnpm --filter @workspace/unboks-public-website run build
+
+If the package name was not changed, explain exactly why and give the correct command.
+
+10. Acceptance criteria:
+- Replit preview/project display no longer shows “We Take Your Job”
+- Website title/meta no longer says WTYJ or We Take Your Job
+- package name no longer says @workspace/wetakeyourjob
+- no visible website text says WTYJ or We Take Your Job
+- no hello@wetakeyourjob.com remains
+- build passes
+- homepage still loads
+- /contact still loads
+- /faq still loads
+- language selector still works
+- login button still points to dashboard.unboks.org
+
+Final response:
+Report:
+- files changed
+- strings replaced
+- whether package name changed
+- whether folder name changed
+- final dev command
+- final build command
+- any remaining WTYJ/wetakeyourjob references and why they remain
