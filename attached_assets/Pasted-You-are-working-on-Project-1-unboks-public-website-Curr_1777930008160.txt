@@ -1,0 +1,72 @@
+You are working on Project 1: unboks-public-website.
+
+Current status:
+- Production v1.0 is already live and locked.
+- Domains are working:
+  - https://unboks.org
+  - https://www.unboks.org
+- GitHub main is pushed.
+- We are now on safety branch:
+  v1.1-refero-polish
+
+Important:
+DO NOT edit files yet.
+DO NOT create files.
+DO NOT delete files.
+DO NOT rebuild the site from scratch.
+DO NOT touch Project 2 / dashboard / API.
+DO NOT change DNS, deployment settings, secrets, package dependencies, or routing.
+
+Use the installed refero-design skill methodology.
+If Refero MCP is not connected, operate in craft-only mode using the local refero-design skill references.
+
+Mission:
+Perform a design and messaging audit for a controlled v1.1 polish pass of the existing UNBOKS public website.
+
+Context:
+UNBOKS.org helps businesses handle repetitive customer messages across WhatsApp, email, Instagram, Facebook, Messenger, and other channels. The system automatically replies using client-specific Source of Truth knowledge and escalates to humans when needed.
+
+The current website looks good, but we want it sharper:
+- clearer first 5 seconds
+- stronger premium SaaS trust
+- better visual hierarchy
+- better explanation of the product flow
+- stronger map/flow visual
+- better "skills"/capabilities presentation
+- less generic AI SaaS feeling
+- more concrete operator/business value
+- cleaner spacing, typography, and section rhythm
+
+Audit goals:
+1. Inspect the current code and page structure.
+2. Identify every major visible section.
+3. Assess the current copy, visual hierarchy, CTA clarity, typography, spacing, and trust signals.
+4. Specifically review:
+   - hero section
+   - channel/product flow/map section
+   - skills/capabilities section
+   - CTA sections
+   - mobile responsiveness
+   - any old WTYJ wording or inconsistent UNBOKS branding
+5. Recommend a v1.1 polish plan section by section.
+6. Clearly separate:
+   - must-fix issues
+   - nice-to-have improvements
+   - things to leave untouched
+7. Include exact files likely involved.
+8. Include implementation risk level for each recommendation.
+9. Do not make changes.
+
+Output only:
+- Current structure summary
+- Design audit findings
+- Messaging audit findings
+- Recommended v1.1 polish plan
+- Files likely involved
+- Risks
+- What NOT to change
+- Questions for Calvin before implementation
+
+No code changes.
+No commands that modify files.
+No dependency changes.
