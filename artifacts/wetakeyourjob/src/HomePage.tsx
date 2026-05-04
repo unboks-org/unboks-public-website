@@ -12,8 +12,8 @@ import heroIllustration from '@assets/image_1777081964209.png';
 import imgSmartAutoSv from '@assets/smart_automation_swedish_1777004242843.png';
 import imgFasterRepliesSv from '@assets/chica_swedish_1777004355009.png';
 
-import imgSmartAutoDefault from '@assets/image_1777003358272.png';
-import imgFasterRepliesDefault from '@assets/image_1777003337352.png';
+import imgSmartAutoDefault from '@assets/wtyj_panel_smart_automation_human_oversight_premium_1777003358272.png';
+import imgFasterRepliesDefault from '@assets/wtyj_panel_faster_replies_clean_1777003337352.png';
 
 const LANG_KEY = 'unboks_language';
 const SUPPORTED = new Set(LANGUAGES.map(l => l.code));
