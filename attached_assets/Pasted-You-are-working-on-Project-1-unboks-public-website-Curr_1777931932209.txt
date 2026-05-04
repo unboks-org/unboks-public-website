@@ -1,0 +1,132 @@
+You are working on Project 1: unboks-public-website.
+
+Current status:
+- Production v1.0 is live and locked.
+- Domains working:
+  - https://unboks.org
+  - https://www.unboks.org
+- GitHub main is pushed.
+- Current branch:
+  v1.1-refero-polish
+- A Refero MCP-backed audit has already been completed.
+- No files have been changed yet.
+
+Mission:
+Create the implementation plan for a controlled v1.1 polish pass.
+
+Important:
+DO NOT edit files yet.
+DO NOT create files yet.
+DO NOT delete files.
+DO NOT run build-changing commands.
+DO NOT touch Project 2 / dashboard / API.
+DO NOT touch DNS, deployments, secrets, dependencies, package.json, routing, demo routes, admin routes, or Replit config.
+This step is planning only.
+
+Approved v1.1 scope:
+MUST implement in this polish pass:
+1. M1 — translate hard-coded WhatsApp CTA in the CTA band.
+2. M2 — define missing CSS variables:
+   - --accent
+   - --surface
+   including dark-mode values if needed.
+3. M3 — replace confusing “0” stat with “5 languages”.
+4. M4 — fix .nav-logo-img base height hazard.
+5. M5 — fix hero illustration dark-mode issue caused by mix-blend-mode: multiply.
+6. N3 — improve channel strip wording and emphasize WhatsApp.
+7. N4 — add capability chips/captions to the skills/features section.
+8. N6 — add simple product flow/map.
+9. N7 — mention Source of Truth in the how-it-works section.
+10. N9 — add secondary CTA linking to /contact.
+11. N12 — add/fix tablet breakpoint around 768–1100px for the hero illustration/layout.
+12. N14 — improve FAQ H1 from generic “FAQ.” to fuller translated H1s.
+
+Explicit decisions:
+- Replace “0” stat with “5 languages”.
+- Capability list:
+  - Auto-reply
+  - Triage
+  - Routing
+  - Source of Truth
+  - Escalation
+  - Multi-language
+- Flow/map should be lowest-risk inline visual:
+  Channels → Source of Truth → AI reply → Escalation → Human
+- Secondary CTA should link to:
+  /contact
+- Do not add client logos or trust row yet.
+- Do not add testimonials yet.
+- Do not add WebP/AVIF conversion yet.
+- Do not redesign the outcomes section yet.
+- Do not add sticky mobile CTA yet.
+- Do not change footer legal/provenance yet.
+- Do not rename WTYJ internal asset filenames or folders.
+- Do not generate external artwork.
+- Use CSS/SVG/simple inline elements only.
+- Leave Replit preview label for now.
+
+Implementation constraints:
+- Preserve current site structure and overall look.
+- Polish, do not redesign.
+- Keep the H1 wording:
+  “All your messages. One inbox.”
+- Keep all existing routes unchanged:
+  /
+  /contact
+  /faq
+  /admin/*
+  /demo/bluemarlin/*
+- Keep dashboard link unchanged:
+  https://dashboard.unboks.org
+- Keep WhatsApp link/number unchanged:
+  wa.me/59996881585
+  +599 968 81585
+- Keep all 5 languages:
+  pap, en, es, nl, sv
+- Preserve current language detection/persistence behavior.
+- Any new i18n key must be added to all 5 languages.
+- Do not add new dependencies.
+- Do not change package.json.
+- Do not change vite config.
+- Do not touch deployment config.
+
+Files expected to be involved:
+- artifacts/wetakeyourjob/src/HomePage.tsx
+- artifacts/wetakeyourjob/src/homepage.css
+- artifacts/wetakeyourjob/src/i18n.ts
+- artifacts/wetakeyourjob/src/FAQPage.tsx
+
+Possible files that should probably NOT be touched:
+- package.json
+- vite.config.ts
+- tsconfig.json
+- artifact.toml
+- admin code
+- demo code
+- dashboard/API code
+- attached_assets unless absolutely necessary
+
+Required output:
+Give me an implementation plan only.
+
+The plan must include:
+1. Exact files to edit.
+2. Exact change list per file.
+3. New i18n keys needed, with proposed English text and short descriptions.
+4. Proposed copy for:
+   - channel strip label
+   - capability chips
+   - feature panel captions
+   - flow/map labels
+   - updated Source of Truth step copy
+   - secondary CTA
+   - FAQ H1
+5. CSS changes planned.
+6. Responsive changes planned.
+7. Risk level per change.
+8. Test checklist after implementation.
+9. Rollback plan.
+
+Do not implement yet.
+Do not modify files.
+Wait for explicit approval before editing.
