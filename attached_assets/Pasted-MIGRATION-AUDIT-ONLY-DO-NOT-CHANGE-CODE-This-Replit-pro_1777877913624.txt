@@ -1,0 +1,148 @@
+MIGRATION AUDIT ONLY. DO NOT CHANGE CODE.
+
+This Replit project is the Unboks.org customer-facing public website.
+
+I am moving it from my private Replit account to a new company Replit workspace.
+
+I need a complete migration report so I can recreate this exact website in the new workspace without breaking the site or domain.
+
+Current intended domain:
+https://unboks.org
+
+Do not edit code.
+Do not deploy.
+Do not change DNS.
+Do not change secrets.
+Audit only.
+
+Report the following:
+
+1. Project identity
+- Project name
+- What this Replit contains
+- Confirm whether this is only the public website
+- Confirm whether it also contains dashboard/API code or not
+- Important folders and what each does
+
+2. Framework and build
+Report:
+- framework used
+- package manager
+- build command
+- dev/start command
+- output folder
+- Node version if specified
+- whether this is a static SPA or has backend routes
+
+3. Routes/pages
+Report:
+- homepage route
+- language routes if any
+- login link behavior
+- where the Login button points
+- whether dashboard.unboks.org is hardcoded anywhere
+- whether api.unboks.org is hardcoded anywhere
+
+4. Environment variables and secrets
+List required secrets by NAME ONLY.
+Do not print values.
+
+If there are no required secrets, say clearly:
+“No secrets required.”
+
+Check:
+- .env files
+- Replit secrets usage
+- VITE_* variables
+- API keys
+- analytics keys
+- form/contact keys
+- email keys
+
+5. Assets
+Report:
+- logo files
+- images
+- language images
+- public folder assets
+- any generated images
+- whether all assets are included in the project
+- whether anything is linked from another Replit project
+
+6. i18n/languages
+Report:
+- which languages are supported
+- where translation/copy files live
+- whether Dutch/Papiamento/Spanish/English/Swedish are included
+- whether language selector uses localStorage or browser detection
+
+7. Domain setup
+Current domain:
+https://unboks.org
+
+Report:
+- whether the domain is currently connected to this Replit project
+- current Replit app hostname
+- DNS record type needed in the new workspace
+- whether Replit asks for A + TXT or CNAME
+- whether www.unboks.org is configured
+- whether SSL is active
+- whether there are redirects from www to non-www or vice versa
+
+8. Login/dashboard link
+The public website Login button should go to:
+https://dashboard.unboks.org/login
+or the correct dashboard login URL.
+
+Audit:
+- current Login button target
+- whether it points to old Replit URL
+- whether it points to /dashboard/login
+- whether it points to dashboard.unboks.org
+- recommended final login URL
+
+Do not change it yet unless I approve.
+
+9. External dependencies
+Report any dependencies on:
+- dashboard Replit project
+- API project
+- api.wetakeyourjob.com
+- api.unboks.org
+- Zernio
+- Meta
+- contact forms
+- analytics
+- third-party scripts
+
+10. Migration risks
+List risks:
+- domain still pointing to old Replit
+- missing assets
+- wrong login link
+- missing env vars
+- language/copy not included
+- build fails in new workspace
+- www domain not configured
+- old WTYJ references
+- old dashboard URL references
+
+11. New workspace migration checklist
+Give step-by-step instructions:
+- import/fork project
+- install dependencies
+- run dev server
+- build
+- publish
+- add custom domain unboks.org
+- add www.unboks.org if needed
+- update DNS
+- verify SSL
+- test homepage
+- test language selector
+- test Login button
+- test mobile layout
+
+Final output:
+A clear migration report and checklist.
+No code changes.
