@@ -1,0 +1,86 @@
+You are working on Project 1: unboks-public-website.
+
+Current status:
+- Production v1.0 is live and locked on main.
+- Current branch is v1.1-refero-polish.
+- This branch is experimental. We can delete it if the result is not good.
+- Use Refero MCP and the installed refero-design skill fully.
+- Do not operate in conservative craft-only mode.
+- The goal is to let Refero meaningfully improve the design quality.
+
+Hard safety limits:
+- Do not touch Project 2 / dashboard / API.
+- Do not touch DNS, deployment settings, secrets, package.json, vite config, tsconfig, artifact.toml, admin code, demo code, or backend/API code.
+- Do not add dependencies.
+- Do not change routes.
+- Do not change dashboard links or WhatsApp links.
+- Do not remove the 5-language setup.
+- Do not rename folders or assets unless absolutely necessary and justified.
+- Stay on branch v1.1-refero-polish.
+
+Mission:
+Create a stronger Refero-backed v1.1 visual polish of the existing UNBOKS public website.
+
+Use Refero MCP research as the design driver.
+Research relevant screens/flows from:
+- Linear
+- Stripe
+- Vercel
+- Intercom
+- Front
+- Zendesk
+- Retool
+- AI agent / automation products
+- SaaS landing pages with strong product-flow explanations
+- customer support inbox products
+
+Design objective:
+Make the site sharper, more premium, more specific, and less generic AI SaaS.
+
+Improve:
+1. Hero clarity and premium feel.
+2. First-5-seconds understanding.
+3. Product flow/map: Channels → Source of Truth → AI reply → Escalation → Human.
+4. Skills/capabilities section.
+5. Channel strip.
+6. CTA hierarchy.
+7. Trust and business value.
+8. Visual rhythm, spacing, typography, and polish.
+9. Mobile/tablet layout if needed.
+10. Dark-mode problems if present.
+
+Allowed:
+- Improve layout and section structure.
+- Improve copy where needed.
+- Add simple inline SVG/CSS visuals.
+- Add capability chips/cards.
+- Add a clearer product-flow visual.
+- Improve channel strip.
+- Add a stronger secondary CTA.
+- Improve FAQ H1 via i18n.
+- Fix CSS issues found in the audit.
+- Use “Source of Truth” as an untranslated product term in all languages.
+- Replace confusing stats if needed.
+- Edit only the public website frontend files required for this polish.
+
+Preferred files:
+- artifacts/wetakeyourjob/src/HomePage.tsx
+- artifacts/wetakeyourjob/src/homepage.css
+- artifacts/wetakeyourjob/src/i18n.ts
+- possibly FAQPage.tsx only if absolutely required, but prefer i18n-only for FAQ copy.
+
+Do not be timid.
+This is not a tiny bugfix pass.
+This is a real design polish pass, but not a full product rebuild.
+
+Important:
+Before editing, produce a short execution plan based on Refero findings.
+Then implement after the plan in the same run only if the plan stays within the safety limits above.
+
+After implementation:
+1. Run build/typecheck.
+2. Show changed files.
+3. Show summary of visual/copy changes.
+4. Confirm forbidden files were not touched.
+5. Do not commit.
+6. Do not publish.
