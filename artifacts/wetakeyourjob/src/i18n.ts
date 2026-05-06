@@ -419,6 +419,7 @@ export const t: Record<Lang, Record<string, string>> = {
     feat_sub:       'Unboks tar hand om det återkommande meddelandearbetet: svarar på frågor, följer upp bokningar, känner igen beställningar, informerar kunder och skickar vidare det som är viktigt.\n\nDu ser bara det som verkligen kräver din uppmärksamhet – till exempel ärenden som behöver lyftas, beställningar och bokade tider.',
     feat_panel1_caption: 'Smarta processer med personlig översyn',
     feat_panel2_caption: 'Snabbare svar, nöjdare kunder',
+    feat_panel2_body:    'Svara omedelbart på alla plattformar. Bygg förtroende och få kunderna att stanna.',
 
     cap_label:      'Funktioner',
     cap_autoreply:  'Autosvar',

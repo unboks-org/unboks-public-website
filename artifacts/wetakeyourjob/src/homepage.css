@@ -251,6 +251,16 @@ body {
   letter-spacing: -0.01em; line-height: 1.45;
   border-top: 0.5px solid var(--border);
 }
+.hp-site .feature-img-body {
+  padding: 16px 18px 4px;
+  font-size: 14px; color: var(--text);
+  letter-spacing: -0.01em; line-height: 1.5;
+  border-top: 0.5px solid var(--border);
+}
+.hp-site .feature-img-body + .feature-img-caption {
+  border-top: 0;
+  padding-top: 8px;
+}
 
 /* ── How it works ── */
 .hp-site .how { margin-bottom: 72px; }
