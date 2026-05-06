@@ -428,7 +428,7 @@ export const t: Record<Lang, Record<string, string>> = {
     cap_escalation: 'Eskalering',
     cap_multilang:  'Flerspråkig',
 
-    how_label:      'Så ger vi dig tid tillbaka',
+    how_label:      'Mindre administration, mer fokus på det viktiga',
     how_title:      'Mindre stress kring meddelanden. Mer tid för det som verkligen räknas.',
     how_sub:        'Allt samlas i en gemensam inkorg. AI tar hand om det den kan och säger till när något behöver din uppmärksamhet. Din kommunikation rullar på dygnet runt, på flera språk – medan du bara behöver fokusera på det som är viktigt.',
     flow_label:     'Så går ett meddelande',
