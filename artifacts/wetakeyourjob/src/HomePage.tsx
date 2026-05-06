@@ -187,7 +187,7 @@ export default function HomePage() {
             <div className="feature-img-caption">{tx.feat_panel1_caption}</div>
           </div>
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgFasterRepliesPap : lang === 'sv' ? imgFasterRepliesSv : imgFasterRepliesDefault} alt={tx.feat_panel2_caption} />
+            <img src={lang === 'pap' ? imgFasterRepliesPap : imgFasterRepliesDefault} alt={tx.feat_panel2_caption} />
             <div className="feature-img-caption">{tx.feat_panel2_caption}</div>
           </div>
         </div>
