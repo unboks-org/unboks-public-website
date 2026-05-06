@@ -183,7 +183,7 @@ export default function HomePage() {
         </ul>
         <div className="feature-img-grid">
           <div className="feature-img-panel">
-            <img src={lang === 'pap' ? imgSmartAutoPap : lang === 'sv' ? imgSmartAutoSv : imgSmartAutoDefault} alt={tx.feat_panel1_caption} />
+            <img src={lang === 'pap' ? imgSmartAutoPap : imgSmartAutoDefault} alt={tx.feat_panel1_caption} />
             <div className="feature-img-caption">{tx.feat_panel1_caption}</div>
           </div>
           <div className="feature-img-panel">
