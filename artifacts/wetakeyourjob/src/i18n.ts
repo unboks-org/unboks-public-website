@@ -404,9 +404,9 @@ export const t: Record<Lang, Record<string, string>> = {
     contact_next_3:      'Vi ställer in Unboks åt dig. De första 14 dagarna är gratis.',
 
     hero_tag:       'AI för dina meddelanden',
-    hero_h1a:       'Alla dina meddelanden.',
-    hero_h1b:       'En inkorg.',
-    hero_p:         'En plats för alla dina meddelanden. Från WhatsApp till e-post och sociala medier hjälper AI till att svara, sortera och skicka vidare till rätt person.',
+    hero_h1a:       'Alla dina meddelanden –',
+    hero_h1b:       'på ett ställe.',
+    hero_p:         'En gemensam inkorg för allt. Oavsett om det gäller WhatsApp, e-post eller sociala medier hjälper AI dig att svara, sortera och skicka vidare till rätt person.',
     hero_cta:       'Kom igång',
     hero_see:       'Se hur det fungerar',
     hero_trust:     '14 dagar gratis · Inget kort · WhatsApp-native',
@@ -415,8 +415,8 @@ export const t: Record<Lang, Record<string, string>> = {
     channel_more:   '+ fler',
 
     feat_label:     'Det vi tar hand om',
-    feat_title:     'Mindre rutinjobb. Mer tid.',
-    feat_sub:       'Unboks hjälper till med meddelandearbetet som kommer tillbaka varje dag: svara på frågor, följa upp bokningar, känna igen beställningar, informera kunder och skicka viktiga meddelanden vidare.\n\nDu ser bara det som verkligen behöver uppmärksamhet: eskaleringar, beställningar och bokade tider.',
+    feat_title:     'Mindre rutinjobb. Mer tid över.',
+    feat_sub:       'Unboks tar hand om det återkommande meddelandearbetet: svarar på frågor, följer upp bokningar, känner igen beställningar, informerar kunder och skickar vidare det som är viktigt.\n\nDu ser bara det som verkligen kräver din uppmärksamhet – till exempel ärenden som behöver lyftas, beställningar och bokade tider.',
     feat_panel1_caption: 'Smart automation med mänsklig översyn',
     feat_panel2_caption: 'Snabbare svar, nöjdare kunder',
 
@@ -429,8 +429,8 @@ export const t: Record<Lang, Record<string, string>> = {
     cap_multilang:  'Flerspråkig',
 
     how_label:      'Så ger vi dig tid tillbaka',
-    how_title:      'Mindre meddelandestress. Mer tid för ditt riktiga arbete.',
-    how_sub:        'Allt samlas i en inkorg. AI hanterar det den kan och varnar dig när något behöver din uppmärksamhet. Din kommunikation fortsätter 24/7, på flera språk, medan du bara ser det som behöver uppmärksamhet.',
+    how_title:      'Mindre stress kring meddelanden. Mer tid för det som verkligen räknas.',
+    how_sub:        'Allt samlas i en gemensam inkorg. AI tar hand om det den kan och säger till när något behöver din uppmärksamhet. Din kommunikation rullar på dygnet runt, på flera språk – medan du bara behöver fokusera på det som är viktigt.',
     flow_label:     'Så går ett meddelande',
     flow_n1:        'Kanaler',
     flow_n2:        'Din Info',
@@ -459,8 +459,8 @@ export const t: Record<Lang, Record<string, string>> = {
     stat3_lbl:      'Snabbare svar',
     stat4_lbl:      'Språk',
 
-    cta_h2:         'Ta tillbaka din dag.',
-    cta_p:          'Visa oss var dina meddelanden kommer in och var du förlorar tid. Vi visar hur Unboks tar det arbetet från dina händer.',
+    cta_h2:         'Ta kontroll över din dag.',
+    cta_p:          'Visa oss var dina meddelanden kommer in och var du lägger mest tid. Vi visar hur Unboks kan ta hand om det åt dig.',
     cta_book:       'Boka ett samtal',
     cta_whatsapp:   'Chatta på WhatsApp',
     cta_secondary:  'Eller boka ett 20-min samtal',
