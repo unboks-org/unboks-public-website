@@ -967,3 +967,139 @@ body {
   }
   .hp-site .pricing-addon-v { text-align: left; }
 }
+
+/* ── Pricing premium color refresh (scoped, overrides earlier --text usage) ── */
+.hp-site .pricing-tag { color: #475569; }
+.hp-site .pricing-h1 { color: #0F172A; }
+.hp-site .pricing-intro { color: #475569; }
+
+.hp-site .pricing-step {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+}
+.hp-site .pricing-step-num {
+  background: #1D4ED8; color: #FFFFFF;
+}
+.hp-site .pricing-step-t { color: #0F172A; }
+.hp-site .pricing-step-d { color: #475569; }
+.hp-site .pricing-step-arrow { color: #94A3B8; opacity: 0.6; }
+
+.hp-site .pricing-card {
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+}
+.hp-site .pricing-card:hover {
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+}
+.hp-site .pricing-card--featured {
+  border: 1.5px solid #1D4ED8;
+  box-shadow: 0 12px 36px rgba(29, 78, 216, 0.10);
+}
+.hp-site .pricing-card--featured:hover {
+  box-shadow: 0 16px 44px rgba(29, 78, 216, 0.14);
+}
+.hp-site .pricing-badge {
+  background: #1D4ED8; color: #FFFFFF;
+}
+.hp-site .pricing-card-name { color: #0F172A; }
+.hp-site .pricing-card-price-num { color: #0F172A; }
+.hp-site .pricing-card-price-per { color: #64748B; }
+.hp-site .pricing-card-setup { color: #475569; }
+.hp-site .pricing-card-setup strong { color: #0F172A; font-weight: 600; }
+.hp-site .pricing-features li { color: #0F172A; }
+.hp-site .pricing-check { color: #1D4ED8; }
+
+.hp-site .pricing-cta {
+  background: #FFFFFF;
+  color: #0F172A;
+  border: 1px solid #CBD5E1;
+  font-weight: 500;
+}
+.hp-site .pricing-cta:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+  border-color: #94A3B8;
+}
+.hp-site .pricing-cta--primary {
+  background: #1D4ED8;
+  color: #FFFFFF;
+  border-color: #1D4ED8;
+}
+.hp-site .pricing-cta--primary:hover {
+  background: #1E40AF;
+  border-color: #1E40AF;
+  color: #FFFFFF;
+}
+
+.hp-site .pricing-best-for { border-top-color: #E2E8F0; }
+.hp-site .pricing-best-for-label { color: #64748B; }
+.hp-site .pricing-best-for-text { color: #475569; }
+
+.hp-site .pricing-split-note { color: #64748B; }
+.hp-site .pricing-section-h { color: #0F172A; }
+
+.hp-site .pricing-addons-list {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+}
+.hp-site .pricing-addon { border-bottom-color: #E2E8F0; }
+.hp-site .pricing-addon-l { color: #0F172A; }
+.hp-site .pricing-addon-v { color: #475569; }
+.hp-site .pricing-defs-list p { color: #475569; }
+
+/* Currency segmented control */
+.hp-site .pricing-currency {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px auto 0;
+  font-size: 13px;
+  color: #475569;
+  letter-spacing: -0.005em;
+}
+.hp-site .pricing-currency-label {
+  font-weight: 500;
+  color: #475569;
+}
+.hp-site .pricing-currency-seg {
+  display: inline-flex;
+  padding: 4px;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 99px;
+}
+.hp-site .pricing-currency-btn {
+  padding: 7px 16px;
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748B;
+  cursor: pointer;
+  border-radius: 99px;
+  letter-spacing: 0;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+}
+.hp-site .pricing-currency-btn:hover { color: #0F172A; }
+.hp-site .pricing-currency-btn--active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+.hp-site .pricing-live-note {
+  text-align: center;
+  font-size: 12px;
+  color: #64748B;
+  margin: 12px auto 0;
+  max-width: 540px;
+  letter-spacing: -0.005em;
+}
+
+@media (max-width: 768px) {
+  .hp-site .pricing-currency {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+  }
+}

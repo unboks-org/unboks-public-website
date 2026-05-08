@@ -2,6 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
 import { PRICING } from './pricing-data';
+import {
+  CURRENCIES,
+  type Currency,
+  getInitialCurrency,
+  saveCurrency,
+  useExchangeRates,
+  formatPrice,
+} from './currency';
 import logo from '@assets/image_1777095356119.png';
 import logoPap from '@assets/image_1777081806501.png';
 
@@ -42,14 +50,21 @@ const Check = () => (
 export default function PricingPage() {
   const [lang, setLangState] = useState<Lang>(getInitialLanguage);
   const [dropOpen, setDropOpen] = useState(false);
+  const [currency, setCurrencyState] = useState<Currency>(getInitialCurrency);
   const dropRef = useRef<HTMLDivElement>(null);
   const tx = t[lang];
   const px = PRICING[lang];
+  const rates = useExchangeRates();
   const activeLang = LANGUAGES.find(l => l.code === lang)!;
 
   function setLang(l: Lang) {
     setLangState(l);
     saveLanguage(l);
+  }
+
+  function setCurrency(c: Currency) {
+    setCurrencyState(c);
+    saveCurrency(c);
   }
 
   useEffect(() => {
@@ -103,6 +118,26 @@ export default function PricingPage() {
         <div className="pricing-tag">{px.tag}</div>
         <h1 className="pricing-h1">{px.h1}</h1>
         <p className="pricing-intro">{px.intro}</p>
+
+        <div className="pricing-currency" role="group" aria-label={px.currency_label}>
+          <span className="pricing-currency-label">{px.currency_label}</span>
+          <div className="pricing-currency-seg">
+            {CURRENCIES.map(c => (
+              <button
+                key={c}
+                type="button"
+                className={`pricing-currency-btn${currency === c ? ' pricing-currency-btn--active' : ''}`}
+                onClick={() => setCurrency(c)}
+                aria-pressed={currency === c}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+        </div>
+        {currency !== 'XCG' && (
+          <p className="pricing-live-note">{px.live_note}</p>
+        )}
       </section>
 
       <section className="pricing-steps" aria-label={px.tag}>
@@ -139,10 +174,10 @@ export default function PricingPage() {
             )}
             <div className="pricing-card-name">{plan.name}</div>
             <div className="pricing-card-price">
-              <span className="pricing-card-price-num">{plan.price}</span>
+              <span className="pricing-card-price-num">{formatPrice(plan.priceXcg, currency, rates)}</span>
               <span className="pricing-card-price-per">{px.per_month}</span>
             </div>
-            <div className="pricing-card-setup">{px.setup_label}: <strong>{plan.setup}</strong></div>
+            <div className="pricing-card-setup">{px.setup_label}: <strong>{formatPrice(plan.setupXcg, currency, rates)}</strong></div>
             <a href="/contact" className={plan.id === 'business' ? 'pricing-cta pricing-cta--primary' : 'pricing-cta'}>{px.cta}</a>
             <ul className="pricing-features" role="list">
               {plan.features.map((f, i) => (
@@ -162,8 +197,14 @@ export default function PricingPage() {
       <section className="pricing-addons" aria-labelledby="addons-h">
         <h2 id="addons-h" className="pricing-section-h">{px.addons_h}</h2>
         <div className="pricing-addons-list">
-          <div className="pricing-addon"><span className="pricing-addon-l">{px.addon_channel_l}</span><span className="pricing-addon-v">{px.addon_channel_v}</span></div>
-          <div className="pricing-addon"><span className="pricing-addon-l">{px.addon_user_l}</span><span className="pricing-addon-v">{px.addon_user_v}</span></div>
+          <div className="pricing-addon">
+            <span className="pricing-addon-l">{px.addon_channel_l}</span>
+            <span className="pricing-addon-v">{formatPrice(px.addon_channel_xcg, currency, rates)}{px.per_month}</span>
+          </div>
+          <div className="pricing-addon">
+            <span className="pricing-addon-l">{px.addon_user_l}</span>
+            <span className="pricing-addon-v">{formatPrice(px.addon_user_xcg, currency, rates)}{px.per_month}</span>
+          </div>
           <div className="pricing-addon"><span className="pricing-addon-l">{px.addon_x_l}</span><span className="pricing-addon-v">{px.addon_x_v}</span></div>
           <div className="pricing-addon"><span className="pricing-addon-l">{px.addon_traffic_l}</span><span className="pricing-addon-v">{px.addon_traffic_v}</span></div>
           <div className="pricing-addon"><span className="pricing-addon-l">{px.addon_brand_l}</span><span className="pricing-addon-v">{px.addon_brand_v}</span></div>

@@ -3,8 +3,8 @@ import type { Lang } from './i18n';
 export type Plan = {
   id: 'starter' | 'business' | 'team';
   name: string;
-  price: string;
-  setup: string;
+  priceXcg: number;
+  setupXcg: number;
   features: string[];
   best_for: string;
 };
@@ -22,10 +22,12 @@ type PricingCopy = {
   most_popular: string;
   best_for_label: string;
   cta: string;
+  currency_label: string;
+  live_note: string;
   plans: Plan[];
   addons_h: string;
-  addon_channel_l: string; addon_channel_v: string;
-  addon_user_l: string;    addon_user_v: string;
+  addon_channel_l: string; addon_channel_xcg: number;
+  addon_user_l: string;    addon_user_xcg: number;
   addon_x_l: string;       addon_x_v: string;
   addon_traffic_l: string; addon_traffic_v: string;
   addon_brand_l: string;   addon_brand_v: string;
@@ -156,24 +158,24 @@ function buildPlans(L: Lang): Plan[] {
     {
       id: 'starter',
       name: 'Starter',
-      price: 'Cg. 495',
-      setup: 'Cg. 1,500',
+      priceXcg: 495,
+      setupXcg: 1500,
       features: [F.ch1[L], F.u1[L], F.agent_repetitive[L], F.human_esc[L], F.knowledge[L], F.basic_dash[L]],
       best_for: BEST.starter[L],
     },
     {
       id: 'business',
       name: 'Business',
-      price: 'Cg. 995',
-      setup: 'Cg. 2,500',
+      priceXcg: 995,
+      setupXcg: 2500,
       features: [F.ch2[L], F.u3[L], F.agent_repetitive[L], F.human_esc[L], F.knowledge[L], F.dash[L], F.msg_overview[L], F.esc_overview[L], F.monthly_imp[L]],
       best_for: BEST.business[L],
     },
     {
       id: 'team',
       name: 'Team',
-      price: 'Cg. 1,995',
-      setup: 'Cg. 5,000',
+      priceXcg: 1995,
+      setupXcg: 5000,
       features: [F.ch3[L], F.u5[L], F.agent_repetitive[L], F.human_esc[L], F.knowledge[L], F.team_dash[L], F.msg_overview[L], F.esc_overview[L], F.higher_usage[L], F.prio_support[L], F.perf_review[L]],
       best_for: BEST.team[L],
     },
@@ -194,10 +196,12 @@ export const PRICING: Record<Lang, PricingCopy> = {
     most_popular: 'Most popular',
     best_for_label: 'Best for',
     cta: 'Get started',
+    currency_label: 'Currency',
+    live_note: 'Live conversion shown for clarity. Final invoices are issued in XCG.',
     plans: buildPlans('en'),
     addons_h: 'Add-ons',
-    addon_channel_l: 'Extra channel', addon_channel_v: 'Cg. 75/month',
-    addon_user_l: 'Extra user/chair', addon_user_v: 'Cg. 95/month',
+    addon_channel_l: 'Extra channel', addon_channel_xcg: 75,
+    addon_user_l: 'Extra user/chair', addon_user_xcg: 95,
     addon_x_l: 'X/Twitter usage', addon_x_v: 'billed separately',
     addon_traffic_l: 'High traffic', addon_traffic_v: 'custom',
     addon_brand_l: 'Extra brand/location', addon_brand_v: 'custom',
@@ -218,10 +222,12 @@ export const PRICING: Record<Lang, PricingCopy> = {
     most_popular: 'Mas popular',
     best_for_label: 'Mihó pa',
     cta: 'Kuminsá',
+    currency_label: 'Moneda',
+    live_note: 'Konvershon live mustrá pa klaridat. Fakaturanan final ta sali na XCG.',
     plans: buildPlans('pap'),
     addons_h: 'Ekstra',
-    addon_channel_l: 'Kanal ekstra', addon_channel_v: 'Cg. 75/luna',
-    addon_user_l: 'Usuario/siya ekstra', addon_user_v: 'Cg. 95/luna',
+    addon_channel_l: 'Kanal ekstra', addon_channel_xcg: 75,
+    addon_user_l: 'Usuario/siya ekstra', addon_user_xcg: 95,
     addon_x_l: 'Uzo di X/Twitter', addon_x_v: 'fakturá aparte',
     addon_traffic_l: 'Trafiko haltu', addon_traffic_v: 'personalisá',
     addon_brand_l: 'Marka/lokashon ekstra', addon_brand_v: 'personalisá',
@@ -242,10 +248,12 @@ export const PRICING: Record<Lang, PricingCopy> = {
     most_popular: 'Más popular',
     best_for_label: 'Ideal para',
     cta: 'Empezar',
+    currency_label: 'Moneda',
+    live_note: 'Conversión en vivo mostrada para mayor claridad. Las facturas finales se emiten en XCG.',
     plans: buildPlans('es'),
     addons_h: 'Extras',
-    addon_channel_l: 'Canal adicional', addon_channel_v: 'Cg. 75/mes',
-    addon_user_l: 'Usuario/silla adicional', addon_user_v: 'Cg. 95/mes',
+    addon_channel_l: 'Canal adicional', addon_channel_xcg: 75,
+    addon_user_l: 'Usuario/silla adicional', addon_user_xcg: 95,
     addon_x_l: 'Uso de X/Twitter', addon_x_v: 'facturado aparte',
     addon_traffic_l: 'Tráfico alto', addon_traffic_v: 'personalizado',
     addon_brand_l: 'Marca/ubicación adicional', addon_brand_v: 'personalizado',
@@ -266,10 +274,12 @@ export const PRICING: Record<Lang, PricingCopy> = {
     most_popular: 'Meest gekozen',
     best_for_label: 'Geschikt voor',
     cta: 'Aan de slag',
+    currency_label: 'Valuta',
+    live_note: 'Live conversie ter verduidelijking. Definitieve facturen worden in XCG uitgegeven.',
     plans: buildPlans('nl'),
     addons_h: 'Extra',
-    addon_channel_l: 'Extra kanaal', addon_channel_v: 'Cg. 75/maand',
-    addon_user_l: 'Extra gebruiker/stoel', addon_user_v: 'Cg. 95/maand',
+    addon_channel_l: 'Extra kanaal', addon_channel_xcg: 75,
+    addon_user_l: 'Extra gebruiker/stoel', addon_user_xcg: 95,
     addon_x_l: 'X/Twitter-gebruik', addon_x_v: 'apart gefactureerd',
     addon_traffic_l: 'Hoog verkeer', addon_traffic_v: 'op maat',
     addon_brand_l: 'Extra merk/locatie', addon_brand_v: 'op maat',
@@ -290,10 +300,12 @@ export const PRICING: Record<Lang, PricingCopy> = {
     most_popular: 'Mest valda',
     best_for_label: 'Passar',
     cta: 'Kom igång',
+    currency_label: 'Valuta',
+    live_note: 'Live-omräkning visas för tydlighet. Slutliga fakturor utfärdas i XCG.',
     plans: buildPlans('sv'),
     addons_h: 'Tillägg',
-    addon_channel_l: 'Extra kanal', addon_channel_v: 'Cg. 75/månad',
-    addon_user_l: 'Extra användare/stol', addon_user_v: 'Cg. 95/månad',
+    addon_channel_l: 'Extra kanal', addon_channel_xcg: 75,
+    addon_user_l: 'Extra användare/stol', addon_user_xcg: 95,
     addon_x_l: 'X/Twitter-användning', addon_x_v: 'faktureras separat',
     addon_traffic_l: 'Hög trafik', addon_traffic_v: 'anpassat',
     addon_brand_l: 'Extra varumärke/plats', addon_brand_v: 'anpassat',
