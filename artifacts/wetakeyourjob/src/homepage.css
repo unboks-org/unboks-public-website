@@ -1,8 +1,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #ffffff; --bg-secondary: #f5f5f4; --text: #0f0f0e;
-  --text-secondary: #6b6b67; --text-tertiary: #a0a09c;
-  --border: rgba(0,0,0,0.08); --border-secondary: rgba(0,0,0,0.16);
+  --bg: #ffffff; --bg-secondary: #F8FAFC; --text: #0F172A;
+  --text-secondary: #334155; --text-tertiary: #475569;
+  --border: #E2E8F0; --border-secondary: #CBD5E1;
   --radius-md: 10px; --radius-lg: 14px;
   --accent: #25D366; --surface: #ffffff;
   --wa-tint-bg: rgba(37,211,102,0.08);
@@ -12,7 +12,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #111110; --bg-secondary: #1c1c1a; --text: #f0f0ee;
-    --text-secondary: #a0a09c; --text-tertiary: #6b6b67;
+    --text-secondary: #CBD5E1; --text-tertiary: #94A3B8;
     --border: rgba(255,255,255,0.08); --border-secondary: rgba(255,255,255,0.16);
     --accent: #25D366; --surface: #1c1c1a;
     --wa-tint-bg: rgba(37,211,102,0.10);
@@ -1261,4 +1261,64 @@ body {
   .hp-site .lang-trigger { padding: 8px 10px; gap: 6px; }
   .hp-site .lang-name { display: none; }
   .hp-site .nav-actions .btn-ghost { padding: 8px 12px; font-size: 13px; }
+}
+
+/* ── Mobile readability boost ── stronger contrast + minimum sizes ── */
+@media (max-width: 768px) {
+  /* Bump the smallest text up so nothing reads as tiny grey */
+  .hp-site .hero-trust { font-size: 13px; color: #475569; }
+  .hp-site .channels-label { font-size: 12px; color: #334155; }
+  .hp-site .feat-label,
+  .hp-site .stat-label,
+  .hp-site .footer-sub,
+  .hp-site .footer-links a,
+  .hp-site .footer-brand { font-size: 13px; }
+  .hp-site .footer-sub { color: #475569; }
+  .hp-site .footer-links a { color: #334155; font-weight: 500; }
+
+  /* Hero subhead readability */
+  .hp-site .hero p { font-size: 16px; color: #334155; line-height: 1.6; }
+
+  /* Pricing copy on mobile — stronger than slate-500 */
+  .hp-site .pricing-intro { color: #334155; font-size: 15px; line-height: 1.6; }
+  .hp-site .pricing-card-price-per { color: #475569; }
+  .hp-site .pricing-card-setup { color: #334155; }
+  .hp-site .pricing-best-for-text { color: #334155; }
+  .hp-site .pricing-addon-v { color: #334155; }
+  .hp-site .pricing-defs-list p { color: #334155; }
+  .hp-site .pricing-split-note { color: #475569; font-size: 13px; }
+  .hp-site .pricing-best-for-label,
+  .hp-site .pricing-tag { color: #334155; font-weight: 600; }
+  .hp-site .pricing-step-d { color: #334155; }
+  .hp-site .pricing-currency-label { color: #334155; }
+  .hp-site .pricing-currency-btn { color: #334155; }
+  .hp-site .pricing-live-note { color: #475569; }
+
+  /* FAQ + contact bodies */
+  .hp-site .faq-q,
+  .hp-site .faq-question { color: #0F172A; font-weight: 600; }
+  .hp-site .faq-a,
+  .hp-site .faq-answer,
+  .hp-site .contact-sub { color: #334155; font-size: 15px; line-height: 1.6; }
+
+  /* Inputs / placeholders */
+  .hp-site input,
+  .hp-site textarea,
+  .hp-site select {
+    color: #0F172A;
+    font-size: 16px; /* prevents iOS zoom too */
+  }
+  .hp-site input::placeholder,
+  .hp-site textarea::placeholder { color: #64748B; opacity: 1; }
+
+  /* Buttons readable */
+  .hp-site .btn-ghost,
+  .hp-site .btn-primary { font-size: 14px; font-weight: 600; }
+
+  /* Eyebrow uppercase tags don't go below 12px */
+  .hp-site .pricing-tag,
+  .hp-site .contact-tag,
+  .hp-site .faq-tag,
+  .hp-site .hero-tag,
+  .hp-site .feat-label { font-size: 12px; }
 }

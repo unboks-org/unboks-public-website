@@ -1,0 +1,162 @@
+TASK: Fix mobile font visibility and contrast across Project 1 public website.
+
+PROJECT SCOPE:
+Project 1 public Unboks website only.
+Do NOT touch Project 2 customer dashboard.
+Do NOT touch dashboard code.
+Do NOT touch backend/API/data logic.
+Do NOT change pricing logic.
+Do NOT change product functionality.
+This is visual/responsive only.
+
+IMPORTANT:
+Do not make this subtle.
+The current mobile contrast is too weak.
+I want visibly stronger readability.
+
+MANDATORY:
+Use Refero before making visual changes.
+Use Refero to inspect premium mobile SaaS/public website examples and apply strong readability, contrast, typography, and spacing patterns.
+
+BUG:
+Mobile text is hard to read.
+Fonts are too faint, too small, and background/text contrast is poor.
+
+Required result:
+The Project 1 mobile public website must be clearly readable on phone screens.
+
+This must be fixed globally, not only on one section.
+
+Audit and fix these Project 1 public website areas if present:
+- mobile header/top bar
+- hamburger menu/drawer
+- mobile navigation labels
+- hero section
+- service/features sections
+- how-it-works section
+- pricing section
+- 14-day proof period section
+- CTA sections
+- testimonials/social proof
+- FAQ
+- contact/demo section
+- footer
+- buttons
+- badges/pills
+- cards
+- forms/inputs
+- modals/toasts/empty/loading states if present
+
+Contrast requirements:
+- Main text must use a strong readable color, not faint grey.
+- Secondary text must still be readable.
+- Labels must not be tiny pale grey.
+- Button text must be readable.
+- Badge/pill text must be readable.
+- Input placeholder text must be readable enough, not invisible.
+- Active mobile nav states must be obvious.
+- Background and card colors must not be too close to text colors.
+- Pricing numbers must be very easy to read.
+- Setup fees and add-ons must be readable.
+- CTA text must be clear and high contrast.
+
+Typography requirements:
+- Body text on mobile should generally be at least 14px.
+- Important paragraph text, nav labels, pricing text, and buttons should be 14–16px.
+- Section titles should be readable, around 20–28px depending on layout.
+- Hero heading should remain strong but must not overflow or become cramped.
+- Avoid ultra-light font weights for important text.
+- Use stronger font weight for labels and headings.
+- Keep line-height comfortable.
+- Avoid cramped text blocks.
+- Avoid tiny grey explanatory copy.
+
+Suggested color direction:
+Use a premium high-contrast neutral palette:
+- Primary text: deep navy/charcoal, for example #111827 / #172033 / #1E293B
+- Secondary text: stronger slate, for example #475569 / #4B5563
+- Muted text: do not go lighter than roughly #64748B for important UI
+- Borders: #D8DEE8 / #E2E8F0
+- Background: clean off-white/white
+- Active accents: existing premium blue/teal accent, but readable
+
+Do NOT:
+- use pale grey text for important info
+- use grey-on-grey low contrast
+- use pure black everywhere
+- use neon colors
+- use cheap gradients
+- change functionality
+- hide information
+- make fonts huge and clumsy
+- create horizontal overflow
+- damage desktop styling
+- touch Project 2
+- add dashboard navigation items
+- change pricing content or pricing logic
+
+Mobile viewport checks:
+Test visual readability at:
+- 320px
+- 375px
+- 390px
+- 414px
+- 430px
+
+For each width confirm:
+- text is clearly readable
+- pricing is clearly readable
+- CTA buttons are readable and tappable
+- mobile nav text is readable
+- badges/pills are readable
+- cards have enough contrast
+- no important UI uses faint grey text
+- no horizontal overflow
+- no clipped buttons
+- no broken header
+- no washed-out grey-on-grey sections
+
+Allowed changes:
+- CSS/Tailwind class changes
+- responsive typography
+- color/contrast changes
+- spacing/padding/margin changes
+- button/card visual improvements
+- mobile-only readability improvements
+- global design tokens if Project 1 uses them
+
+Not allowed:
+- backend changes
+- API changes
+- database changes
+- Project 2 changes
+- dashboard changes
+- business logic changes
+- pricing logic changes
+- route semantics changes
+- adding unconfirmed product claims
+- changing contact/demo flow except visual styling
+
+Acceptance criteria:
+- Project 1 mobile website text is clearly readable.
+- Contrast is visibly improved.
+- No important UI uses faint grey text.
+- Buttons and badges are readable.
+- Inputs/placeholders are readable.
+- Mobile drawer/menu text is readable.
+- Hero, pricing, CTA, and footer are readable.
+- No horizontal overflow introduced.
+- Desktop remains visually acceptable.
+- Project 2 customer dashboard untouched.
+- No backend/API/business logic changed.
+- Build passes.
+
+REPORT BACK:
+1. Refero references/patterns used.
+2. Project 1 files changed.
+3. Global text/contrast tokens or classes changed.
+4. Sections/components improved.
+5. Exact color choices used.
+6. Confirmation that Project 2 was untouched.
+7. Confirmation that no backend/API/data logic changed.
+8. Mobile viewport test notes for 320/375/390/414/430px.
