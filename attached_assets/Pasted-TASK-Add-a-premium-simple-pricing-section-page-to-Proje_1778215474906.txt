@@ -1,0 +1,179 @@
+TASK: Add a premium, simple pricing section/page to Project 1 — the public Unboks website.
+
+IMPORTANT PROJECT SCOPE:
+This task is ONLY for Project 1, the public customer-facing website / sales site.
+Do NOT edit Project 2.
+Do NOT edit the customer dashboard.
+Do NOT touch dashboard functionality, inbox, escalations, settings, tasks, notes, or backend dashboard code.
+
+This pricing belongs on the public website, not inside the client dashboard.
+
+Use Refero to its utmost best.
+This is about money. The pricing must feel premium, simple, trustworthy, and extremely clear.
+An unclear mind will say NO.
+
+Goal:
+Add a pricing section/page to the public Unboks website that explains:
+- the 14-day free live proof period
+- the three monthly plans
+- the setup fees
+- the add-ons
+- the day-15 billing logic
+
+Do not overcomplicate it.
+Do not invent features.
+Do not use the word AI in the pricing copy.
+Use “Agent”.
+
+Core pricing model:
+- Day 1–14 is free.
+- Day 1–14 is a live proof period.
+- These 14 days do not count as paid subscription time.
+- On day 15, the client either continues and pays, or Unboks is disconnected.
+- If the client continues, the monthly plan starts on day 15.
+- The setup fee is charged from the first paid invoice.
+- Larger setup fees can be split over 3 months.
+
+Required headline:
+“Simple pricing. Prove it first.”
+
+Required intro copy:
+“Try Unboks live for 14 days. We set up your Unboks Agent, connect the agreed channels, and run it with your business information. If it works for your business, your paid plan starts on day 15. If not, we disconnect it.”
+
+Add a simple visual explanation near the top:
+1. Day 1–14: Free live proof period
+2. Day 15: Continue and pay, or disconnect
+3. Setup fee: Charged from the first paid invoice
+
+Pricing tiers:
+
+1. Starter
+Price: Cg. 495/month
+Setup: Cg. 1,500
+
+Includes:
+- 1 channel
+- 1 user/chair
+- Unboks Agent answers repetitive questions
+- Human escalation
+- Company knowledge / Your Info
+- Basic dashboard access
+
+Best for:
+Small businesses with one main message channel, usually WhatsApp.
+
+2. Business
+Price: Cg. 995/month
+Setup: Cg. 2,500
+
+Includes:
+- 2 channels
+- 3 users/chairs
+- Unboks Agent answers repetitive questions
+- Human escalation
+- Company knowledge / Your Info
+- Dashboard access
+- Message overview across channels
+- Escalation overview
+- Monthly Agent improvement
+
+Best for:
+Businesses that receive customer messages every day and want Unboks to reduce repetitive work across more than one channel.
+
+Mark this plan visually as:
+“Most popular”
+
+3. Team
+Price: Cg. 1,995/month
+Setup: Cg. 5,000
+
+Includes:
+- 3 channels
+- 5 users/chairs
+- Unboks Agent answers repetitive questions
+- Human escalation
+- Company knowledge / Your Info
+- Team dashboard access
+- Message overview across channels
+- Escalation overview
+- Higher usage allowance
+- Priority support
+- Monthly performance review
+
+Best for:
+Businesses where multiple people already handle customer messages.
+
+Add-ons:
+- Extra channel: Cg. 75/month
+- Extra user/chair: Cg. 95/month
+- X/Twitter usage: billed separately
+- High traffic: custom
+- Extra brand/location: custom
+
+Definitions to include in compact form:
+Channel = one connected message source, such as WhatsApp, Instagram, Facebook, TikTok, X/Twitter, or email.
+User/chair = one person who can use the dashboard.
+
+Design requirements:
+- Make the pricing section/page premium and clean.
+- Use Refero to inspect high-quality pricing pages and apply the best layout patterns.
+- The design must be simple enough to understand in 10 seconds.
+- Business plan must stand out as the recommended plan.
+- Prices must be very visible.
+- Setup fees must be visible but secondary to monthly price.
+- Add-ons must be compact and clear.
+- No unnecessary vertical whitespace.
+- No clutter.
+- No tiny grey unreadable text.
+- No confusing feature walls.
+- No fake complicated pricing calculator.
+- No distracting animations.
+- Mobile must be excellent: stacked cards, readable prices, no horizontal overflow.
+
+Tone:
+- Premium
+- Direct
+- Calm
+- Clear
+- Trustworthy
+- No hype
+- No technical jargon
+- No “AI”
+- Use “Agent”
+- Use “channels”
+- Use “users/chairs”
+
+Do NOT add:
+- advanced workflows
+- automatic bookings
+- CRM replacement
+- guaranteed savings
+- unlimited channels
+- unlimited users
+- fake enterprise features
+- vague startup language
+- any unconfirmed product claims
+
+Navigation / placement:
+- Add pricing where it makes sense on the public website.
+- If the site has a main navigation, add a Pricing link.
+- If there is already a pricing area, replace/improve it.
+- If there is no pricing page, create a clean pricing section on the main landing page or a dedicated pricing route, whichever fits the existing Project 1 structure best.
+- Make sure CTA buttons still point to the existing contact/demo flow.
+
+Acceptance criteria:
+- Pricing exists only in Project 1 public website.
+- Project 2 dashboard is untouched.
+- 14-day free proof period is clearly explained.
+- Day 15 billing logic is clear.
+- Starter, Business, and Team tiers are shown with correct prices.
+- Setup fees are shown.
+- Business is marked as Most popular.
+- Add-ons are shown clearly.
+- Definitions for channel and user/chair are included.
+- No use of “AI” in pricing copy.
+- No hallucinated/unconfirmed features.
+- Page/section looks premium, simple, and trustworthy.
+- Mobile layout works cleanly.
+- Build passes.
+- Provide a short summary of changed files and what was added.

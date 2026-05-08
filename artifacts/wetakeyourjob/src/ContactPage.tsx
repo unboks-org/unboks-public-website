@@ -64,6 +64,7 @@ export default function ContactPage() {
         <div className="nav-links">
           <a href="/#services">{tx.nav_services}</a>
           <a href="/#how">{tx.nav_how}</a>
+          <a href="/pricing">{tx.nav_pricing}</a>
           <a href="/faq">{tx.nav_faq}</a>
           <a href="/contact" aria-current="page">{tx.nav_contact}</a>
         </div>
@@ -173,6 +174,7 @@ export default function ContactPage() {
         <div className="footer-links">
           <a href="/#services">{tx.nav_services}</a>
           <a href="/#how">{tx.nav_how}</a>
+          <a href="/pricing">{tx.nav_pricing}</a>
           <a href="/faq">{tx.nav_faq}</a>
           <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer">{tx.nav_contact}</a>
         </div>

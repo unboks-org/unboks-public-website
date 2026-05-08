@@ -16,6 +16,7 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_login:      'Drenta',
     nav_cta:        'Kuminsá',
     nav_faq:        'FAQ',
+    nav_pricing:    'Presio',
 
     faq_tag:        'Preguntanan',
     faq_h1:         'Preguntanan frekuente.',
@@ -108,6 +109,7 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_login:      'Log in',
     nav_cta:        'Get started',
     nav_faq:        'FAQ',
+    nav_pricing:    'Pricing',
 
     faq_tag:        'Frequently asked questions',
     faq_h1:         'Frequently asked questions.',
@@ -200,6 +202,7 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_login:      'Iniciar sesión',
     nav_cta:        'Empezar',
     nav_faq:        'FAQ',
+    nav_pricing:    'Precios',
 
     faq_tag:        'Preguntas frecuentes',
     faq_h1:         'Preguntas frecuentes.',
@@ -292,6 +295,7 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_login:      'Inloggen',
     nav_cta:        'Aan de slag',
     nav_faq:        'FAQ',
+    nav_pricing:    'Prijzen',
 
     faq_tag:        'Veelgestelde vragen',
     faq_h1:         'Veelgestelde vragen.',
@@ -384,6 +388,7 @@ export const t: Record<Lang, Record<string, string>> = {
     nav_login:      'Logga in',
     nav_cta:        'Kom igång',
     nav_faq:        'FAQ',
+    nav_pricing:    'Priser',
 
     faq_tag:        'Vanliga frågor',
     faq_h1:         'Vanliga frågor.',
