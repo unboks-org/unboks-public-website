@@ -1,0 +1,131 @@
+TASK: Fix missing hamburger menu on mobile immediately.
+
+PROJECT SCOPE:
+Project 1 public Unboks website only.
+Do NOT touch Project 2 customer dashboard.
+Do NOT touch dashboard code.
+Do NOT touch backend/API/data logic.
+Do NOT change pricing logic.
+Do NOT change product functionality.
+
+BUG:
+The Project 1 public website mobile version has no proper hamburger menu / mobile navigation.
+
+This is not acceptable. Mobile visitors must be able to navigate the public website clearly.
+
+Required result:
+On mobile screen widths, the public website must show a visible hamburger menu button in the top/header area.
+
+The hamburger menu must open the public website navigation.
+
+Important:
+Use the existing Project 1 public website navigation items.
+Do NOT copy dashboard navigation items like Inbox, Escalations, WhatsApp, Email, Appointments, Analytics, Settings.
+Those belong to Project 2 and must not appear on the public website.
+
+Mobile public website nav should include the existing public site links, for example:
+- Home
+- How it works
+- Services / Features if present
+- Pricing
+- Contact / Book demo / Get started if present
+
+Inspect the current Project 1 navigation first and reuse the existing nav items/routes/anchors.
+
+Required behavior:
+1. At mobile widths, a hamburger button must be visible in the public website header.
+2. Tapping hamburger opens a mobile nav drawer/sheet/dropdown.
+3. Drawer/menu must be closable by:
+   - close X
+   - clicking outside overlay
+   - selecting a nav item
+4. Active/current section state should be visually clear if the site already supports it.
+5. Desktop navigation behavior must remain unchanged.
+6. Mobile nav must work on:
+   - 320px
+   - 375px
+   - 390px
+   - 414px
+   - 430px
+
+Important:
+Do not claim this is done unless you verify it in mobile viewport.
+Do not hide the hamburger behind another component.
+Do not make it white-on-white or low contrast.
+Do not rely on hidden swipe behavior.
+Do not make the user scroll to find it.
+Do not change routing logic.
+Do not change data logic.
+Do not touch backend.
+Do not touch Project 2.
+
+Implementation guidance:
+Inspect the Project 1 website shell/header/nav component first.
+Find where the desktop public website navigation is rendered.
+Find the mobile header/top bar.
+If no mobile nav exists, add one visually.
+Add a hamburger button using the existing icon library if available.
+Use the existing nav config/routes/anchors if possible so public website navigation stays consistent.
+Use CSS/Tailwind responsive classes:
+- show hamburger on mobile
+- hide hamburger on desktop
+- keep desktop nav on desktop
+- hide/collapse desktop nav on mobile
+
+Visual requirements:
+- Hamburger button must be clearly visible.
+- Minimum tap target around 40–44px.
+- Use premium styling consistent with the public Unboks website.
+- Drawer/menu should feel clean, premium, and calm.
+- Strong readable contrast.
+- No horizontal overflow.
+- No broken overlay.
+- No cheap mobile web-app look.
+
+Mobile menu design:
+- Use a clean white/off-white panel or drawer.
+- Use deep navy/charcoal text.
+- Use the existing website accent color for active/CTA states.
+- Keep spacing generous but not wasteful.
+- CTA button, if present, should remain visible and tappable.
+- Menu should not cover the header awkwardly.
+- Menu should not break page scrolling.
+
+Acceptance test:
+Run the Project 1 website and check these viewport widths:
+- 320px
+- 375px
+- 390px
+- 414px
+- 430px
+
+For each width confirm:
+- hamburger menu is visible
+- tap opens nav
+- public website nav items are visible
+- selecting Home/Pricing/Contact or equivalent public nav item works
+- selecting a nav item closes the menu
+- close X works
+- outside click closes menu
+- no horizontal overflow
+- desktop nav still works on desktop
+
+Acceptance criteria:
+- Hamburger menu exists and is visible on Project 1 mobile website.
+- Mobile nav opens and closes correctly.
+- Public website navigation items are accessible from mobile.
+- Dashboard nav items are NOT added to Project 1.
+- Desktop website navigation remains normal on desktop.
+- No backend/API/business logic changed.
+- Project 2 untouched.
+- Build passes.
+
+REPORT BACK:
+1. Which Project 1 header/nav files were changed.
+2. Where the hamburger button was added.
+3. What breakpoint controls mobile vs desktop.
+4. How the mobile menu opens/closes.
+5. What public nav items are included.
+6. Confirmation viewport test notes for 320/375/390/414/430px.
+7. Confirmation that Project 2 dashboard was untouched.
+8. Confirmation that no backend/API/data logic was changed.

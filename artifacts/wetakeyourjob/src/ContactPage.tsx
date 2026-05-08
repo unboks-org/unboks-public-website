@@ -1,3 +1,4 @@
+import MobileMenu from './MobileMenu';
 import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
@@ -100,6 +101,7 @@ export default function ContactPage() {
           </div>
           <a href="https://dashboard.unboks.org" className="btn-ghost" target="_blank" rel="noopener noreferrer">{tx.nav_login}</a>
           <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.nav_cta}</a>
+          <MobileMenu lang={lang} />
         </div>
       </nav>
 
