@@ -72,7 +72,6 @@ export default function MobileMenu({ lang }: Props) {
           <a href="/" onClick={close}>{tx.nav_home ?? 'Home'}</a>
           <a href="/#services" onClick={close}>{tx.nav_services}</a>
           <a href="/#how" onClick={close}>{tx.nav_how}</a>
-          <a href="/pricing" onClick={close}>{tx.nav_pricing}</a>
           <a href="/faq" onClick={close}>{tx.nav_faq}</a>
           <a href="/contact" onClick={close}>{tx.nav_contact}</a>
         </nav>
