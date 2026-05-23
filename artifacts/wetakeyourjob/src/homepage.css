@@ -103,6 +103,104 @@ body {
 }
 .hp-site .btn-ghost:hover { background: var(--bg-secondary); }
 
+/* ── Signup ── */
+.signup-site {
+  min-height: 100vh;
+}
+.signup-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
+  gap: 56px;
+  align-items: start;
+  padding: 64px 0 84px;
+}
+.signup-intro {
+  padding-top: 24px;
+}
+.signup-intro h1 {
+  max-width: 560px;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  margin-bottom: 18px;
+}
+.signup-intro p {
+  max-width: 520px;
+  color: var(--text-secondary);
+  font-size: 17px;
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.signup-intro ul {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  max-width: 520px;
+}
+.signup-intro li {
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.signup-card {
+  border: 0.5px solid var(--border-secondary);
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.08);
+  padding: 28px;
+}
+.signup-card h2 {
+  font-size: 22px;
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.signup-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.signup-card label {
+  display: block;
+  margin-top: 18px;
+}
+.signup-card label span {
+  display: block;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 520;
+  margin-bottom: 6px;
+}
+.signup-card input {
+  width: 100%;
+  border: 0.5px solid var(--border-secondary);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  padding: 12px 13px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.signup-card input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+}
+.signup-submit {
+  width: 100%;
+  margin-top: 22px;
+  text-align: center;
+}
+.signup-footnote {
+  margin-top: 14px;
+  font-size: 12px !important;
+  color: var(--text-tertiary) !important;
+}
+
 /* ── Hero ── */
 .hp-site .hero {
   padding: 20px 0 32px;
@@ -364,6 +462,24 @@ body {
 
   .hp-site .cta-band { padding: 36px 20px; margin-bottom: 40px; }
   .hp-site .cta-band p { margin-bottom: 20px; }
+
+  .signup-shell {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 38px 0 56px;
+  }
+  .signup-intro {
+    padding-top: 0;
+    text-align: center;
+  }
+  .signup-intro h1,
+  .signup-intro p,
+  .signup-intro ul {
+    max-width: none;
+  }
+  .signup-card {
+    padding: 22px;
+  }
 
   .hp-site footer { flex-direction: column; gap: 20px; text-align: center; padding: 24px 0; }
   .hp-site .footer-links { justify-content: center; }
