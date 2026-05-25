@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
+import Seo from './Seo';
 import logo from '@assets/image_1777095356119.png';
 import logoPap from '@assets/image_1777081806501.png';
 
@@ -56,6 +57,11 @@ export default function ContactPage() {
 
   return (
     <div className="hp-site">
+      <Seo
+        title="Contact Unboks - Talk to us about your AI inbox"
+        description="Contact Unboks to discuss customer message automation, WhatsApp and email handling, and setup for your business."
+        path="/contact"
+      />
 
       <nav>
         <a className="nav-logo" href="/">

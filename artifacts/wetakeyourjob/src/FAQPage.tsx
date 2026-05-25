@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
 import { FAQ_CATEGORIES } from './faq-data';
+import Seo from './Seo';
 import logo from '@assets/image_1777095356119.png';
 import logoPap from '@assets/image_1777081806501.png';
 
@@ -81,6 +82,11 @@ export default function FAQPage() {
 
   return (
     <div className="hp-site">
+      <Seo
+        title="Unboks FAQ - AI inbox questions answered"
+        description="Answers about Unboks setup, customer channels, human control, onboarding, and how the AI Agent handles repetitive customer messages."
+        path="/faq"
+      />
 
       <nav>
         <a className="nav-logo" href="/">

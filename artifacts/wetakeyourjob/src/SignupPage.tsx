@@ -1,4 +1,5 @@
 import './homepage.css';
+import Seo from './Seo';
 import logo from '@assets/image_1777095356119.png';
 
 const SIGNUP_ACTION = 'https://icp.unboks.org/signup';
@@ -6,6 +7,12 @@ const SIGNUP_ACTION = 'https://icp.unboks.org/signup';
 export default function SignupPage() {
   return (
     <div className="hp-site signup-site">
+      <Seo
+        title="Start your Unboks free trial"
+        description="Create a 14-day free trial workspace for Unboks and receive dashboard access for your business."
+        path="/signup"
+      />
+
       <nav>
         <a className="nav-logo" href="/">
           <img src={logo} alt="Unboks.org" className="nav-logo-img nav-logo-img--wide" />

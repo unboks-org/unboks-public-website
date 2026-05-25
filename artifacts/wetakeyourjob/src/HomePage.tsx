@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './homepage.css';
 import { t, LANGUAGES, type Lang } from './i18n';
+import Seo from './Seo';
 import logo from '@assets/image_1777095356119.png';
 import logoPap from '@assets/image_1777081806501.png';
 
@@ -69,6 +70,7 @@ export default function HomePage() {
 
   return (
     <div className="hp-site">
+      <Seo />
 
       <nav>
         <a className="nav-logo" href="#">
@@ -110,7 +112,6 @@ export default function HomePage() {
               </div>
             )}
           </div>
-          {/* TODO: point this to final dashboard deployment URL if different */}
           <a href="https://dashboard.unboks.org" className="btn-ghost" target="_blank" rel="noopener noreferrer">{tx.nav_login}</a>
           <a href="/signup" className="btn-primary">Start 14-Day Free Trial</a>
         </div>
