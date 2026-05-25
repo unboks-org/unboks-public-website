@@ -129,7 +129,7 @@ export default function FAQPage() {
             )}
           </div>
           <a href="https://dashboard.unboks.org" className="btn-ghost" target="_blank" rel="noopener noreferrer">{tx.nav_login}</a>
-          <a href="/contact" className="btn-primary">{tx.nav_cta}</a>
+          <a href="/signup" className="btn-primary">{tx.nav_cta}</a>
         </div>
       </nav>
 
