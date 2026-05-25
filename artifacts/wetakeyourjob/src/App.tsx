@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
-import DemoApp from './demo/bluemarlin/DemoApp';
 import HomePage from './HomePage';
 import ContactPage from './ContactPage';
 import FAQPage from './FAQPage';
@@ -24,7 +23,6 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/demo/bluemarlin/*" element={<DemoApp />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
