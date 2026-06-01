@@ -9,7 +9,7 @@ export default function SignupPage() {
     <div className="hp-site signup-site">
       <Seo
         title="Start your Unboks free trial"
-        description="Create a 14-day free trial workspace for Unboks and receive dashboard access for your business."
+        description="Request a trial workspace for Unboks and start setting up your AI assistant, channels, and handoff rules."
         path="/signup"
       />
 
@@ -29,20 +29,21 @@ export default function SignupPage() {
           <div className="hero-tag">14-day free trial</div>
           <h1>Start your Unboks workspace</h1>
           <p>
-            Create a dashboard for your business. You will receive your login by email,
-            then the dashboard will guide you through WhatsApp and Agent style setup.
+            Create your business dashboard and start setting up your AI assistant,
+            channels, and customer handoff rules.
           </p>
           <ul>
             <li>No credit card required for the trial.</li>
-            <li>Your own tenant workspace is created automatically.</li>
-            <li>Marina can be tuned from inside your dashboard.</li>
+            <li>Your request is reviewed before activation.</li>
+            <li>You can connect WhatsApp and tune your AI assistant from your dashboard.</li>
+            <li>You stay in control: conversations can be escalated to a human whenever needed.</li>
           </ul>
         </section>
 
         <form className="signup-card" method="post" action={SIGNUP_ACTION}>
           <div>
             <h2>Create my free account</h2>
-            <p>Use your real business details. These initialize your workspace.</p>
+            <p>Use your real business details so we can prepare your workspace.</p>
           </div>
 
           <label>
@@ -66,12 +67,12 @@ export default function SignupPage() {
           </label>
 
           <button type="submit" className="btn-primary signup-submit">
-            Create My Free Account
+            Request Free Trial
           </button>
 
           <p className="signup-footnote">
-            By continuing, you agree that Unboks will create a trial workspace and email
-            your initial dashboard credentials.
+            By continuing, you agree that Unboks may create a trial workspace and
+            contact you with setup instructions.
           </p>
         </form>
       </main>
