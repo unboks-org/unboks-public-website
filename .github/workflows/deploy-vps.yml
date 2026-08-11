@@ -1,0 +1,132 @@
+name: Deploy Unboks public site to VPS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-unboks-public
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build public site
+        env:
+          NODE_ENV: production
+          BASE_PATH: /
+        run: pnpm --filter @workspace/unboks-public-website run build
+
+      - name: Validate build
+        run: |
+          BUILD_DIR="artifacts/wetakeyourjob/dist/public"
+          test -s "$BUILD_DIR/index.html"
+          test -s "$BUILD_DIR/og-unboks-20260811.jpg"
+          grep -Fq 'https://unboks.org/og-unboks-20260811.jpg' "$BUILD_DIR/index.html"
+          grep -Fq 'property="og:image:width" content="1200"' "$BUILD_DIR/index.html"
+          grep -Fq 'property="og:image:height" content="630"' "$BUILD_DIR/index.html"
+          test "$(wc -c < "$BUILD_DIR/og-unboks-20260811.jpg")" -gt 100000
+          file "$BUILD_DIR/og-unboks-20260811.jpg" | grep -Fq 'JPEG image data'
+
+      - name: Package release
+        run: tar -C artifacts/wetakeyourjob/dist/public -czf /tmp/unboks-public-release.tar.gz .
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.UNBOKS_VPS_SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          cat > ~/.ssh/known_hosts <<'EOF'
+          108.61.192.52 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF/4i1uK8Lr6hVzsCRKBKMt1HGXzNRzZdSUlKd0EM+Qb
+          EOF
+
+      - name: Upload release archive
+        run: scp /tmp/unboks-public-release.tar.gz root@108.61.192.52:/tmp/unboks-public-${GITHUB_RUN_ID}.tar.gz
+
+      - name: Deploy atomically with rollback
+        run: |
+          RELEASE_ID="${GITHUB_SHA::12}-$(date -u +%Y%m%dT%H%M%SZ)"
+          ssh root@108.61.192.52 'bash -s --' "$RELEASE_ID" "$GITHUB_RUN_ID" <<'REMOTE'
+          set -euo pipefail
+
+          RELEASE_ID="$1"
+          RUN_ID="$2"
+          BASE="/var/www/unboks-public"
+          RELEASE="$BASE/releases/$RELEASE_ID"
+          ARCHIVE="/tmp/unboks-public-$RUN_ID.tar.gz"
+          PREVIOUS="$(readlink -f "$BASE/current")"
+          ROLLBACK="$BASE/rollback-pre-whatsapp-preview-$RUN_ID"
+          TEMP_LINK="$BASE/.current-$RUN_ID"
+          RESTORE_LINK="$BASE/.restore-$RUN_ID"
+          SWITCHED=0
+
+          rollback_on_error() {
+            status=$?
+            if [ "$status" -ne 0 ] && [ "$SWITCHED" -eq 1 ]; then
+              rm -f "$RESTORE_LINK"
+              ln -s "$PREVIOUS" "$RESTORE_LINK"
+              mv -Tf "$RESTORE_LINK" "$BASE/current"
+            fi
+            rm -f "$TEMP_LINK" "$RESTORE_LINK" "$ARCHIVE" /tmp/unboks-og-check.jpg
+            exit "$status"
+          }
+          trap rollback_on_error EXIT
+
+          test -d "$PREVIOUS"
+          test ! -e "$RELEASE"
+          mkdir -p "$RELEASE"
+          tar -xzf "$ARCHIVE" -C "$RELEASE"
+
+          test -s "$RELEASE/index.html"
+          test -s "$RELEASE/og-unboks-20260811.jpg"
+          grep -Fq 'https://unboks.org/og-unboks-20260811.jpg' "$RELEASE/index.html"
+
+          ln -s "$PREVIOUS" "$ROLLBACK"
+          ln -s "$RELEASE" "$TEMP_LINK"
+          mv -Tf "$TEMP_LINK" "$BASE/current"
+          SWITCHED=1
+
+          nginx -t
+          HTML="$(curl -kfsS --resolve unboks.org:443:127.0.0.1 'https://unboks.org/?deploy='"$RUN_ID")"
+          printf '%s' "$HTML" | grep -Fq 'https://unboks.org/og-unboks-20260811.jpg'
+          curl -kfsS --resolve unboks.org:443:127.0.0.1 https://unboks.org/og-unboks-20260811.jpg -o /tmp/unboks-og-check.jpg
+          test "$(wc -c < /tmp/unboks-og-check.jpg)" -gt 100000
+          file /tmp/unboks-og-check.jpg | grep -Fq 'JPEG image data'
+
+          SWITCHED=0
+          trap - EXIT
+          rm -f "$ARCHIVE" /tmp/unboks-og-check.jpg
+          echo "DEPLOYED_RELEASE=$RELEASE"
+          echo "ROLLBACK_LINK=$ROLLBACK"
+          REMOTE
+
+      - name: Verify public deployment
+        run: |
+          HTML="$(curl --retry 5 --retry-delay 2 -fsS "https://unboks.org/?deploy=$GITHUB_RUN_ID")"
+          printf '%s' "$HTML" | grep -Fq 'https://unboks.org/og-unboks-20260811.jpg'
+          curl --retry 5 --retry-delay 2 -fsS https://unboks.org/og-unboks-20260811.jpg -o /tmp/unboks-og-public.jpg
+          test "$(wc -c < /tmp/unboks-og-public.jpg)" -gt 100000
+          file /tmp/unboks-og-public.jpg | grep -Fq 'JPEG image data'
