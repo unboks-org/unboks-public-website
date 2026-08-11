@@ -1,0 +1,61 @@
+name: Inspect Unboks VPS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.UNBOKS_VPS_SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          cat > ~/.ssh/known_hosts <<'EOF'
+          108.61.192.52 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF/4i1uK8Lr6hVzsCRKBKMt1HGXzNRzZdSUlKd0EM+Qb
+          EOF
+
+      - name: Inspect current deployment
+        run: |
+          ssh -o BatchMode=yes root@108.61.192.52 'set -eu
+            echo "HOST"
+            hostname
+
+            echo "NGINX_UNBOKS"
+            if command -v nginx >/dev/null 2>&1; then
+              nginx -T 2>&1 | awk '"'"'
+                /server[[:space:]]*\{/ { block=$0 ORS; in_server=1; matches=0; next }
+                in_server {
+                  block=block $0 ORS
+                  if ($0 ~ /server_name/ && $0 ~ /unboks\.org/) matches=1
+                  if ($0 ~ /^[[:space:]]*\}/) {
+                    if (matches) printf "%s", block
+                    in_server=0
+                    block=""
+                    matches=0
+                  }
+                }
+              '"'"'
+            fi
+
+            echo "RUNNING_WEB_SERVICES"
+            systemctl list-units --type=service --state=running --no-pager | grep -Ei "nginx|apache|caddy|traefik|docker" || true
+
+            echo "CONTAINERS"
+            if command -v docker >/dev/null 2>&1; then
+              docker ps --format "{{.Names}} {{.Image}} {{.Ports}}"
+            fi
+
+            echo "SITE_FILES"
+            find /var/www /srv /opt -maxdepth 5 -type f \( -name index.html -o -name opengraph.jpg \) -printf "%p %s bytes\n" 2>/dev/null | sort | head -100
+
+            echo "SITE_SYMLINKS"
+            find /var/www /srv /opt -maxdepth 4 -type l -ls 2>/dev/null | head -100
+          '
