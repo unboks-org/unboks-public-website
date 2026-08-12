@@ -112,7 +112,7 @@ export default function HomePage() {
           </div>
           {/* TODO: point this to final dashboard deployment URL if different */}
           <a href="https://dashboard.unboks.org" className="btn-ghost" target="_blank" rel="noopener noreferrer">{tx.nav_login}</a>
-          <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.nav_cta}</a>
+          <a href="/signup" className="btn-primary">{tx.nav_cta}</a>
         </div>
       </nav>
 
@@ -122,7 +122,7 @@ export default function HomePage() {
           <h1>{tx.hero_h1a}<br /><em>{tx.hero_h1b}</em></h1>
           <p>{tx.hero_p}</p>
           <div className="hero-cta">
-            <a href="https://wa.me/59996881585" target="_blank" rel="noopener noreferrer" className="btn-primary">{tx.hero_cta}</a>
+            <a href="/signup" className="btn-primary">{tx.hero_cta}</a>
             <a href="#how" className="btn-ghost">{tx.hero_see}</a>
           </div>
         </div>

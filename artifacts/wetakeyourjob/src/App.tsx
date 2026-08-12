@@ -5,6 +5,7 @@ import DemoApp from './demo/bluemarlin/DemoApp';
 import HomePage from './HomePage';
 import ContactPage from './ContactPage';
 import FAQPage from './FAQPage';
+import SignupPage from './SignupPage';
 import AdminApp from './admin/AdminApp';
 
 function ScrollToTop() {
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/faq" element={<FAQPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/admin/*" element={<AdminApp />} />
         <Route path="/demo/bluemarlin/*" element={<DemoApp />} />
         <Route path="*" element={<Navigate to="/" replace />} />
